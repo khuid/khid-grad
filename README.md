@@ -1,6 +1,6 @@
 # KHID 연도별 졸업전시 사이트
 
-`khid.archive.khu.ac.kr` — 하나의 사이트 안에서 `/2026`, `/2027`처럼 경로로 연도를 구분합니다.
+`khid.grad.khu.ac.kr` — 하나의 사이트 안에서 `/2026`, `/2027`처럼 경로로 연도를 구분합니다.
 (전체 아카이브 사이트 `khid.exhibit.khu.ac.kr`는 별도 프로젝트 `archive-site`)
 
 ## 구조
