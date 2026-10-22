@@ -55,8 +55,8 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
         line.setAttribute("x2", `${x2}`);
         line.setAttribute("y2", `${y2}`);
         line.setAttribute("stroke", BURST_COLOR);
-        // 두께·화살촉: 데스크탑 1.6 / 길이 8×폭 7.6, 모바일은 조금 더 가늘고 작게 1.3 / 6.5×6.2
-        line.setAttribute("stroke-width", mobile.matches ? "1.3" : "1.6");
+        // 두께·화살촉: 데스크탑 1.6 / 길이 8×폭 7.6, 모바일은 조금 더 가늘고 작게 1.2 / 6.5×6.2
+        line.setAttribute("stroke-width", mobile.matches ? "1.2" : "1.6");
         line.style.strokeDasharray = `${len}`;
         // 화살촉: Figma 메모 삼각형(길이 11)을 줄인 크기
         const head = document.createElementNS(ns, "path");
