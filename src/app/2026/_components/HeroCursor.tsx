@@ -36,12 +36,11 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
       const rect = area.getBoundingClientRect();
       const ox = e.clientX - rect.left;
       const oy = e.clientY - rect.top;
-      const count = 6 + Math.floor(Math.random() * 4);
-      const base = Math.random() * Math.PI * 2;
+      // 개수(3~7)·각도·길이 전부 랜덤
+      const count = 3 + Math.floor(Math.random() * 5);
       const ns = "http://www.w3.org/2000/svg";
       for (let i = 0; i < count; i++) {
-        // 고르게 퍼지되 각도·길이는 랜덤
-        const ang = base + (i / count) * Math.PI * 2 + (Math.random() - 0.5) * (Math.PI / count);
+        const ang = Math.random() * Math.PI * 2;
         const len = 50 + Math.random() * 200;
         const gap = 10; // 커서 끝에서 살짝 떨어져서 시작
         const x1 = ox + Math.cos(ang) * gap;
@@ -65,7 +64,7 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
         g.append(line, head);
         layer.append(g);
 
-        const dur = 380 + Math.random() * 180;
+        const dur = 220 + Math.random() * 100;
         line.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], {
           duration: dur,
           easing: "cubic-bezier(0.2, 0.7, 0.3, 1)",
@@ -76,8 +75,8 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
           fill: "forwards",
         });
         g.animate([{ opacity: 1 }, { opacity: 0 }], {
-          duration: 420,
-          delay: dur + 260,
+          duration: 380,
+          delay: dur + 180,
           fill: "forwards",
         }).finished.then(() => g.remove(), () => g.remove());
       }

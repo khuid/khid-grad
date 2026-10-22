@@ -3,10 +3,17 @@
 import { useEffect, useRef } from "react";
 
 // 키비주얼 = 면(kv-nonline.svg, 글자) + 선(kv-line.svg, 화살표선) 두 장을 겹침.
-// 선 SVG는 애니메이션을 위해 문서 안에 직접 넣음(lineSvg = 파일 내용, Hero에서 읽어 넘김).
-// 진한 파랑 화살표선이 시작점(원) → 선 → 화살촉 순서로 조금씩 시차를 두고 그려지고,
-// 다 그려진 뒤 잠시 머물렀다 사라지는 걸 반복.
+// 둘 다 조각별 애니메이션 때문에 문서 안에 직접 넣음(파일 내용을 Hero에서 읽어 넘김).
+// 1) 무빙포스터(mp.2026)처럼 글자 면 조각이 랜덤 순서로 깜빡이며 생김 (처음 한 번)
+// 2) 이어서 진한 파랑 화살표선이 시작점(원) → 선 → 화살촉 순서로 시차를 두고 그려지고,
+//    다 그려진 뒤 잠시 머물렀다 사라지는 걸 반복
 const LINE_COLORS = ["#0068FF", "#0257FF"];
+
+// 글자 깜빡임: 조각마다 0~LETTER_SPREAD 사이 랜덤 시점에 시작해서 FLICKER 동안
+// 연하게 켜졌다 꺼졌다를 반복하다 진하게 고정 (무빙포스터 2.4~4.8초 구간 참고)
+const LETTER_SPREAD = 2000;
+const FLICKER = 520;
+const FLICKER_STEPS = [0, 0.35, 0, 0.7, 0.2, 1];
 
 // 한 사이클 타이밍(ms)
 const STAGGER_TOTAL = 2200; // 첫 선 ~ 마지막 선 시작 간격 합
@@ -19,13 +26,38 @@ const REST = 1200; // 사라진 뒤 다음 사이클까지 쉬는 시간
 
 type Pt = { x: number; y: number };
 
-export default function KeyVisual({ lineSvg }: { lineSvg: string }) {
+export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineSvg: string }) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const root = rootRef.current;
     const svg = ref.current?.querySelector("svg");
-    if (!svg) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const fillSvgEl = fillRef.current?.querySelector("svg");
+    if (!root || !svg || !fillSvgEl) return;
+    // 애니메이션 준비 전엔 숨겨 둠(완성본이 잠깐 보였다 사라지는 깜빡임 방지)
+    const reveal = () => root.setAttribute("data-ready", "");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      reveal();
+      return;
+    }
+
+    const anims: Animation[] = [];
+
+    // 1) 글자 면 깜빡임
+    let lettersDone = 0;
+    for (const piece of fillSvgEl.querySelectorAll<SVGPathElement>("path")) {
+      const delay = Math.random() * LETTER_SPREAD;
+      const n = FLICKER_STEPS.length - 1;
+      anims.push(
+        piece.animate(
+          FLICKER_STEPS.map((o, i) => ({ opacity: o, offset: i / n, easing: "steps(1, end)" })),
+          { duration: FLICKER, delay, fill: "both" },
+        ),
+      );
+      lettersDone = Math.max(lettersDone, delay + FLICKER);
+    }
 
     const isLine = (c: string | null) => !!c && LINE_COLORS.includes(c.toUpperCase());
     const strokes = [...svg.querySelectorAll<SVGPathElement>("path[stroke]")].filter((p) =>
@@ -61,7 +93,8 @@ export default function KeyVisual({ lineSvg }: { lineSvg: string }) {
     const cycle = fadeStart + FADE + REST;
     const at = (ms: number) => Math.min(1, ms / cycle);
 
-    const anims: Animation[] = [];
+    // 선은 글자가 다 생긴 뒤 첫 사이클 시작
+    const intro = lettersDone + 200;
     const appear = (el: SVGElement, ms: number) => {
       anims.push(
         el.animate(
@@ -73,7 +106,7 @@ export default function KeyVisual({ lineSvg }: { lineSvg: string }) {
             { opacity: 0, offset: at(fadeStart + FADE) },
             { opacity: 0, offset: 1 },
           ],
-          { duration: cycle, iterations: Infinity, easing: "linear" },
+          { duration: cycle, delay: intro, iterations: Infinity, easing: "linear", fill: "backwards" },
         ),
       );
     };
@@ -90,7 +123,7 @@ export default function KeyVisual({ lineSvg }: { lineSvg: string }) {
             { strokeDashoffset: 0, opacity: 0, offset: at(fadeStart + FADE) },
             { strokeDashoffset: l.len, opacity: 0, offset: 1 },
           ],
-          { duration: cycle, iterations: Infinity, easing: "linear" },
+          { duration: cycle, delay: intro, iterations: Infinity, easing: "linear", fill: "backwards" },
         ),
       );
     }
@@ -111,6 +144,7 @@ export default function KeyVisual({ lineSvg }: { lineSvg: string }) {
       }
       appear(f, best ? best.ms : 0);
     }
+    reveal();
 
     return () => {
       anims.forEach((a) => a.cancel());
@@ -118,22 +152,25 @@ export default function KeyVisual({ lineSvg }: { lineSvg: string }) {
     };
   }, []);
 
-  // 세 파일은 main_full(939×524) 좌표 기준: 면은 (0,0) 888×506, 선은 (3.78,0) 935×524
+  // 세 파일은 main_full(939×524) 좌표 기준: 면은 (0,0) 888×506, 선은 (3.78,0) 935×524.
+  // 서버에서 그대로 그려 두고, 준비되면(data-ready) 보이게 함
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/2026/hero/kv-nonline.svg"
-        alt="THIS IS NOT GRADUATION 2026"
-        className="absolute top-0 left-0 block h-auto w-[calc(888/939*100%)] max-w-none"
+    <div
+      ref={rootRef}
+      role="img"
+      aria-label="THIS IS NOT GRADUATION 2026"
+      className="absolute inset-0 [&:not([data-ready])]:invisible [&_svg]:block [&_svg]:h-auto [&_svg]:w-full"
+    >
+      <div
+        ref={fillRef}
+        className="absolute top-0 left-0 w-[calc(888/939*100%)]"
+        dangerouslySetInnerHTML={{ __html: fillSvg }}
       />
       <div
         ref={ref}
-        aria-hidden
-        className="absolute top-0 left-[calc(3.78/939*100%)] w-[calc(935/939*100%)] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
-        // 서버에서 그대로 그려서 깜빡임 없이 표시
+        className="absolute top-0 left-[calc(3.78/939*100%)] w-[calc(935/939*100%)]"
         dangerouslySetInnerHTML={{ __html: lineSvg }}
       />
-    </>
+    </div>
   );
 }
