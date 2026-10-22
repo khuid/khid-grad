@@ -22,16 +22,16 @@
 }
 
 /* ── 2026 타이포그래피 시스템 (Freesentation 하나) ──
-   Figma Desktop-49 텍스트를 크기·굵기·자간·행간으로 묶은 것. 값은 데스크탑(1280~) 기준.
+   Figma Desktop-49 텍스트를 크기·굵기·자간·행간으로 묶은 것. 값은 데스크탑(1000~) 기준. 굵기는 800·600·500·400 네 가지만.
    자간은 두 가지만: 영문 대문자 제목류 -0.02em / 나머지 -0.04em.
    행간 "normal"은 Figma 자동 행간과 같게 폰트 기본값 사용.
    모바일 크기는 구역을 만들 때 각 스타일 안에 정함 (아직 안 쓴 스타일은 데스크탑 값만).
 
    이름            크기/굵기/자간/행간           쓰는 곳
    text-display    40 / 800 / -0.02 / normal    섹션 큰 제목 (THIS IS NOT GRADUATION), 뒤 문장은 font-semibold
-   text-tagline    30 / 700 / -0.04 / normal    [1] 하나의 끝, 새로운 길 (Figma 29.97)
+   text-tagline    30 / 600 / -0.04 / normal    [1] 하나의 끝, 새로운 길 (Figma 29.97)
    text-title      28 / 500 / -0.04 / 1.31      부제(하나의 끝, 새로운 길), 약도
-   text-subtitle   24 / 700 / -0.02 / normal    [1] 전시 제목 (Figma 23.086)
+   text-subtitle   24 / 800 / -0.02 / normal    [1] 전시 제목 (Figma 23.086)
    text-nav        20.8 / 600 / -0.02 / normal  상단 메뉴 (Figma 24를 상단바 52/60 비율로 축소, 모바일 16)
    text-heading    24 / 600 / -0.04 / normal    섹션 라벨(전시안내 EXHIBITION…), 교수님 이름
    text-lead       20 / 500 / -0.04 / 1.4       소개 마무리 문장, 교수님 영문 이름 (Figma 1.31)
@@ -48,7 +48,7 @@
 @utility text-tagline {
   /* 키비주얼 안에 얹히는 글자라 키비주얼 폭(939 = 100cqw)에 비례: 939에서 30px */
   font-size: calc(30 / 939 * 100cqw);
-  font-weight: 700;
+  font-weight: 600;
   line-height: normal;
   letter-spacing: -0.04em;
 }
@@ -60,7 +60,7 @@
 }
 @utility text-subtitle {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: normal;
   letter-spacing: -0.02em;
 }
@@ -69,7 +69,7 @@
   font-weight: 600;
   line-height: normal;
   letter-spacing: -0.02em;
-  @media (width >= 1280px) {
+  @media (width >= 1000px) {
     font-size: 20.8px;
   }
 }
