@@ -36,8 +36,8 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
       const rect = area.getBoundingClientRect();
       const ox = e.clientX - rect.left;
       const oy = e.clientY - rect.top;
-      // 개수(3~7)·각도·길이 전부 랜덤. 단 한쪽에 몰리지 않게 선끼리 최소 각도 유지
-      const count = 3 + Math.floor(Math.random() * 5);
+      // 개수(4~7)·각도·길이 전부 랜덤. 단 한쪽에 몰리지 않게 선끼리 최소 각도 유지
+      const count = 4 + Math.floor(Math.random() * 4);
       const angles = randomAngles(count);
       const ns = "http://www.w3.org/2000/svg";
       for (const ang of angles) {

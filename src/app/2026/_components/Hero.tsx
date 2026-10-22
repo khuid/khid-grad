@@ -57,11 +57,13 @@ export default async function Hero() {
                 예술디자인대학 2층 A&amp;D HALL <span className="ml-[0.3em]">10:00 - 20:00</span>
               </p>
             </div>
+            {/* 날짜는 키비주얼보다 덜 줄어듦: 341px의 45%는 고정, 나머지 55%만 묶음 폭(cqw)에 비례
+                → 939에서 341, 768 태블릿(688) ≈ 291, 390 모바일(358) ≈ 225 */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/2026/hero/date.svg"
               alt="2026. 11. 11 - 11. 16"
-              className="block h-auto w-[calc(220px*var(--s))] shrink-0 min-[768px]:w-[calc(341/939*100cqw)]"
+              className="block h-auto w-[calc(341px*0.45+341/939*0.55*100cqw)] shrink-0"
             />
           </div>
         </div>
