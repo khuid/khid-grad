@@ -8,9 +8,111 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-sans: var(--font-freesentation), sans-serif;
+  --font-ruler: var(--font-hahmlet), serif;
+}
+
+/* 2026 컬러 */
+@theme {
+  --color-key: #1980ff;
+  --color-key-light: #75b3ff;
+  --color-line: #dddddd;
+}
+
+/* ── 2026 타이포그래피 시스템 (Freesentation 하나) ──
+   Figma Desktop-49 텍스트를 크기·굵기·자간·행간으로 묶은 것. 값은 데스크탑(1280~) 기준.
+   자간은 두 가지만: 영문 대문자 제목류 -0.02em / 나머지 -0.04em.
+   행간 "normal"은 Figma 자동 행간과 같게 폰트 기본값 사용.
+   모바일 크기는 구역을 만들 때 각 스타일 안에 정함 (아직 안 쓴 스타일은 데스크탑 값만).
+
+   이름            크기/굵기/자간/행간           쓰는 곳
+   text-display    40 / 800 / -0.02 / normal    섹션 큰 제목 (THIS IS NOT GRADUATION), 뒤 문장은 font-semibold
+   text-tagline    30 / 700 / -0.04 / normal    [1] 하나의 끝, 새로운 길 (Figma 29.97)
+   text-title      28 / 500 / -0.04 / 1.31      부제(하나의 끝, 새로운 길), 약도
+   text-nav        24 / 700 / -0.02 / normal    상단 메뉴, [1] 전시 제목 (Figma 23.086)
+   text-heading    24 / 600 / -0.04 / normal    섹션 라벨(전시안내 EXHIBITION…), 교수님 이름
+   text-lead       20 / 500 / -0.04 / 1.4       소개 마무리 문장, 교수님 영문 이름 (Figma 1.31)
+   text-body       16 / 400 / -0.04 / 1.25      소개 본문
+   text-label      16 / 600 / -0.04 / normal    푸터 항목명 (WHERE, WHEN, ABOUT)
+   text-info       15 / 500 / -0.04 / 1.31      전시 정보(장소·일시)
+   text-caption    14 / 400 / -0.04 / normal    푸터 본문 */
+@utility text-display {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: -0.02em;
+}
+@utility text-tagline {
+  /* 키비주얼 안에 얹히는 글자라 키비주얼 폭(944 = 100cqw)에 비례: 944에서 30px */
+  font-size: calc(30 / 943.98 * 100cqw);
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.04em;
+}
+@utility text-title {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.31;
+  letter-spacing: -0.04em;
+}
+@utility text-nav {
+  /* 모바일 헤더는 archive-site처럼 0.786배 → 18.86 */
+  font-size: 18.86px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.02em;
+  @media (width >= 1280px) {
+    font-size: 24px;
+  }
+}
+@utility text-heading {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.04em;
+}
+@utility text-lead {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.04em;
+}
+@utility text-body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+}
+@utility text-label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.04em;
+}
+@utility text-info {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.31;
+  letter-spacing: -0.04em;
+}
+@utility text-caption {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.04em;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* 스폰서 배너: 5장 복제한 줄의 1장 폭(20%)만큼 이동하면 처음과 같은 모습 → 무한 반복 */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-20%);
+  }
 }

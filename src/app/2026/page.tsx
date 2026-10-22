@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import Header from "./_components/Header";
+import Hero from "./_components/Hero";
 
 export const metadata: Metadata = {
   title: "KHID 2026 Graduation Exhibition",
@@ -33,15 +35,27 @@ function ComingSoon() {
   );
 }
 
+// 구역별로 만들어 가는 중: [1] 히어로까지
 function FullSite() {
-  // TODO: 2026 전체 홈페이지 컴포넌트로 교체
-  return <ComingSoon />;
+  return (
+    <>
+      <Header />
+      <main>
+        <Hero />
+      </main>
+    </>
+  );
 }
 
 async function Gate() {
-  // 요청 시점의 시각으로 판단 (빌드 시점에 고정되지 않도록)
+  // 요청 시점의 시각으로 판단 (빌드 시점에 고정되지 않도록).
+  // 로컬 개발(npm run dev)에서는 작업 확인을 위해 항상 전체 사이트를 보여줌
   await connection();
-  return Date.now() >= OPEN_AT ? <FullSite /> : <ComingSoon />;
+  return isOpen() ? <FullSite /> : <ComingSoon />;
+}
+
+function isOpen() {
+  return process.env.NODE_ENV === "development" || Date.now() >= OPEN_AT;
 }
 
 export default function Page() {
