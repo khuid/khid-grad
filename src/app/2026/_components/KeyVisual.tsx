@@ -215,18 +215,19 @@ export default function KeyVisual({
       }
     };
 
-    play();
-    reveal();
-
-    // 아카이빙 Phase1처럼: 다른 구역으로 완전히 벗어났다가 다시 30% 이상 보이면 처음부터 재생
-    let hasLeft = false;
+    // 아카이빙 Phase1처럼 이 구역이 화면에 들어왔을 때만 재생:
+    // 30% 이상 보이면 처음부터 재생, 완전히 벗어나면 전부 일시정지(화면 밖에서 계속 돌지 않게),
+    // 다시 들어오면 처음부터 재생
+    let playing = false;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
-          hasLeft = true;
-        } else if (hasLeft && entry.intersectionRatio >= 0.3) {
-          hasLeft = false;
+          if (playing) anims.forEach((a) => a.pause());
+          playing = false;
+        } else if (!playing && entry.intersectionRatio >= 0.3) {
+          playing = true;
           play();
+          reveal();
         }
       },
       { threshold: [0, 0.3] },

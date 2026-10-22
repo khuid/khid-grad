@@ -60,8 +60,9 @@ function isOpen() {
 }
 
 export default function Page() {
+  // 기다리는 동안은 이미지 없이 파란 화면만 (커밍순 이미지는 실제로 커밍순일 때만 받게)
   return (
-    <Suspense fallback={<ComingSoon />}>
+    <Suspense fallback={<main className="fixed inset-0 bg-[#1980FF]" />}>
       <Gate />
     </Suspense>
   );

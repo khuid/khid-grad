@@ -17,3 +17,12 @@ npm install
 npm run dev
 ```
 http://localhost:3000/2026
+
+## 폰트 경량화 (Freesentation)
+`fonts-src/`에 원본(한글 전체), `public/fonts/`에 실제로 쓰는 글자만 남긴 경량본이 들어 있어요.
+경량본 = 영문·숫자·기호 + 자주 쓰는 한글 2,350자 + 사이트 소스(`src/`, `public/**/*.json`)에 실제로 들어간 글자.
+디자이너 이름·작품명 같은 데이터를 추가했다면, 커밋 전에 한 번 다시 만들어 주세요(새 글자가 자동으로 포함됨).
+```bash
+pip install fonttools brotli   # 처음 한 번
+python3 scripts/subset-fonts.py
+```
