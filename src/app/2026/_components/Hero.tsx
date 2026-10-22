@@ -44,14 +44,16 @@ export default async function Hero() {
             </KeyVisual>
           </div>
 
-          {/* 전시 정보: 768부터 왼쪽 아래 정보 3줄 / 오른쪽 아래 날짜(Figma 그대로),
+          {/* 전시 정보: 768부터 왼쪽 아래 정보 3줄 / 오른쪽 아래 날짜(Figma 그대로).
+              2열일 땐 제목은 날짜 윗선, 장소·시간은 날짜 아랫선에 맞춤(정보 칸을 날짜 높이만큼 늘려 위·아래로 벌림).
               모바일(~767)만 키비주얼 → 날짜 → 정보 순 세로 배치, 가운데 정렬 */}
-          <div className="flex flex-col-reverse items-center min-[768px]:items-start gap-[calc(16px*var(--s))] min-[768px]:mt-[calc(45/939*100cqw)] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-[3cqw] min-[768px]:pr-[calc(57.8/939*100cqw)] min-[768px]:pl-[calc(15/939*100cqw)]">
-            <div className="flex flex-col gap-[calc(9px*var(--s))] text-center min-[768px]:mt-[calc(3/939*100cqw)] min-[768px]:gap-[calc(13/939*100cqw)] min-[768px]:text-left">
+          <div className="flex flex-col-reverse items-center min-[768px]:items-stretch gap-[calc(16px*var(--s))] min-[768px]:mt-[calc(45/939*100cqw)] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-[3cqw] min-[768px]:pr-[calc(57.8/939*100cqw)] min-[768px]:pl-[calc(15/939*100cqw)]">
+            <div className="flex flex-col gap-[calc(9px*var(--s))] text-center min-[768px]:justify-between min-[768px]:pt-[calc(3/939*100cqw)] min-[768px]:text-left">
               <h1 className="text-nav text-key max-[767px]:text-[length:calc(15px*var(--s))] min-[768px]:max-[1279px]:text-[length:max(16px,calc(24/939*100cqw))]">
                 경희대학교 산업디자인학과 제 35회 졸업전시회
               </h1>
-              <p className="text-caption font-medium text-key max-[767px]:text-[13px] min-[768px]:max-[1279px]:text-[length:max(12px,calc(14/939*100cqw))]">
+              {/* 줄 상자 아래 여백(행간)만큼 내려서 글자 아랫선이 날짜 숫자 아랫선과 맞게 */}
+              <p className="text-info text-key max-[767px]:text-[14px] min-[768px]:-mb-[0.33em] min-[768px]:max-[1279px]:text-[length:max(13px,calc(15/939*100cqw))]">
                 경희대학교 국제캠퍼스
                 <br />
                 예술디자인대학 2층 A&amp;D HALL <span className="ml-[0.3em]">10:00 - 20:00</span>
@@ -63,7 +65,7 @@ export default async function Hero() {
             <img
               src="/2026/hero/date.svg"
               alt="2026. 11. 11 - 11. 16"
-              className="block h-auto w-[calc(341px*0.45+341/939*0.55*100cqw)] shrink-0"
+              className="block h-auto w-[calc(341px*0.45+341/939*0.55*100cqw)] shrink-0 min-[768px]:self-start"
             />
           </div>
         </div>
