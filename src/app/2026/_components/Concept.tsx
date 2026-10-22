@@ -112,16 +112,17 @@ export default function Concept() {
             </div>
 
             {/* 아래 띠: 왼쪽 THIS IS / NOT / GRADUATION 선 그래픽(main_whiteline, 흰색), 오른쪽 칸 큰 화살표.
-                그래픽은 왼쪽 프레임선에서 24 떨어지고 위아래 간격 같게(세로 가운데),
-                화살표는 칸 안 정가운데 (화살표 SVG 자체 여백 포함 칸 폭의 88% = 데스크탑 176/200) */}
-            <div className="grid grid-cols-[1fr_96px] [grid-area:deco] min-[768px]:grid-cols-[1fr_140px] min-[1000px]:h-[calc(211/1340*100cqw)] min-[1000px]:grid-cols-[calc(1140/1340*100cqw)_1fr] min-[1000px]:border-t min-[1000px]:border-white">
-              <div className="flex items-center border-r border-white py-5 pl-6 min-[768px]:py-6 min-[1000px]:py-0">
+                띠 높이(--h)를 기준으로 화살표 칸은 항상 정사각형(폭 = 높이), 선 그래픽도 띠 높이에 비례
+                (데스크탑 띠 211에서 그래픽 높이 168 = 원본 크기). 그래픽은 왼쪽 선에서 24, 세로 가운데.
+                화살표는 칸 정가운데 (화살표 SVG 자체 여백 포함 칸 폭의 88%) */}
+            <div className="grid h-(--h) grid-cols-[1fr_var(--h)] [--h:96px] [grid-area:deco] min-[768px]:[--h:150px] min-[1000px]:border-t min-[1000px]:border-white min-[1000px]:[--h:calc(211/1340*100cqw)]">
+              <div className="flex min-w-0 items-center border-r border-white pl-6">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/2026/concept/kv-words.svg"
+                  src="/2026/concept/main-whiteline.svg"
                   alt=""
                   aria-hidden
-                  className="h-auto w-[min(482px,calc(100%-24px))] min-[1000px]:w-[calc(482/1340*100cqw)]"
+                  className="h-auto w-[min(calc(var(--h)*168/211*482/168),calc(100%-24px))] max-w-none"
                 />
               </div>
               <div className="flex items-center justify-center">
