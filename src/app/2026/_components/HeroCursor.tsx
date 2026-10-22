@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 // [1] 구역 전용 마우스 인터랙션 (Figma 메모):
 // - 커서: 파란 화살표(90×88.68, 끝점이 왼쪽 위)로 교체. 마우스가 있는 기기(pointer: fine)에서만
 // - 클릭: 누른 자리에서 분홍(#FF2EFF) 화살표선이 방사형으로 뻗어나감. 각도·길이 랜덤
+// - 터치 기기: 커서 없이 클릭 모션만. 손가락이 닿는 순간이 아니라 탭으로 끝났을 때(click)만 —
+//   히어로를 스크롤하려고 손가락을 댈 때는 안 나오게
 const BURST_COLOR = "#FF2EFF";
 
 export default function HeroCursor({ areaId }: { areaId: string }) {
@@ -29,8 +31,18 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
       cursor.style.opacity = "0";
     };
 
-    const burst = (e: PointerEvent) => {
-      if (e.button !== 0 || reduce.matches) return;
+    // 마우스는 누르는 즉시, 터치·펜은 탭(click)으로 끝났을 때 터뜨림
+    let lastPointer = "mouse";
+    const down = (e: PointerEvent) => {
+      lastPointer = e.pointerType;
+      if (e.pointerType === "mouse" && e.button === 0) burst(e);
+    };
+    const tap = (e: MouseEvent) => {
+      if (lastPointer !== "mouse") burst(e);
+    };
+
+    const burst = (e: MouseEvent) => {
+      if (reduce.matches) return;
       // 링크·버튼 클릭에는 모션 없음
       if ((e.target as Element).closest("a, button")) return;
       const rect = area.getBoundingClientRect();
@@ -87,12 +99,14 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
     fine.addEventListener("change", setCursor);
     area.addEventListener("pointermove", move);
     area.addEventListener("pointerleave", leave);
-    area.addEventListener("pointerdown", burst);
+    area.addEventListener("pointerdown", down);
+    area.addEventListener("click", tap);
     return () => {
       fine.removeEventListener("change", setCursor);
       area.removeEventListener("pointermove", move);
       area.removeEventListener("pointerleave", leave);
-      area.removeEventListener("pointerdown", burst);
+      area.removeEventListener("pointerdown", down);
+      area.removeEventListener("click", tap);
       area.classList.remove("cursor-none");
     };
   }, [areaId]);
