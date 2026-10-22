@@ -53,7 +53,7 @@ export default async function Hero() {
                 경희대학교 산업디자인학과 제 35회 졸업전시회
               </h1>
               {/* 줄 상자 아래 여백(행간)만큼 내려서 글자 아랫선이 날짜 숫자 아랫선과 맞게 */}
-              <p className="text-info text-key max-[767px]:text-[14px] min-[768px]:-mb-[0.33em] min-[768px]:max-[1279px]:text-[length:max(13px,calc(15/939*100cqw))]">
+              <p className="text-info text-key max-[767px]:text-[14px] min-[768px]:-mb-[0.2em] min-[768px]:max-[1279px]:text-[length:max(13px,calc(15/939*100cqw))]">
                 경희대학교 국제캠퍼스
                 <br />
                 예술디자인대학 2층 A&amp;D HALL <span className="ml-[0.3em]">10:00 - 20:00</span>
