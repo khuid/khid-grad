@@ -1,5 +1,5 @@
 // 상단바: 흰 배경 + 아래 1px #DDD. Figma(높이 60)를 52로 줄이고 안의 요소도 같은 비율(52/60)로 축소:
-// 로고 높이 24 → 20.8, 메뉴 글자 24 → 20.8, 간격 35 → 30.33, 인스타 버튼 32 → 27.73.
+// 로고 높이 24 → 20.8, 메뉴 글자 24 → 20.8, 인스타 버튼 32 → 27.73. 메뉴 간격은 넉넉하게 44(모바일 20).
 // 메뉴는 연한 파랑(#75B3FF) → 호버 시 진한 파랑 + 확대(Figma 메모 "호버: 확대").
 // 좌우 여백: 데스크탑 50, 1920부터 80(요소는 화면 양 끝으로).
 // 모바일 구조(~1279)는 높이 44, 좌우 16, 메뉴 글자 16
@@ -16,7 +16,7 @@ export default function Header() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/2026/khid.svg" alt="KHID" className="block h-[18px] w-auto min-[1280px]:h-[20.8px]" />
         </a>
-        <nav className="flex items-center gap-[14px] min-[1280px]:gap-[30.33px]">
+        <nav className="flex items-center gap-[20px] min-[1280px]:gap-[44px]">
           {NAV.map((n) => (
             <a
               key={n.href}
