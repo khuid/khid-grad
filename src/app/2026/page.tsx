@@ -20,7 +20,9 @@ export const viewport: Viewport = {
   themeColor: "#1980FF",
 };
 
-// 2026-11-11 09:00 KST 이후 전체 사이트 공개
+// 2026-11-11 09:00 KST 이후 전체 사이트 공개.
+// ⚠️ 커밍순 관련 코드(Gate, ComingSoon, ClearPreview, preview.ts, comingsoon.jpg)는
+//    공개 시각 이후 졸준위가 직접 삭제를 요청할 때만 지울 것. 미리 지우면 그 배포 순간 사이트가 공개됨
 const OPEN_AT = new Date("2026-11-11T09:00:00+09:00").getTime();
 
 // 구역별로 만들어 가는 중: [1] 히어로, [2] 기획
