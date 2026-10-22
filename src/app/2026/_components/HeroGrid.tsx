@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 // 히어로 배경: 포스터와 같은 격자 + 각도 그리드 + 하단 줄자.
 // Figma(37px 격자)를 32px 격자로 다시 짠 것. 각도선 끝점은 Figma 좌표를 격자 칸 단위로 옮김
-// (위·아래 두 띠 각 11칸). 대각선이 빽빽해 보여서 선끼리 간격·타일 폭을 Figma의 1.4배로 벌림
-// (선 기울기는 그대로, 시작 칸만 1.4배). 두 띠 묶음은 화면 위쪽 끝까지 반복.
+// (위·아래 두 띠, Figma는 각 11칸). 두 띠 묶음은 화면 위쪽 끝까지 반복.
 // 칸 크기는 화면 폭 브레이크포인트에 맞춰 줄어듦 (모바일 구조 ~1279).
 
 const LINE = "#DDDDDD";
@@ -37,17 +36,20 @@ const LABELS: [number, number, string][] = [
   [6.05, 3.46, "45°"],
   [17.55, 3.44, "45°"],
 ];
-const SPREAD = 1.4;
-const TILE = 36; // Figma 26칸 × 1.4
-const BAND = 11;
-// 시작 칸만 SPREAD배(정수 칸으로 반올림), 끝점은 원래 기울기 유지
-const spread = (segs: Seg[]): Seg[] =>
+// 대각선이 빽빽해 보여서 Figma 무늬를 키움:
+// - 띠 높이 11칸 → 16칸 (선이 위로 길어짐, 기울기 유지를 위해 가로 길이도 같은 배율)
+// - 선끼리·세트끼리 간격(시작 칸)은 Figma의 2.24배, 타일 폭도 같은 배율
+const LENGTH = 16 / 11;
+const SPREAD = 2.24;
+const TILE = 58; // Figma 26칸 × 2.24
+const BAND = 16;
+const scaleSegs = (segs: Seg[]): Seg[] =>
   segs.map(([a, b, d, e]) => {
     const a2 = Math.round(a * SPREAD);
-    return [a2, b, a2 + (d - a), e];
+    return [a2, b * LENGTH, a2 + (d - a) * LENGTH, e * LENGTH];
   });
-const UPPER_S = spread(UPPER);
-const LOWER_S = spread(LOWER);
+const UPPER_S = scaleSegs(UPPER);
+const LOWER_S = scaleSegs(LOWER);
 
 export function cellSize(width: number) {
   if (width >= 1280) return 32;
@@ -122,7 +124,7 @@ function GridSvg({ w, h }: { w: number; h: number }) {
   const labels: React.ReactNode[] = [];
   const tMin = Math.floor(iMin / TILE) - 1;
   const tMax = Math.ceil(iMax / TILE);
-  // 두 띠(22칸) 묶음을 위로 반복. 위로 올라갈 때마다 타일 반 칸씩 엇갈려서 같은 무늬가 겹쳐 보이지 않게
+  // 두 띠 묶음을 위로 반복. 위로 올라갈 때마다 타일 반 칸씩 엇갈려서 같은 무늬가 겹쳐 보이지 않게
   const pairs = Math.ceil(R0 / (2 * BAND * c));
   for (let k = 0; k < pairs; k++) {
     const base = R0 - k * 2 * BAND * c;
@@ -136,7 +138,7 @@ function GridSvg({ w, h }: { w: number; h: number }) {
       band(LOWER_S, base - BAND * c);
       LABELS.forEach(([col, up, s], j) => {
         const cx = ox + (Math.round(col * SPREAD * 2) / 2) * c;
-        const cy = base - up * c;
+        const cy = base - up * LENGTH * c;
         labels.push(
           <g key={`l${k}-${t}-${j}`}>
             <rect x={cx - 0.5 * c} y={cy - 0.23 * c} width={c} height={0.46 * c} fill="#fff" />
