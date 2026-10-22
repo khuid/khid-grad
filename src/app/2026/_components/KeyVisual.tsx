@@ -60,9 +60,23 @@ export default function KeyVisual({
     }
 
     const isLine = (c: string | null) => !!c && LINE_COLORS.includes(c.toUpperCase());
-    const strokes = [...lineSvgEl.querySelectorAll<SVGPathElement>("path[stroke]")].filter((p) =>
-      isLine(p.getAttribute("stroke")),
-    );
+    const lineStrokes = () =>
+      [...lineSvgEl.querySelectorAll<SVGPathElement>("path[stroke]")].filter((p) =>
+        isLine(p.getAttribute("stroke")),
+      );
+    // 한 path 안에 조각이 여러 개(M…M…)면 조각별 path로 나눔 — 그대로 두면 조각들이 동시에 그려져
+    // 선 양쪽에서 출발해 가운데서 만나는 것처럼 보임
+    for (const p of lineStrokes()) {
+      const parts = (p.getAttribute("d") ?? "").split(/(?=M)/).map((d) => d.trim()).filter(Boolean);
+      if (parts.length < 2) continue;
+      for (const d of parts) {
+        const q = p.cloneNode() as SVGPathElement;
+        q.setAttribute("d", d);
+        p.before(q);
+      }
+      p.remove();
+    }
+    const strokes = lineStrokes();
     // 같은 색 면: 곡선(C)으로 된 건 시작점 원, 나머지는 화살촉
     const marks = [...lineSvgEl.querySelectorAll<SVGPathElement>("path[fill]")]
       .filter((p) => isLine(p.getAttribute("fill")))
@@ -79,39 +93,88 @@ export default function KeyVisual({
     const nearest = (list: typeof marks, p: Pt) => Math.min(Infinity, ...list.map((m) => dist(m.c, p)));
     const kept = (p: Pt) => p.x > KEEP_BOX.x0 && p.x < KEEP_BOX.x1 && p.y > KEEP_BOX.y0 && p.y < KEEP_BOX.y1;
 
-    // 선마다 화살촉이 붙은 쪽을 끝점으로(화살촉 없는 쪽이 시작점):
-    // 원이 한쪽 끝에만 딱 붙어 있으면 그쪽이 시작, 아니면 화살촉이 더 가까운 쪽이 끝.
-    // 경로의 시작(0)이 끝점이 되면 거꾸로 그림
-    const lines = strokes.map((el) => {
+    type Seg = { el: SVGPathElement; len: number; a: Pt; b: Pt; left: number };
+    const segs: Seg[] = strokes.map((el) => {
       const len = el.getTotalLength();
       const p0 = el.getPointAtLength(0);
       const p1 = el.getPointAtLength(len);
-      const a = { x: p0.x, y: p0.y };
-      const b = { x: p1.x, y: p1.y };
-      const dotA = nearest(dots, a) < 3;
-      const dotB = nearest(dots, b) < 3;
-      const headA = nearest(heads, a);
-      const headB = nearest(heads, b);
-      const reverse =
-        dotA !== dotB ? dotB : Math.min(headA, headB) < HEAD_NEAR && headA < headB;
-      return {
-        el,
-        len,
-        start: reverse ? b : a,
-        end: reverse ? a : b,
-        reverse,
-        keep: kept({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }),
-        left: el.getBoundingClientRect().left,
-      };
+      return { el, len, a: { x: p0.x, y: p0.y }, b: { x: p1.x, y: p1.y }, left: el.getBoundingClientRect().left };
     });
-    // 왼쪽에서 오른쪽으로 훑듯이 순서 지정
-    lines.sort((p, q) => p.left - q.left);
-    const step = STAGGER_TOTAL / Math.max(1, lines.length - 1);
-    const timed = lines.map((l, i) => ({
-      ...l,
-      delay: i * step,
-      dur: Math.min(DRAW_MAX, Math.max(DRAW_MIN, l.len * DRAW_PER_PX)),
-    }));
+
+    // 끝점이 맞닿은 조각끼리 묶어 한 줄기로 봄 (꺾인 선이 여러 조각으로 나뉘어 있어도 이어서 그리기)
+    const JOIN = 1.5;
+    const parent = segs.map((_, i) => i);
+    const find = (i: number): number => (parent[i] === i ? i : (parent[i] = find(parent[i])));
+    for (let i = 0; i < segs.length; i++)
+      for (let j = i + 1; j < segs.length; j++) {
+        const s1 = segs[i];
+        const s2 = segs[j];
+        if ([s1.a, s1.b].some((p) => dist(p, s2.a) < JOIN || dist(p, s2.b) < JOIN)) parent[find(i)] = find(j);
+      }
+    const groups = new Map<number, Seg[]>();
+    segs.forEach((sg, i) => groups.set(find(i), [...(groups.get(find(i)) ?? []), sg]));
+
+    // 줄기 방향: 원이 붙은 끝(없으면 화살촉이 없는 끝)에서 출발해 화살촉 끝에서 끝나도록 조각 순서·방향을 정함
+    type Part = { el: SVGPathElement; len: number; start: Pt; end: Pt; reverse: boolean };
+    const startScore = (p: Pt) => (nearest(dots, p) < 3 ? 2 : 0) + (nearest(heads, p) < HEAD_NEAR ? -1 : 0);
+    const orient = (sg: Seg, from: Pt): Part => {
+      const reverse = dist(sg.b, from) < dist(sg.a, from);
+      return { el: sg.el, len: sg.len, start: reverse ? sg.b : sg.a, end: reverse ? sg.a : sg.b, reverse };
+    };
+    const units = [...groups.values()].map((group) => {
+      const ends = group.flatMap((sg) => [sg.a, sg.b]);
+      const degree = (p: Pt) => ends.filter((q) => dist(p, q) < JOIN).length;
+      const terminals = ends.filter((p) => degree(p) === 1);
+      let chain: Part[] | null = null;
+      if (terminals.length === 2 && ends.every((p) => degree(p) <= 2)) {
+        const [t0, t1] = terminals;
+        let at = startScore(t0) >= startScore(t1) ? t0 : t1;
+        if (startScore(t0) === startScore(t1)) at = nearest(heads, t0) >= nearest(heads, t1) ? t0 : t1;
+        const left = [...group];
+        chain = [];
+        while (left.length) {
+          const k = left.findIndex((sg) => dist(sg.a, at) < JOIN || dist(sg.b, at) < JOIN);
+          if (k < 0) break;
+          const part = orient(left.splice(k, 1)[0], at);
+          chain.push(part);
+          at = part.end;
+        }
+        if (left.length) chain = null;
+      }
+      // 갈라지거나 고리 모양이면 조각마다 따로 방향을 정해 동시에
+      const parts =
+        chain ??
+        group.map((sg) => {
+          const sa = startScore(sg.a);
+          const sb = startScore(sg.b);
+          const fromA = sa !== sb ? sa > sb : nearest(heads, sg.a) >= nearest(heads, sg.b);
+          return orient(sg, fromA ? sg.a : sg.b);
+        });
+      return { parts, chained: !!chain && chain.length > 1, left: Math.min(...group.map((sg) => sg.left)) };
+    });
+
+    // 왼쪽에서 오른쪽으로 훑듯이 순서 지정. 이어진 줄기는 조각 길이 비율대로 시간을 나눠 끊김 없이 이어 그림
+    units.sort((p, q) => p.left - q.left);
+    const step = STAGGER_TOTAL / Math.max(1, units.length - 1);
+    const timed = units.flatMap((u, i) => {
+      const total = u.chained ? u.parts.reduce((sum, p) => sum + p.len, 0) : 0;
+      const chainDur = Math.min(DRAW_MAX * 1.5, Math.max(DRAW_MIN, total * DRAW_PER_PX));
+      let t = i * step;
+      return u.parts.map((p) => {
+        const dur = u.chained
+          ? (chainDur * p.len) / total
+          : Math.min(DRAW_MAX, Math.max(DRAW_MIN, p.len * DRAW_PER_PX));
+        const item = {
+          ...p,
+          delay: t,
+          dur,
+          easing: u.chained ? "linear" : "cubic-bezier(0.45, 0, 0.25, 1)",
+          keep: kept({ x: (p.start.x + p.end.x) / 2, y: (p.start.y + p.end.y) / 2 }),
+        };
+        if (u.chained) t += dur;
+        return item;
+      });
+    });
     const drawEnd = Math.max(...timed.map((l) => l.delay + l.dur));
     const fadeStart = drawEnd + HOLD;
     const cycle = fadeStart + FADE + REST;
@@ -153,7 +216,7 @@ export default function KeyVisual({
         l.el.style.strokeDasharray = `${l.len} ${l.len}`;
         const draw: Keyframe[] = [
           { strokeDashoffset: hidden, opacity: 1, offset: 0 },
-          { strokeDashoffset: hidden, opacity: 1, offset: at(l.delay), easing: "cubic-bezier(0.45, 0, 0.25, 1)" },
+          { strokeDashoffset: hidden, opacity: 1, offset: at(l.delay), easing: l.easing },
           { strokeDashoffset: 0, opacity: 1, offset: at(l.delay + l.dur) },
         ];
         anims.push(
