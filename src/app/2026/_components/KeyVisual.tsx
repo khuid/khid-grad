@@ -17,6 +17,7 @@ const DRAW_MIN = 450;
 const DRAW_PER_PX = 4; // 선 길이 1px당 그리는 시간
 const DRAW_MAX = 1300;
 const HOLD = 3200; // 전부 그려진 뒤 머무는 시간 (첫 사이클엔 이 사이에 면이 생김)
+const DRAW_TOTAL = 3100; // 선 전체가 다 그려지는 데 걸리는 시간 상한 (꼬임 선을 이어 그려도 이보다 길어지지 않게)
 const FADE = 600;
 const REST = 1200; // 사라진 뒤 다음 사이클까지 쉬는 시간
 const HEAD_NEAR = 10; // 화살촉 중심이 선 끝점에서 이 거리 안이면 그 끝에 붙은 화살촉
@@ -196,7 +197,7 @@ export default function KeyVisual({
       u.sequences.flatMap((seq) => {
         const total = seq.reduce((sum, p) => sum + p.len, 0);
         const many = seq.length > 1;
-        const seqDur = Math.min(DRAW_MAX * (many ? 1.5 : 1), Math.max(DRAW_MIN, total * DRAW_PER_PX));
+        const seqDur = Math.min(DRAW_MAX, Math.max(DRAW_MIN, total * DRAW_PER_PX));
         let t = i * step;
         return seq.map((p) => {
           const dur = (seqDur * p.len) / total;
@@ -212,7 +213,16 @@ export default function KeyVisual({
         });
       }),
     );
-    const drawEnd = Math.max(...timed.map((l) => l.delay + l.dur));
+    // 전체 그리기 시간이 상한을 넘으면 시작 시각·그리는 시간을 같은 비율로 줄여 맞춤
+    const rawEnd = Math.max(...timed.map((l) => l.delay + l.dur));
+    if (rawEnd > DRAW_TOTAL) {
+      const k = DRAW_TOTAL / rawEnd;
+      for (const l of timed) {
+        l.delay *= k;
+        l.dur *= k;
+      }
+    }
+    const drawEnd = Math.min(rawEnd, DRAW_TOTAL);
     const fadeStart = drawEnd + HOLD;
     const cycle = fadeStart + FADE + REST;
     const at = (ms: number) => Math.min(1, ms / cycle);
