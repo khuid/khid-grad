@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { KEY_VISUAL_SVG } from "./keyVisualSvg";
 
-// 키비주얼의 진한 파랑 화살표선이 시작점(원) → 선 → 화살촉 순서로 조금씩 시차를 두고 그려지고,
-// 다 그려진 뒤 잠시 머물렀다 사라지는 걸 반복. 글자(밝은 파랑)는 그대로 둠.
+// 키비주얼 = 면(kv-nonline.svg, 글자) + 선(kv-line.svg, 화살표선) 두 장을 겹침.
+// 선 SVG는 애니메이션을 위해 문서 안에 직접 넣음(lineSvg = 파일 내용, Hero에서 읽어 넘김).
+// 진한 파랑 화살표선이 시작점(원) → 선 → 화살촉 순서로 조금씩 시차를 두고 그려지고,
+// 다 그려진 뒤 잠시 머물렀다 사라지는 걸 반복.
 const LINE_COLORS = ["#0068FF", "#0257FF"];
 
 // 한 사이클 타이밍(ms)
@@ -18,12 +19,11 @@ const REST = 1200; // 사라진 뒤 다음 사이클까지 쉬는 시간
 
 type Pt = { x: number; y: number };
 
-export default function KeyVisual({ className }: { className?: string }) {
+export default function KeyVisual({ lineSvg }: { lineSvg: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const root = ref.current;
-    const svg = root?.querySelector("svg");
+    const svg = ref.current?.querySelector("svg");
     if (!svg) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -118,12 +118,22 @@ export default function KeyVisual({ className }: { className?: string }) {
     };
   }, []);
 
+  // 세 파일은 main_full(939×524) 좌표 기준: 면은 (0,0) 888×506, 선은 (3.78,0) 935×524
   return (
-    <div
-      ref={ref}
-      className={className}
-      // 서버에서 그대로 그려서 깜빡임 없이 표시 (내용은 빌드 시 고정된 SVG 문자열)
-      dangerouslySetInnerHTML={{ __html: KEY_VISUAL_SVG }}
-    />
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/2026/hero/kv-nonline.svg"
+        alt="THIS IS NOT GRADUATION 2026"
+        className="absolute top-0 left-0 block h-auto w-[calc(888/939*100%)] max-w-none"
+      />
+      <div
+        ref={ref}
+        aria-hidden
+        className="absolute top-0 left-[calc(3.78/939*100%)] w-[calc(935/939*100%)] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
+        // 서버에서 그대로 그려서 깜빡임 없이 표시
+        dangerouslySetInnerHTML={{ __html: lineSvg }}
+      />
+    </>
   );
 }

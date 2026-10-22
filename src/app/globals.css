@@ -43,8 +43,8 @@
   letter-spacing: -0.02em;
 }
 @utility text-tagline {
-  /* 키비주얼 안에 얹히는 글자라 키비주얼 폭(944 = 100cqw)에 비례: 944에서 30px */
-  font-size: calc(30 / 943.98 * 100cqw);
+  /* 키비주얼 안에 얹히는 글자라 키비주얼 폭(939 = 100cqw)에 비례: 939에서 30px */
+  font-size: calc(30 / 939 * 100cqw);
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.04em;

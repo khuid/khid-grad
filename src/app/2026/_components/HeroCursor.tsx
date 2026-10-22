@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef } from "react";
 
 // [1] 구역 전용 마우스 인터랙션 (Figma 메모):
 // - 커서: 파란 화살표(90×88.68, 끝점이 왼쪽 위)로 교체. 마우스가 있는 기기(pointer: fine)에서만
 // - 클릭: 누른 자리에서 분홍(#FF2EFF) 화살표선이 방사형으로 뻗어나감. 각도·길이 랜덤
 const BURST_COLOR = "#FF2EFF";
 
-export default function HeroCursor({ areaRef }: { areaRef: RefObject<HTMLElement | null> }) {
+export default function HeroCursor({ areaId }: { areaId: string }) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const burstRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    const area = areaRef.current;
+    const area = document.getElementById(areaId);
     const cursor = cursorRef.current;
     const layer = burstRef.current;
     if (!area || !cursor || !layer) return;
@@ -96,7 +96,7 @@ export default function HeroCursor({ areaRef }: { areaRef: RefObject<HTMLElement
       area.removeEventListener("pointerdown", burst);
       area.classList.remove("cursor-none");
     };
-  }, [areaRef]);
+  }, [areaId]);
 
   return (
     <>
