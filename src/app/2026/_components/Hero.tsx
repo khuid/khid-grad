@@ -61,12 +61,12 @@ export default async function Hero() {
               </p>
             </div>
             {/* 날짜는 키비주얼보다 덜 줄어듦: 341px의 45%는 고정, 나머지 55%만 묶음 폭(cqw)에 비례
-                → 939에서 341, 768 태블릿(688) ≈ 291, 390 모바일(358) ≈ 225 */}
+                → 939에서 341, 768 태블릿(688) ≈ 291. 모바일(~767)은 거기서 0.9배 → 390(묶음 318) ≈ 195 */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/2026/hero/date.svg"
               alt="2026. 11. 11 - 11. 16"
-              className="block h-auto w-[calc(341px*0.45+341/939*0.55*100cqw)] shrink-0 min-[768px]:self-start"
+              className="block h-auto w-[calc((341px*0.45+341/939*0.55*100cqw)*0.9)] shrink-0 min-[768px]:w-[calc(341px*0.45+341/939*0.55*100cqw)] min-[768px]:self-start"
             />
           </div>
         </div>
