@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 // (위·아래 두 띠, Figma는 각 11칸). 두 띠 묶음은 화면 위쪽 끝까지 반복.
 // 칸 크기는 화면 폭 브레이크포인트에 맞춰 줄어듦 (모바일 구조 ~1279).
 
-const LINE = "#DDDDDD";
+const LINE = "#E4E4E4"; // Figma #DDD보다 살짝 밝게
 
 // 타일 안 [col, row] — row는 각 띠의 위쪽 선 기준(0~11)
 type Seg = [number, number, number, number];
