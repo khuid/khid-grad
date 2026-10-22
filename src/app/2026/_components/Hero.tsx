@@ -49,8 +49,9 @@ export default async function Hero() {
               모바일(~767)만 키비주얼 → 날짜 → 정보 순 세로 배치, 가운데 정렬 */}
           <div className="flex flex-col-reverse items-center min-[768px]:items-stretch gap-[calc(16px*var(--s))] min-[768px]:mt-[calc(45/939*100cqw)] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-[3cqw] min-[768px]:pr-[calc(57.8/939*100cqw)] min-[768px]:pl-[calc(15/939*100cqw)]">
             <div className="flex flex-col gap-[calc(9px*var(--s))] text-center min-[768px]:justify-between min-[768px]:pt-[calc(3/939*100cqw)] min-[768px]:text-left">
-              <h1 className="text-subtitle text-key max-[767px]:text-[length:calc(15px*var(--s))] min-[768px]:max-[1279px]:text-[length:max(16px,calc(24/939*100cqw))]">
-                경희대학교 산업디자인학과 제 35회 졸업전시회
+              <h1 className="text-subtitle break-keep text-key max-[767px]:text-[length:calc(15px*var(--s))] min-[768px]:max-[1279px]:text-[length:max(16px,calc(24/939*100cqw))]">
+                {/* 좁은 화면에서 두 줄이 되면 "제 35회 졸업전시회"가 통째로 아랫줄로 */}
+                경희대학교 산업디자인학과 <span className="whitespace-nowrap">제 35회 졸업전시회</span>
               </h1>
               {/* 줄 상자 아래 여백(행간)만큼 내려서 글자 아랫선이 날짜 숫자 아랫선과 맞게 */}
               <p className="text-info text-key max-[767px]:text-[16px] min-[768px]:-mb-[0.2em] min-[768px]:max-[1279px]:text-[length:max(14px,calc(17/939*100cqw))] min-[1280px]:text-[17px]">
