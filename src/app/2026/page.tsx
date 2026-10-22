@@ -35,7 +35,7 @@ function FullSite() {
 async function Gate() {
   // 요청 시점의 시각으로 판단 (빌드 시점에 고정되지 않도록).
   // 로컬 개발(npm run dev)에서는 작업 확인을 위해 항상 전체 사이트를 보여줌.
-  // 공개 전에도 미리보기 쿠키(커밍순 이미지 3초 길게 누르기)가 있으면 전체 사이트
+  // 공개 전에도 미리보기 쿠키(커밍순 이미지 2초 길게 누르기)가 있으면 전체 사이트
   await connection();
   const preview = (await cookies()).has(PREVIEW_COOKIE);
   return preview || isOpen() ? <FullSite /> : <ComingSoon />;
