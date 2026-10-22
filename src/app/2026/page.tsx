@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import ClearPreview from "./_components/ClearPreview";
 import ComingSoon from "./_components/ComingSoon";
 import Header from "./_components/Header";
 import Hero from "./_components/Hero";
@@ -35,10 +36,19 @@ function FullSite() {
 async function Gate() {
   // 요청 시점의 시각으로 판단 (빌드 시점에 고정되지 않도록).
   // 로컬 개발(npm run dev)에서는 작업 확인을 위해 항상 전체 사이트를 보여줌.
-  // 공개 전에도 미리보기 쿠키(커밍순 이미지 2초 길게 누르기)가 있으면 전체 사이트
+  // 공개 전에도 미리보기 쿠키(커밍순 이미지 2초 길게 누르기)가 있으면 전체 사이트.
+  // 쿠키는 화면이 뜨자마자 지워서(ClearPreview) 새로고침하면 다시 커밍순
   await connection();
-  const preview = (await cookies()).has(PREVIEW_COOKIE);
-  return preview || isOpen() ? <FullSite /> : <ComingSoon />;
+  if (isOpen()) return <FullSite />;
+  if ((await cookies()).has(PREVIEW_COOKIE)) {
+    return (
+      <>
+        <FullSite />
+        <ClearPreview />
+      </>
+    );
+  }
+  return <ComingSoon />;
 }
 
 function isOpen() {
