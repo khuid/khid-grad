@@ -29,7 +29,8 @@
    text-display    40 / 800 / -0.02 / normal    섹션 큰 제목 (THIS IS NOT GRADUATION), 뒤 문장은 font-semibold
    text-tagline    30 / 700 / -0.04 / normal    [1] 하나의 끝, 새로운 길 (Figma 29.97)
    text-title      28 / 500 / -0.04 / 1.31      부제(하나의 끝, 새로운 길), 약도
-   text-nav        24 / 700 / -0.02 / normal    상단 메뉴, [1] 전시 제목 (Figma 23.086)
+   text-subtitle   24 / 700 / -0.02 / normal    [1] 전시 제목 (Figma 23.086)
+   text-nav        20.8 / 700 / -0.02 / normal  상단 메뉴 (Figma 24를 상단바 52/60 비율로 축소, 모바일 16)
    text-heading    24 / 600 / -0.04 / normal    섹션 라벨(전시안내 EXHIBITION…), 교수님 이름
    text-lead       20 / 500 / -0.04 / 1.4       소개 마무리 문장, 교수님 영문 이름 (Figma 1.31)
    text-body       16 / 400 / -0.04 / 1.25      소개 본문
@@ -55,14 +56,19 @@
   line-height: 1.31;
   letter-spacing: -0.04em;
 }
+@utility text-subtitle {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.02em;
+}
 @utility text-nav {
-  /* 모바일 헤더는 archive-site처럼 0.786배 → 18.86 */
-  font-size: 18.86px;
+  font-size: 16px;
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.02em;
   @media (width >= 1280px) {
-    font-size: 24px;
+    font-size: 20.8px;
   }
 }
 @utility text-heading {
@@ -107,12 +113,18 @@ body {
   color: var(--foreground);
 }
 
-/* 스폰서 배너: 5장 복제한 줄의 1장 폭(20%)만큼 이동하면 처음과 같은 모습 → 무한 반복 */
+/* 마우스 기기에선 기본 커서를 숨기고 SiteCursor(파란 화살표)로 대신함 — 링크 위에서도 */
+html.site-cursor,
+html.site-cursor * {
+  cursor: none !important;
+}
+
+/* 스폰서 배너: 8장 복제한 줄의 1장 폭(12.5%)만큼 이동하면 처음과 같은 모습 → 무한 반복 */
 @keyframes marquee {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-20%);
+    transform: translateX(-12.5%);
   }
 }

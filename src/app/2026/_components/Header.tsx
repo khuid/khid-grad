@@ -1,7 +1,8 @@
-// 상단바 (Figma Desktop-49 상단 60px): 흰 배경 + 아래 1px #DDD.
-// 로고 높이 24, 메뉴는 연한 파랑(#75B3FF) → 호버 시 진한 파랑 + 확대(Figma 메모 "호버: 확대").
-// 모바일 구조(~1279)는 archive-site 헤더와 같은 0.786배 축소(높이 44, 좌우 16).
-// 1920은 1440 헤더 그대로에 좌우 여백만 60 (Figma 1920 프레임 로고 위치)
+// 상단바: 흰 배경 + 아래 1px #DDD. Figma(높이 60)를 52로 줄이고 안의 요소도 같은 비율(52/60)로 축소:
+// 로고 높이 24 → 20.8, 메뉴 글자 24 → 20.8, 간격 35 → 30.33, 인스타 버튼 32 → 27.73.
+// 메뉴는 연한 파랑(#75B3FF) → 호버 시 진한 파랑 + 확대(Figma 메모 "호버: 확대").
+// 좌우 여백: 데스크탑 50, 1920부터 80(요소는 화면 양 끝으로).
+// 모바일 구조(~1279)는 높이 44, 좌우 16, 메뉴 글자 16
 const NAV = [
   { href: "#works", label: "WORKS" },
   { href: "#designers", label: "DESIGNERS" },
@@ -10,12 +11,12 @@ const NAV = [
 export default function Header() {
   return (
     <header className="fixed top-0 right-0 left-0 z-50 border-b border-line bg-white">
-      <div className="mx-auto flex h-[44px] max-w-[1920px] items-center justify-between px-4 min-[1280px]:h-[60px] min-[1280px]:px-[50px] min-[1920px]:px-[60px]">
+      <div className="flex h-[44px] items-center justify-between px-4 min-[1280px]:h-[52px] min-[1280px]:px-[50px] min-[1920px]:px-[80px]">
         <a href="#top" aria-label="KHID 2026 홈">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/2026/khid.svg" alt="KHID" className="block h-[18.86px] w-auto min-[1280px]:h-[24px]" />
+          <img src="/2026/khid.svg" alt="KHID" className="block h-[18px] w-auto min-[1280px]:h-[20.8px]" />
         </a>
-        <nav className="flex items-center gap-[18px] min-[1280px]:gap-[35px]">
+        <nav className="flex items-center gap-[14px] min-[1280px]:gap-[30.33px]">
           {NAV.map((n) => (
             <a
               key={n.href}
@@ -30,10 +31,10 @@ export default function Header() {
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram @khid.2026"
-            className="flex size-[25px] items-center justify-center transition-transform duration-200 hover:scale-110 min-[1280px]:size-[32px]"
+            className="flex size-[24px] items-center justify-center transition-transform duration-200 hover:scale-110 min-[1280px]:size-[27.73px]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/2026/instagram.svg" alt="" className="block size-[18.86px] min-[1280px]:size-[24px]" />
+            <img src="/2026/instagram.svg" alt="" className="block size-[18px] min-[1280px]:size-[20.8px]" />
           </a>
         </nav>
       </div>

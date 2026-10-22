@@ -2,34 +2,23 @@
 
 import { useEffect, useRef } from "react";
 
-// [1] 구역 전용 마우스 인터랙션 (Figma 메모):
-// - 커서: 파란 화살표(90×88.68, 끝점이 왼쪽 위)로 교체. 마우스가 있는 기기(pointer: fine)에서만
-// - 클릭: 누른 자리에서 분홍(#FF2EFF) 화살표선이 방사형으로 뻗어나감. 각도·길이 랜덤
-// - 터치 기기: 커서 없이 클릭 모션만. 손가락이 닿는 순간이 아니라 탭으로 끝났을 때(click)만 —
+// [1] 구역 클릭 모션 (Figma 메모 "클릭 시 모션(메인에서만)"). 커서 모양은 SiteCursor.
+// - 누른 자리에서 분홍(#FF2EFF) 화살표선이 방사형으로 뻗어나감. 개수·각도·길이 랜덤
+// - 터치 기기: 손가락이 닿는 순간이 아니라 탭으로 끝났을 때(click)만 —
 //   히어로를 스크롤하려고 손가락을 댈 때는 안 나오게
+// - 모바일(~767)은 화면이 작아서 선 길이 60%
 const BURST_COLOR = "#FF2EFF";
 
-export default function HeroCursor({ areaId }: { areaId: string }) {
-  const cursorRef = useRef<HTMLDivElement>(null);
+export default function HeroBurst({ areaId }: { areaId: string }) {
   const burstRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const area = document.getElementById(areaId);
-    const cursor = cursorRef.current;
     const layer = burstRef.current;
-    if (!area || !cursor || !layer) return;
+    if (!area || !layer) return;
 
-    const fine = window.matchMedia("(pointer: fine)");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const move = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      cursor.style.opacity = "1";
-    };
-    const leave = () => {
-      cursor.style.opacity = "0";
-    };
+    const mobile = window.matchMedia("(max-width: 767px)");
 
     // 마우스는 누르는 즉시, 터치·펜은 탭(click)으로 끝났을 때 터뜨림
     let lastPointer = "mouse";
@@ -53,7 +42,7 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
       const angles = randomAngles(count);
       const ns = "http://www.w3.org/2000/svg";
       for (const ang of angles) {
-        const len = 50 + Math.random() * 200;
+        const len = (50 + Math.random() * 200) * (mobile.matches ? 0.6 : 1);
         const gap = 10; // 커서 끝에서 살짝 떨어져서 시작
         const x1 = ox + Math.cos(ang) * gap;
         const y1 = oy + Math.sin(ang) * gap;
@@ -94,35 +83,16 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
       }
     };
 
-    const setCursor = () => area.classList.toggle("cursor-none", fine.matches);
-    setCursor();
-    fine.addEventListener("change", setCursor);
-    area.addEventListener("pointermove", move);
-    area.addEventListener("pointerleave", leave);
     area.addEventListener("pointerdown", down);
     area.addEventListener("click", tap);
     return () => {
-      fine.removeEventListener("change", setCursor);
-      area.removeEventListener("pointermove", move);
-      area.removeEventListener("pointerleave", leave);
       area.removeEventListener("pointerdown", down);
       area.removeEventListener("click", tap);
-      area.classList.remove("cursor-none");
     };
   }, [areaId]);
 
   return (
-    <>
-      <svg ref={burstRef} aria-hidden className="pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible" />
-      <div
-        ref={cursorRef}
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[60] opacity-0 transition-opacity duration-150"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/2026/cursor-hero.svg" alt="" width={90} height={88.68} className="block max-w-none" />
-      </div>
-    </>
+    <svg ref={burstRef} aria-hidden className="pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible" />
   );
 }
 

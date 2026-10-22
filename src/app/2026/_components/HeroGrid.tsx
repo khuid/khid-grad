@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 
 // 히어로 배경: 포스터와 같은 격자 + 각도 그리드 + 하단 줄자.
-// Figma(37px 격자)를 32px 격자로 다시 짠 것. 각도선 끝점은 Figma 좌표를 격자 칸 단위로 옮겨서
-// 칸 수가 같으면 같은 모양이 나오게 함(26칸 폭 타일이 가로로 반복, 위·아래 두 띠 각 11칸).
+// Figma(37px 격자)를 32px 격자로 다시 짠 것. 각도선 끝점은 Figma 좌표를 격자 칸 단위로 옮김
+// (위·아래 두 띠 각 11칸). 대각선이 빽빽해 보여서 선끼리 간격·타일 폭을 Figma의 1.4배로 벌림
+// (선 기울기는 그대로, 시작 칸만 1.4배). 두 띠 묶음은 화면 위쪽 끝까지 반복.
 // 칸 크기는 화면 폭 브레이크포인트에 맞춰 줄어듦 (모바일 구조 ~1279).
 
 const LINE = "#DDDDDD";
@@ -36,8 +37,17 @@ const LABELS: [number, number, string][] = [
   [6.05, 3.46, "45°"],
   [17.55, 3.44, "45°"],
 ];
-const TILE = 26;
+const SPREAD = 1.4;
+const TILE = 36; // Figma 26칸 × 1.4
 const BAND = 11;
+// 시작 칸만 SPREAD배(정수 칸으로 반올림), 끝점은 원래 기울기 유지
+const spread = (segs: Seg[]): Seg[] =>
+  segs.map(([a, b, d, e]) => {
+    const a2 = Math.round(a * SPREAD);
+    return [a2, b, a2 + (d - a), e];
+  });
+const UPPER_S = spread(UPPER);
+const LOWER_S = spread(LOWER);
 
 export function cellSize(width: number) {
   if (width >= 1280) return 32;
@@ -112,26 +122,31 @@ function GridSvg({ w, h }: { w: number; h: number }) {
   const labels: React.ReactNode[] = [];
   const tMin = Math.floor(iMin / TILE) - 1;
   const tMax = Math.ceil(iMax / TILE);
-  for (let t = tMin; t <= tMax; t++) {
-    const ox = x0 + t * TILE * c;
-    const band = (segs: Seg[], top: number) =>
-      segs.forEach(([a, b, d, e]) =>
-        diag.push(`M${ox + a * c} ${top + b * c}L${ox + d * c} ${top + e * c}`),
-      );
-    band(UPPER, R0 - 2 * BAND * c);
-    band(LOWER, R0 - BAND * c);
-    LABELS.forEach(([col, up, s], j) => {
-      const cx = ox + col * c;
-      const cy = R0 - up * c;
-      labels.push(
-        <g key={`l${t}-${j}`}>
-          <rect x={cx - 0.5 * c} y={cy - 0.23 * c} width={c} height={0.46 * c} fill="#fff" />
-          <text x={cx} y={cy} dy="0.36em">
-            {s}
-          </text>
-        </g>,
-      );
-    });
+  // 두 띠(22칸) 묶음을 위로 반복. 위로 올라갈 때마다 타일 반 칸씩 엇갈려서 같은 무늬가 겹쳐 보이지 않게
+  const pairs = Math.ceil(R0 / (2 * BAND * c));
+  for (let k = 0; k < pairs; k++) {
+    const base = R0 - k * 2 * BAND * c;
+    for (let t = tMin - 1; t <= tMax; t++) {
+      const ox = x0 + (t + (k % 2) * 0.5) * TILE * c;
+      const band = (segs: Seg[], top: number) =>
+        segs.forEach(([a, b, d, e]) =>
+          diag.push(`M${ox + a * c} ${top + b * c}L${ox + d * c} ${top + e * c}`),
+        );
+      band(UPPER_S, base - 2 * BAND * c);
+      band(LOWER_S, base - BAND * c);
+      LABELS.forEach(([col, up, s], j) => {
+        const cx = ox + (Math.round(col * SPREAD * 2) / 2) * c;
+        const cy = base - up * c;
+        labels.push(
+          <g key={`l${k}-${t}-${j}`}>
+            <rect x={cx - 0.5 * c} y={cy - 0.23 * c} width={c} height={0.46 * c} fill="#fff" />
+            <text x={cx} y={cy} dy="0.36em">
+              {s}
+            </text>
+          </g>,
+        );
+      });
+    }
   }
 
   return (

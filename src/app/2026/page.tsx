@@ -7,6 +7,7 @@ import ComingSoon from "./_components/ComingSoon";
 import Header from "./_components/Header";
 import Hero from "./_components/Hero";
 import { PREVIEW_COOKIE } from "./_components/preview";
+import SiteCursor from "./_components/SiteCursor";
 
 export const metadata: Metadata = {
   title: "KHID 2026 Graduation Exhibition",
@@ -29,6 +30,7 @@ function FullSite() {
       <main>
         <Hero />
       </main>
+      <SiteCursor heroId="top" />
     </>
   );
 }
