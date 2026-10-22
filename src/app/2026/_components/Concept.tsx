@@ -29,9 +29,15 @@ const PARAGRAPHS = [
     ],
   ],
 ];
-const CLOSING = ["끝과 시작의 교차점. 졸업.", "우리는 지나온 시간을 품고, 아직 펼쳐지지 않은 새로운 길을 향한다."];
+// 좁은 화면에서 줄이 넘어가면 "새로운 길을 향한다."는 통째로 다음 줄로
+const CLOSING: React.ReactNode[] = [
+  "끝과 시작의 교차점. 졸업.",
+  <>
+    우리는 지나온 시간을 품고, 아직 펼쳐지지 않은 <span className="whitespace-nowrap">새로운 길을 향한다.</span>
+  </>,
+];
 
-function Lines({ lines }: { lines: string[] }) {
+function Lines({ lines }: { lines: React.ReactNode[] }) {
   return lines.map((l, i) => (
     <span key={i} className="block min-[1000px]:whitespace-nowrap">
       {l}
