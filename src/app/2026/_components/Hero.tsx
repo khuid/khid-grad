@@ -54,10 +54,10 @@ export default async function Hero() {
                 경희대학교 산업디자인학과 <span className="whitespace-nowrap">제 35회 졸업전시회</span>
               </h1>
               {/* 줄 상자 아래 여백(행간)만큼 내려서 글자 아랫선이 날짜 숫자 아랫선과 맞게 */}
-              <p className="text-info text-key max-[767px]:text-[16px] min-[768px]:-mb-[0.2em] min-[768px]:max-[1279px]:text-[length:max(14px,calc(17/939*100cqw))] min-[1280px]:text-[17px]">
+              <p className="text-info break-keep text-key max-[767px]:text-[16px] min-[768px]:-mb-[0.2em] min-[768px]:max-[1279px]:text-[length:max(14px,calc(17/939*100cqw))] min-[1280px]:text-[17px]">
                 경희대학교 국제캠퍼스
                 <br />
-                예술디자인대학 2층 A&amp;D HALL <span className="ml-[0.3em]">10:00 - 20:00</span>
+                예술디자인대학 2층 A&amp;D HALL <span className="ml-[0.3em] whitespace-nowrap">10:00 - 20:00</span>
               </p>
             </div>
             {/* 날짜는 키비주얼보다 덜 줄어듦: 341px의 45%는 고정, 나머지 55%만 묶음 폭(cqw)에 비례

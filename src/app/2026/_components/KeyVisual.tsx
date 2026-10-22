@@ -7,7 +7,8 @@ import { useEffect, useRef } from "react";
 // 순서는 무빙포스터(mp.2026)처럼 선 → 면:
 // 1) 진한 파랑 화살표선이 시작점(원 또는 화살촉 없는 끝) → 선 → 화살촉 순서로 시차를 두고 그려짐
 // 2) 선이 다 그려지면 글자 면 조각이 랜덤 순서로 깜빡이며 생김 (처음 한 번)
-// 3) 선은 잠시 머물렀다 사라지고 다시 그려지기를 반복 (면은 그대로)
+// 3) 선은 잠시 머물렀다 사라지고 다시 그려지기를 반복 (면, NOT 왼쪽 2026 선은 그대로)
+// 다른 구역에 갔다가 돌아오면 1)부터 다시 재생
 const LINE_COLORS = ["#0068FF", "#0257FF"];
 
 // 선 사이클 타이밍(ms)
@@ -19,6 +20,8 @@ const HOLD = 3200; // 전부 그려진 뒤 머무는 시간 (첫 사이클엔 �
 const FADE = 600;
 const REST = 1200; // 사라진 뒤 다음 사이클까지 쉬는 시간
 const HEAD_NEAR = 10; // 화살촉 중심이 선 끝점에서 이 거리 안이면 그 끝에 붙은 화살촉
+// NOT 왼쪽 "2026" 모양 선(선 SVG 좌표 영역): 처음 한 번 그려진 뒤엔 사라지지 않고 유지
+const KEEP_BOX = { x0: -5, y0: 245, x1: 185, y1: 332 };
 
 // 글자 깜빡임: 조각마다 랜덤 시점에 시작해서 FLICKER 동안
 // 연하게 켜졌다 꺼졌다를 반복하다 진하게 고정 (무빙포스터 2.4~4.8초 구간 참고)
@@ -74,6 +77,7 @@ export default function KeyVisual({
     const heads = marks.filter((m) => !m.dot);
     const dots = marks.filter((m) => m.dot);
     const nearest = (list: typeof marks, p: Pt) => Math.min(Infinity, ...list.map((m) => dist(m.c, p)));
+    const kept = (p: Pt) => p.x > KEEP_BOX.x0 && p.x < KEEP_BOX.x1 && p.y > KEEP_BOX.y0 && p.y < KEEP_BOX.y1;
 
     // 선마다 화살촉이 붙은 쪽을 끝점으로(화살촉 없는 쪽이 시작점):
     // 원이 한쪽 끝에만 딱 붙어 있으면 그쪽이 시작, 아니면 화살촉이 더 가까운 쪽이 끝.
@@ -96,6 +100,7 @@ export default function KeyVisual({
         start: reverse ? b : a,
         end: reverse ? a : b,
         reverse,
+        keep: kept({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }),
         left: el.getBoundingClientRect().left,
       };
     });
@@ -112,85 +117,125 @@ export default function KeyVisual({
     const cycle = fadeStart + FADE + REST;
     const at = (ms: number) => Math.min(1, ms / cycle);
     const loop: KeyframeAnimationOptions = { duration: cycle, iterations: Infinity, easing: "linear" };
-
-    const anims: Animation[] = [];
-
-    for (const l of timed) {
-      // 거꾸로 그릴 땐 dashoffset을 -길이 → 0으로 (끝 쪽에서부터 나타남)
-      const hidden = l.reverse ? -l.len : l.len;
-      l.el.style.strokeDasharray = `${l.len} ${l.len}`;
-      anims.push(
-        l.el.animate(
-          [
-            { strokeDashoffset: hidden, opacity: 1, offset: 0 },
-            { strokeDashoffset: hidden, opacity: 1, offset: at(l.delay), easing: "cubic-bezier(0.45, 0, 0.25, 1)" },
-            { strokeDashoffset: 0, opacity: 1, offset: at(l.delay + l.dur) },
-            { strokeDashoffset: 0, opacity: 1, offset: at(fadeStart) },
-            { strokeDashoffset: 0, opacity: 0, offset: at(fadeStart + FADE) },
-            { strokeDashoffset: hidden, opacity: 0, offset: 1 },
-          ],
-          loop,
-        ),
-      );
-    }
+    const once: KeyframeAnimationOptions = { duration: cycle, easing: "linear", fill: "forwards" };
 
     // 원·화살촉: 가장 가까운 선 끝을 찾아, 시작 쪽이면 선이 출발할 때, 끝 쪽이면 다 그려졌을 때 나타남
-    for (const m of marks) {
-      let best: { ms: number; d: number } | null = null;
+    const markTimes = marks.map((m) => {
+      let best: { ms: number; d: number; keep: boolean } | null = null;
       for (const l of timed) {
         const ds = dist(l.start, m.c);
         const de = dist(l.end, m.c);
-        if (!best || ds < best.d) best = { ms: l.delay, d: ds };
-        if (de < best.d) best = { ms: l.delay + l.dur - 80, d: de };
+        if (!best || ds < best.d) best = { ms: l.delay, d: ds, keep: l.keep };
+        if (de < best.d) best = { ms: l.delay + l.dur - 80, d: de, keep: l.keep };
       }
-      const ms = best ? best.ms : 0;
-      anims.push(
-        m.el.animate(
-          [
-            { opacity: 0, offset: 0 },
-            { opacity: 0, offset: at(ms) },
-            { opacity: 1, offset: at(ms + 120) },
-            { opacity: 1, offset: at(fadeStart) },
-            { opacity: 0, offset: at(fadeStart + FADE) },
-            { opacity: 0, offset: 1 },
-          ],
-          loop,
-        ),
-      );
-    }
+      return { ...m, ms: best ? best.ms : 0, keep: best ? best.keep : kept(m.c) };
+    });
 
-    // 글자 면 깜빡임: svg 바로 아래 조각 단위(묶인 <g>는 통째로, 예: T 옆 큰 화살표).
+    const pieces = [...fillSvgEl.querySelectorAll<SVGElement>(":scope > path, :scope > g")];
+    const tagline = root.querySelector<HTMLElement>("[data-kv-tagline]");
     // 계단식(steps) 구간이 마지막 키프레임에 걸리면 끝난 뒤 중간 값(0.2 등)에 멈추는 경우가 있어서,
     // 마지막에 1 → 1 구간을 하나 더 둬서 항상 진하게 끝나게 함
-    const letterStart = drawEnd + LETTER_GAP;
     const n = FLICKER_STEPS.length;
     const flicker: Keyframe[] = [
       ...FLICKER_STEPS.map((o, i) => ({ opacity: o, offset: i / n, easing: "steps(1, end)" })),
       { opacity: 1, offset: 1 },
     ];
-    for (const piece of fillSvgEl.querySelectorAll<SVGElement>(":scope > path, :scope > g")) {
-      anims.push(
-        piece.animate(flicker, {
-          duration: FLICKER,
-          delay: letterStart + Math.random() * LETTER_SPREAD,
-          fill: "both",
-        }),
-      );
-    }
-    const tagline = root.querySelector<HTMLElement>("[data-kv-tagline]");
-    if (tagline) {
-      anims.push(
-        tagline.animate([{ opacity: 0 }, { opacity: 1 }], {
-          duration: TAGLINE_FADE,
-          delay: letterStart + LETTER_SPREAD / 2,
-          easing: "ease-out",
-          fill: "both",
-        }),
-      );
-    }
 
+    let anims: Animation[] = [];
+    // 처음부터 재생 (첫 진입 + 다른 구역에 갔다 돌아왔을 때)
+    const play = () => {
+      anims.forEach((a) => a.cancel());
+      anims = [];
+
+      for (const l of timed) {
+        // 거꾸로 그릴 땐 dashoffset을 -길이 → 0으로 (끝 쪽에서부터 나타남)
+        const hidden = l.reverse ? -l.len : l.len;
+        l.el.style.strokeDasharray = `${l.len} ${l.len}`;
+        const draw: Keyframe[] = [
+          { strokeDashoffset: hidden, opacity: 1, offset: 0 },
+          { strokeDashoffset: hidden, opacity: 1, offset: at(l.delay), easing: "cubic-bezier(0.45, 0, 0.25, 1)" },
+          { strokeDashoffset: 0, opacity: 1, offset: at(l.delay + l.dur) },
+        ];
+        anims.push(
+          l.keep
+            ? l.el.animate([...draw, { strokeDashoffset: 0, opacity: 1, offset: 1 }], once)
+            : l.el.animate(
+                [
+                  ...draw,
+                  { strokeDashoffset: 0, opacity: 1, offset: at(fadeStart) },
+                  { strokeDashoffset: 0, opacity: 0, offset: at(fadeStart + FADE) },
+                  { strokeDashoffset: hidden, opacity: 0, offset: 1 },
+                ],
+                loop,
+              ),
+        );
+      }
+
+      for (const m of markTimes) {
+        const show: Keyframe[] = [
+          { opacity: 0, offset: 0 },
+          { opacity: 0, offset: at(m.ms) },
+          { opacity: 1, offset: at(m.ms + 120) },
+        ];
+        anims.push(
+          m.keep
+            ? m.el.animate([...show, { opacity: 1, offset: 1 }], once)
+            : m.el.animate(
+                [
+                  ...show,
+                  { opacity: 1, offset: at(fadeStart) },
+                  { opacity: 0, offset: at(fadeStart + FADE) },
+                  { opacity: 0, offset: 1 },
+                ],
+                loop,
+              ),
+        );
+      }
+
+      // 글자 면 깜빡임: svg 바로 아래 조각 단위(묶인 <g>는 통째로, 예: T 옆 큰 화살표)
+      const letterStart = drawEnd + LETTER_GAP;
+      for (const piece of pieces) {
+        anims.push(
+          piece.animate(flicker, {
+            duration: FLICKER,
+            delay: letterStart + Math.random() * LETTER_SPREAD,
+            fill: "both",
+          }),
+        );
+      }
+      if (tagline) {
+        anims.push(
+          tagline.animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: TAGLINE_FADE,
+            delay: letterStart + LETTER_SPREAD / 2,
+            easing: "ease-out",
+            fill: "both",
+          }),
+        );
+      }
+    };
+
+    play();
     reveal();
+
+    // 아카이빙 Phase1처럼: 다른 구역으로 완전히 벗어났다가 다시 30% 이상 보이면 처음부터 재생
+    let hasLeft = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          hasLeft = true;
+        } else if (hasLeft && entry.intersectionRatio >= 0.3) {
+          hasLeft = false;
+          play();
+        }
+      },
+      { threshold: [0, 0.3] },
+    );
+    const section = root.closest("section") ?? root;
+    observer.observe(section);
+
     return () => {
+      observer.disconnect();
       anims.forEach((a) => a.cancel());
       strokes.forEach((s) => (s.style.strokeDasharray = ""));
     };
