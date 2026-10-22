@@ -9,7 +9,7 @@ import VideoFrame from "./VideoFrame";
 // 모바일·태블릿(~999)은 제목 → 무빙포스터 → 텍스트 → 선 그래픽·화살표 → 영상 순 세로 배치.
 //
 // Figma 실측(1440, 구역 위쪽 기준): 위 가로선 50 / 포스터 466×658 (프레임 안 68, 38) /
-// 제목 박스 734×234, 제목 (52, 48) / 텍스트는 칸 안 가운데 / 아래 띠 211 / 영상 1340×754 / 아래 여백 49
+// 제목 박스 734×234, 제목 (52, 48) / 텍스트는 칸 안 세로 가운데, 왼쪽은 제목 시작점(52)에 맞춤 / 아래 띠 211 / 영상 1340×754 / 아래 여백 49
 const YOUTUBE_ID: string | undefined = undefined; // 영상 확정되면 유튜브 영상 ID 입력
 
 // 기획 텍스트: Figma에서 의도한 줄바꿈 그대로(데스크탑은 줄 안에서 다시 줄바꿈 안 함)
@@ -89,7 +89,7 @@ export default function Concept() {
             </div>
 
             {/* 기획 텍스트 */}
-            <div className="break-keep border-b border-white px-5 py-8 [grid-area:text] min-[768px]:px-8 min-[768px]:py-10 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:justify-center min-[1000px]:border-b-0 min-[1000px]:p-0">
+            <div className="break-keep border-b border-white px-5 py-8 [grid-area:text] min-[768px]:px-8 min-[768px]:py-10 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-b-0 min-[1000px]:py-0 min-[1000px]:pr-0 min-[1000px]:pl-[calc(52/1340*100cqw)]">
               <div>
                 <div className="flex flex-col gap-6 min-[1000px]:gap-[calc(35/1340*100cqw)]">
                   {PARAGRAPHS.map((group, g) => (
