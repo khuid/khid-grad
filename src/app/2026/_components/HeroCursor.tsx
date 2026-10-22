@@ -36,11 +36,11 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
       const rect = area.getBoundingClientRect();
       const ox = e.clientX - rect.left;
       const oy = e.clientY - rect.top;
-      // 개수(3~7)·각도·길이 전부 랜덤
+      // 개수(3~7)·각도·길이 전부 랜덤. 단 한쪽에 몰리지 않게 선끼리 최소 각도 유지
       const count = 3 + Math.floor(Math.random() * 5);
+      const angles = randomAngles(count);
       const ns = "http://www.w3.org/2000/svg";
-      for (let i = 0; i < count; i++) {
-        const ang = Math.random() * Math.PI * 2;
+      for (const ang of angles) {
         const len = 50 + Math.random() * 200;
         const gap = 10; // 커서 끝에서 살짝 떨어져서 시작
         const x1 = ox + Math.cos(ang) * gap;
@@ -54,17 +54,17 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
         line.setAttribute("x2", `${x2}`);
         line.setAttribute("y2", `${y2}`);
         line.setAttribute("stroke", BURST_COLOR);
-        line.setAttribute("stroke-width", "2");
+        line.setAttribute("stroke-width", "1.6");
         line.style.strokeDasharray = `${len}`;
-        // 화살촉: Figma 메모와 같은 삼각형(길이 ~11)
+        // 화살촉: Figma 메모 삼각형(길이 11)을 줄인 크기
         const head = document.createElementNS(ns, "path");
-        head.setAttribute("d", "M0 0L-11 -5.2L-11 5.2Z");
+        head.setAttribute("d", "M0 0L-8 -3.8L-8 3.8Z");
         head.setAttribute("fill", BURST_COLOR);
         head.setAttribute("transform", `translate(${x2} ${y2}) rotate(${(ang * 180) / Math.PI})`);
         g.append(line, head);
         layer.append(g);
 
-        const dur = 220 + Math.random() * 100;
+        const dur = 150 + Math.random() * 100; // 0.15~0.25초
         line.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], {
           duration: dur,
           easing: "cubic-bezier(0.2, 0.7, 0.3, 1)",
@@ -110,4 +110,18 @@ export default function HeroCursor({ areaId }: { areaId: string }) {
       </div>
     </>
   );
+}
+
+// 0~360° 사이 랜덤 각도 n개. 이웃한 선끼리 최소 MIN_GAP 이상 벌어지게 뽑고,
+// 여러 번 시도해도 안 되면 고르게 나눈 각도에 살짝 흔들림만 줌
+const MIN_GAP = (40 * Math.PI) / 180;
+function randomAngles(n: number) {
+  const TAU = Math.PI * 2;
+  for (let tries = 0; tries < 60; tries++) {
+    const a = Array.from({ length: n }, () => Math.random() * TAU).sort((x, y) => x - y);
+    const ok = a.every((v, i) => (i === 0 ? a[0] + TAU - a[n - 1] : v - a[i - 1]) >= MIN_GAP);
+    if (ok) return a;
+  }
+  const base = Math.random() * TAU;
+  return Array.from({ length: n }, (_, i) => base + (i / n) * TAU + (Math.random() - 0.5) * (TAU / n) * 0.3);
 }

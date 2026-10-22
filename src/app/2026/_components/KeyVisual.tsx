@@ -2,40 +2,44 @@
 
 import { useEffect, useRef } from "react";
 
-// 키비주얼 = 면(kv-nonline.svg, 글자) + 선(kv-line.svg, 화살표선) 두 장을 겹침.
+// 키비주얼 = 면(kv-nonline.svg, 글자) + 선(kv-line.svg = main_line, 화살표선) 두 장을 겹침.
 // 둘 다 조각별 애니메이션 때문에 문서 안에 직접 넣음(파일 내용을 Hero에서 읽어 넘김).
-// 1) 무빙포스터(mp.2026)처럼 글자 면 조각이 랜덤 순서로 깜빡이며 생김 (처음 한 번)
-// 2) 이어서 진한 파랑 화살표선이 시작점(원) → 선 → 화살촉 순서로 시차를 두고 그려지고,
-//    다 그려진 뒤 잠시 머물렀다 사라지는 걸 반복
+// 순서는 무빙포스터(mp.2026)처럼 선 → 면:
+// 1) 진한 파랑 화살표선이 시작점(원 또는 화살촉 없는 끝) → 선 → 화살촉 순서로 시차를 두고 그려짐
+// 2) 선이 다 그려지면 글자 면 조각이 랜덤 순서로 깜빡이며 생김 (처음 한 번)
+// 3) 선은 잠시 머물렀다 사라지고 다시 그려지기를 반복 (면은 그대로)
 const LINE_COLORS = ["#0068FF", "#0257FF"];
 
-// 글자 깜빡임: 조각마다 0~LETTER_SPREAD 사이 랜덤 시점에 시작해서 FLICKER 동안
-// 연하게 켜졌다 꺼졌다를 반복하다 진하게 고정 (무빙포스터 2.4~4.8초 구간 참고)
-const LETTER_SPREAD = 2000;
-const FLICKER = 520;
-const FLICKER_STEPS = [0, 0.35, 0, 0.7, 0.2, 1];
-
-// 한 사이클 타이밍(ms)
+// 선 사이클 타이밍(ms)
 const STAGGER_TOTAL = 2200; // 첫 선 ~ 마지막 선 시작 간격 합
 const DRAW_MIN = 450;
 const DRAW_PER_PX = 4; // 선 길이 1px당 그리는 시간
 const DRAW_MAX = 1300;
-const HOLD = 3200; // 전부 그려진 뒤 머무는 시간
+const HOLD = 3200; // 전부 그려진 뒤 머무는 시간 (첫 사이클엔 이 사이에 면이 생김)
 const FADE = 600;
 const REST = 1200; // 사라진 뒤 다음 사이클까지 쉬는 시간
+const HEAD_NEAR = 10; // 화살촉 중심이 선 끝점에서 이 거리 안이면 그 끝에 붙은 화살촉
+
+// 글자 깜빡임: 조각마다 랜덤 시점에 시작해서 FLICKER 동안
+// 연하게 켜졌다 꺼졌다를 반복하다 진하게 고정 (무빙포스터 2.4~4.8초 구간 참고)
+const LETTER_GAP = 100; // 선이 다 그려진 뒤 면 시작까지
+const LETTER_SPREAD = 2000;
+const FLICKER = 520;
+const FLICKER_STEPS = [0, 0.35, 0, 0.7, 0.2, 1];
 
 type Pt = { x: number; y: number };
+const dist = (p: Pt, q: Pt) => Math.hypot(p.x - q.x, p.y - q.y);
 
 export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineSvg: string }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
-  const ref = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
-    const svg = ref.current?.querySelector("svg");
+    const lineSvgEl = lineRef.current?.querySelector("svg");
     const fillSvgEl = fillRef.current?.querySelector("svg");
-    if (!root || !svg || !fillSvgEl) return;
+    if (!root || !lineSvgEl || !fillSvgEl) return;
     // 애니메이션 준비 전엔 숨겨 둠(완성본이 잠깐 보였다 사라지는 깜빡임 방지)
     const reveal = () => root.setAttribute("data-ready", "");
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -43,61 +47,96 @@ export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineS
       return;
     }
 
-    const anims: Animation[] = [];
-
-    // 1) 글자 면 깜빡임
-    let lettersDone = 0;
-    for (const piece of fillSvgEl.querySelectorAll<SVGPathElement>("path")) {
-      const delay = Math.random() * LETTER_SPREAD;
-      const n = FLICKER_STEPS.length - 1;
-      anims.push(
-        piece.animate(
-          FLICKER_STEPS.map((o, i) => ({ opacity: o, offset: i / n, easing: "steps(1, end)" })),
-          { duration: FLICKER, delay, fill: "both" },
-        ),
-      );
-      lettersDone = Math.max(lettersDone, delay + FLICKER);
-    }
-
     const isLine = (c: string | null) => !!c && LINE_COLORS.includes(c.toUpperCase());
-    const strokes = [...svg.querySelectorAll<SVGPathElement>("path[stroke]")].filter((p) =>
+    const strokes = [...lineSvgEl.querySelectorAll<SVGPathElement>("path[stroke]")].filter((p) =>
       isLine(p.getAttribute("stroke")),
     );
-    const fills = [...svg.querySelectorAll<SVGPathElement>("path[fill]")].filter((p) =>
-      isLine(p.getAttribute("fill")),
-    );
+    // 같은 색 면: 곡선(C)으로 된 건 시작점 원, 나머지는 화살촉
+    const marks = [...lineSvgEl.querySelectorAll<SVGPathElement>("path[fill]")]
+      .filter((p) => isLine(p.getAttribute("fill")))
+      .map((el) => {
+        const bb = el.getBBox();
+        return {
+          el,
+          c: { x: bb.x + bb.width / 2, y: bb.y + bb.height / 2 },
+          dot: /c/i.test(el.getAttribute("d") ?? ""),
+        };
+      });
+    const heads = marks.filter((m) => !m.dot);
+    const dots = marks.filter((m) => m.dot);
+    const nearest = (list: typeof marks, p: Pt) => Math.min(Infinity, ...list.map((m) => dist(m.c, p)));
 
-    type Line = { el: SVGPathElement; len: number; a: Pt; b: Pt; scope: Element | null; left: number };
-    const lines: Line[] = strokes.map((el) => {
+    // 선마다 화살촉이 붙은 쪽을 끝점으로(화살촉 없는 쪽이 시작점):
+    // 원이 한쪽 끝에만 딱 붙어 있으면 그쪽이 시작, 아니면 화살촉이 더 가까운 쪽이 끝.
+    // 경로의 시작(0)이 끝점이 되면 거꾸로 그림
+    const lines = strokes.map((el) => {
       const len = el.getTotalLength();
-      const a = el.getPointAtLength(0);
-      const b = el.getPointAtLength(len);
+      const p0 = el.getPointAtLength(0);
+      const p1 = el.getPointAtLength(len);
+      const a = { x: p0.x, y: p0.y };
+      const b = { x: p1.x, y: p1.y };
+      const dotA = nearest(dots, a) < 3;
+      const dotB = nearest(dots, b) < 3;
+      const headA = nearest(heads, a);
+      const headB = nearest(heads, b);
+      const reverse =
+        dotA !== dotB ? dotB : Math.min(headA, headB) < HEAD_NEAR && headA < headB;
       return {
         el,
         len,
-        a: { x: a.x, y: a.y },
-        b: { x: b.x, y: b.y },
-        scope: el.closest("svg"),
+        start: reverse ? b : a,
+        end: reverse ? a : b,
+        reverse,
         left: el.getBoundingClientRect().left,
       };
     });
     // 왼쪽에서 오른쪽으로 훑듯이 순서 지정
     lines.sort((p, q) => p.left - q.left);
     const step = STAGGER_TOTAL / Math.max(1, lines.length - 1);
-    const timed = lines.map((l, i) => {
-      const dur = Math.min(DRAW_MAX, Math.max(DRAW_MIN, l.len * DRAW_PER_PX));
-      return { ...l, delay: i * step, dur };
-    });
+    const timed = lines.map((l, i) => ({
+      ...l,
+      delay: i * step,
+      dur: Math.min(DRAW_MAX, Math.max(DRAW_MIN, l.len * DRAW_PER_PX)),
+    }));
     const drawEnd = Math.max(...timed.map((l) => l.delay + l.dur));
     const fadeStart = drawEnd + HOLD;
     const cycle = fadeStart + FADE + REST;
     const at = (ms: number) => Math.min(1, ms / cycle);
+    const loop: KeyframeAnimationOptions = { duration: cycle, iterations: Infinity, easing: "linear" };
 
-    // 선은 글자가 다 생긴 뒤 첫 사이클 시작
-    const intro = lettersDone + 200;
-    const appear = (el: SVGElement, ms: number) => {
+    const anims: Animation[] = [];
+
+    for (const l of timed) {
+      // 거꾸로 그릴 땐 dashoffset을 -길이 → 0으로 (끝 쪽에서부터 나타남)
+      const hidden = l.reverse ? -l.len : l.len;
+      l.el.style.strokeDasharray = `${l.len} ${l.len}`;
       anims.push(
-        el.animate(
+        l.el.animate(
+          [
+            { strokeDashoffset: hidden, opacity: 1, offset: 0 },
+            { strokeDashoffset: hidden, opacity: 1, offset: at(l.delay), easing: "cubic-bezier(0.45, 0, 0.25, 1)" },
+            { strokeDashoffset: 0, opacity: 1, offset: at(l.delay + l.dur) },
+            { strokeDashoffset: 0, opacity: 1, offset: at(fadeStart) },
+            { strokeDashoffset: 0, opacity: 0, offset: at(fadeStart + FADE) },
+            { strokeDashoffset: hidden, opacity: 0, offset: 1 },
+          ],
+          loop,
+        ),
+      );
+    }
+
+    // 원·화살촉: 가장 가까운 선 끝을 찾아, 시작 쪽이면 선이 출발할 때, 끝 쪽이면 다 그려졌을 때 나타남
+    for (const m of marks) {
+      let best: { ms: number; d: number } | null = null;
+      for (const l of timed) {
+        const ds = dist(l.start, m.c);
+        const de = dist(l.end, m.c);
+        if (!best || ds < best.d) best = { ms: l.delay, d: ds };
+        if (de < best.d) best = { ms: l.delay + l.dur - 80, d: de };
+      }
+      const ms = best ? best.ms : 0;
+      anims.push(
+        m.el.animate(
           [
             { opacity: 0, offset: 0 },
             { opacity: 0, offset: at(ms) },
@@ -106,46 +145,24 @@ export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineS
             { opacity: 0, offset: at(fadeStart + FADE) },
             { opacity: 0, offset: 1 },
           ],
-          { duration: cycle, delay: intro, iterations: Infinity, easing: "linear", fill: "backwards" },
+          loop,
         ),
       );
-    };
+    }
 
-    for (const l of timed) {
-      l.el.style.strokeDasharray = `${l.len}`;
+    // 글자 면 깜빡임: svg 바로 아래 조각 단위(묶인 <g>는 통째로, 예: T 옆 큰 화살표)
+    const letterStart = drawEnd + LETTER_GAP;
+    const n = FLICKER_STEPS.length - 1;
+    for (const piece of fillSvgEl.querySelectorAll<SVGElement>(":scope > path, :scope > g")) {
       anims.push(
-        l.el.animate(
-          [
-            { strokeDashoffset: l.len, opacity: 1, offset: 0 },
-            { strokeDashoffset: l.len, opacity: 1, offset: at(l.delay), easing: "cubic-bezier(0.45, 0, 0.25, 1)" },
-            { strokeDashoffset: 0, opacity: 1, offset: at(l.delay + l.dur) },
-            { strokeDashoffset: 0, opacity: 1, offset: at(fadeStart) },
-            { strokeDashoffset: 0, opacity: 0, offset: at(fadeStart + FADE) },
-            { strokeDashoffset: l.len, opacity: 0, offset: 1 },
-          ],
-          { duration: cycle, delay: intro, iterations: Infinity, easing: "linear", fill: "backwards" },
+        piece.animate(
+          FLICKER_STEPS.map((o, i) => ({ opacity: o, offset: i / n, easing: "steps(1, end)" })),
+          { duration: FLICKER, delay: letterStart + Math.random() * LETTER_SPREAD, fill: "both" },
         ),
       );
     }
 
-    // 원·화살촉: 같은 조각(svg) 안에서 가장 가까운 선 끝점을 찾아,
-    // 시작점에 붙은 건 선이 출발할 때, 끝점에 붙은 건 선이 다 그려졌을 때 나타남
-    for (const f of fills) {
-      const bb = f.getBBox();
-      const c = { x: bb.x + bb.width / 2, y: bb.y + bb.height / 2 };
-      const scope = f.closest("svg");
-      let best: { ms: number; d: number } | null = null;
-      for (const l of timed) {
-        if (l.scope !== scope) continue;
-        const da = Math.hypot(l.a.x - c.x, l.a.y - c.y);
-        const db = Math.hypot(l.b.x - c.x, l.b.y - c.y);
-        if (!best || da < best.d) best = { ms: l.delay, d: da };
-        if (db < best.d) best = { ms: l.delay + l.dur - 80, d: db };
-      }
-      appear(f, best ? best.ms : 0);
-    }
     reveal();
-
     return () => {
       anims.forEach((a) => a.cancel());
       strokes.forEach((s) => (s.style.strokeDasharray = ""));
@@ -167,7 +184,7 @@ export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineS
         dangerouslySetInnerHTML={{ __html: fillSvg }}
       />
       <div
-        ref={ref}
+        ref={lineRef}
         className="absolute top-0 left-[calc(3.78/939*100%)] w-[calc(935/939*100%)]"
         dangerouslySetInnerHTML={{ __html: lineSvg }}
       />
