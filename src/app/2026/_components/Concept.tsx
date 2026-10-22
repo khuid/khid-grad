@@ -111,27 +111,22 @@ export default function Concept() {
               </div>
             </div>
 
-            {/* 아래 띠: 왼쪽 THIS IS / NOT / GRADUATION 선 그래픽(흰색), 오른쪽 칸 큰 화살표(영상 모서리에 걸침).
-                그래픽은 Figma 그룹 위치·크기 그대로(띠 안 24.2, 23 / 481.6×166.9) — main_line에서 단어별로 잘라 다시 배치한 것 */}
-            <div className="relative z-10 grid h-[120px] grid-cols-[1fr_96px] [grid-area:deco] min-[768px]:h-[160px] min-[768px]:grid-cols-[1fr_140px] min-[1000px]:h-auto min-[1000px]:grid-cols-[calc(1140/1340*100cqw)_1fr] min-[1000px]:border-t min-[1000px]:border-white">
-              <div className="border-r border-white">
+            {/* 아래 띠: 왼쪽 THIS IS / NOT / GRADUATION 선 그래픽(main_whiteline, 흰색), 오른쪽 칸 큰 화살표.
+                그래픽은 왼쪽 프레임선에서 24 떨어지고 위아래 간격 같게(세로 가운데),
+                화살표는 칸 안 정가운데 (화살표 SVG 자체 여백 포함 칸 폭의 88% = 데스크탑 176/200) */}
+            <div className="grid grid-cols-[1fr_96px] [grid-area:deco] min-[768px]:grid-cols-[1fr_140px] min-[1000px]:h-[calc(211/1340*100cqw)] min-[1000px]:grid-cols-[calc(1140/1340*100cqw)_1fr] min-[1000px]:border-t min-[1000px]:border-white">
+              <div className="flex items-center border-r border-white py-5 pl-6 min-[768px]:py-6 min-[1000px]:py-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/2026/concept/kv-words.svg"
                   alt=""
                   aria-hidden
-                  className="mt-4 ml-3 h-auto w-[min(260px,calc(100%-24px))] min-[768px]:mt-5 min-[768px]:ml-6 min-[768px]:w-[360px] min-[1000px]:mt-[calc(23/1340*100cqw)] min-[1000px]:ml-[calc(24.2/1340*100cqw)] min-[1000px]:w-[calc(481.6/1340*100cqw)]"
+                  className="h-auto w-[min(482px,calc(100%-24px))] min-[1000px]:w-[calc(482/1340*100cqw)]"
                 />
               </div>
-              {/* 화살표 칸: Figma 화살표(142×144, 띠 안 1169, 172)의 SVG 여백(21, 14)까지 맞춘 위치 */}
-              <div className="relative">
+              <div className="flex items-center justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/2026/arrow-l.svg"
-                  alt=""
-                  aria-hidden
-                  className="absolute right-[4px] bottom-[-40px] size-[88px] max-w-none min-[768px]:right-[8px] min-[768px]:bottom-[-56px] min-[768px]:size-[124px] min-[1000px]:top-[calc(158/1340*100cqw)] min-[1000px]:right-auto min-[1000px]:bottom-auto min-[1000px]:left-[calc(8/1340*100cqw)] min-[1000px]:size-[calc(177/1340*100cqw)]"
-                />
+                <img src="/2026/arrow-l.svg" alt="" aria-hidden className="block h-auto w-[88%] max-w-none" />
               </div>
             </div>
 
