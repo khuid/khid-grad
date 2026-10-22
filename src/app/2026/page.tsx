@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import ClearPreview from "./_components/ClearPreview";
 import ComingSoon from "./_components/ComingSoon";
+import Concept from "./_components/Concept";
 import Header from "./_components/Header";
 import Hero from "./_components/Hero";
 import { PREVIEW_COOKIE } from "./_components/preview";
@@ -22,13 +23,14 @@ export const viewport: Viewport = {
 // 2026-11-11 09:00 KST 이후 전체 사이트 공개
 const OPEN_AT = new Date("2026-11-11T09:00:00+09:00").getTime();
 
-// 구역별로 만들어 가는 중: [1] 히어로까지
+// 구역별로 만들어 가는 중: [1] 히어로, [2] 기획
 function FullSite() {
   return (
     <>
       <Header />
       <main>
         <Hero />
+        <Concept />
       </main>
       <SiteCursor heroId="top" />
     </>

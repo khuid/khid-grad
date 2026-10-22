@@ -1,7 +1,8 @@
 import { Hahmlet } from "next/font/google";
 import localFont from "next/font/local";
 
-// 2026 사이트 폰트: 본문·UI 전부 Freesentation 하나.
+// 2026 사이트 폰트: 본문·UI 전부 Freesentation 하나. 굵기는 ExtraBold·SemiBold·Medium·Regular 네 가지만
+// (Bold 700은 [1] 구역 문구에만 남아 있음).
 // Hahmlet은 히어로 배경 격자의 줄자 숫자·각도 표기 전용
 const freesentation = localFont({
   variable: "--font-freesentation",
@@ -10,6 +11,7 @@ const freesentation = localFont({
     { path: "../../../public/fonts/Freesentation-5Medium.woff2", weight: "500", style: "normal" },
     { path: "../../../public/fonts/Freesentation-6SemiBold.woff2", weight: "600", style: "normal" },
     { path: "../../../public/fonts/Freesentation-7Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../../public/fonts/Freesentation-8ExtraBold.woff2", weight: "800", style: "normal" },
   ],
 });
 

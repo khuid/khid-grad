@@ -12,10 +12,12 @@
   --font-ruler: var(--font-hahmlet), serif;
 }
 
-/* 2026 컬러 */
+/* 2026 컬러: 메인은 key 하나. key-light는 상단바 메뉴 기본 상태에만 */
 @theme {
   --color-key: #1980ff;
   --color-key-light: #75b3ff;
+  --color-pale: #e3f0ff; /* 연한 하늘색 */
+  --color-rule: #1a6ae8; /* [3] 구역부터 배경 라인 */
   --color-line: #dddddd;
 }
 
@@ -30,7 +32,7 @@
    text-tagline    30 / 700 / -0.04 / normal    [1] 하나의 끝, 새로운 길 (Figma 29.97)
    text-title      28 / 500 / -0.04 / 1.31      부제(하나의 끝, 새로운 길), 약도
    text-subtitle   24 / 700 / -0.02 / normal    [1] 전시 제목 (Figma 23.086)
-   text-nav        20.8 / 700 / -0.02 / normal  상단 메뉴 (Figma 24를 상단바 52/60 비율로 축소, 모바일 16)
+   text-nav        20.8 / 600 / -0.02 / normal  상단 메뉴 (Figma 24를 상단바 52/60 비율로 축소, 모바일 16)
    text-heading    24 / 600 / -0.04 / normal    섹션 라벨(전시안내 EXHIBITION…), 교수님 이름
    text-lead       20 / 500 / -0.04 / 1.4       소개 마무리 문장, 교수님 영문 이름 (Figma 1.31)
    text-body       16 / 400 / -0.04 / 1.25      소개 본문
@@ -64,7 +66,7 @@
 }
 @utility text-nav {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: normal;
   letter-spacing: -0.02em;
   @media (width >= 1280px) {
