@@ -26,11 +26,20 @@ const LETTER_GAP = 100; // 선이 다 그려진 뒤 면 시작까지
 const LETTER_SPREAD = 2000;
 const FLICKER = 520;
 const FLICKER_STEPS = [0, 0.35, 0, 0.7, 0.2, 1];
+const TAGLINE_FADE = 700; // "하나의 끝, 새로운 길"은 면 깜빡임 중간쯤 부드럽게 나타남
 
 type Pt = { x: number; y: number };
 const dist = (p: Pt, q: Pt) => Math.hypot(p.x - q.x, p.y - q.y);
 
-export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineSvg: string }) {
+export default function KeyVisual({
+  fillSvg,
+  lineSvg,
+  children,
+}: {
+  fillSvg: string;
+  lineSvg: string;
+  children?: React.ReactNode; // 키비주얼 위에 얹는 문구 — data-kv-tagline 붙은 요소는 면 깜빡임 중간에 나타남
+}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
@@ -150,15 +159,33 @@ export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineS
       );
     }
 
-    // 글자 면 깜빡임: svg 바로 아래 조각 단위(묶인 <g>는 통째로, 예: T 옆 큰 화살표)
+    // 글자 면 깜빡임: svg 바로 아래 조각 단위(묶인 <g>는 통째로, 예: T 옆 큰 화살표).
+    // 계단식(steps) 구간이 마지막 키프레임에 걸리면 끝난 뒤 중간 값(0.2 등)에 멈추는 경우가 있어서,
+    // 마지막에 1 → 1 구간을 하나 더 둬서 항상 진하게 끝나게 함
     const letterStart = drawEnd + LETTER_GAP;
-    const n = FLICKER_STEPS.length - 1;
+    const n = FLICKER_STEPS.length;
+    const flicker: Keyframe[] = [
+      ...FLICKER_STEPS.map((o, i) => ({ opacity: o, offset: i / n, easing: "steps(1, end)" })),
+      { opacity: 1, offset: 1 },
+    ];
     for (const piece of fillSvgEl.querySelectorAll<SVGElement>(":scope > path, :scope > g")) {
       anims.push(
-        piece.animate(
-          FLICKER_STEPS.map((o, i) => ({ opacity: o, offset: i / n, easing: "steps(1, end)" })),
-          { duration: FLICKER, delay: letterStart + Math.random() * LETTER_SPREAD, fill: "both" },
-        ),
+        piece.animate(flicker, {
+          duration: FLICKER,
+          delay: letterStart + Math.random() * LETTER_SPREAD,
+          fill: "both",
+        }),
+      );
+    }
+    const tagline = root.querySelector<HTMLElement>("[data-kv-tagline]");
+    if (tagline) {
+      anims.push(
+        tagline.animate([{ opacity: 0 }, { opacity: 1 }], {
+          duration: TAGLINE_FADE,
+          delay: letterStart + LETTER_SPREAD / 2,
+          easing: "ease-out",
+          fill: "both",
+        }),
       );
     }
 
@@ -174,20 +201,21 @@ export default function KeyVisual({ fillSvg, lineSvg }: { fillSvg: string; lineS
   return (
     <div
       ref={rootRef}
-      role="img"
-      aria-label="THIS IS NOT GRADUATION 2026"
       className="absolute inset-0 [&:not([data-ready])]:invisible [&_svg]:block [&_svg]:h-auto [&_svg]:w-full"
     >
-      <div
-        ref={fillRef}
-        className="absolute top-0 left-0 w-[calc(888/939*100%)]"
-        dangerouslySetInnerHTML={{ __html: fillSvg }}
-      />
-      <div
-        ref={lineRef}
-        className="absolute top-0 left-[calc(3.78/939*100%)] w-[calc(935/939*100%)]"
-        dangerouslySetInnerHTML={{ __html: lineSvg }}
-      />
+      <div role="img" aria-label="THIS IS NOT GRADUATION 2026">
+        <div
+          ref={fillRef}
+          className="absolute top-0 left-0 w-[calc(888/939*100%)]"
+          dangerouslySetInnerHTML={{ __html: fillSvg }}
+        />
+        <div
+          ref={lineRef}
+          className="absolute top-0 left-[calc(3.78/939*100%)] w-[calc(935/939*100%)]"
+          dangerouslySetInnerHTML={{ __html: lineSvg }}
+        />
+      </div>
+      {children}
     </div>
   );
 }

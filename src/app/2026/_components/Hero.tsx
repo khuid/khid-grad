@@ -32,18 +32,22 @@ export default async function Hero() {
         <div className="@container flex w-full max-w-[939px] flex-col gap-[calc(28px*var(--s))] min-[768px]:gap-0 min-[1280px]:w-[939px]">
           {/* 키비주얼 939×524. 문구는 컨테이너 폭 기준(cqw)으로 같이 줄어듦 */}
           <div className="@container relative aspect-[939/524] w-full">
-            <KeyVisual fillSvg={fillSvg} lineSvg={lineSvg} />
-            <p className="text-tagline absolute top-[calc(257/524*100%)] left-[calc(605/939*100%)] text-key">
-              하나의 끝,
-              <br />
-              새로운 길
-            </p>
+            <KeyVisual fillSvg={fillSvg} lineSvg={lineSvg}>
+              <p
+                data-kv-tagline
+                className="text-tagline absolute top-[calc(257/524*100%)] left-[calc(605/939*100%)] text-key"
+              >
+                하나의 끝,
+                <br />
+                새로운 길
+              </p>
+            </KeyVisual>
           </div>
 
           {/* 전시 정보: 768부터 왼쪽 아래 정보 3줄 / 오른쪽 아래 날짜(Figma 그대로),
-              모바일(~767)만 키비주얼 → 날짜 → 정보 순 세로 배치 */}
-          <div className="flex flex-col-reverse items-start gap-[calc(16px*var(--s))] min-[768px]:mt-[calc(45/939*100cqw)] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-[3cqw] min-[768px]:pr-[calc(57.8/939*100cqw)] min-[768px]:pl-[calc(15/939*100cqw)]">
-            <div className="flex flex-col gap-[calc(9px*var(--s))] min-[768px]:mt-[calc(3/939*100cqw)] min-[768px]:gap-[calc(13/939*100cqw)]">
+              모바일(~767)만 키비주얼 → 날짜 → 정보 순 세로 배치, 가운데 정렬 */}
+          <div className="flex flex-col-reverse items-center min-[768px]:items-start gap-[calc(16px*var(--s))] min-[768px]:mt-[calc(45/939*100cqw)] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-[3cqw] min-[768px]:pr-[calc(57.8/939*100cqw)] min-[768px]:pl-[calc(15/939*100cqw)]">
+            <div className="flex flex-col gap-[calc(9px*var(--s))] text-center min-[768px]:mt-[calc(3/939*100cqw)] min-[768px]:gap-[calc(13/939*100cqw)] min-[768px]:text-left">
               <h1 className="text-nav text-key max-[767px]:text-[length:calc(15px*var(--s))] min-[768px]:max-[1279px]:text-[length:max(16px,calc(24/939*100cqw))]">
                 경희대학교 산업디자인학과 제 35회 졸업전시회
               </h1>
