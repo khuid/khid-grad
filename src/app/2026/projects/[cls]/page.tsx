@@ -92,10 +92,9 @@ async function ClassView({
             </div>
             <p className="mt-5 flex gap-4 text-[17px] leading-[normal] font-medium tracking-[-0.04em] text-ink min-[1000px]:mt-6 min-[1000px]:text-[20px]">
               <span>지도교수</span>
+              {/* "김선철 교수님, 이동민 교수님" (2026-10-23 결정) */}
               <span className="font-semibold">
-                {c.professor ?? (
-                  <span className="font-medium text-[#a5a5a5]">준비 중</span>
-                )}
+                {c.professors.map((n) => `${n} 교수님`).join(", ")}
               </span>
             </p>
             <p className="mt-8 text-[14px] leading-[1.5] font-medium tracking-[-0.04em] text-ink min-[1000px]:mt-[56px] min-[1000px]:text-[15px]">

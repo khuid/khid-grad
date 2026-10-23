@@ -1,4 +1,4 @@
-// PROJECTS 데이터: 수업 4개(가나다 순) × 작품 81개. 수업마다 /2026/projects/<수업>, 작품마다 /2026/projects/<수업>/<번호>.
+// PROJECTS 데이터: 수업 4개(가나다 순) × 작품(목록 파일 기준 76개). 수업마다 /2026/projects/<수업>, 작품마다 /2026/projects/<수업>/<번호>.
 // 지금은 자리만: 작품 제목·만든 사람(members, 국문 이름 1~4명)을 받으면 WORKS 각 줄에 채우면 됨.
 // members에 넣은 이름은 DESIGNERS 프로필의 작품 카드에도 저절로 연결됨(이름이 같은 졸전자).
 // 이미지·영상·링크·수업 설명은 나중에 일괄 입력:
@@ -27,7 +27,7 @@ export type ClassInfo = {
   key: ClassKey;
   ko: string;
   en: string; // Figma에 있는 건 미래공간디자인뿐 — 나머지 영문 수업명은 임시
-  professor?: string;
+  professors: string[];
   description?: string;
 };
 
@@ -36,32 +36,110 @@ export const CLASSES: ClassInfo[] = [
     key: "spatial",
     ko: "미래공간디자인",
     en: "FUTURISTIC SPATIAL DESIGN",
-    professor: "최유식",
+    professors: ["최유식"],
     description:
       "산업의 구조 변화와 경제의 글로벌화 등으로 인한 인간의 생활 환경 변화는 물리적, 정신적으로 다양한 트렌드로 나타나고 있으며 이는 인간 삶의 질을 결정짓는 중요한 요소다. 다양한 미래 환경(공간) 트렌드에 대한 조사와 분석을 통해 인간 생활 환경을 학습하고 이를 바탕으로 미래 인간 삶의 트렌드 예측 및 대안을 제시함으로써 미래 사회구성원의 일부로서의 역할을 경험 해 본다",
   },
-  { key: "capstone", ko: "산업디자인종합설계", en: "INDUSTRIAL DESIGN CAPSTONE" },
-  { key: "smart", ko: "스마트융합디자인", en: "SMART CONVERGENCE DESIGN" },
-  { key: "ai", ko: "인공지능증강디자인", en: "AI AUGMENTED DESIGN" },
+  { key: "capstone", ko: "산업디자인종합설계", en: "INDUSTRIAL DESIGN CAPSTONE", professors: ["김선철", "이동민"] },
+  { key: "smart", ko: "스마트융합디자인", en: "SMART CONVERGENCE DESIGN", professors: ["이동민"] },
+  { key: "ai", ko: "인공지능증강디자인", en: "AI AUGMENTED DESIGN", professors: ["김선철"] },
 ];
 
-// 수업별 작품 [제목, 만든 사람들]. 받으면 순서대로 채우기 (빈 칸은 "작품 제목" 자리 표시)
+// 수업별 작품 [제목, 만든 사람들] — work/data/projects/project-list.xlsx(2026-10-23)에서 작품명·팀원 이름만 옮김.
+// 산디종은 이동민 교수님 시트 → 김선철 교수님 시트 순. 인지디 Knoticy 중복 제출 1건 제외,
+// 임형민·허경주 "1. Put _ [ ]. 2. Bruiser"는 작품 2개로 나눔. ZHANG YICHENG은 DESIGNERS 명단에 없음(프로필 연결 없음)
 const WORKS: Record<ClassKey, [title: string, members: string[]][]> = {
-  spatial: blank(10),
-  capstone: blank(18),
-  smart: blank(29),
-  ai: blank(24),
+  spatial: [
+    ["LIMEN : The Threshold of Senses", ["최성지", "김남경", "박세권"]],
+    ["이상유희", ["박효찬"]],
+    ["Microbial Loop Habitat", ["조해린", "손예원"]],
+    ["이음마루", ["김윤주", "정보연", "이수연"]],
+    ["SOYO", ["김명선", "김주연"]],
+    ["NEXPORT", ["김예림", "배민아"]],
+    ["WHALE CITY 鲸城｜웨일 시티", ["ZHANG YICHENG"]],
+    ["O2-SIS", ["이지수", "윤아영"]],
+    ["NUFF", ["이민기"]],
+  ],
+  capstone: [
+    ["Amber", ["이규진", "임형민", "전예영"]],
+    ["Da dog im", ["김윤주", "이수연", "정보연"]],
+    ["elo", ["김도연", "김동은", "이진", "정효재"]],
+    ["woofwoof", ["김태령", "이수진", "하채연"]],
+    ["Orr (오르)", ["김명선", "김주연", "장서영"]],
+    ["SEOM", ["손예원", "조해린", "이민혁", "장일정"]],
+    ["Jaram", ["손은혜", "조수안", "최마리"]],
+    ["HANGIT", ["정예원", "박예은", "안지언", "이보화"]],
+    ["TUK", ["김지은"]],
+    ["SSALO", ["기정현", "김도경", "이진주"]],
+    ["TOBI", ["박수해", "권정현"]],
+    ["FORE", ["박한나", "성아현", "유은서", "최세린"]],
+    ["EEUM", ["김예림", "배민아"]],
+    ["ZEИITH Acoustics - 001", ["이유택"]],
+    ["NODE", ["김현호", "한예지"]],
+    ["AMOUS", ["공성욱", "박효찬", "신예환", "허경주"]],
+  ],
+  smart: [
+    ["RE:SOURCE", ["박세권", "최성지"]],
+    ["Pacer", ["안지언", "이보화"]],
+    ["Swig", ["정예원", "박예은"]],
+    ["ZEEN", ["조해린", "손예원"]],
+    ["LYAXOME", ["김태령", "이수진", "하채연"]],
+    ["NEXUS", ["이진", "임형민", "전예영"]],
+    ["Sync", ["이진주"]],
+    ["Pearl-in", ["김윤주", "이수연", "정보연"]],
+    ["찰록 (Challok)", ["권정현", "박수해"]],
+    ["IRIS", ["김남경"]],
+    ["Tension", ["박한나"]],
+    ["Nadir", ["성아현", "유은서", "최세린"]],
+    ["TERRAVIA", ["신예환", "허경주"]],
+    ["VOLLU", ["양성은", "김지은"]],
+    ["NOURA", ["김도연", "김동은"]],
+    ["LINKO", ["기정현", "김도경"]],
+    ["MUA", ["손은혜", "조수안", "최마리"]],
+    ["SAEM", ["김주연"]],
+    ["PARA", ["이지수"]],
+    ["LUMI", ["ZHANG YICHENG"]],
+    ["MOARK", ["윤아영"]],
+    ["MODRIX", ["공성욱"]],
+    ["Audi IGNITE", ["배민아"]],
+    ["David", ["이유택", "이규진"]],
+    ["ATOA", ["권정현", "박수해"]],
+    ["ATTACA", ["김현호"]],
+    ["숨, 결", ["이하은"]],
+  ],
+  ai: [
+    ["VN", ["최성지", "김남경"]],
+    ["Sensory Core", ["박세권"]],
+    ["ONBIT", ["이규진", "이유택"]],
+    ["FACEHUG", ["권정현", "김예림", "박효찬"]],
+    ["ELGO", ["이보화"]],
+    ["cʌret", ["정예원", "김현호", "박예은", "안지언"]],
+    ["Knoticy", ["김도경"]],
+    ["HO:RONG", ["이진"]],
+    ["DEVOID", ["박한나", "성아현", "이진주", "전예영"]],
+    ["WHEW", ["김지은"]],
+    ["08:59 (follow nine)", ["김명선", "유은서", "최세린"]],
+    ["-ing", ["박수해", "기정현", "정효재"]],
+    ["Torus", ["정효재"]],
+    ["DAM-DDLE(담뜰)", ["김태령", "이수진", "하채연"]],
+    ["onu", ["김도연", "김동은", "양성은"]],
+    ["SSOC", ["손은혜", "조수안", "최마리"]],
+    ["WHIFFY", ["윤아영", "이지수"]],
+    ["NUUN", ["공성욱", "신예환"]],
+    ["DIVRS", ["이민혁"]],
+    ["COLT", ["이민기"]],
+    ["Put _ [ ]", ["임형민", "허경주"]],
+    ["Bruiser", ["임형민", "허경주"]],
+    ["EGGSHELL", ["이하은"]],
+    ["arti", ["한예지"]],
+  ],
 };
-
-function blank(n: number): [string, string[]][] {
-  return Array.from({ length: n }, () => ["", []]);
-}
 
 export const PROJECTS: Project[] = CLASSES.flatMap((c) =>
   WORKS[c.key].map(([title, members], i) => ({
     cls: c.key,
     no: String(i + 1).padStart(2, "0"),
-    title: title || "작품 제목",
+    title,
     members,
     links: [],
     media: [],
