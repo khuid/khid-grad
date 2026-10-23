@@ -14,7 +14,7 @@ import SubPage, { OutlineArrow, TopBox } from "../../_components/SubPage";
 // 이름 국문 44/600 – 16 – 영문 32/500 #777(2026-10-23 결정, 국문은 ink), 45 아래 CONTACT·PORTFOLIO(20/600 #1980FF, 값은 라벨 왼쪽에서 116, 16/400, 줄 사이 17·8).
 // 화살표 202는 정보 오른쪽 끝(프레임 오른쪽에서 48), 정보와 세로 가운데.
 // 작품: 위 상자 아래선 → 106, 3열 357.14×446.43(좌우 50, 사이 84), 그림 → 제목 → 이름들. 2026-10-23 결정: Figma(제목 28.57·이름 20)보다 줄여 제목 20/500 · 이름 16/500(사이 8), 글자는 그림보다 4 안쪽에서 시작.
-// 모바일·태블릿(~999)은 사진 → 정보 세로 배치(사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 태블릿 3열
+// 모바일·태블릿(~999)은 사진 → 정보 세로 배치(모바일 좌우 여백 20, 사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 태블릿 3열
 export function generateStaticParams() {
   return DESIGNERS.map((p) => ({ slug: p.slug }));
 }
@@ -59,7 +59,7 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
   return (
     <SubPage current="designers">
       <TopBox>
-        <div className="grid gap-y-8 px-4 py-6 min-[768px]:gap-y-10 min-[768px]:px-8 min-[768px]:py-10 min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(58/1340*100cqw)] min-[1000px]:pt-[49px] min-[1000px]:pr-[calc(48/1340*100cqw)] min-[1000px]:pb-[49px] min-[1000px]:pl-[calc(49/1340*100cqw)]">
+        <div className="grid gap-y-8 px-5 py-6 min-[768px]:gap-y-10 min-[768px]:px-8 min-[768px]:py-10 min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(58/1340*100cqw)] min-[1000px]:pt-[49px] min-[1000px]:pr-[calc(48/1340*100cqw)] min-[1000px]:pb-[49px] min-[1000px]:pl-[calc(49/1340*100cqw)]">
           <div className="relative mx-auto aspect-[500/623.85] w-full max-w-[480px] overflow-hidden bg-[#ededed] min-[1000px]:mx-0 min-[1000px]:max-w-none">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={posePhoto(p)} alt={p.ko} className="absolute inset-0 size-full object-cover object-top" />
@@ -94,7 +94,7 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
       </TopBox>
 
       <section aria-label={`${p.ko}의 작품`} className={`@container mx-auto ${FRAME}`}>
-        <ul className="grid gap-y-10 px-4 pt-10 pb-[52px] min-[768px]:grid-cols-3 min-[768px]:gap-x-5 min-[768px]:px-8 min-[768px]:pt-[60px] min-[768px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
+        <ul className="grid gap-y-10 px-5 pt-10 pb-[52px] min-[768px]:grid-cols-3 min-[768px]:gap-x-5 min-[768px]:px-8 min-[768px]:pt-[60px] min-[768px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
           {p.works.map((w, i) => (
             <li key={i} className="mx-auto w-full max-w-[480px] min-[768px]:max-w-none">
               <WorkCard work={w} />
