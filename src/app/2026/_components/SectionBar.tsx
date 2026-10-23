@@ -6,7 +6,8 @@
 // 그 사이 프레임 폭(1340) 안만 연한 하늘색, 글자는 프레임 왼쪽에서 40, 한글–영문 간격 24.
 // 선이 만나는 곳(프레임 세로선 × 가로선)에 9×9 사각형. 띠 바깥(위아래 4px, 프레임 밖)은 배경 없음 — 흰 틈이 안 보이게.
 // 글자는 #1A6AE8(rule).
-// 모바일·태블릿은 띠와 글자만 줄임: 안쪽 높이 48(~767) / 56(768~) / 60(1000~)
+// 2026-10-23 결정: 상단바처럼 Figma 대비 52/60로 줄임 — 안쪽 높이 60 → 52, 글자 24 → 20.8(상단바 메뉴와 같은 크기), 한글–영문 24 → 20.8.
+// 모바일·태블릿: 안쪽 높이 44(~767) / 48(768~), 글자 16 / 18
 // 프레임 폭: 모바일 좌우 16 / 768~ 40 / 1000~ 50(최대 1340) — [2]와 같음. [3]부터 구역들이 같이 씀
 export const FRAME =
   "w-[calc(100%-32px)] min-[768px]:w-[calc(100%-80px)] min-[1000px]:w-[min(1340px,calc(100%-100px))]";
@@ -19,14 +20,14 @@ export default function SectionBar({ ko, en, id }: { ko: string; en: string; id?
   return (
     <div className="sticky top-[45px] z-40 py-[4px] min-[1000px]:top-[53px]">
       <div className="border-y border-rule">
-        <div className={`relative mx-auto flex min-h-[48px] items-center py-2 border-x border-rule bg-pale px-4 min-[768px]:min-h-[56px] min-[768px]:px-7 min-[1000px]:min-h-[60px] min-[1000px]:py-0 min-[1000px]:px-[40px] ${FRAME}`}>
+        <div className={`relative mx-auto flex min-h-[44px] items-center py-2 border-x border-rule bg-pale px-4 min-[768px]:min-h-[48px] min-[768px]:px-7 min-[1000px]:min-h-[52px] min-[1000px]:py-0 min-[1000px]:px-[40px] ${FRAME}`}>
           <Node className="top-[-0.5px] left-[0.5px]" />
           <Node className="top-[-0.5px] left-[calc(100%-0.5px)]" />
           <Node className="top-[calc(100%+0.5px)] left-[0.5px]" />
           <Node className="top-[calc(100%+0.5px)] left-[calc(100%-0.5px)]" />
           <h2
             id={id}
-            className="text-heading flex flex-wrap items-baseline gap-x-[10px] text-rule max-[768px]:text-[18px] min-[768px]:gap-x-[16px] min-[768px]:max-[1000px]:text-[21px] min-[1000px]:gap-x-[24px]"
+            className="text-heading flex flex-wrap items-baseline gap-x-[8px] text-[16px] text-rule min-[768px]:gap-x-[14px] min-[768px]:text-[18px] min-[1000px]:gap-x-[20.8px] min-[1000px]:text-[20.8px]"
           >
             <span>{ko}</span>
             <span lang="en">{en}</span>
