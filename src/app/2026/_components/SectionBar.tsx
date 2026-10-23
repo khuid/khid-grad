@@ -21,10 +21,10 @@ export default function SectionBar({ ko, en, id }: { ko: string; en: string; id?
     <div className="sticky top-[45px] z-40 py-[4px] min-[1000px]:top-[53px]">
       <div className="border-y border-deepblue">
         <div className={`relative mx-auto flex min-h-[44px] items-center py-2 border-x border-deepblue bg-pale px-4 min-[768px]:min-h-[48px] min-[768px]:px-7 min-[1000px]:min-h-[52px] min-[1000px]:py-0 min-[1000px]:px-[40px] ${FRAME}`}>
-          <Node className="top-[-0.5px] left-[0.5px]" />
-          <Node className="top-[-0.5px] left-[calc(100%-0.5px)]" />
-          <Node className="top-[calc(100%+0.5px)] left-[0.5px]" />
-          <Node className="top-[calc(100%+0.5px)] left-[calc(100%-0.5px)]" />
+          <Node className="top-[-0.5px] left-[-0.5px]" />
+          <Node className="top-[-0.5px] left-[calc(100%+0.5px)]" />
+          <Node className="top-[calc(100%+0.5px)] left-[-0.5px]" />
+          <Node className="top-[calc(100%+0.5px)] left-[calc(100%+0.5px)]" />
           <h2
             id={id}
             className="text-heading flex flex-wrap items-baseline gap-x-[8px] text-[16px] text-deepblue min-[768px]:gap-x-[14px] min-[768px]:text-[18px] min-[1000px]:gap-x-[20.8px] min-[1000px]:text-[20.8px]"
