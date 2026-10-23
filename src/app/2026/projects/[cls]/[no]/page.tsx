@@ -9,7 +9,7 @@ import SubPage from "../../../_components/SubPage";
 import VideoFrame from "../../../_components/VideoFrame";
 
 // 작품 상세 (/2026/projects/<수업>/<번호>). 왼쪽 작품 이미지·영상을 세로로(사이 여백 0) 스크롤, 오른쪽 정보는 제자리.
-// 미디어는 1920×1080 가로(16:9) 이미지 + 영상 최대 1개, 합쳐서 3~7개. 아직 없으면 16:9 빈칸 3개.
+// 미디어는 1920×1080 가로(16:9) 이미지 + 영상 최대 1개, 합쳐서 3~7개. 아직 없으면 16:9 빈칸 7개(최대 개수).
 //
 // Figma 실측(1440): 상단바 아래 50에 위 가로선(화면 끝에서 끝까지), 그 아래 왼쪽 미디어 800(프레임 왼쪽 선 바로 옆부터) | 오른쪽 정보 540.
 // 정보 안쪽 좌우 32 · 위 44: 수업명 20/500 key → 24 → 제목 32/600 → 12 → 만든 사람 16/500(사이 11) → 44 → 설명 14/500 행간 1.5 → 44 →
@@ -71,8 +71,8 @@ async function ProjectView({ params }: { params: PageProps<"/2026/projects/[cls]
   );
 }
 
-// 미디어가 들어오기 전 자리 표시: 16:9 빈칸 3개 (구분되게 pale / 회색 번갈아)
-const PLACEHOLDER: (Media | null)[] = [null, null, null];
+// 미디어가 들어오기 전 자리 표시: 최대 개수인 16:9 빈칸 7개 (구분되게 pale / 회색 번갈아)
+const PLACEHOLDER: (Media | null)[] = Array(7).fill(null);
 
 function MediaItem({ media, index, alt }: { media: Media | null; index: number; alt: string }) {
   if (!media) return <div className={`block aspect-video w-full ${index % 2 ? "bg-[#ededed]" : "bg-pale"}`} />;
