@@ -2,7 +2,7 @@
 // 1200~은 Figma 배치(1000~1199는 두 칸이 좁아 제목이 꺾여서 태블릿처럼 세로 배치): 왼쪽 전시명·제목·부제 → 52 아래 경희 휘장 + KHID 로고 /
 // 오른쪽 위 큰 화살표(58), 오른쪽 아래 WHERE · WHEN · ABOUT KHID 세 칸(칸 사이 24).
 // 태블릿(768~1199)은 제목(+오른쪽 화살표) 아래 한 줄에 휘장·로고 ←여백→ 정보.
-// 모바일은 제목 → 정보(항목마다 내용 한 줄, 좁으면 줄바꿈) → 로고 순 세로 배치.
+// 모바일은 프레임 안쪽으로 좌우 여백을 더 줘서(졸준위 사진 격자와 같은 규칙: 390에서 프레임+12, 넓어지면 늘어난 폭의 6%씩) 제목 → 정보(항목마다 내용 한 줄, 좁으면 줄바꿈) → 로고 순 세로 배치.
 //
 // Figma 실측(1440): 높이 340 / 전시명 14 → 16 → 제목 40(ExtraBold, 둘째 줄 SemiBold) → 8 → 부제 28 Medium /
 // 휘장 40 – 12 – 로고 52×18 / 항목명 16 SemiBold → 8 → 내용 14 Regular(줄 사이 2), WHEN 칸 194 · ABOUT 칸 114.
@@ -36,7 +36,7 @@ export default function Footer() {
   return (
     <footer data-cursor="light" className="bg-key text-white">
       <div
-        className={`mx-auto grid gap-y-10 py-10 [grid-template-areas:'title'_'info'_'logo'] min-[768px]:grid-cols-[auto_1fr] min-[768px]:gap-y-12 min-[768px]:[grid-template-areas:'title_title'_'logo_info'] min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'] ${FRAME}`}
+        className={`mx-auto grid gap-y-10 py-10 max-[768px]:px-[calc(12px+(100%-390px)*0.06)] [grid-template-areas:'title'_'info'_'logo'] min-[768px]:grid-cols-[auto_1fr] min-[768px]:gap-y-12 min-[768px]:[grid-template-areas:'title_title'_'logo_info'] min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'] ${FRAME}`}
       >
         {/* 전시명 · 제목 · 부제. ~1199는 화살표를 오른쪽 위 모서리에 띄워 둬서 전시명 → 제목 간격이 데스크탑처럼 16 */}
         <div className="relative flex flex-col gap-4 [grid-area:title]">
@@ -46,7 +46,7 @@ export default function Footer() {
             src="/2026/arrow-l.svg"
             alt=""
             aria-hidden
-            className="absolute top-0 right-0 block size-[32px] min-[360px]:size-[40px] min-[768px]:size-[52px] min-[1200px]:hidden"
+            className="absolute top-0 right-0 block size-[32px] min-[768px]:size-[52px] min-[1200px]:hidden"
           />
           <div className="flex flex-col gap-2">
             <p className="text-display max-[360px]:text-[22px] min-[360px]:max-[768px]:text-[26px] min-[768px]:max-[1000px]:text-[34px]">
