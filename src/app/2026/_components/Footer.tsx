@@ -10,11 +10,12 @@
 import { FRAME } from "./SectionBar";
 
 const INFO = [
-  { label: "WHERE", lines: ["경희대학교 국제캠퍼스 예술디자인대학", "2층 A&D HALL"], width: "" },
+  { label: "WHERE", lines: ["경희대학교 국제캠퍼스 예술디자인대학", "2층 A&D HALL"], width: "", gap: "gap-x-[6px]" },
   {
     label: "WHEN",
     lines: ["2026. 11. 11(수) → 2026. 11. 16(월)", "10:00 - 20:00"],
     width: "min-[1200px]:w-[194px]",
+    gap: "gap-x-[6px]",
   },
   {
     label: "ABOUT KHID",
@@ -27,6 +28,7 @@ const INFO = [
       </a>,
     ],
     width: "min-[1200px]:w-[114px]",
+    gap: "gap-x-[16px]", // 모바일 한 줄일 때 인스타 계정과 사이트 주소가 붙어 보이지 않게
   },
 ];
 
@@ -74,7 +76,7 @@ export default function Footer() {
           {INFO.map((item) => (
             <div key={item.label} className={`flex flex-col gap-2 ${item.width}`}>
               <dt className="text-label">{item.label}</dt>
-              <dd className="text-caption flex flex-wrap gap-x-[6px] gap-y-[2px] whitespace-nowrap min-[768px]:flex-col">
+              <dd className={`text-caption flex flex-wrap gap-y-[2px] whitespace-nowrap min-[768px]:flex-col ${item.gap}`}>
                 {item.lines.map((l, i) => (
                   <span key={i}>{l}</span>
                 ))}
