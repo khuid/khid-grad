@@ -19,7 +19,8 @@ export default function ProjectTabs({ current }: { current: ClassKey }) {
         <Node className="top-[0.5px] left-[calc(100%-0.5px)]" />
         <Node className="top-[calc(100%-0.5px)] left-[0.5px]" />
         <Node className="top-[calc(100%-0.5px)] left-[calc(100%-0.5px)]" />
-        <ul className="grid grid-cols-2 min-[768px]:grid-cols-4">
+        {/* 프레임 세로선도 탭 띠 자체의 선(border-x)으로 — 선택·호버 배경이 선을 가리지 않음 */}
+        <ul className="grid grid-cols-2 border-x border-deepblue min-[768px]:grid-cols-4">
           {CLASSES.map((c, i) => {
             const on = c.key === current;
             return (
