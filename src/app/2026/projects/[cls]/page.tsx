@@ -57,12 +57,15 @@ async function ClassView({
 
       {/* 프레임 폭(100cqw) 기준 — 컨테이너는 격자를 감싼 바깥 div여야 격자 칸 폭에 cqw를 쓸 수 있음 */}
       <div className={`@container mx-auto ${FRAME}`}>
-        <div className="grid min-[768px]:grid-cols-[40cqw_minmax(0,1fr)] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(45/1340*100cqw)]">
-          {/* 수업 정보: 태블릿·데스크탑은 스크롤해도 제자리 (탭이 올라간 뒤 상단바 45/53 아래에 붙음) */}
+        <div className="grid min-[768px]:h-[max(480px,calc(100dvh-135px))] min-[768px]:grid-cols-[40cqw_minmax(0,1fr)] min-[1000px]:h-[max(520px,calc(100dvh-157px))] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(45/1340*100cqw)]">
+          {/* 태블릿·데스크탑(768~): 탭 아래 영역을 화면 높이에 맞추고(상단바 45/53 + 위 여백 40/50 + 탭 50/54 뺀 만큼)
+              오른쪽 작품 목록만 그 안에서 스크롤 → 탭·수업 정보는 계속 보임. 목록 끝에서 더 내리면 페이지가 내려가 푸터가 나옴.
+              모바일은 페이지 전체 스크롤(안쪽 스크롤은 휴대폰 인앱 브라우저에서 덜컹거려서 안 씀).
+              수업 정보도 화면이 낮아 넘치면 그 칸 안에서 스크롤 */}
           {/* 칸 안쪽 폭(100cqw)에 맞춰 수업명 크기 조절: 글자 수(--n) × 0.82em(Freesentation 한글 폭, 자간 포함) + 화살표(--a) + 16이 넘치지 않게, 최대 30/32/44 */}
           <div
             style={{ "--n": c.ko.length } as React.CSSProperties}
-            className="@container px-5 pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:sticky min-[768px]:top-[45px] min-[768px]:self-start min-[768px]:px-6 min-[768px]:pt-[60px] min-[1000px]:top-[53px] min-[1000px]:px-[32px] min-[1000px]:pt-[72px]"
+            className="@container px-5 pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:px-6 min-[768px]:pt-[60px] min-[1000px]:px-[32px] min-[1000px]:pt-[72px]"
           >
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
@@ -99,7 +102,11 @@ async function ClassView({
             </p>
           </div>
 
-          <ul className="grid grid-cols-2 gap-x-[5cqw] gap-y-8 px-[6.5cqw] pt-10 pb-[52px] min-[768px]:gap-x-4 min-[768px]:gap-y-10 min-[768px]:px-0 min-[768px]:pt-[60px] min-[768px]:pr-6 min-[768px]:pb-[80px] min-[1000px]:grid-cols-3 min-[1000px]:gap-x-[calc(10/1340*100cqw)] min-[1000px]:gap-y-[40px] min-[1000px]:pt-[72px] min-[1000px]:pr-[calc(25/1340*100cqw)] min-[1000px]:pb-[120px]">
+          <ul
+            tabIndex={0}
+            aria-label={`${c.ko} 작품 목록`}
+            className="grid grid-cols-2 content-start outline-none min-[768px]:overflow-y-auto min-[768px]:overscroll-auto min-[768px]:[scrollbar-width:none] min-[768px]:[&::-webkit-scrollbar]:hidden gap-x-[5cqw] gap-y-8 px-[6.5cqw] pt-10 pb-[52px] min-[768px]:gap-x-4 min-[768px]:gap-y-10 min-[768px]:px-0 min-[768px]:pt-[60px] min-[768px]:pr-6 min-[768px]:pb-[80px] min-[1000px]:grid-cols-3 min-[1000px]:gap-x-[calc(10/1340*100cqw)] min-[1000px]:gap-y-[40px] min-[1000px]:pt-[72px] min-[1000px]:pr-[calc(25/1340*100cqw)] min-[1000px]:pb-[120px]"
+          >
             {works.map((w) => (
               <li key={w.no}>
                 <WorkCard project={w} />
