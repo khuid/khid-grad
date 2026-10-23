@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Node } from "./SectionBar";
 
 // 작품 상세·디자이너 프로필 왼쪽 위(상단바 아래 여백)의 뒤로 가기 칸.
-// 프레임 왼쪽 선 ~ 오른쪽 칸막이 선 사이 정사각형 칸(한 변 = 여백 높이 24/40/50)에 선 화살표만, 칸막이와 아래 가로선이 만나는 곳에 9×9 사각형.
+// 프레임 왼쪽 선 ~ 오른쪽 칸막이 선 사이 정사각형 칸(한 변 = 여백 높이 24/40/50)에 선 화살표만(16/20/23).
 // 마우스를 올리면 연한 하늘색(탭 호버와 같은 pale 50%), 누르는 동안 pale.
 // 사이트 안에서 넘어왔으면 브라우저 뒤로 가기(스크롤 위치·탭 그대로), 링크로 바로 들어왔으면 목록(fallback)으로.
 // 부모는 여백 칸 전체 높이를 차지하고, 아래 가로선은 부모 바로 아래 1px에 있다는 전제
@@ -29,12 +29,11 @@ export default function BackButton({ fallback, className = "" }: { fallback: str
       className={`relative ml-px flex aspect-square h-full items-center justify-center text-deepblue transition-colors hover:bg-pale/50 active:bg-pale ${className}`}
     >
       {/* 선 화살표 ← */}
-      <svg viewBox="0 0 20 20" aria-hidden className="size-[14px] min-[768px]:size-[18px] min-[1000px]:size-[20px]">
+      <svg viewBox="0 0 20 20" aria-hidden className="size-[16px] min-[768px]:size-[20px] min-[1000px]:size-[23px]">
         <path d="M17 10H3.5M9 4.5 3.5 10 9 15.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
       </svg>
-      {/* 오른쪽 칸막이(아래 가로선까지) + 만나는 곳 사각형 */}
+      {/* 오른쪽 칸막이(아래 가로선까지). 칸이 작아서 칸막이 끝 사각형은 두지 않음(2026-10-23 결정) */}
       <span aria-hidden className="absolute top-0 right-0 -bottom-px w-px bg-deepblue" />
-      <Node className="top-[calc(100%+0.5px)] left-[calc(100%-0.5px)]" />
       {/* 왼쪽 아래 모서리(프레임 선 × 가로선) 사각형도 칸 안에서 다시 그려서 호버 색 위에 오게 */}
       <Node className="top-[calc(100%+0.5px)] left-[-0.5px]" />
     </button>
