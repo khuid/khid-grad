@@ -13,7 +13,7 @@ export const TEAMS: Team[] = [
 
 // 사진: 자유컷(work/data/designers/pose)을 칸 비율로 가로 가운데·위 기준으로 잘라 640px WebP로 public/2026/committee/에.
 // 이수민(56)·오지샘(57)은 졸준위만 하고 졸전자가 아니라 자유컷만 있음 (오지샘 자유컷은 2026-10-23 받은 p57-오지샘.png로 교체 완료 — 혼자 피부가 밝고 대비가 강해서
-// scripts/tone-match.py --strength 0.65로 다른 사진들 피부톤에 맞춤. profile-photos.py로 다시 만들면 이것도 다시)
+// scripts/tone-match.py --strength 0.65 --desat 0.15 --cool 3으로 다른 사진들 피부톤에 맞춤. profile-photos.py로 다시 만들면 이것도 다시)
 // d = 데스크탑·태블릿 [칸, 줄], m = 모바일 [칸, 줄] (Figma iPhone 390: 4칸 × 4줄, 빈칸 유지)
 export const MEMBERS: { name: string; team: string; photo?: string; d: [number, number]; m: [number, number] }[] = [
   { name: "장서영", photo: "/2026/committee/p41-jang-seoyeong.webp", team: "po", d: [1, 1], m: [1, 1] },

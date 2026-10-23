@@ -4,10 +4,11 @@
   1) 피부만 기준 사진들의 피부 평균색으로: 따뜻한 색(R−B가 큰) 픽셀일수록 채널별 비율(기준 피부 ÷ 이 사진 피부)을 더 세게 곱함
      → 배경 회색·검정 옷처럼 무채색은 그대로, 얼굴·목·손만 톤이 내려감
   2) 전체에 약한 톤 곡선으로 검정을 살짝 들어 올려 대비를 줄임(--lift), 배경 회색(238)과 흰색은 그대로
+  3) 그래도 혼자 웜하면 피부 쪽만 채도를 줄이고(--desat) 빨강을 조금 빼고 파랑을 조금 더함(--cool)
 기준 사진은 같은 폴더의 다른 WebP 전부.
 
 실행 (site.2026 폴더에서, Pillow·numpy 필요) — profile-photos.py를 다시 돌렸다면 이것도 다시:
-  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp
+  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.65 --desat 0.15 --cool 3
 """
 import argparse
 from pathlib import Path
@@ -52,6 +53,8 @@ def main() -> None:
     ap.add_argument("target")
     ap.add_argument("--lift", type=float, default=8, help="검정을 이만큼 들어 올림(대비 줄이기)")
     ap.add_argument("--strength", type=float, default=1.0, help="피부색 맞추는 정도 0~1")
+    ap.add_argument("--desat", type=float, default=0.0, help="피부 쪽 채도 줄이는 정도 0~1")
+    ap.add_argument("--cool", type=float, default=0.0, help="피부 쪽 빨강을 뺄 양(파랑은 그 0.6배 더함)")
     a = ap.parse_args()
 
     target = Path(a.target)
@@ -68,6 +71,14 @@ def main() -> None:
     for ch in range(3):
         lut = curve(128, 128 + a.lift * (1 - 128 / BG), a.lift)  # 검정만 살짝 들어 올리는 약한 곡선
         out[..., ch] = lut[np.clip(f[..., ch], 0, 255).round().astype(np.uint8)].round().astype(np.uint8)
+    if a.desat or a.cool:
+        f = out.astype(float)
+        warm = np.clip((f[..., 0] - f[..., 2] - 8) / 22, 0, 1)[..., None]
+        lum = (0.299 * f[..., 0] + 0.587 * f[..., 1] + 0.114 * f[..., 2])[..., None]
+        f = lum + (f - lum) * (1 - a.desat * warm)
+        f[..., 0] -= a.cool * warm[..., 0]
+        f[..., 2] += a.cool * 0.6 * warm[..., 0]
+        out = np.clip(f, 0, 255).round().astype(np.uint8)
     Image.fromarray(out).save(target, "WEBP", quality=85, method=6)
     print(f"{target.name}: skin {src_skin.round()} -> {skin_mean(out).round()} (ref {ref_skin.round()})")
 
