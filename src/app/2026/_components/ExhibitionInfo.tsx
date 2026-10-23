@@ -9,8 +9,8 @@ import SectionBar, { FRAME } from "./SectionBar";
 // 모바일·태블릿(~999)은 약도 위, 정보 아래 세로 배치이고 가운데 세로선 없음.
 // 태블릿(768~)은 약도·정보·교수님 줄을 [4] 졸준위 사진 격자와 같은 폭(프레임의 1151.78/1340, 좌우 94.11씩)에 맞춤:
 // 정보 두 묶음은 왼쪽·오른쪽 끝에, 교수님 네 분도 첫 분 화살표 ~ 마지막 분 글자 끝이 그 폭 양 끝에 오고 사이만 늘고 줆.
-// 모바일: 띠 → 약도 52(아래 띠 위 여백과 같게), 약도 → 정보 제목 32. 태블릿: 둘 다 32.
-// 태블릿 교수님 줄 위아래 여백은 [4] 후원사 칸(위 40 + 로고 + 아래 56)과 같은 높이가 되게.
+// 띠 → 내용, 내용 → 다음 띠 여백은 위아래 같게: 모바일 52 / 태블릿 60 (전시안내·졸준위·후원사 모두). 약도 → 정보 제목 32.
+// 지도교수 칸은 모바일·태블릿 모두 [4] 후원사 칸(위 + 로고 + 아래)과 같은 높이가 되게 위아래 여백을 계산.
 //
 // Figma 실측(1440): 구역 위 ~ 띠 45 / 약도 712×520, 띠 아래 45·오른쪽 45·아래 95 /
 // 정보는 프레임 왼쪽에서 70, 약도와 세로 가운데 맞춤. 화살표 20(arrow/S 좌우반전) – 제목 간격 8,
@@ -62,7 +62,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <div className="grid [grid-template-areas:'map'_'info'] min-[1000px]:grid-cols-[calc(538/1340*100cqw)_minmax(0,1fr)] min-[1000px]:[grid-template-areas:'info_map']">
             {/* 약도 */}
-            <div className="px-4 pt-12 pb-8 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-7 min-[768px]:pb-8 min-[1000px]:p-[calc(45/1340*100cqw)] min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:pb-[calc(95/1340*100cqw)]">
+            <div className="px-4 pt-12 pb-8 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-14 min-[768px]:pb-8 min-[1000px]:p-[calc(45/1340*100cqw)] min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:pb-[calc(95/1340*100cqw)]">
               <div className="relative aspect-[712/520] w-full overflow-hidden bg-pale">
                 <iframe
                   src={MAP_SRC}
@@ -75,7 +75,7 @@ export default function ExhibitionInfo() {
             </div>
 
             {/* 전시 정보 */}
-            <div className="relative break-keep px-5 pt-0 pb-12 [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
+            <div className="relative break-keep px-5 pt-0 pb-[46px] [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-[54px] min-[1000px]:flex min-[1000px]:items-center min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
               {/* 가운데 세로선: 띠의 4px 바깥 여백까지 늘려서 위·아래 띠 선에 딱 붙게 */}
               <span aria-hidden className="absolute top-[-5px] right-0 bottom-[-5px] hidden w-px bg-deepblue min-[1000px]:block" />
               <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-6 min-[1000px]:flex-col min-[1000px]:justify-start min-[1000px]:gap-[65px]">
@@ -120,7 +120,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <ul
             aria-labelledby="professor-title"
-            className="grid grid-cols-2 gap-y-8 py-10 min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((100cqw-56px)/8+22px)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
+            className="grid grid-cols-2 gap-y-8 py-[calc(50cqw-29.5px)] min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((100cqw-56px)/8+29.5px)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
           >
             {PROFESSORS.map((p) => (
               <li key={p.en} className="flex justify-center">

@@ -69,7 +69,7 @@ export default function Credits() {
           en="PREPARATORY COMMITTEE"
         />
         <div className={`@container relative mx-auto ${FRAME}`}>
-          <div className="px-[calc(12px+(100cqw-358px)*0.06)] pt-8 pb-12 min-[768px]:mx-auto min-[768px]:w-[calc(1151.78/1340*100cqw)] min-[768px]:px-0 min-[768px]:pt-10 min-[768px]:pb-14 min-[1000px]:pt-[calc(62/1340*100cqw)] min-[1000px]:pb-[calc(120.5/1340*100cqw)]">
+          <div className="px-[calc(12px+(100cqw-358px)*0.06)] pt-12 pb-12 min-[768px]:mx-auto min-[768px]:w-[calc(1151.78/1340*100cqw)] min-[768px]:px-0 min-[768px]:pt-14 min-[768px]:pb-14 min-[1000px]:pt-[calc(62/1340*100cqw)] min-[1000px]:pb-[calc(120.5/1340*100cqw)]">
             <div>
               <CommitteeGrid />
               <ul
@@ -97,7 +97,7 @@ export default function Credits() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <ul
             aria-labelledby="sponsor-title"
-            className="mx-auto grid w-full grid-cols-2 px-4 pt-8 pb-12 min-[768px]:grid-cols-4 min-[768px]:px-7 min-[768px]:pt-10 min-[768px]:pb-14 min-[1000px]:w-[calc(1200/1340*100cqw)] min-[1000px]:px-0 min-[1000px]:pt-[calc(100/1340*100cqw)] min-[1000px]:pb-[calc(120/1340*100cqw)]"
+            className="mx-auto grid w-full grid-cols-2 px-4 pt-12 pb-[52px] min-[768px]:grid-cols-4 min-[768px]:px-7 min-[768px]:pt-14 min-[768px]:pb-[60px] min-[1000px]:w-[calc(1200/1340*100cqw)] min-[1000px]:px-0 min-[1000px]:pt-[calc(100/1340*100cqw)] min-[1000px]:pb-[calc(120/1340*100cqw)]"
           >
             {SPONSORS.map((s) => (
               <li key={s.name}>
