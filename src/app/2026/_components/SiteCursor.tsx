@@ -49,17 +49,21 @@ export default function SiteCursor({ heroId }: { heroId: string }) {
     // 마우스는 가만히 있고 스크롤만 해도 아래 구역이 바뀌면 크기 갱신
     const scroll = () => y >= 0 && size();
     const leave = () => (cursor.style.opacity = "0");
+    // 지도·영상 iframe 안에선 마우스 이벤트가 안 와서 화살표가 가장자리에 멈춤 → 숨기고 iframe 자체 커서 사용
+    const over = (e: PointerEvent) => e.target instanceof HTMLIFrameElement && leave();
 
     const apply = () => root.classList.toggle("site-cursor", fine.matches);
     apply();
     fine.addEventListener("change", apply);
     window.addEventListener("pointermove", move);
     window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("pointerover", over);
     document.documentElement.addEventListener("pointerleave", leave);
     return () => {
       fine.removeEventListener("change", apply);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", scroll);
+      window.removeEventListener("pointerover", over);
       document.documentElement.removeEventListener("pointerleave", leave);
       root.classList.remove("site-cursor");
     };

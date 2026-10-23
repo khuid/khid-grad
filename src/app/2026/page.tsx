@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import ClearPreview from "./_components/ClearPreview";
 import ComingSoon from "./_components/ComingSoon";
 import Concept from "./_components/Concept";
+import ExhibitionInfo from "./_components/ExhibitionInfo";
 import Header from "./_components/Header";
 import Hero from "./_components/Hero";
 import { PREVIEW_COOKIE } from "./_components/preview";
@@ -25,7 +26,7 @@ export const viewport: Viewport = {
 //    공개 시각 이후 졸준위가 직접 삭제를 요청할 때만 지울 것. 미리 지우면 그 배포 순간 사이트가 공개됨
 const OPEN_AT = new Date("2026-11-11T09:00:00+09:00").getTime();
 
-// 구역별로 만들어 가는 중: [1] 히어로, [2] 기획
+// 구역별로 만들어 가는 중: [1] 히어로, [2] 기획, [3] 전시안내
 function FullSite() {
   return (
     <>
@@ -33,6 +34,7 @@ function FullSite() {
       <main>
         <Hero />
         <Concept />
+        <ExhibitionInfo />
       </main>
       <SiteCursor heroId="top" />
     </>
