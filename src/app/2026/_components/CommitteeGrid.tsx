@@ -11,7 +11,8 @@ import { MEMBERS, TEAMS } from "./committee";
 // 1명인 팀은 "Team." 줄바꿈 "팀명", 가운데 정렬.
 //
 // Figma 실측(격자 폭 1151.78): 칸 158.76×198.16, 칸 사이 가로 6.75 / 세로 11.25, 사진 없는 칸 배경 #EDEDED,
-// 덮개 글자 27(2명 이상 팀, 칸 폭의 17%, 칸 사이 포함해 격자 폭 기준 16.4cqw/칸수). 1명 팀은 두 줄이라 칸 폭의 13.5%
+// 덮개 글자 27(2명 이상 팀, 칸 폭의 17%, 칸 사이 포함해 격자 폭 기준 16.4cqw/칸수). 1명 팀은 두 줄이라 칸 폭의 13.5%.
+// 작아져도 최소 12px. 단 1명 팀은 가장 긴 "Communication"이 칸(폭 ÷ 6.7)에 들어가는 크기까지만 — 390 미만에서만 12보다 작아짐
 // 팀이 차지하는 칸 범위 (같은 줄에 붙어 있다는 전제)
 function span(team: string, k: "d" | "m") {
   const ms = MEMBERS.filter((m) => m.team === team);
@@ -74,7 +75,9 @@ export default function CommitteeGrid() {
               }}
               style={{ "--dc": d.col, "--dr": d.row, "--mc": mo.col, "--mr": mo.row } as Vars}
               className={`z-10 flex items-center justify-center bg-key/80 text-center font-semibold leading-[1.15] tracking-[-0.04em] text-white transition-opacity duration-200 [@media(hover:hover)]:hover:opacity-100 ${
-                solo ? "text-[length:calc(13.5cqw/var(--cols))]" : "text-[length:calc(16.4cqw/var(--cols))]"
+                solo
+                  ? "text-[length:max(min(12px,calc(100cqw/var(--cols)/6.7)),calc(13.5cqw/var(--cols)))]"
+                  : "text-[length:max(12px,calc(16.4cqw/var(--cols)))]"
               } ${on ? "opacity-100" : "opacity-0"} ${PLACE}`}
             >
               <span aria-hidden>{t.label}</span>

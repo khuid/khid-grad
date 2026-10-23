@@ -18,7 +18,7 @@ import SectionBar, { FRAME } from "./SectionBar";
 //
 // ── 지도교수 ──
 // Figma 실측(1440): 띠 아래 내용 높이 440, 네 분을 폭 263짜리 칸 4개(가운데 정렬, 1052)에 한 분씩 칸 가운데.
-// 화살표 20 – 이름 간격 12, 이름(24, #1A6AE8) 아래 2 띄우고 영문(20, #ADC9FF). 태블릿 4열 / 모바일 2열
+// 화살표 20 – 이름 간격 12, 이름(24) 아래 2 띄우고 영문(text-lead 20/500/1.4), 둘 다 #1A6AE8. 태블릿 4열 / 모바일 2열
 const MAP_QUERY = "경희대학교 국제캠퍼스 예술디자인대학";
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&hl=ko&z=16&output=embed`;
 
@@ -138,7 +138,7 @@ export default function ExhibitionInfo() {
                     </p>
                     <p
                       lang="en"
-                      className="text-lead mt-[2px] leading-[1.31] text-[#adc9ff] max-[768px]:text-[16px] min-[768px]:max-[1000px]:text-[18px]"
+                      className="text-lead mt-[2px] text-rule max-[768px]:text-[16px] min-[768px]:max-[1000px]:text-[18px]"
                     >
                       {p.en}
                     </p>

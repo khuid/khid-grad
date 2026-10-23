@@ -84,7 +84,7 @@ export default function Concept() {
                 <br />
                 <span className="font-semibold">:THIS IS A NEW PATHWAY</span>
               </h2>
-              <p className="text-title mt-2 leading-normal max-[1000px]:text-[18px] min-[768px]:max-[1000px]:text-[24px] min-[1000px]:mt-[calc(10/1340*100cqw)] min-[1000px]:max-[1440px]:text-[length:max(23.8px,calc(28/1340*100cqw))]">
+              <p className="text-title mt-2 leading-[normal] max-[1000px]:text-[18px] min-[768px]:max-[1000px]:text-[24px] min-[1000px]:mt-[calc(10/1340*100cqw)] min-[1000px]:max-[1440px]:text-[length:max(23.8px,calc(28/1340*100cqw))]">
                 하나의 끝, 새로운 길
               </p>
             </div>
@@ -106,7 +106,7 @@ export default function Concept() {
                       {group.map((lines, i) => (
                         <p
                           key={i}
-                          className="text-body max-[768px]:text-[14px] min-[1000px]:max-[1440px]:text-[length:max(13.6px,calc(16/1340*100cqw))]"
+                          className="text-body max-[768px]:text-[14px] min-[1000px]:max-[1440px]:text-[length:max(14px,calc(16/1340*100cqw))]"
                         >
                           <Lines lines={lines} />
                         </p>
