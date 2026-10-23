@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 // 사진 격자: 4열, 칸 250×312.5, 칸 사이 24, 좌우 134, 제목 상자 아래선 → 첫 줄 82, 줄 사이 52.
 // 사진 → 이름 18.5(이름은 사진 왼쪽보다 2 안쪽에서 시작), 국문 20/500 ink – 11 – 영문 16/500 #777(밑줄 맞춤). 이름 색은 2026-10-23 결정: 국문 ink, 영문 #777.
 // 태블릿(768~999) 3열, 모바일 2열 — 4열이면 이름이 칸보다 길어져서
-// 모바일 2열: 좌우 여백·열 사이 모두 프레임 폭의 5%(390에서 18, 714에서 34)
+// 모바일 2열: 좌우 여백은 프레임 폭의 6.5%(390에서 23, 464에서 28), 열 사이는 5%(390에서 18)
 export default function DesignersPage() {
   return (
     <SiteGate>
@@ -49,7 +49,7 @@ export default function DesignersPage() {
         </TopBox>
 
         <div className={`@container mx-auto ${FRAME}`}>
-          <ul className="grid grid-cols-2 gap-x-[5cqw] gap-y-8 px-[5cqw] pt-10 pb-[52px] min-[768px]:grid-cols-3 min-[768px]:gap-x-5 min-[768px]:gap-y-10 min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-[60px] min-[768px]:pb-[80px] min-[1000px]:grid-cols-4 min-[1000px]:gap-x-[calc(24/1340*100cqw)] min-[1000px]:gap-y-[52px] min-[1000px]:px-[calc(134/1340*100cqw)] min-[1000px]:pt-[82px] min-[1000px]:pb-[120px]">
+          <ul className="grid grid-cols-2 gap-x-[5cqw] gap-y-8 px-[6.5cqw] pt-10 pb-[52px] min-[768px]:grid-cols-3 min-[768px]:gap-x-5 min-[768px]:gap-y-10 min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-[60px] min-[768px]:pb-[80px] min-[1000px]:grid-cols-4 min-[1000px]:gap-x-[calc(24/1340*100cqw)] min-[1000px]:gap-y-[52px] min-[1000px]:px-[calc(134/1340*100cqw)] min-[1000px]:pt-[82px] min-[1000px]:pb-[120px]">
             {DESIGNERS.map((p) => (
               <li key={p.slug}>
                 <Link href={`/2026/designers/${p.slug}`} className="group block">
