@@ -35,6 +35,8 @@ export default function BackButton({ fallback, className = "" }: { fallback: str
       {/* 오른쪽 칸막이(아래 가로선까지) + 만나는 곳 사각형 */}
       <span aria-hidden className="absolute top-0 right-0 -bottom-px w-px bg-deepblue" />
       <Node className="top-[calc(100%+0.5px)] left-[calc(100%-0.5px)]" />
+      {/* 왼쪽 아래 모서리(프레임 선 × 가로선) 사각형도 칸 안에서 다시 그려서 호버 색 위에 오게 */}
+      <Node className="top-[calc(100%+0.5px)] left-[-0.5px]" />
     </button>
   );
 }
