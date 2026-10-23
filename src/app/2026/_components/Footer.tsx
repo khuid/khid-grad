@@ -38,6 +38,7 @@ export default function Footer() {
       <div
         className={`mx-auto grid gap-y-10 py-10 max-[768px]:px-[calc(12px+(100%-390px)*0.06)] [grid-template-areas:'title'_'info'_'logo'] min-[768px]:grid-cols-[auto_1fr] min-[768px]:gap-y-12 min-[768px]:[grid-template-areas:'title_title'_'logo_info'] min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'] ${FRAME}`}
       >
+        {/* 모바일 제목 크기는 화살표와 안 겹치게 폭별로: ~330 20 / 331~359 22 / 360~381 24 / 382~ 26 */}
         {/* 전시명 · 제목 · 부제. ~1199는 화살표를 오른쪽 위 모서리에 띄워 둬서 전시명 → 제목 간격이 데스크탑처럼 16 */}
         <div className="relative flex flex-col gap-4 [grid-area:title]">
           <p className="text-caption">제 35회 경희대학교 산업디자인학과 졸업전시</p>
@@ -49,7 +50,7 @@ export default function Footer() {
             className="absolute top-0 right-0 block size-[32px] min-[768px]:size-[52px] min-[1200px]:hidden"
           />
           <div className="flex flex-col gap-2">
-            <p className="text-display max-[360px]:text-[22px] min-[360px]:max-[768px]:text-[26px] min-[768px]:max-[1000px]:text-[34px]">
+            <p className="text-display max-[331px]:text-[20px] min-[331px]:max-[360px]:text-[22px] min-[360px]:max-[382px]:text-[24px] min-[382px]:max-[768px]:text-[26px] min-[768px]:max-[1000px]:text-[34px]">
               THIS IS NOT GRADUATION
               <br />
               <span className="font-semibold">:THIS IS A NEW PATHWAY</span>
