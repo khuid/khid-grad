@@ -6,7 +6,8 @@ import SectionBar from "./SectionBar";
 // ── 전시안내 ──
 // 데스크탑(1000~)은 Figma 1440 배치: 프레임(1340 = 100cqw) 안 왼쪽 정보 538 | 세로선 | 오른쪽 약도.
 //   여백은 프레임 폭 비율이라 1000~1439에선 같이 줄고, 글자 크기는 그대로.
-// 모바일·태블릿(~999)은 약도 위, 정보 아래 세로 배치이고 가운데 세로선 없음 (태블릿 768~는 정보 두 묶음을 나란히).
+// 모바일·태블릿(~999)은 약도 위, 정보 아래 세로 배치이고 가운데 세로선 없음 (태블릿 768~는 정보 두 묶음을 나란히:
+// 글자 묶음 사이 80(좁아서 안 들어가면 그만큼 줄임), 두 묶음 전체를 지도 기준 가운데 정렬).
 //
 // Figma 실측(1440): 구역 위 ~ 띠 45 / 약도 712×520, 띠 아래 45·오른쪽 45·아래 95 /
 // 정보는 프레임 왼쪽에서 70, 약도와 세로 가운데 맞춤. 화살표 20(arrow/S 좌우반전) – 제목 간격 8,
@@ -75,7 +76,7 @@ export default function ExhibitionInfo() {
 
             {/* 전시 정보 */}
             <div className="break-keep px-5 pt-3 pb-12 [grid-area:info] min-[768px]:px-7 min-[768px]:pt-4 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-r min-[1000px]:border-rule min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
-              <div className="flex flex-col gap-[40px] min-[768px]:grid min-[768px]:grid-cols-2 min-[768px]:gap-[28px] min-[1000px]:flex min-[1000px]:gap-[65px]">
+              <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-center min-[768px]:gap-[min(80px,calc(100cqw-628px))] min-[1000px]:flex-col min-[1000px]:gap-[65px]">
                 {EVENTS.map((e) => (
                   <div key={e.title}>
                     <h3
