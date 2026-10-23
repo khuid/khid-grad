@@ -37,10 +37,12 @@ const CLOSING: React.ReactNode[] = [
   </>,
 ];
 
-function Lines({ lines }: { lines: React.ReactNode[] }) {
+// flow: 모바일(~767)에서는 줄을 강제로 나누지 않고 이어 써서 화면 폭에 맞게 자연스럽게 넘어가게 (기획 본문 문단, 2026-10-23)
+function Lines({ lines, flow }: { lines: React.ReactNode[]; flow?: boolean }) {
   return lines.map((l, i) => (
-    <span key={i} className="block min-[1000px]:whitespace-nowrap">
+    <span key={i} className={`block min-[1000px]:whitespace-nowrap ${flow ? "max-[767px]:inline" : ""}`}>
       {l}
+      {flow && i < lines.length - 1 && <span className="min-[768px]:hidden"> </span>}
     </span>
   ));
 }
@@ -108,7 +110,7 @@ export default function Concept() {
                           key={i}
                           className="text-body max-[768px]:text-[14px] min-[1000px]:max-[1440px]:text-[length:max(14px,calc(16/1340*100cqw))]"
                         >
-                          <Lines lines={lines} />
+                          <Lines lines={lines} flow />
                         </p>
                       ))}
                     </div>
@@ -123,6 +125,7 @@ export default function Concept() {
             {/* 아래 띠: 왼쪽 THIS IS / NOT / GRADUATION 선 그래픽(main_whiteline, 흰색), 오른쪽 칸 큰 화살표.
                 띠 높이(--h)를 기준으로 화살표 칸은 항상 정사각형(폭 = 높이), 선 그래픽도 띠 높이에 비례
                 (데스크탑 띠 211에서 그래픽 높이 168 = 원본 크기). 그래픽은 왼쪽 선에서 24, 세로 가운데.
+                그래픽 SVG는 T 윗선이 시작하는 x 31부터만 보이게 잘라 둠(왼쪽으로 나간 인입선 제거, 2026-10-23) → 폭 451
                 화살표는 칸 정가운데 (화살표 SVG 자체 여백 포함 칸 폭의 88%) */}
             <div className="grid h-(--h) grid-cols-[1fr_var(--h)] [--h:96px] [grid-area:deco] min-[768px]:[--h:150px] min-[1000px]:border-t min-[1000px]:border-white min-[1000px]:[--h:calc(211/1340*100cqw)]">
               <div className="flex min-w-0 items-center border-r border-white pl-6">
@@ -131,7 +134,7 @@ export default function Concept() {
                   src="/2026/concept/main-whiteline.svg"
                   alt=""
                   aria-hidden
-                  className="h-auto w-[min(calc(var(--h)*168/211*482/168),calc(100%-24px))] max-w-none"
+                  className="h-auto w-[min(calc(var(--h)*168/211*451/168),calc(100%-24px))] max-w-none"
                 />
               </div>
               <div className="flex items-center justify-center">
