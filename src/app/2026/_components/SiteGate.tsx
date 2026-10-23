@@ -8,7 +8,7 @@ import { PREVIEW_COOKIE } from "./preview";
 // 2026-11-11 09:00 KST 이후 전체 사이트 공개. 메인·DESIGNERS 등 2026 페이지가 모두 이 게이트를 거침.
 // ⚠️ 커밍순 관련 코드(SiteGate, ComingSoon, ClearPreview, preview.ts, comingsoon.jpg)는
 //    공개 시각 이후 졸준위가 직접 삭제를 요청할 때만 지울 것. 미리 지우면 그 배포 순간 사이트가 공개됨
-const OPEN_AT = new Date("2026-11-11T09:00:00+09:00").getTime();
+export const OPEN_AT = new Date("2026-11-11T09:00:00+09:00").getTime();
 
 async function Gate({ children }: { children: React.ReactNode }) {
   // 요청 시점의 시각으로 판단 (빌드 시점에 고정되지 않도록).
@@ -28,7 +28,7 @@ async function Gate({ children }: { children: React.ReactNode }) {
   return <ComingSoon />;
 }
 
-function isOpen() {
+export function isOpen() {
   return process.env.NODE_ENV === "development" || Date.now() >= OPEN_AT;
 }
 
