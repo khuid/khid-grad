@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FitTitle from "./FitTitle";
 import { projectHref, type Project } from "./projects";
 
 // 작품 카드 (PROJECTS 목록 · DESIGNERS 프로필 아래 작품). DESIGNERS 목록 카드와 같은 양식:
@@ -20,9 +21,10 @@ export default function WorkCard({ project, title }: { project?: Project; title?
           />
         )}
       </div>
-      <p className="mt-3 pl-[4px] text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-ink transition-colors group-hover:text-key min-[768px]:mt-4 min-[768px]:text-[20px] min-[1000px]:mt-[18px]">
+      {/* 긴 제목은 2줄 안에 들어가게 글자 크기를 줄임 (FitTitle) */}
+      <FitTitle className="mt-3 pl-[4px] text-[16px] font-medium tracking-[-0.04em] text-ink transition-colors group-hover:text-key min-[768px]:mt-4 min-[768px]:text-[20px] min-[1000px]:mt-[18px]">
         {project?.title ?? title}
-      </p>
+      </FitTitle>
       <p className="mt-1.5 flex flex-wrap gap-x-[8px] pl-[4px] text-[14px] leading-[normal] font-medium tracking-[-0.04em] text-[#777] transition-colors group-hover:text-key min-[768px]:mt-2 min-[768px]:text-[16px]">
         {project?.members.length ? project.members.map((m) => <span key={m}>{m}</span>) : "만든 사람"}
       </p>
