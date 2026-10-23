@@ -63,7 +63,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <div className="grid [grid-template-areas:'map'_'info'] min-[1000px]:grid-cols-[calc(538/1340*100cqw)_minmax(0,1fr)] min-[1000px]:[grid-template-areas:'info_map']">
             {/* 약도 */}
-            <div className="px-4 pt-12 pb-8 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-14 min-[768px]:pb-8 min-[1000px]:p-[calc(45/1340*100cqw)] min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:pb-[calc(95/1340*100cqw)]">
+            <div className="px-4 pt-12 pb-8 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-14 min-[768px]:pb-8 min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:py-[calc(70/1340*100cqw)]">
               <div className="relative aspect-[712/520] w-full overflow-hidden bg-pale">
                 <iframe
                   src={MAP_SRC}
@@ -76,7 +76,7 @@ export default function ExhibitionInfo() {
             </div>
 
             {/* 전시 정보 */}
-            <div className="relative break-keep px-5 pt-0 pb-[46px] [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-[54px] min-[1000px]:flex min-[1000px]:items-center min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
+            <div className="relative break-keep px-5 pt-0 pb-[46px] [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-[54px] min-[1000px]:flex min-[1000px]:items-center min-[1000px]:pt-[calc(70/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(70/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
               {/* 가운데 세로선: 띠의 4px 바깥 여백까지 늘려서 위·아래 띠 선에 딱 붙게 */}
               <span aria-hidden className="absolute top-[-5px] right-0 bottom-[-5px] hidden w-px bg-deepblue min-[1000px]:block" />
               <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-6 min-[1000px]:flex-col min-[1000px]:justify-start min-[1000px]:gap-[65px]">
@@ -121,7 +121,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <ul
             aria-labelledby="professor-title"
-            className="grid grid-cols-2 gap-y-16 py-[calc(37.5cqw-41.5px)] min-[480px]:py-12 min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((59px+min(128px,(100cqw-56px)/4))/2)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
+            className="grid grid-cols-2 gap-y-16 py-[calc(37.5cqw-41.5px)] min-[480px]:py-12 min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((59px+min(128px,(100cqw-56px)/4))/2)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:py-[calc(192/1340*100cqw)]"
           >
             {PROFESSORS.map((p) => (
               <li key={p.en} className="flex justify-center">
