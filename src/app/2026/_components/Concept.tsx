@@ -126,11 +126,11 @@ export default function Concept() {
 
             {/* 아래 띠: 왼쪽 THIS IS / NOT / GRADUATION 선 그래픽(main_whiteline, 흰색), 오른쪽 칸 큰 화살표.
                 띠 높이(--h)를 기준으로 화살표 칸은 항상 정사각형(폭 = 높이), 선 그래픽도 띠 높이에 비례
-                (데스크탑 띠 211에서 그래픽 높이 168 = 원본 크기). 그래픽은 왼쪽 선에서 24, 세로 가운데.
+                (데스크탑 띠 211에서 그래픽 높이 168 = 원본 크기). 그래픽은 왼쪽 선에서 24(모바일 ~767은 20 — 위 본문 글자 시작선과 맞춤), 세로 가운데.
                 그래픽 SVG는 T 윗선이 시작하는 x 31부터만 보이게 잘라 둠(왼쪽으로 나간 인입선 제거, 2026-10-23) → 폭 451
                 화살표는 칸 정가운데 (화살표 SVG 자체 여백 포함 칸 폭의 88%) */}
             <div className="grid h-(--h) grid-cols-[1fr_var(--h)] [--h:96px] [grid-area:deco] min-[768px]:[--h:150px] min-[1000px]:border-t min-[1000px]:border-white min-[1000px]:[--h:calc(211/1340*100cqw)]">
-              <div className="flex min-w-0 items-center border-r border-white pl-6">
+              <div className="flex min-w-0 items-center border-r border-white pl-6 max-[767px]:pl-5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/2026/concept/main-whiteline.svg"
