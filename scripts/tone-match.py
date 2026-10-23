@@ -11,7 +11,7 @@
 기준 사진은 같은 폴더의 다른 WebP 전부.
 
 실행 (site.2026 폴더에서, Pillow·numpy 필요) — profile-photos.py를 다시 돌렸다면 이것도 다시:
-  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.8 --desat -0.4 --cool 6 --magenta 3 --dim-white 0.86
+  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.8 --desat -0.4 --cool 6 --magenta 3 --dim-white 0.9
 """
 import argparse
 from pathlib import Path
