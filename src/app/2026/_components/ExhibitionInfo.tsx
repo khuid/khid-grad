@@ -75,7 +75,9 @@ export default function ExhibitionInfo() {
             </div>
 
             {/* 전시 정보 */}
-            <div className="break-keep px-5 pt-0 pb-12 [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-r min-[1000px]:border-rule min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
+            <div className="relative break-keep px-5 pt-0 pb-12 [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
+              {/* 가운데 세로선: 띠의 4px 바깥 여백까지 늘려서 위·아래 띠 선에 딱 붙게 */}
+              <span aria-hidden className="absolute top-[-5px] right-0 bottom-[-5px] hidden w-px bg-rule min-[1000px]:block" />
               <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-6 min-[1000px]:flex-col min-[1000px]:justify-start min-[1000px]:gap-[65px]">
                 {EVENTS.map((e) => (
                   <div key={e.title}>
