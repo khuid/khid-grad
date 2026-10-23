@@ -1,8 +1,7 @@
 // DESIGNERS 페이지 데이터: 졸전자 55명(졸준위만 한 56 이수민·57 오지샘 제외), 가나다 순 = work/data/designers/designers.csv 순서.
 // slug(주소 /2026/designers/<slug>)와 사진 파일명은 csv의 name_en. en은 임시 표기(성 + 이름 로마자) — 본인 표기를 받으면 en·slug·사진 이름을 같이 바꿀 것.
-// contact(이메일)·portfolio(링크 여러 개)·works(작품 3개)는 나중에 일괄 입력. 비어 있으면 화면에 "준비 중".
-// works[].href는 PROJECTS 상세 페이지가 생기면 연결
-export type Work = { title: string; members: string[]; href?: string };
+// contact(이메일)·portfolio(링크 여러 개)는 나중에 일괄 입력. 비어 있으면 화면에 "준비 중".
+// 프로필 아래 작품 3개는 projects.ts의 members(국문 이름)로 저절로 찾음
 export type Designer = {
   no: string;
   slug: string;
@@ -10,7 +9,6 @@ export type Designer = {
   en: string;
   contact?: string;
   portfolio: string[];
-  works: Work[];
 };
 
 const d = (no: string, ko: string, slug: string, en: string): Designer => ({
@@ -19,7 +17,6 @@ const d = (no: string, ko: string, slug: string, en: string): Designer => ({
   ko,
   en,
   portfolio: [],
-  works: [1, 2, 3].map(() => ({ title: "작품 제목", members: [ko] })),
 });
 
 export const DESIGNERS: Designer[] = [
