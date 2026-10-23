@@ -120,7 +120,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <ul
             aria-labelledby="professor-title"
-            className="grid grid-cols-2 gap-y-8 py-[calc(50cqw-29.5px)] min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((100cqw-56px)/8+29.5px)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
+            className="grid grid-cols-2 gap-y-8 py-[calc(50cqw-29.5px)] min-[480px]:py-[calc((min(128px,(100cqw-32px)/4)-27px)/2)] min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((59px+min(128px,(100cqw-56px)/4))/2)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
           >
             {PROFESSORS.map((p) => (
               <li key={p.en} className="flex justify-center">

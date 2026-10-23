@@ -16,6 +16,7 @@ import SectionBar, { FRAME } from "./SectionBar";
 // 이름 = [3] 전시정보 본문과 같은 text-info(15/500/1.31) + 블랙(ink), 모든 화면에서 15
 //
 // ── 후원사 ── Figma 실측(1440): 띠 아래 100 / 로고 300×300 네 개를 붙여서 가운데 / 120
+// 480~999는 한 줄에 네 개, 로고는 최대 128. 480 미만(휴대폰)만 2×2
 const SPONSORS = [
   { name: "피아바", src: "/2026/sponsors/fiaba.svg" },
   { name: "댄싱사이다", src: "/2026/sponsors/dancingcider.svg" },
@@ -97,17 +98,17 @@ export default function Credits() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <ul
             aria-labelledby="sponsor-title"
-            className="mx-auto grid w-full grid-cols-2 px-4 pt-12 pb-[52px] min-[768px]:grid-cols-4 min-[768px]:px-7 min-[768px]:pt-14 min-[768px]:pb-[60px] min-[1000px]:w-[calc(1200/1340*100cqw)] min-[1000px]:px-0 min-[1000px]:pt-[calc(100/1340*100cqw)] min-[1000px]:pb-[calc(120/1340*100cqw)]"
+            className="mx-auto grid w-full grid-cols-2 px-4 pt-12 pb-[52px] min-[480px]:grid-cols-4 min-[768px]:px-7 min-[768px]:pt-14 min-[768px]:pb-[60px] min-[1000px]:w-[calc(1200/1340*100cqw)] min-[1000px]:px-0 min-[1000px]:pt-[calc(100/1340*100cqw)] min-[1000px]:pb-[calc(120/1340*100cqw)]"
           >
             {SPONSORS.map((s) => (
-              <li key={s.name}>
+              <li key={s.name} className="flex justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={s.src}
                   alt={s.name}
                   width={300}
                   height={300}
-                  className="block aspect-square h-auto w-full"
+                  className="block aspect-square h-auto w-full min-[480px]:max-[1000px]:w-[min(128px,100%)]"
                 />
               </li>
             ))}
