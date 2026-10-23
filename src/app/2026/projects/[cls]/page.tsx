@@ -59,8 +59,9 @@ async function ClassView({
           --row = 카드 한 줄(썸네일 폭 --cw × 1.25 + 제목·만든 사람 한 줄씩 약 56/62/72 — 실측), --cw는 열 수·여백으로 화면 폭에서 계산
           목록 아래 여백 = 화면 높이 − --top − --row (최소 24/48/64) → 마지막 줄이 --top에 닿는 순간 목록 끝이 화면 아래 끝
           탭은 묶음 끝에서 (화면 높이 − --top)만큼 일찍 놓이고(mb, 같은 만큼 격자를 -mt로 끌어올려 배치는 그대로),
-          수업 정보는 최소 높이를 (화면 높이 − --top)으로 둬서 탭과 같은 순간에 놓임. 정보 아래 여백 최소 40 */}
-      <div className="[--top:160px] [--cw:calc((100vw_-_32px)*0.41)] [--row:calc(var(--cw)*1.25_+_56px)] min-[768px]:[--row:calc(var(--cw)*1.25_+_62px)] min-[1000px]:[--row:calc(var(--cw)*1.25_+_72px)] [--release:calc(100dvh_-_var(--top))] min-[600px]:[--cw:calc((100vw_-_32px)*0.27)] min-[768px]:[--top:159px] min-[768px]:[--cw:calc(((100vw_-_80px)*0.66_-_48px)/3)] min-[1000px]:[--top:185px] min-[1000px]:[--cw:calc(min(1340px,100vw_-_100px)*250/1340)]">
+          수업 정보는 최소 높이를 (화면 높이 − --top)으로 둬서 탭과 같은 순간에 놓임. 정보 아래 여백 최소 40.
+          모바일(~767)은 이 처리 없이 목록 아래 여백 52만 (길게 비지 않게, 2026-10-23 결정) */}
+      <div className="[--top:160px] [--cw:calc((100vw_-_32px)*0.41)] [--row:calc(var(--cw)*1.25_+_56px)] min-[768px]:[--row:calc(var(--cw)*1.25_+_62px)] min-[1000px]:[--row:calc(var(--cw)*1.25_+_72px)] [--release:0px] min-[768px]:[--release:calc(100dvh_-_var(--top))] min-[600px]:[--cw:calc((100vw_-_32px)*0.27)] min-[768px]:[--top:159px] min-[768px]:[--cw:calc(((100vw_-_80px)*0.66_-_48px)/3)] min-[1000px]:[--top:185px] min-[1000px]:[--cw:calc(min(1340px,100vw_-_100px)*250/1340)]">
         <ProjectTabs current={c.key} release />
 
         {/* 프레임 폭(100cqw) 기준 — 컨테이너는 격자를 감싼 바깥 div여야 격자 칸 폭에 cqw를 쓸 수 있음 */}
@@ -115,7 +116,7 @@ async function ClassView({
 
             <ul
               aria-label={`${c.ko} 작품 목록`}
-              className="grid grid-cols-2 gap-x-[5cqw] gap-y-8 px-[6.5cqw] pt-10 pb-[max(24px,calc(100dvh_-_var(--top)_-_var(--row)))] min-[600px]:grid-cols-3 min-[600px]:gap-x-[3cqw] min-[768px]:gap-x-3 min-[768px]:gap-y-8 min-[768px]:px-0 min-[768px]:pt-0 min-[768px]:pr-6 min-[768px]:pb-[max(48px,calc(100dvh_-_var(--top)_-_var(--row)))] min-[1000px]:gap-x-[calc(10/1340*100cqw)] min-[1000px]:gap-y-[40px] min-[1000px]:pr-[calc(25/1340*100cqw)] min-[1000px]:pb-[max(64px,calc(100dvh_-_var(--top)_-_var(--row)))]"
+              className="grid grid-cols-2 gap-x-[5cqw] gap-y-8 px-[6.5cqw] pt-10 pb-[52px] min-[600px]:grid-cols-3 min-[600px]:gap-x-[3cqw] min-[768px]:gap-x-3 min-[768px]:gap-y-8 min-[768px]:px-0 min-[768px]:pt-0 min-[768px]:pr-6 min-[768px]:pb-[max(48px,calc(100dvh_-_var(--top)_-_var(--row)))] min-[1000px]:gap-x-[calc(10/1340*100cqw)] min-[1000px]:gap-y-[40px] min-[1000px]:pr-[calc(25/1340*100cqw)] min-[1000px]:pb-[max(64px,calc(100dvh_-_var(--top)_-_var(--row)))]"
             >
               {works.map((w) => (
                 <li key={w.no}>
