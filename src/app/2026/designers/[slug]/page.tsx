@@ -11,7 +11,7 @@ import SubPage, { OutlineArrow, TopBox } from "../../_components/SubPage";
 // 데스크탑(1000~)은 Figma designers/profiles(1440) 배치, 프레임(1340 = 100cqw) 비율.
 //
 // Figma 실측(1440): 위 상자 높이 724(위아래 50), 사진 500×623.85(프레임 왼쪽에서 49), 사진 → 정보 58, 정보 줄은 사진 아래에 맞춤.
-// 이름 국문 44/600 – 16 – 영문 32/500 #A5A5A5, 45 아래 CONTACT·PORTFOLIO(20/600 #1980FF, 값은 라벨 왼쪽에서 116, 16/400, 줄 사이 17·8).
+// 이름 국문 44/600 – 16 – 영문 32/500 #777(2026-10-23 결정, 국문은 ink), 45 아래 CONTACT·PORTFOLIO(20/600 #1980FF, 값은 라벨 왼쪽에서 116, 16/400, 줄 사이 17·8).
 // 화살표 202는 정보 오른쪽 끝(프레임 오른쪽에서 48), 정보와 세로 가운데.
 // 작품: 위 상자 아래선 → 106, 3열 357.14×446.43(좌우 50, 사이 84), 그림 → 제목 26(28.57/500) → 11 → 이름들 20/500(사이 11.7).
 // 모바일·태블릿(~999)은 사진 → 정보 세로 배치, 작품은 모바일 1열 / 태블릿 3열
@@ -68,8 +68,8 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
           <div className="flex items-end justify-between gap-4 min-[1000px]:items-center min-[1000px]:self-end">
             <div className="min-w-0">
               <h1 className="flex flex-wrap items-baseline gap-x-3 leading-[normal] tracking-[-0.04em] min-[1000px]:gap-x-4">
-                <span className="text-[30px] font-semibold min-[768px]:text-[36px] min-[1000px]:text-[44px]">{p.ko}</span>
-                <span lang="en" className="text-[20px] font-medium text-[#a5a5a5] min-[768px]:text-[26px] min-[1000px]:text-[32px]">
+                <span className="text-[30px] font-semibold text-ink min-[768px]:text-[36px] min-[1000px]:text-[44px]">{p.ko}</span>
+                <span lang="en" className="text-[20px] font-medium text-[#777] min-[768px]:text-[26px] min-[1000px]:text-[32px]">
                   {p.en}
                 </span>
               </h1>
