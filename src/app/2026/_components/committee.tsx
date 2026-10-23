@@ -12,7 +12,7 @@ export const TEAMS: Team[] = [
 ];
 
 // 사진: 자유컷(work/data/designers/pose)을 칸 비율로 가로 가운데·위 기준으로 잘라 640px WebP로 public/2026/committee/에.
-// 이수민(56)·오지샘(57)은 졸준위만 하고 졸전자가 아니라 자유컷만 있음. 오지샘은 임시로 work/지샘 프로필.jpeg — 제대로 된 사진 받으면 교체
+// 이수민(56)·오지샘(57)은 졸준위만 하고 졸전자가 아니라 자유컷만 있음 (오지샘 자유컷은 2026-10-23 받은 p57-오지샘.png로 교체 완료)
 // d = 데스크탑·태블릿 [칸, 줄], m = 모바일 [칸, 줄] (Figma iPhone 390: 4칸 × 4줄, 빈칸 유지)
 export const MEMBERS: { name: string; team: string; photo?: string; d: [number, number]; m: [number, number] }[] = [
   { name: "장서영", photo: "/2026/committee/p41-jang-seoyeong.webp", team: "po", d: [1, 1], m: [1, 1] },

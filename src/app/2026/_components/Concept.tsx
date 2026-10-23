@@ -103,8 +103,8 @@ export default function Concept() {
             <div className="break-keep border-b border-white px-5 py-8 [grid-area:text] min-[768px]:px-8 min-[768px]:py-10 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-b-0 min-[1000px]:py-0 min-[1000px]:pr-0 min-[1000px]:pl-[calc(52/1340*100cqw)]">
               <div>
                 {/* 두 문단씩 한 묶음: 묶음 사이와 묶음 → 마무리 문장 사이를 같게 — 전체 높이는 그대로 두고 둘을 고르게 나눔
-                    (Figma 35 + 64 → 49.5씩, 모바일 24 + 32 → 28씩, 2026-10-23) */}
-                <div className="flex flex-col gap-[28px] min-[1000px]:gap-[calc(49.5/1340*100cqw)]">
+                    (Figma 35 + 64 → 고르게 나눈 뒤 데스크탑 44씩으로 살짝 줄임, 모바일 24 + 32 → 28씩, 2026-10-23) */}
+                <div className="flex flex-col gap-[28px] min-[1000px]:gap-[calc(44/1340*100cqw)]">
                   {PARAGRAPHS.map((group, g) => (
                     <div key={g} className="flex flex-col gap-3 min-[1000px]:gap-[calc(12/1340*100cqw)]">
                       {group.map((lines, i) => (
@@ -118,7 +118,7 @@ export default function Concept() {
                     </div>
                   ))}
                 </div>
-                <p className="text-lead mt-[28px] max-[768px]:text-[16px] min-[1000px]:mt-[calc(49.5/1340*100cqw)] min-[1000px]:max-[1440px]:text-[length:max(17px,calc(20/1340*100cqw))]">
+                <p className="text-lead mt-[28px] max-[768px]:text-[16px] min-[1000px]:mt-[calc(44/1340*100cqw)] min-[1000px]:max-[1440px]:text-[length:max(17px,calc(20/1340*100cqw))]">
                   <Lines lines={CLOSING} />
                 </p>
               </div>
