@@ -6,8 +6,10 @@ import SectionBar, { FRAME } from "./SectionBar";
 // ── 전시안내 ──
 // 데스크탑(1000~)은 Figma 1440 배치: 프레임(1340 = 100cqw) 안 왼쪽 정보 538 | 세로선 | 오른쪽 약도.
 //   여백은 프레임 폭 비율이라 1000~1439에선 같이 줄고, 글자 크기는 그대로.
-// 모바일·태블릿(~999)은 약도 위, 정보 아래 세로 배치이고 가운데 세로선 없음 (태블릿 768~는 정보 두 묶음을 나란히:
-// 글자 묶음 사이 100(좁아서 안 들어가면 그만큼 줄임), 두 묶음 전체를 지도 기준 가운데 정렬).
+// 모바일·태블릿(~999)은 약도 위, 정보 아래 세로 배치이고 가운데 세로선 없음.
+// 태블릿(768~)은 약도·정보·교수님 줄을 [4] 졸준위 사진 격자와 같은 폭(프레임의 1151.78/1340, 좌우 94.11씩)에 맞춤:
+// 정보 두 묶음은 왼쪽·오른쪽 끝에, 교수님 네 분도 첫 분 화살표 ~ 마지막 분 글자 끝이 그 폭 양 끝에 오고 사이만 늘고 줆.
+// 태블릿 교수님 줄 위아래 여백은 [4] 후원사 칸(위 40 + 로고 + 아래 56)과 같은 높이가 되게.
 //
 // Figma 실측(1440): 구역 위 ~ 띠 45 / 약도 712×520, 띠 아래 45·오른쪽 45·아래 95 /
 // 정보는 프레임 왼쪽에서 70, 약도와 세로 가운데 맞춤. 화살표 20(arrow/S 좌우반전) – 제목 간격 8,
@@ -59,7 +61,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <div className="grid [grid-template-areas:'map'_'info'] min-[1000px]:grid-cols-[calc(538/1340*100cqw)_minmax(0,1fr)] min-[1000px]:[grid-template-areas:'info_map']">
             {/* 약도 */}
-            <div className="p-4 [grid-area:map] min-[768px]:p-7 min-[1000px]:p-[calc(45/1340*100cqw)] min-[1000px]:pb-[calc(95/1340*100cqw)]">
+            <div className="p-4 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-7 min-[1000px]:p-[calc(45/1340*100cqw)] min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:pb-[calc(95/1340*100cqw)]">
               <div className="relative aspect-[712/520] w-full overflow-hidden bg-pale">
                 <iframe
                   src={MAP_SRC}
@@ -72,13 +74,13 @@ export default function ExhibitionInfo() {
             </div>
 
             {/* 전시 정보 */}
-            <div className="break-keep px-5 pt-3 pb-12 [grid-area:info] min-[768px]:px-7 min-[768px]:pt-4 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-r min-[1000px]:border-rule min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
-              <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-center min-[768px]:gap-[min(100px,calc(100cqw-628px))] min-[1000px]:flex-col min-[1000px]:gap-[65px]">
+            <div className="break-keep px-5 pt-3 pb-12 [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-4 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-r min-[1000px]:border-rule min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
+              <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-6 min-[1000px]:flex-col min-[1000px]:justify-start min-[1000px]:gap-[65px]">
                 {EVENTS.map((e) => (
                   <div key={e.title}>
                     <h3
                       lang="en"
-                      className="text-heading flex items-center gap-[8px] text-rule max-[767px]:text-[18px] min-[768px]:max-[999px]:text-[22px]"
+                      className="text-heading flex items-center gap-[8px] text-rule max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -115,7 +117,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <ul
             aria-labelledby="professor-title"
-            className="grid grid-cols-2 gap-y-8 py-10 min-[768px]:grid-cols-4 min-[768px]:py-16 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
+            className="grid grid-cols-2 gap-y-8 py-10 min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((100cqw-56px)/8+22px)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
           >
             {PROFESSORS.map((p) => (
               <li key={p.en} className="flex justify-center">
@@ -128,12 +130,12 @@ export default function ExhibitionInfo() {
                     className="mt-[3px] block size-[18px] -scale-x-100 min-[768px]:size-[20px] min-[1000px]:mt-[4px]"
                   />
                   <div>
-                    <p className="text-heading text-rule max-[767px]:text-[18px] min-[768px]:max-[999px]:text-[22px]">
+                    <p className="text-heading text-rule max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]">
                       {p.ko} 교수님
                     </p>
                     <p
                       lang="en"
-                      className="text-lead mt-[2px] leading-[1.31] text-[#adc9ff] max-[767px]:text-[16px] min-[768px]:max-[999px]:text-[18px]"
+                      className="text-lead mt-[2px] leading-[1.31] text-[#adc9ff] max-[768px]:text-[16px] min-[768px]:max-[1000px]:text-[18px]"
                     >
                       {p.en}
                     </p>

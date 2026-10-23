@@ -26,7 +26,7 @@ export default function SectionBar({ ko, en, id }: { ko: string; en: string; id?
           <Node className="top-[calc(100%+0.5px)] left-[calc(100%-0.5px)]" />
           <h2
             id={id}
-            className="text-heading flex flex-wrap items-baseline gap-x-[10px] text-rule max-[767px]:text-[18px] min-[768px]:gap-x-[16px] min-[768px]:max-[999px]:text-[21px] min-[1000px]:gap-x-[24px]"
+            className="text-heading flex flex-wrap items-baseline gap-x-[10px] text-rule max-[768px]:text-[18px] min-[768px]:gap-x-[16px] min-[768px]:max-[1000px]:text-[21px] min-[1000px]:gap-x-[24px]"
           >
             <span>{ko}</span>
             <span lang="en">{en}</span>

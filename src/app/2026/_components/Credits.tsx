@@ -37,7 +37,7 @@ function TeamCredit({ team }: { team: string }) {
   const t = TEAMS.find((x) => x.key === team)!;
   return (
     <div className="flex flex-col gap-[6px] whitespace-nowrap text-rule min-[768px]:gap-[8px] min-[1000px]:gap-[10px]">
-      <p className="text-heading max-[340px]:text-[16px] min-[340px]:max-[768px]:text-[18px] min-[768px]:max-[999px]:text-[22px]">
+      <p className="text-heading max-[340px]:text-[16px] min-[340px]:max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]">
         {t.title}
       </p>
       <p className="flex gap-x-[10px] text-[14px]/[1.15] font-normal min-[340px]:gap-x-[12px] min-[340px]:text-[16px]/[1.15] tracking-[-0.04em] min-[768px]:gap-x-[16px] min-[768px]:text-[18px]/[1.15] min-[1000px]:gap-x-[20px] min-[1000px]:text-[20px]/[1.15]">

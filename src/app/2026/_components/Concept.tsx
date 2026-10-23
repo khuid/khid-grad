@@ -75,13 +75,13 @@ export default function Concept() {
             <div className="border-b border-white bg-pale/10 px-5 py-6 [grid-area:title] min-[768px]:px-8 min-[768px]:py-9 min-[1000px]:pr-0 min-[1000px]:pl-[calc(52/1340*100cqw)] min-[1000px]:pt-[calc(48/1340*100cqw)] min-[1000px]:pb-0">
               <h2
                 id="concept-title"
-                className="text-display max-[999px]:text-[26px] min-[768px]:max-[999px]:text-[34px] min-[1000px]:max-[1439px]:text-[length:max(34px,calc(40/1340*100cqw))]"
+                className="text-display max-[1000px]:text-[26px] min-[768px]:max-[1000px]:text-[34px] min-[1000px]:max-[1440px]:text-[length:max(34px,calc(40/1340*100cqw))]"
               >
                 THIS IS NOT GRADUATION
                 <br />
                 <span className="font-semibold">:THIS IS A NEW PATHWAY</span>
               </h2>
-              <p className="text-title mt-2 leading-normal max-[999px]:text-[18px] min-[768px]:max-[999px]:text-[24px] min-[1000px]:mt-[calc(10/1340*100cqw)] min-[1000px]:max-[1439px]:text-[length:max(23.8px,calc(28/1340*100cqw))]">
+              <p className="text-title mt-2 leading-normal max-[1000px]:text-[18px] min-[768px]:max-[1000px]:text-[24px] min-[1000px]:mt-[calc(10/1340*100cqw)] min-[1000px]:max-[1440px]:text-[length:max(23.8px,calc(28/1340*100cqw))]">
                 하나의 끝, 새로운 길
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function Concept() {
                       {group.map((lines, i) => (
                         <p
                           key={i}
-                          className="text-body max-[767px]:text-[14px] min-[1000px]:max-[1439px]:text-[length:max(13.6px,calc(16/1340*100cqw))]"
+                          className="text-body max-[768px]:text-[14px] min-[1000px]:max-[1440px]:text-[length:max(13.6px,calc(16/1340*100cqw))]"
                         >
                           <Lines lines={lines} />
                         </p>
@@ -111,7 +111,7 @@ export default function Concept() {
                     </div>
                   ))}
                 </div>
-                <p className="text-lead mt-8 max-[767px]:text-[16px] min-[1000px]:mt-[calc(64/1340*100cqw)] min-[1000px]:max-[1439px]:text-[length:max(17px,calc(20/1340*100cqw))]">
+                <p className="text-lead mt-8 max-[768px]:text-[16px] min-[1000px]:mt-[calc(64/1340*100cqw)] min-[1000px]:max-[1440px]:text-[length:max(17px,calc(20/1340*100cqw))]">
                   <Lines lines={CLOSING} />
                 </p>
               </div>
@@ -138,7 +138,7 @@ export default function Concept() {
             </div>
 
             {/* 16:9 영상 */}
-            <div className="border-b border-white [grid-area:video] max-[999px]:border-t">
+            <div className="border-b border-white [grid-area:video] max-[1000px]:border-t">
               <VideoFrame youtubeId={YOUTUBE_ID} />
             </div>
           </div>
