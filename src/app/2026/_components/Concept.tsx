@@ -102,7 +102,8 @@ export default function Concept() {
             {/* 기획 텍스트 */}
             <div className="break-keep border-b border-white px-5 py-8 [grid-area:text] min-[768px]:px-8 min-[768px]:py-10 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-b-0 min-[1000px]:py-0 min-[1000px]:pr-0 min-[1000px]:pl-[calc(52/1340*100cqw)]">
               <div>
-                <div className="flex flex-col gap-6 min-[1000px]:gap-[calc(35/1340*100cqw)]">
+                {/* 두 문단씩 한 묶음: 묶음 사이 = 묶음 → 마무리 문장 사이와 같게 32 / 64(2026-10-23, Figma 35에서 변경) */}
+                <div className="flex flex-col gap-8 min-[1000px]:gap-[calc(64/1340*100cqw)]">
                   {PARAGRAPHS.map((group, g) => (
                     <div key={g} className="flex flex-col gap-3 min-[1000px]:gap-[calc(12/1340*100cqw)]">
                       {group.map((lines, i) => (
