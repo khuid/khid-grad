@@ -4,7 +4,6 @@ import ProjectTabs from "../../_components/ProjectTabs";
 import { CLASSES, classOf, projectsOf } from "../../_components/projects";
 import { FRAME } from "../../_components/SectionBar";
 import SiteGate from "../../_components/SiteGate";
-import ScrollChain from "../../_components/ScrollChain";
 import SubPage from "../../_components/SubPage";
 import WorkCard from "../../_components/WorkCard";
 
@@ -58,16 +57,14 @@ async function ClassView({
 
       {/* 프레임 폭(100cqw) 기준 — 컨테이너는 격자를 감싼 바깥 div여야 격자 칸 폭에 cqw를 쓸 수 있음 */}
       <div className={`@container mx-auto ${FRAME}`}>
-        <ScrollChain className="grid min-[768px]:h-[max(480px,calc(100dvh-135px))] min-[768px]:grid-rows-[minmax(0,1fr)] min-[768px]:py-[24px] min-[1000px]:py-[28px] min-[768px]:grid-cols-[40cqw_minmax(0,1fr)] min-[1000px]:h-[max(520px,calc(100dvh-157px))] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(45/1340*100cqw)]">
-          {/* 태블릿·데스크탑(768~): 탭 아래 영역을 화면 높이에 맞추고(상단바 45/53 + 위 여백 40/50 + 탭 50/54 뺀 만큼)
-              오른쪽 작품 목록만 그 안에서 스크롤 → 탭·수업 정보는 계속 보임. 목록 끝에서 계속 내리면 같은 동작 안에서 페이지가 이어서 내려가 푸터까지(ScrollChain).
-              모바일은 페이지 전체 스크롤(안쪽 스크롤은 휴대폰 인앱 브라우저에서 덜컹거려서 안 씀).
-              수업 정보도 화면이 낮아 넘치면 그 칸 안에서 스크롤. 모바일 좌우 여백은 아래 작품 격자와 같게(프레임 폭의 6.5%).
-              스크롤 영역은 탭 아래선·화면 아래에서 24/28 떨어져 있어서, 스크롤 중에도 위아래에 흰 여백이 보임 */}
+        <div className="grid min-[768px]:grid-cols-[40cqw_minmax(0,1fr)] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(45/1340*100cqw)]">
+          {/* 페이지 전체가 스크롤되고, 탭(+아래 흰 띠)은 상단바 아래에 붙음. 태블릿·데스크탑(768~)은 왼쪽 수업 정보도
+              탭 아래에 붙어 제자리(상단바 45/53 + 탭 50/54 + 흰 띠 24/28 = 119/135) → 오른쪽 작품만 흰 띠 뒤로 지나감.
+              모바일은 수업 정보 → 작품 세로 배치, 좌우 여백은 작품 격자와 같게(프레임 폭의 6.5%) */}
           {/* 칸 안쪽 폭(100cqw)에 맞춰 수업명 크기 조절: 글자 수(--n) × 0.82em(Freesentation 한글 폭, 자간 포함) + 화살표(--a) + 16이 넘치지 않게, 최대 30/32/44 */}
           <div
             style={{ "--n": c.ko.length } as React.CSSProperties}
-            className="@container px-[6.5cqw] pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:px-6 min-[768px]:pt-0 min-[768px]:pb-0 min-[1000px]:px-[32px]"
+            className="@container px-[6.5cqw] pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:sticky min-[768px]:top-[119px] min-[768px]:self-start min-[768px]:px-6 min-[768px]:pt-0 min-[768px]:pb-0 min-[1000px]:top-[135px] min-[1000px]:px-[32px]"
           >
             {/* 화살표는 수업명 윗선에 맞춤 (영문명이 두 줄이 돼도 내려가지 않게) */}
             <div className="flex items-start justify-between gap-4">
@@ -92,8 +89,12 @@ async function ClassView({
             </div>
             <p className="mt-5 flex gap-4 text-[17px] leading-[normal] font-medium tracking-[-0.04em] text-ink min-[1000px]:mt-6 min-[1000px]:text-[20px]">
               <span>지도교수</span>
-              {/* "지도교수 김선철, 이동민" — 이름 뒤 "교수님"은 안 붙임 (2026-10-23 결정) */}
-              <span className="font-semibold">{c.professors.join(", ")}</span>
+              {/* "지도교수 김선철 이동민" — 이름 뒤 "교수님"·쉼표 없이 사이 12 (2026-10-23 결정) */}
+              <span className="flex flex-wrap gap-x-[12px] font-semibold">
+                {c.professors.map((n) => (
+                  <span key={n}>{n}</span>
+                ))}
+              </span>
             </p>
             {/* 수업 설명: #777 (2026-10-23 결정), 데이터의 줄바꿈 그대로 */}
             <p className="mt-8 text-[14px] leading-[1.5] font-medium tracking-[-0.04em] whitespace-pre-line text-[#777] min-[1000px]:mt-[56px] min-[1000px]:text-[15px]">
@@ -104,10 +105,8 @@ async function ClassView({
           </div>
 
           <ul
-            data-scroll-list
-            tabIndex={0}
             aria-label={`${c.ko} 작품 목록`}
-            className="grid grid-cols-2 content-start outline-none min-[768px]:overflow-y-auto min-[768px]:overscroll-auto min-[768px]:[scrollbar-width:none] min-[768px]:[&::-webkit-scrollbar]:hidden gap-x-[5cqw] gap-y-8 px-[6.5cqw] pt-10 pb-[52px] min-[768px]:gap-x-4 min-[768px]:gap-y-10 min-[768px]:px-0 min-[768px]:pt-0 min-[768px]:pr-6 min-[768px]:pb-0 min-[1000px]:grid-cols-3 min-[1000px]:gap-x-[calc(10/1340*100cqw)] min-[1000px]:gap-y-[40px] min-[1000px]:pr-[calc(25/1340*100cqw)]"
+            className="grid grid-cols-2 gap-x-[5cqw] gap-y-8 px-[6.5cqw] pt-10 pb-[52px] min-[768px]:gap-x-4 min-[768px]:gap-y-10 min-[768px]:px-0 min-[768px]:pt-0 min-[768px]:pr-6 min-[768px]:pb-[80px] min-[1000px]:grid-cols-3 min-[1000px]:gap-x-[calc(10/1340*100cqw)] min-[1000px]:gap-y-[40px] min-[1000px]:pr-[calc(25/1340*100cqw)] min-[1000px]:pb-[120px]"
           >
             {works.map((w) => (
               <li key={w.no}>
@@ -115,7 +114,7 @@ async function ClassView({
               </li>
             ))}
           </ul>
-        </ScrollChain>
+        </div>
       </div>
     </SubPage>
   );
