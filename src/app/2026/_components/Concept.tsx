@@ -72,7 +72,10 @@ export default function Concept() {
 
           <div className="grid [grid-template-areas:'title'_'poster'_'text'_'deco'_'video'] min-[1000px]:grid-cols-[calc(606/1340*100cqw)_minmax(0,1fr)] min-[1000px]:grid-rows-[calc(234/1340*100cqw)_calc(501/1340*100cqw)_calc(211/1340*100cqw)_auto] min-[1000px]:[grid-template-areas:'poster_title'_'poster_text'_'deco_deco'_'video_video']">
             {/* 제목 박스 */}
-            <div className="border-b border-white bg-pale/10 px-5 py-6 [grid-area:title] min-[768px]:px-8 min-[768px]:py-9 min-[1000px]:pr-0 min-[1000px]:pl-[calc(52/1340*100cqw)] min-[1000px]:pt-[calc(48/1340*100cqw)] min-[1000px]:pb-0">
+            <div className="relative border-b border-white bg-pale/10 px-5 py-6 [grid-area:title] min-[768px]:px-8 min-[768px]:py-9 min-[1000px]:pr-0 min-[1000px]:pl-[calc(52/1340*100cqw)] min-[1000px]:pt-[calc(48/1340*100cqw)] min-[1000px]:pb-0">
+              {/* 모바일·태블릿: 제목 박스 아래선 × 프레임 세로선에 사각형 (데스크탑은 위 Node들이 따로 있음) */}
+              <Node className="top-[calc(100%-0.5px)] left-0 min-[1000px]:hidden" />
+              <Node className="top-[calc(100%-0.5px)] left-full min-[1000px]:hidden" />
               <h2
                 id="concept-title"
                 className="text-display max-[1000px]:text-[26px] min-[768px]:max-[1000px]:text-[34px] min-[1000px]:max-[1440px]:text-[length:max(34px,calc(40/1340*100cqw))]"

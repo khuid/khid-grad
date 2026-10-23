@@ -1,7 +1,8 @@
 // 푸터. 파란 배경(#1980FF) + 흰 글자, 프레임과 같은 폭(1340, 좌우 50)에 위아래 40.
 // 1200~은 Figma 배치(1000~1199는 두 칸이 좁아 제목이 꺾여서 태블릿처럼 세로 배치): 왼쪽 전시명·제목·부제 → 52 아래 경희 휘장 + KHID 로고 /
 // 오른쪽 위 큰 화살표(58), 오른쪽 아래 WHERE · WHEN · ABOUT KHID 세 칸(칸 사이 24).
-// 그 아래(~1199)는 제목(+오른쪽 화살표) → 정보 → 로고 순 세로 배치, 모바일은 정보도 한 칸씩.
+// 태블릿(768~1199)은 제목(+오른쪽 화살표) 아래 한 줄에 휘장·로고 ←여백→ 정보.
+// 모바일은 제목 → 정보(항목마다 내용 한 줄, 좁으면 줄바꿈) → 로고 순 세로 배치.
 //
 // Figma 실측(1440): 높이 340 / 전시명 14 → 16 → 제목 40(ExtraBold, 둘째 줄 SemiBold) → 8 → 부제 28 Medium /
 // 휘장 40 – 12 – 로고 52×18 / 항목명 16 SemiBold → 8 → 내용 14 Regular(줄 사이 2), WHEN 칸 194 · ABOUT 칸 114.
@@ -33,7 +34,7 @@ export default function Footer() {
   return (
     <footer data-cursor="light" className="bg-key text-white">
       <div
-        className={`mx-auto grid gap-y-10 py-10 [grid-template-areas:'title'_'info'_'logo'] min-[768px]:gap-y-12 min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'] ${FRAME}`}
+        className={`mx-auto grid gap-y-10 py-10 [grid-template-areas:'title'_'info'_'logo'] min-[768px]:grid-cols-[auto_1fr] min-[768px]:gap-y-12 min-[768px]:[grid-template-areas:'title_title'_'logo_info'] min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'] ${FRAME}`}
       >
         {/* 전시명 · 제목 · 부제 (~1199는 화살표를 전시명 줄 오른쪽에 둬서 제목이 폭을 다 쓰게) */}
         <div className="flex flex-col gap-4 [grid-area:title]">
@@ -69,11 +70,11 @@ export default function Footer() {
         />
 
         {/* WHERE · WHEN · ABOUT KHID */}
-        <dl className="flex flex-col gap-5 [grid-area:info] min-[768px]:flex-row min-[768px]:gap-6 min-[1200px]:self-end">
+        <dl className="flex flex-col gap-5 [grid-area:info] min-[768px]:flex-row min-[768px]:gap-6 min-[768px]:self-end min-[768px]:justify-self-end">
           {INFO.map((item) => (
             <div key={item.label} className={`flex flex-col gap-2 ${item.width}`}>
               <dt className="text-label">{item.label}</dt>
-              <dd className="text-caption flex flex-col gap-[2px] whitespace-nowrap">
+              <dd className="text-caption flex flex-wrap gap-x-[6px] gap-y-[2px] whitespace-nowrap min-[768px]:flex-col">
                 {item.lines.map((l, i) => (
                   <span key={i}>{l}</span>
                 ))}
@@ -83,7 +84,7 @@ export default function Footer() {
         </dl>
 
         {/* 경희 휘장 + KHID 로고 */}
-        <div className="flex items-center gap-3 [grid-area:logo]">
+        <div className="flex items-center gap-3 [grid-area:logo] min-[768px]:self-end">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/2026/footer/khu-emblem.svg" alt="경희대학교" width={40} height={40} className="block size-[40px]" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
