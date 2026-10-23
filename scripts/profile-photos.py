@@ -11,6 +11,9 @@
 실행 (site.2026 폴더에서, Pillow 필요):
   python3 scripts/profile-photos.py --kind pose --out public/2026/committee --names 장서영,양성은
   python3 scripts/profile-photos.py --kind pose --out ... --extra 57=../work/지샘\\ 프로필.jpeg  (원본 폴더 밖 임시 사진)
+  DESIGNERS 페이지(졸전자만, 목록 정면 640 / 프로필 자유컷 1000):
+  python3 scripts/profile-photos.py --kind front --group designer --out public/2026/designers/front
+  python3 scripts/profile-photos.py --kind pose --group designer --width 1000 --out public/2026/designers/pose
 """
 import argparse
 import csv
@@ -64,6 +67,7 @@ def main() -> None:
     ap.add_argument("--kind", choices=["front", "pose"], required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--names", help="쉼표로 구분한 한글 이름 (없으면 전원)")
+    ap.add_argument("--group", choices=["designer", "committee"], help="designers.csv group 열로 거르기")
     ap.add_argument("--width", type=int, default=640)
     ap.add_argument("--extra", action="append", default=[], help="번호=원본경로 (원본 폴더에 아직 없는 사람)")
     a = ap.parse_args()
@@ -75,6 +79,8 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
     for r in rows:
         if names and r["name"] not in names:
+            continue
+        if a.group and r["group"] != a.group:
             continue
         web = r[f"{a.kind}_web"]
         if not web:

@@ -12,7 +12,7 @@
 export const FRAME =
   "w-[calc(100%-32px)] min-[768px]:w-[calc(100%-80px)] min-[1000px]:w-[min(1340px,calc(100%-100px))]";
 
-function Node({ className }: { className: string }) {
+export function Node({ className }: { className: string }) {
   return <span aria-hidden className={`absolute z-10 size-[9px] -translate-1/2 bg-deepblue ${className}`} />;
 }
 
