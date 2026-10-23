@@ -38,10 +38,19 @@ export default function SiteCursor({ heroId }: { heroId: string }) {
         if (small.getAttribute("src") !== src) small.setAttribute("src", src);
       }
     };
+    let intoFrame = 0;
     const move = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
+      const dx = e.clientX - x;
+      const dy = e.clientY - y;
       x = e.clientX;
       y = e.clientY;
+      // 지도·영상 iframe 안으로 들어가면 이 문서엔 이벤트가 더 안 와서 화살표가 가장자리에 멈춤.
+      // 마지막 움직임 방향으로 조금 더 간 곳이 iframe이고 그 뒤로 움직임이 끊기면 → 들어간 것으로 보고 숨김(iframe 자체 커서 사용)
+      clearTimeout(intoFrame);
+      if (frameAt(x + dx * 2 + Math.sign(dx) * 4, y + dy * 2 + Math.sign(dy) * 4)) {
+        intoFrame = window.setTimeout(leave, 60);
+      }
       size();
       cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       cursor.style.opacity = "1";
@@ -49,8 +58,14 @@ export default function SiteCursor({ heroId }: { heroId: string }) {
     // 마우스는 가만히 있고 스크롤만 해도 아래 구역이 바뀌면 크기 갱신
     const scroll = () => y >= 0 && size();
     const leave = () => (cursor.style.opacity = "0");
-    // 지도·영상 iframe 안에선 마우스 이벤트가 안 와서 화살표가 가장자리에 멈춤 → 숨기고 iframe 자체 커서 사용
-    const over = (e: PointerEvent) => e.target instanceof HTMLIFrameElement && leave();
+    const frameAt = (px: number, py: number) =>
+      [...document.querySelectorAll("iframe")].some((f) => {
+        const r = f.getBoundingClientRect();
+        return px >= r.left && px <= r.right && py >= r.top && py <= r.bottom;
+      });
+    // 브라우저가 iframe 진입을 알려주는 경우엔 바로 숨김
+    const over = (e: PointerEvent) =>
+      (e.target instanceof HTMLIFrameElement || e.relatedTarget instanceof HTMLIFrameElement) && leave();
 
     const apply = () => root.classList.toggle("site-cursor", fine.matches);
     apply();
@@ -58,12 +73,15 @@ export default function SiteCursor({ heroId }: { heroId: string }) {
     window.addEventListener("pointermove", move);
     window.addEventListener("scroll", scroll, { passive: true });
     window.addEventListener("pointerover", over);
+    window.addEventListener("pointerout", over);
     document.documentElement.addEventListener("pointerleave", leave);
     return () => {
       fine.removeEventListener("change", apply);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", scroll);
       window.removeEventListener("pointerover", over);
+      window.removeEventListener("pointerout", over);
+      clearTimeout(intoFrame);
       document.documentElement.removeEventListener("pointerleave", leave);
       root.classList.remove("site-cursor");
     };
