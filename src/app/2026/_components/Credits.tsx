@@ -9,7 +9,8 @@ import SectionBar, { FRAME } from "./SectionBar";
 // 팀·이름은 격자 왼쪽에서 0 · 486 · 975에 세 칸, 순서는 위 사진 순서와 같음.
 // 팀명 24 SemiBold, 이름 20 Regular(이름 사이 20), 팀명 → 이름 10, 전부 #1A6AE8. P.O.와 AnF는 한 칸에 48 간격으로 나란히.
 // 태블릿(세 칸)은 글자 묶음을 사진 격자 왼쪽·오른쪽 끝에, 모바일(두 칸)은 격자보다 7씩 안쪽(390에서 프레임 선부터 19)에 맞추고,
-// 화면 폭이 바뀌면 칸 사이만 늘고 줆.
+// 화면 폭이 바뀌면 칸 사이만 늘고 줆. 360보다 좁으면 안쪽 들임 없이 격자 끝에 맞추고,
+// 340보다 좁으면(최소 320 대응) 글자도 16/14로 줄임.
 // 모바일 사진 격자는 Figma iPhone 390(프레임 선에서 12) 기준, 화면이 넓어지면 격자가 같이 커지고 좌우 여백도 조금씩(늘어난 폭의 6%) 늘어남.
 // 글자 크기는 [3]과 통일: 팀명 = 소제목(EXHIBITION·교수님 이름)과 같은 text-heading 18/22/24,
 // 이름 = 교수님 영문 이름과 같은 크기 16/18/20(굵기는 Figma대로 Regular)
@@ -36,10 +37,10 @@ function TeamCredit({ team }: { team: string }) {
   const t = TEAMS.find((x) => x.key === team)!;
   return (
     <div className="flex flex-col gap-[6px] whitespace-nowrap text-rule min-[768px]:gap-[8px] min-[1000px]:gap-[10px]">
-      <p className="text-heading max-[767px]:text-[18px] min-[768px]:max-[999px]:text-[22px]">
+      <p className="text-heading max-[340px]:text-[16px] min-[340px]:max-[768px]:text-[18px] min-[768px]:max-[999px]:text-[22px]">
         {t.title}
       </p>
-      <p className="flex gap-x-[12px] text-[16px]/[1.15] font-normal tracking-[-0.04em] min-[768px]:gap-x-[16px] min-[768px]:text-[18px]/[1.15] min-[1000px]:gap-x-[20px] min-[1000px]:text-[20px]/[1.15]">
+      <p className="flex gap-x-[10px] text-[14px]/[1.15] font-normal min-[340px]:gap-x-[12px] min-[340px]:text-[16px]/[1.15] tracking-[-0.04em] min-[768px]:gap-x-[16px] min-[768px]:text-[18px]/[1.15] min-[1000px]:gap-x-[20px] min-[1000px]:text-[20px]/[1.15]">
         {MEMBERS.filter((m) => m.team === team).map((m) => (
           <span key={m.name}>{m.name}</span>
         ))}
@@ -73,12 +74,12 @@ export default function Credits() {
               <CommitteeGrid />
               <ul
                 aria-labelledby="committee-title"
-                className="mt-[56px] grid grid-cols-[repeat(2,auto)] justify-between gap-x-4 px-[7px] min-[768px]:px-0 gap-y-[28px] min-[768px]:mt-10 min-[768px]:grid-cols-[repeat(3,auto)] min-[768px]:gap-y-8 min-[1000px]:mt-[calc(82/1340*100cqw)] min-[1000px]:grid-cols-[486fr_489fr_176.78fr] min-[1000px]:justify-normal min-[1000px]:gap-x-0 min-[1000px]:gap-y-[40px]"
+                className="mt-[56px] grid grid-cols-[repeat(2,auto)] justify-between gap-x-2 px-0 min-[360px]:gap-x-4 min-[360px]:px-[7px] min-[768px]:px-0 gap-y-[28px] min-[768px]:mt-10 min-[768px]:grid-cols-[repeat(3,auto)] min-[768px]:gap-y-8 min-[1000px]:mt-[calc(82/1340*100cqw)] min-[1000px]:grid-cols-[486fr_489fr_176.78fr] min-[1000px]:justify-normal min-[1000px]:gap-x-0 min-[1000px]:gap-y-[40px]"
               >
                 {CREDITS.map((teams) => (
                   <li
                     key={teams.join()}
-                    className="flex gap-[32px] min-[1000px]:gap-[48px]"
+                    className="flex gap-[24px] min-[340px]:gap-[32px] min-[1000px]:gap-[48px]"
                   >
                     {teams.map((t) => (
                       <TeamCredit key={t} team={t} />
