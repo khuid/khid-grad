@@ -1,5 +1,5 @@
-// PROJECTS 데이터: 수업 4개(가나다 순) × 작품(목록 파일 기준 76개). 수업마다 /2026/projects/<수업>, 작품마다 /2026/projects/<수업>/<번호>.
-// 지금은 자리만: 작품 제목·만든 사람(members, 국문 이름 1~4명)을 받으면 WORKS 각 줄에 채우면 됨.
+// PROJECTS 데이터: 수업 4개(가나다 순) × 작품 자리 81개(받은 74개 + 빈 자리). 수업마다 /2026/projects/<수업>, 작품마다 /2026/projects/<수업>/<번호>.
+// 작품 제목·만든 사람(members, 국문 이름 1~4명)은 WORKS에. 목록·프로필 모두 제목 가나다-abc 순.
 // members에 넣은 이름은 DESIGNERS 프로필의 작품 카드에도 저절로 연결됨(이름이 같은 졸전자).
 // 이미지·영상·링크·수업 설명은 나중에 일괄 입력:
 //   thumb  목록 썸네일 4:5 (예: /2026/projects/spatial/01/thumb.webp)
@@ -45,9 +45,12 @@ export const CLASSES: ClassInfo[] = [
   { key: "ai", ko: "인공지능증강디자인", en: "AI AUGMENTED DESIGN", professors: ["김선철"] },
 ];
 
-// 수업별 작품 [제목, 만든 사람들] — work/data/projects/project-list.xlsx(2026-10-23)에서 작품명·팀원 이름만 옮김.
-// 산디종은 이동민 교수님 시트 → 김선철 교수님 시트 순. 인지디 Knoticy 중복 제출 1건 제외,
-// 임형민·허경주 "1. Put _ [ ]. 2. Bruiser"는 작품 2개로 나눔. ZHANG YICHENG은 DESIGNERS 명단에 없음(프로필 연결 없음)
+// 수업별 작품 수(자리). 받은 작품이 이보다 적으면 남는 자리는 "작품 제목" 빈 카드로 둠
+const SLOTS: Record<ClassKey, number> = { spatial: 10, capstone: 18, smart: 29, ai: 24 };
+
+// 수업별 작품 [제목, 만든 사람들] — work/data/projects/project-list.xlsx(2026-10-23)에서 작품명·팀원 이름만 옮김(순서 상관없음, 아래에서 정렬).
+// 같은 수업에 팀원이 똑같은 줄이 또 있으면 첫 줄만(스융디 ATOA·인지디 Knoticy 중복 제외).
+// "1. Put _ [ ]. 2. Bruiser"는 한 작품. ZHANG YICHENG = 장일정
 const WORKS: Record<ClassKey, [title: string, members: string[]][]> = {
   spatial: [
     ["LIMEN : The Threshold of Senses", ["최성지", "김남경", "박세권"]],
@@ -56,7 +59,7 @@ const WORKS: Record<ClassKey, [title: string, members: string[]][]> = {
     ["이음마루", ["김윤주", "정보연", "이수연"]],
     ["SOYO", ["김명선", "김주연"]],
     ["NEXPORT", ["김예림", "배민아"]],
-    ["WHALE CITY 鲸城｜웨일 시티", ["ZHANG YICHENG"]],
+    ["WHALE CITY 鲸城｜웨일 시티", ["장일정"]],
     ["O2-SIS", ["이지수", "윤아영"]],
     ["NUFF", ["이민기"]],
   ],
@@ -98,12 +101,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[]][]> = {
     ["MUA", ["손은혜", "조수안", "최마리"]],
     ["SAEM", ["김주연"]],
     ["PARA", ["이지수"]],
-    ["LUMI", ["ZHANG YICHENG"]],
+    ["LUMI", ["장일정"]],
     ["MOARK", ["윤아영"]],
     ["MODRIX", ["공성욱"]],
     ["Audi IGNITE", ["배민아"]],
     ["David", ["이유택", "이규진"]],
-    ["ATOA", ["권정현", "박수해"]],
     ["ATTACA", ["김현호"]],
     ["숨, 결", ["이하은"]],
   ],
@@ -128,25 +130,40 @@ const WORKS: Record<ClassKey, [title: string, members: string[]][]> = {
     ["NUUN", ["공성욱", "신예환"]],
     ["DIVRS", ["이민혁"]],
     ["COLT", ["이민기"]],
-    ["Put _ [ ]", ["임형민", "허경주"]],
-    ["Bruiser", ["임형민", "허경주"]],
+    ["Put _ [ ] / Bruiser", ["임형민", "허경주"]],
     ["EGGSHELL", ["이하은"]],
     ["arti", ["한예지"]],
   ],
 };
 
-export const PROJECTS: Project[] = CLASSES.flatMap((c) =>
-  WORKS[c.key].map(([title, members], i) => ({
+// 작품 제목 가나다 → abc → 숫자·기호 순 (앞의 기호·공백은 무시, 대소문자 구분 없음)
+function group(title: string) {
+  const ch = title.replace(/^[^\p{L}\p{N}]+/u, "")[0] ?? "";
+  if (/\p{Script=Hangul}/u.test(ch)) return 0;
+  if (/[a-z]/i.test(ch)) return 1;
+  return 2;
+}
+export function byTitle(a: { title: string }, b: { title: string }) {
+  return (
+    group(a.title) - group(b.title) ||
+    a.title.localeCompare(b.title, "ko", { sensitivity: "base", ignorePunctuation: true, numeric: true })
+  );
+}
+
+// 번호(주소 /<수업>/<번호>)는 정렬한 순서대로, 빈 자리는 맨 뒤
+export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
+  const filled = WORKS[c.key].map(([title, members]) => ({ title, members })).sort(byTitle);
+  const empty = Array.from({ length: Math.max(0, SLOTS[c.key] - filled.length) }, () => ({ title: "작품 제목", members: [] }));
+  return [...filled, ...empty].map((w, i) => ({
     cls: c.key,
     no: String(i + 1).padStart(2, "0"),
-    title,
-    members,
+    ...w,
     links: [],
     media: [],
-  })),
-);
+  }));
+});
 
 export const classOf = (key: string) => CLASSES.find((c) => c.key === key);
 export const projectsOf = (key: ClassKey) => PROJECTS.filter((p) => p.cls === key);
 export const projectHref = (p: Project) => `/2026/projects/${p.cls}/${p.no}`;
-export const worksOf = (name: string) => PROJECTS.filter((p) => p.members.includes(name));
+export const worksOf = (name: string) => PROJECTS.filter((p) => p.members.includes(name)).sort(byTitle);

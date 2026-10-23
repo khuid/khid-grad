@@ -61,7 +61,7 @@ export const DESIGNERS: Designer[] = [
   d("39", "이하은", "lee-haeun", "Lee Haeun"),
   d("40", "임형민", "lim-hyeongmin", "Lim Hyeongmin"),
   d("41", "장서영", "jang-seoyeong", "Jang Seoyeong"),
-  d("42", "장일정", "jang-iljeong", "Jang Iljeong"),
+  d("42", "장일정", "zhang-yicheng", "Zhang Yicheng"), // 본인 영문 표기 ZHANG YICHENG
   d("43", "전예영", "jeon-yeyeong", "Jeon Yeyeong"),
   d("44", "정보연", "jung-boyeon", "Jung Boyeon"),
   d("45", "정예원", "jung-yewon", "Jung Yewon"),
