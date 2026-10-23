@@ -18,6 +18,7 @@
   --color-key-light: #75b3ff;
   --color-pale: #e3f0ff; /* 연한 하늘색 */
   --color-rule: #1a6ae8; /* [3] 구역부터 배경 라인 */
+  --color-pointpink: #ff2eff; /* 마젠타 포인트([1] 클릭 시 방사형 화살표선) */
   --color-ink: #121212; /* 사이트 블랙(본문 정보·사람 이름) — 검정은 이것 하나로 통일 */
   --color-line: #dddddd;
 }

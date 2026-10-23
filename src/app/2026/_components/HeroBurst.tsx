@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 // - 터치 기기: 손가락이 닿는 순간이 아니라 탭으로 끝났을 때(click)만 —
 //   히어로를 스크롤하려고 손가락을 댈 때는 안 나오게
 // - 모바일(~767)은 화면이 작아서 선 길이 60%
-const BURST_COLOR = "#FF2EFF";
+const BURST_COLOR = "#FF2EFF"; // = globals.css의 pointpink. 스크립트로 그려서 값을 직접 씀 — 바꿀 땐 같이
 
 export default function HeroBurst({ areaId }: { areaId: string }) {
   const burstRef = useRef<SVGSVGElement>(null);
