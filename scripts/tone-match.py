@@ -7,10 +7,11 @@
   3) 그래도 혼자 웜하면 피부 쪽만 채도를 줄이고(--desat) 빨강을 조금 빼고 파랑을 조금 더함(--cool)
   4) 너무 창백해지면 피부 쪽 채도를 올리되(--desat 음수, 입술·볼처럼 이미 진한 곳은 제외) 초록을 조금 빼서
      웜하지 않은 쿨한 분홍기로(--magenta). --pink(빨강 +)는 너무 빨개져서 오지샘 사진엔 안 씀
+  5) 아래쪽 흰 옷이 너무 밝아 튀면 밝기만 낮춤(--dim-white)
 기준 사진은 같은 폴더의 다른 WebP 전부.
 
 실행 (site.2026 폴더에서, Pillow·numpy 필요) — profile-photos.py를 다시 돌렸다면 이것도 다시:
-  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.8 --desat -0.4 --cool 6 --magenta 3
+  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.8 --desat -0.4 --cool 6 --magenta 3 --dim-white 0.86
 """
 import argparse
 from pathlib import Path
@@ -60,6 +61,7 @@ def main() -> None:
     ap.add_argument("--cool", type=float, default=0.0, help="피부 쪽 빨강을 뺄 양(파랑은 그 0.6배 더함)")
     ap.add_argument("--pink", type=float, default=0.0, help="피부 쪽 빨강을 더할 양(초록은 그 0.6배 뺌)")
     ap.add_argument("--magenta", type=float, default=0.0, help="피부 쪽 초록만 뺄 양 — 웜하지 않은(쿨한) 분홍기")
+    ap.add_argument("--dim-white", type=float, default=1.0, help="아래쪽 가운데 흰 옷의 밝기 배율(1 = 그대로, 0.85면 255→217)")
     a = ap.parse_args()
 
     target = Path(a.target)
@@ -95,6 +97,18 @@ def main() -> None:
         f[..., 1] -= a.pink * 0.6 * warm[..., 0]
         f[..., 1] -= a.magenta * warm[..., 0]
         out = np.clip(f, 0, 255).round().astype(np.uint8)
+    if a.dim_white != 1.0:
+        # 검정 옷 사이로 보이는 흰 옷(오지샘 레이스 이너)이 대비가 너무 세서 혼자 튐 → 밝기만 낮춤.
+        # 아래 22%·가운데 60% 안의 밝고 무채색인 픽셀만(피부는 웜해서, 배경은 그 범위에 없어서 제외), 경계는 부드럽게
+        f = out.astype(float)
+        h, w, _ = f.shape
+        lum = f.mean(axis=-1)
+        neutral = np.clip(1 - (f[..., 0] - f[..., 2] - 6) / 8, 0, 1)
+        bright = np.clip((lum - 150) / 50, 0, 1)
+        area = np.zeros((h, w))
+        area[int(h * 0.78) :, int(w * 0.2) : int(w * 0.8)] = 1
+        k = (neutral * bright * area)[..., None]
+        out = np.clip(f * (1 + (a.dim_white - 1) * k), 0, 255).round().astype(np.uint8)
     # WebP(손실) 저장은 평평한 회색 238을 239로 1 올려 버림 → 배경이 다른 사진들과 같은 238로 남도록 미리 237로 넣어 둠
     out[(out == BG).all(axis=-1)] = BG - 1
     Image.fromarray(out).save(target, "WEBP", quality=85, method=6)
