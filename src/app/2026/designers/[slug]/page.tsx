@@ -14,8 +14,8 @@ import SubPage, { OutlineArrow, TopBox } from "../../_components/SubPage";
 // 이름 국문 44/600 – 16 – 영문 32/500 #777(2026-10-23 결정, 국문은 ink), 45 아래 CONTACT·PORTFOLIO(20/600 #1980FF, 값은 라벨 왼쪽에서 116, 16/400, 줄 사이 17·8).
 // 화살표 202는 정보 오른쪽 끝(프레임 오른쪽에서 48), 정보와 세로 가운데.
 // 작품: 위 상자 아래선 → 106, 3열 357.14×446.43(좌우 50, 사이 84), 그림 → 제목 → 이름들. 2026-10-23 결정: Figma(제목 28.57·이름 20)보다 줄여 제목 20/500 · 이름 16/500(사이 8), 글자는 그림보다 4 안쪽에서 시작.
-// 태블릿(768~999)도 데스크탑처럼 사진 왼쪽 | 정보 오른쪽. 사진을 프레임 폭의 34%로 줄이고 여백 24, 사진 → 정보 28, 이름 32/24, 화살표 88.
-// 모바일(~767)은 사진 → 정보 세로 배치(좌우 여백 20, 사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 태블릿 3열
+// 600~999도 데스크탑처럼 사진 왼쪽 | 정보 오른쪽. 사진을 프레임 폭의 34%로 줄이고 여백 24, 사진 → 정보 28, 이름 32/24, 화살표 88.
+// 모바일(~599)은 사진 → 정보 세로 배치(좌우 여백 20, 위아래 40, 사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 600~ 3열
 export function generateStaticParams() {
   return DESIGNERS.map((p) => ({ slug: p.slug }));
 }
@@ -60,17 +60,17 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
   return (
     <SubPage current="designers">
       <TopBox>
-        <div className="grid gap-y-8 px-5 py-6 min-[768px]:grid-cols-[34cqw_minmax(0,1fr)] min-[768px]:gap-x-[28px] min-[768px]:max-[1000px]:p-[24px] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(58/1340*100cqw)] min-[1000px]:pt-[49px] min-[1000px]:pr-[calc(48/1340*100cqw)] min-[1000px]:pb-[49px] min-[1000px]:pl-[calc(49/1340*100cqw)]">
-          <div className="relative mx-auto aspect-[500/623.85] w-full max-w-[480px] overflow-hidden bg-[#ededed] min-[768px]:mx-0 min-[768px]:max-w-none">
+        <div className="grid gap-y-8 px-5 py-10 min-[600px]:grid-cols-[34cqw_minmax(0,1fr)] min-[600px]:gap-x-[28px] min-[600px]:max-[1000px]:p-[24px] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(58/1340*100cqw)] min-[1000px]:pt-[49px] min-[1000px]:pr-[calc(48/1340*100cqw)] min-[1000px]:pb-[49px] min-[1000px]:pl-[calc(49/1340*100cqw)]">
+          <div className="relative mx-auto aspect-[500/623.85] w-full max-w-[480px] overflow-hidden bg-[#ededed] min-[600px]:mx-0 min-[600px]:max-w-none">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={posePhoto(p)} alt={p.ko} className="absolute inset-0 size-full object-cover object-top" />
           </div>
 
-          <div className="mx-auto flex w-full max-w-[480px] items-end justify-between gap-4 pl-[4px] min-[768px]:mx-0 min-[768px]:max-w-none min-[768px]:items-center min-[768px]:self-end min-[768px]:pl-0">
+          <div className="mx-auto flex w-full max-w-[480px] items-end justify-between gap-4 pl-[4px] min-[600px]:mx-0 min-[600px]:max-w-none min-[600px]:items-center min-[600px]:self-end min-[600px]:pl-0">
             <div className="min-w-0">
               <h1 className="flex flex-wrap items-baseline gap-x-3 leading-[normal] tracking-[-0.04em] min-[1000px]:gap-x-4">
-                <span className="text-[30px] font-semibold text-ink min-[768px]:text-[32px] min-[1000px]:text-[44px]">{p.ko}</span>
-                <span lang="en" className="text-[20px] font-medium text-[#777] min-[768px]:text-[24px] min-[1000px]:text-[32px]">
+                <span className="text-[30px] font-semibold text-ink min-[600px]:text-[32px] min-[1000px]:text-[44px]">{p.ko}</span>
+                <span lang="en" className="text-[20px] font-medium text-[#777] min-[600px]:text-[24px] min-[1000px]:text-[32px]">
                   {p.en}
                 </span>
               </h1>
@@ -89,15 +89,15 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
                 </dd>
               </dl>
             </div>
-            <OutlineArrow className="w-[72px] shrink-0 min-[768px]:w-[88px] min-[1000px]:w-[calc(202/1340*100cqw)]" />
+            <OutlineArrow className="w-[72px] shrink-0 min-[600px]:w-[88px] min-[1000px]:w-[calc(202/1340*100cqw)]" />
           </div>
         </div>
       </TopBox>
 
       <section aria-label={`${p.ko}의 작품`} className={`@container mx-auto ${FRAME}`}>
-        <ul className="grid gap-y-10 px-5 pt-10 pb-[52px] min-[768px]:grid-cols-3 min-[768px]:gap-x-5 min-[768px]:px-6 min-[768px]:pt-[60px] min-[768px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
+        <ul className="grid gap-y-10 px-5 pt-10 pb-[52px] min-[600px]:grid-cols-3 min-[600px]:gap-x-5 min-[600px]:px-6 min-[600px]:pt-[60px] min-[600px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
           {p.works.map((w, i) => (
-            <li key={i} className="mx-auto w-full max-w-[480px] min-[768px]:max-w-none">
+            <li key={i} className="mx-auto w-full max-w-[480px] min-[600px]:max-w-none">
               <WorkCard work={w} />
             </li>
           ))}
