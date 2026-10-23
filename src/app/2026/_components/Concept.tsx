@@ -40,7 +40,7 @@ const CLOSING: React.ReactNode[] = [
 // flow: 모바일(~767)에서는 줄을 강제로 나누지 않고 이어 써서 화면 폭에 맞게 자연스럽게 넘어가게 (기획 본문 문단, 2026-10-23)
 function Lines({ lines, flow }: { lines: React.ReactNode[]; flow?: boolean }) {
   return lines.map((l, i) => (
-    <span key={i} className={`block min-[1000px]:whitespace-nowrap ${flow ? "max-[767px]:inline" : ""}`}>
+    <span key={i} className={`block min-[1000px]:whitespace-nowrap ${flow ? "max-[768px]:inline" : ""}`}>
       {l}
       {flow && i < lines.length - 1 && <span className="min-[768px]:hidden"> </span>}
     </span>
@@ -130,7 +130,7 @@ export default function Concept() {
                 그래픽 SVG는 T 윗선이 시작하는 x 31부터만 보이게 잘라 둠(왼쪽으로 나간 인입선 제거, 2026-10-23) → 폭 451
                 화살표는 칸 정가운데 (화살표 SVG 자체 여백 포함 칸 폭의 88%) */}
             <div className="grid h-(--h) grid-cols-[1fr_var(--h)] [--h:96px] [grid-area:deco] min-[768px]:[--h:150px] min-[1000px]:border-t min-[1000px]:border-white min-[1000px]:[--h:calc(211/1340*100cqw)]">
-              <div className="flex min-w-0 items-center border-r border-white pl-6 max-[767px]:pl-5">
+              <div className="flex min-w-0 items-center border-r border-white pl-6 max-[768px]:pl-5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/2026/concept/main-whiteline.svg"
