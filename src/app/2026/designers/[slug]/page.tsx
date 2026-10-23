@@ -91,7 +91,7 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
                 </dd>
               </dl>
             </div>
-            <OutlineArrow className="w-[72px] shrink-0 min-[600px]:w-[88px] min-[1000px]:w-[calc(202/1340*100cqw)]" />
+            <OutlineArrow className="w-[72px] shrink-0 [--sw:1.1px] min-[600px]:w-[88px] min-[600px]:[--sw:1.3px] min-[1000px]:w-[calc(202/1340*100cqw)] min-[1000px]:[--sw:1.5px]" />
           </div>
         </div>
       </TopBox>

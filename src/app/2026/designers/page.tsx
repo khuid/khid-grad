@@ -43,7 +43,7 @@ export default function DesignersPage() {
             </div>
             <div className="relative flex items-center justify-center">
               <Divider />
-              <OutlineArrow className="w-[82%]" />
+              <OutlineArrow className="w-[82%] [--sw:1.2px] min-[768px]:[--sw:1.5px]" />
             </div>
           </div>
         </TopBox>
