@@ -45,10 +45,18 @@ def head_top(im: Image.Image) -> int:
 def frame(im: Image.Image, top: int) -> Image.Image:
     """칸 비율 창: 가로는 원본 폭 그대로(가운데), 머리 꼭대기가 창 높이의 HEAD_TOP_RATIO에 오게.
     원본 위쪽이 모자라면 원본 맨 윗줄 색(배경 회색)으로 채워 내림 — Figma 시안도 사진을 살짝 내려 배치함.
-    아래가 모자라면(원본이 칸보다 납작) 같은 식으로 아래를 채움."""
+    머리가 낮게 찍혀 아래가 모자라면, 창을 살짝 좁혀(확대) 아래 끝을 원본 아래 끝에 맞춤."""
     w, h = im.size
     ch = round(w * CELL_RATIO)
     y = round(top - HEAD_TOP_RATIO * ch)
+    if y > 0 and y + ch > h:
+        # 머리가 원본에서 낮게 찍혀 위로 올리면 아래가 모자람 → 회색으로 채우지 않고, 창을 가운데 기준으로 살짝 좁혀(확대)
+        # 아래 끝이 원본 아래 끝에 딱 맞게 (2026-10-24 이수민 새 사진: 아래 20px가 회색으로 비던 문제)
+        ch = round((h - top) / (1 - HEAD_TOP_RATIO))
+        cw = round(ch / CELL_RATIO)
+        x0 = (w - cw) // 2
+        y = h - ch
+        return im.crop((x0, y, x0 + cw, h))
     canvas = Image.new("RGB", (w, ch), im.getpixel((w // 2, 0)))
     canvas.paste(im.crop((0, max(0, y), w, min(h, y + ch))), (0, max(0, -y)))
     return canvas
