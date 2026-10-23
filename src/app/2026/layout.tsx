@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hahmlet } from "next/font/google";
 import { connection } from "next/server";
 import localFont from "next/font/local";
+import { NavTrack } from "./_components/BackButton";
 import CopyGuard from "./_components/CopyGuard";
 import { isOpen } from "./_components/SiteGate";
 
@@ -48,6 +49,7 @@ export default function Layout2026({ children }: LayoutProps<"/2026">) {
     <div className={`${freesentation.variable} ${hahmlet.variable} font-sans`}>
       {children}
       <CopyGuard />
+      <NavTrack />
     </div>
   );
 }

@@ -61,7 +61,7 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
 
   return (
     <SubPage current="designers">
-      <TopBox>
+      <TopBox back="/2026/designers">
         <div className="grid gap-y-8 px-5 py-10 min-[600px]:grid-cols-[34cqw_minmax(0,1fr)] min-[600px]:gap-x-[28px] min-[600px]:max-[1000px]:p-[24px] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(58/1340*100cqw)] min-[1000px]:pt-[49px] min-[1000px]:pr-[calc(48/1340*100cqw)] min-[1000px]:pb-[49px] min-[1000px]:pl-[calc(49/1340*100cqw)]">
           <div className="relative mx-auto aspect-[500/623.85] w-full max-w-[480px] overflow-hidden bg-[#ededed] min-[600px]:mx-0 min-[600px]:max-w-none">
             {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import BackButton from "../../../_components/BackButton";
 import { notFound } from "next/navigation";
 import { DESIGNERS } from "../../../_components/designers";
 import { classOf, PROJECTS, type Media, type Project } from "../../../_components/projects";
@@ -58,6 +59,12 @@ async function ProjectView({ params }: { params: PageProps<"/2026/projects/[cls]
           aria-hidden
           className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-deepblue ${FRAME}`}
         />
+        {/* 위 여백 왼쪽 "← BACK" — 링크로 바로 들어왔으면 이 수업 목록으로 */}
+        <div
+          className={`absolute inset-y-0 left-1/2 flex -translate-x-1/2 items-center pb-px pl-[12px] min-[768px]:pl-[16px] min-[1000px]:pl-[20px] ${FRAME}`}
+        >
+          <BackButton fallback={`/2026/projects/${p.cls}`} />
+        </div>
         <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-deepblue" />
         <div className={`absolute bottom-0 left-1/2 h-px -translate-x-1/2 ${FRAME}`}>
           <Node className="top-[0.5px] left-[0.5px]" />

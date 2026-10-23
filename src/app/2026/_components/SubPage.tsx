@@ -1,3 +1,4 @@
+import BackButton from "./BackButton";
 import Footer from "./Footer";
 import Header from "./Header";
 import { FRAME, Node } from "./SectionBar";
@@ -33,9 +34,17 @@ export default function SubPage({
 // 페이지 맨 위 상자: 상단바 아래 여백(24/40/50, [2]와 같음) → 위 가로선(화면 끝에서 끝까지) → 내용 → 아래 가로선(프레임 안만).
 // Figma designers·designers/profiles: 위 가로선 y 110(상단바 60 + 50), 아래 가로선은 프레임 폭(1340)만, 네 모서리에 사각형.
 // 프레임 세로선은 FRAME 폭의 첫·마지막 1px이라 사각형 중심은 안쪽으로 0.5
-export function TopBox({ children }: { children: React.ReactNode }) {
+// back: 위 여백(가로선 위) 왼쪽에 "← BACK" (상세 페이지용, 링크로 바로 들어왔을 때 갈 목록 주소)
+export function TopBox({ children, back }: { children: React.ReactNode; back?: string }) {
   return (
     <div className="relative mt-[24px] min-[768px]:mt-[40px] min-[1000px]:mt-[50px]">
+      {back && (
+        <div
+          className={`absolute bottom-full left-1/2 flex h-[24px] -translate-x-1/2 items-center pl-[12px] min-[768px]:h-[40px] min-[768px]:pl-[16px] min-[1000px]:h-[50px] min-[1000px]:pl-[20px] ${FRAME}`}
+        >
+          <BackButton fallback={back} />
+        </div>
+      )}
       <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-deepblue" />
       <div className={`@container relative mx-auto py-px ${FRAME}`}>
         <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-deepblue" />
