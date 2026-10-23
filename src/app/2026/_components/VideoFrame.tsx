@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // [2] 하단 16:9 영상 자리. 영상이 확정되면 youtubeId(유튜브 주소의 v= 뒤 값)만 넣으면 됨.
 // 유튜브 플레이어(스크립트 약 1MB)는 처음엔 불러오지 않고 썸네일 + 재생 버튼만 보여줌 →
 // 누른 사람만 그때 플레이어를 불러와 바로 재생. 아직 영상이 없으면 빈 프레임만
 export default function VideoFrame({ youtubeId, className }: { youtubeId?: string; className?: string }) {
   const [active, setActive] = useState(false);
+  // 다른 페이지로 넘어가면 유튜브 플레이어를 닫음(숨겨진 이전 페이지에서 소리가 계속 나지 않게) — 돌아오면 썸네일부터
+  useEffect(() => () => setActive(false), []);
 
   return (
     <div className={`relative aspect-video w-full overflow-hidden bg-[#555] ${className ?? ""}`}>

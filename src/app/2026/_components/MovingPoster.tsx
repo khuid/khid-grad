@@ -40,6 +40,9 @@ export default function MovingPoster({ src, className }: { src: string; classNam
     } else {
       video.pause();
     }
+    // 다른 페이지로 넘어가면(Next가 이전 페이지를 숨긴 채 남겨 둠 — 이때 effect 정리가 불림) 반드시 멈춤.
+    // 안 그러면 PROJECTS·DESIGNERS에서도 소리가 계속 남
+    return () => video.pause();
   }, [inView, hasInteracted]);
 
   return (
