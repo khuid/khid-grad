@@ -69,7 +69,8 @@ async function ClassView({
             style={{ "--n": c.ko.length } as React.CSSProperties}
             className="@container px-5 pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:px-6 min-[768px]:pt-0 min-[768px]:pb-0 min-[1000px]:px-[32px]"
           >
-            <div className="flex items-center justify-between gap-4">
+            {/* 화살표는 수업명 윗선에 맞춤 (영문명이 두 줄이 돼도 내려가지 않게) */}
+            <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
                 <h1 className="text-[length:min(30px,calc((100cqw_-_var(--a)_-_16px)/(var(--n)*0.82)))] leading-[normal] font-semibold tracking-[-0.04em] text-ink min-[768px]:text-[length:min(32px,calc((100cqw_-_var(--a)_-_16px)/(var(--n)*0.82)))] min-[1000px]:text-[length:min(44px,calc((100cqw_-_var(--a)_-_16px)/(var(--n)*0.82)))]">
                   {c.ko}
