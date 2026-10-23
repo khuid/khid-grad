@@ -4,7 +4,7 @@
 // 좌우 여백: 데스크탑 50, 1920부터 80(요소는 화면 양 끝으로).
 // 모바일 구조(~999)는 높이 44, 좌우 16, 메뉴 글자 16
 const NAV = [
-  { href: "#works", label: "WORKS" },
+  { href: "#projects", label: "PROJECTS" },
   { href: "#designers", label: "DESIGNERS" },
 ];
 
