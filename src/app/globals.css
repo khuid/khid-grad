@@ -115,6 +115,16 @@ body {
   color: var(--foreground);
 }
 
+/* 이미지·영상 저장 방지(CopyGuard와 함께): 끌어가기·선택·모바일 길게 눌러 저장 메뉴 막기 */
+img,
+video,
+svg,
+[data-protect] {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 /* 마우스 기기에선 기본 커서를 숨기고 SiteCursor(파란 화살표)로 대신함 — 링크 위에서도 */
 html.site-cursor,
 html.site-cursor * {

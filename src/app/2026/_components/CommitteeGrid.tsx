@@ -5,7 +5,7 @@ import { MEMBERS, TEAMS } from "./committee";
 
 // [4] 졸준위 프로필 사진 격자 + 팀 덮개.
 // 데스크탑·태블릿(768~)은 Figma 그대로 7칸 × 2줄, 빈칸(3·5·11·13번)은 비워 둠.
-// 모바일(~767)은 4칸으로 줄이고 빈칸 없이, 같은 팀은 붙어 있게 다시 배치.
+// 모바일(~767)은 Figma iPhone 390 배치: 4칸 × 4줄, 빈칸 유지(격자 334, 칸 사이 가로 3.21 / 세로 5.05).
 // 팀 덮개: 마우스는 팀 구역에 올리면, 터치는 누르면(다시 누르거나 바깥 누르면 닫힘)
 // 반투명 블루(#1980FF 80%) 위에 흰 글자로 팀 이름만. 여러 명인 팀은 사람 사이 여백까지 한 덩어리로 덮음.
 // 1명인 팀은 "Team." 줄바꿈 "팀명", 가운데 정렬.
@@ -40,7 +40,7 @@ export default function CommitteeGrid() {
   return (
     // 격자 폭(100cqw) 기준으로 칸 사이·덮개 글자 크기를 잼. --cols는 칸 개수
     <div ref={ref} className="@container [--cols:4] min-[768px]:[--cols:7]">
-      <div className="grid grid-cols-[repeat(var(--cols),minmax(0,1fr))] gap-x-[max(4px,calc(6.75/1151.78*100cqw))] gap-y-[max(4px,calc(11.25/1151.78*100cqw))]">
+      <div className="grid grid-cols-[repeat(var(--cols),minmax(0,1fr))] gap-x-[calc(3.21/334*100cqw)] gap-y-[calc(5.05/334*100cqw)] min-[768px]:gap-x-[max(4px,calc(6.75/1151.78*100cqw))] min-[768px]:gap-y-[max(4px,calc(11.25/1151.78*100cqw))]">
         {MEMBERS.map((m) => (
           <div
             key={m.name}

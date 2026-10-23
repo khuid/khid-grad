@@ -1,5 +1,6 @@
 import { Hahmlet } from "next/font/google";
 import localFont from "next/font/local";
+import CopyGuard from "./_components/CopyGuard";
 
 // 2026 사이트 폰트: 본문·UI 전부 Freesentation 하나. 굵기는 ExtraBold·SemiBold·Medium·Regular 네 가지만
 // Hahmlet은 히어로 배경 격자의 줄자 숫자·각도 표기 전용
@@ -20,5 +21,10 @@ const hahmlet = Hahmlet({
 });
 
 export default function Layout2026({ children }: LayoutProps<"/2026">) {
-  return <div className={`${freesentation.variable} ${hahmlet.variable} font-sans`}>{children}</div>;
+  return (
+    <div className={`${freesentation.variable} ${hahmlet.variable} font-sans`}>
+      {children}
+      <CopyGuard />
+    </div>
+  );
 }
