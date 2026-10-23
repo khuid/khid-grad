@@ -62,12 +62,12 @@ async function ClassView({
           {/* 태블릿·데스크탑(768~): 탭 아래 영역을 화면 높이에 맞추고(상단바 45/53 + 위 여백 40/50 + 탭 50/54 뺀 만큼)
               오른쪽 작품 목록만 그 안에서 스크롤 → 탭·수업 정보는 계속 보임. 목록 끝에서 계속 내리면 같은 동작 안에서 페이지가 이어서 내려가 푸터까지(ScrollChain).
               모바일은 페이지 전체 스크롤(안쪽 스크롤은 휴대폰 인앱 브라우저에서 덜컹거려서 안 씀).
-              수업 정보도 화면이 낮아 넘치면 그 칸 안에서 스크롤.
+              수업 정보도 화면이 낮아 넘치면 그 칸 안에서 스크롤. 모바일 좌우 여백은 아래 작품 격자와 같게(프레임 폭의 6.5%).
               스크롤 영역은 탭 아래선·화면 아래에서 24/28 떨어져 있어서, 스크롤 중에도 위아래에 흰 여백이 보임 */}
           {/* 칸 안쪽 폭(100cqw)에 맞춰 수업명 크기 조절: 글자 수(--n) × 0.82em(Freesentation 한글 폭, 자간 포함) + 화살표(--a) + 16이 넘치지 않게, 최대 30/32/44 */}
           <div
             style={{ "--n": c.ko.length } as React.CSSProperties}
-            className="@container px-5 pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:px-6 min-[768px]:pt-0 min-[768px]:pb-0 min-[1000px]:px-[32px]"
+            className="@container px-[6.5cqw] pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:px-6 min-[768px]:pt-0 min-[768px]:pb-0 min-[1000px]:px-[32px]"
           >
             {/* 화살표는 수업명 윗선에 맞춤 (영문명이 두 줄이 돼도 내려가지 않게) */}
             <div className="flex items-start justify-between gap-4">

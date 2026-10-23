@@ -5,14 +5,21 @@ import { FRAME, Node } from "./SectionBar";
 // PROJECTS 수업 탭 4개(가나다 순). 상단바 아래 여백(24/40/50) 뒤에 오고, 스크롤하면 같이 올라감(붙지 않음).
 // Figma projects(1440): 위아래 가로선(화면 끝에서 끝까지), 프레임(1340)을 4칸으로. 선택된 탭 배경 pale(#E3F0FF), 글자 deepblue.
 // 높이·글자는 메인 띠(SectionBar)와 같게(2026-10-23 결정): 안쪽 높이 52/48/44, 글자 20.8/18/16 (데스크탑/태블릿/모바일).
-// 선은 메인 양식(deepblue 1px), 프레임 모서리에 9×9 사각형. 모바일은 2×2
+// 선은 메인 양식(deepblue 1px), 프레임 모서리에 9×9 사각형.
+// 모바일(~767)은 2×2이고, 위 여백 24 + 위 선까지 한 덩어리로 상단바 아래에 붙음(sticky, 흰 배경).
+// 768~는 붙지 않음(작품 목록이 탭 아래 영역 안에서 스크롤되므로)
 export default function ProjectTabs({ current }: { current: ClassKey }) {
   return (
     <nav
       aria-label="수업"
-      className="relative mt-[24px] min-[768px]:mt-[40px] min-[1000px]:mt-[50px]"
+      className="sticky top-[45px] z-40 bg-white pt-[24px] min-[768px]:relative min-[768px]:top-auto min-[768px]:mt-[40px] min-[768px]:bg-transparent min-[768px]:pt-0 min-[1000px]:mt-[50px]"
     >
-      <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-deepblue" />
+      {/* 모바일: 흰 배경이 가린 위 여백 구간의 프레임 세로선을 다시 그림 */}
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-deepblue min-[768px]:hidden ${FRAME}`}
+      />
+      <span aria-hidden className="absolute inset-x-0 top-[24px] h-px bg-deepblue min-[768px]:top-0" />
       <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-deepblue" />
       <div className={`relative mx-auto py-px ${FRAME}`}>
         <Node className="top-[0.5px] left-[0.5px]" />
