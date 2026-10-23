@@ -95,6 +95,8 @@ def main() -> None:
         f[..., 1] -= a.pink * 0.6 * warm[..., 0]
         f[..., 1] -= a.magenta * warm[..., 0]
         out = np.clip(f, 0, 255).round().astype(np.uint8)
+    # WebP(손실) 저장은 평평한 회색 238을 239로 1 올려 버림 → 배경이 다른 사진들과 같은 238로 남도록 미리 237로 넣어 둠
+    out[(out == BG).all(axis=-1)] = BG - 1
     Image.fromarray(out).save(target, "WEBP", quality=85, method=6)
     print(f"{target.name}: skin {src_skin.round()} -> {skin_mean(out).round()} (ref {ref_skin.round()})")
 
