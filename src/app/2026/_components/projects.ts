@@ -152,7 +152,10 @@ export function byTitle(a: { title: string }, b: { title: string }) {
 
 // 번호(주소 /<수업>/<번호>)는 정렬한 순서대로, 빈 자리는 맨 뒤
 export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
-  const filled = WORKS[c.key].map(([title, members]) => ({ title, members })).sort(byTitle);
+  // 만든 사람도 가나다 순
+  const filled = WORKS[c.key]
+    .map(([title, members]) => ({ title, members: [...members].sort((a, b) => a.localeCompare(b, "ko")) }))
+    .sort(byTitle);
   const empty = Array.from({ length: Math.max(0, SLOTS[c.key] - filled.length) }, () => ({ title: "작품 제목", members: [] }));
   return [...filled, ...empty].map((w, i) => ({
     cls: c.key,
