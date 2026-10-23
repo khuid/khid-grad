@@ -136,12 +136,14 @@ function GridSvg({ w, h }: { w: number; h: number }) {
         );
       band(UPPER_S, base - 2 * BAND * c);
       band(LOWER_S, base - BAND * c);
+      // 각도 표기는 선에 걸치지 않게 격자 칸 한가운데에 (2026-10-24) — 원래 자리가 속한 칸으로 맞춤
       LABELS.forEach(([col, up, s], j) => {
-        const cx = ox + (Math.round(col * SPREAD * 2) / 2) * c;
-        const cy = base - up * LENGTH * c;
+        const cx = ox + (Math.floor(col * SPREAD) + 0.5) * c;
+        const cy = base - (Math.floor(up * LENGTH) + 0.5) * c;
         labels.push(
           <g key={`l${k}-${t}-${j}`}>
-            <rect x={cx - 0.5 * c} y={cy - 0.23 * c} width={c} height={0.46 * c} fill="#fff" />
+            {/* 지나가는 대각선만 가림 — 칸 테두리 선은 가리지 않게 칸보다 살짝 작게 */}
+            <rect x={cx - 0.5 * c + 1} y={cy - 0.23 * c} width={c - 2} height={0.46 * c} fill="#fff" />
             <text x={cx} y={cy} dy="0.36em">
               {s}
             </text>
