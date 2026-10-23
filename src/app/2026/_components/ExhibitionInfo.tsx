@@ -1,4 +1,4 @@
-import SectionBar from "./SectionBar";
+import SectionBar, { FRAME } from "./SectionBar";
 
 // [3] 전시안내 + 지도교수. 흰 배경 + #1A6AE8 프레임 선, 제목 띠는 스크롤 시 상단바 아래에 붙음(SectionBar).
 // 띠마다 "띠 + 내용"을 div로 감싸서, 내용이 끝나면 다음 띠가 앞 띠를 밀어 올림.
@@ -38,9 +38,6 @@ const EVENTS = [
   { title: "OPENING CEREMONY", date: "2026. 11. 11(수)", time: "17:30" },
 ];
 
-// 프레임 폭: 모바일 좌우 16 / 768~ 40 / 1000~ 50(최대 1340) — [2]·SectionBar와 같음
-const FRAME =
-  "w-[calc(100%-32px)] min-[768px]:w-[calc(100%-80px)] min-[1000px]:w-[min(1340px,calc(100%-100px))]";
 
 export default function ExhibitionInfo() {
   return (

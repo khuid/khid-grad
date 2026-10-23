@@ -7,6 +7,10 @@
 // 선이 만나는 곳(프레임 세로선 × 가로선)에 9×9 사각형. 띠 바깥(위아래 4px, 프레임 밖)은 배경 없음 — 흰 틈이 안 보이게.
 // 글자는 #1A6AE8(rule).
 // 모바일·태블릿은 띠와 글자만 줄임: 안쪽 높이 48(~767) / 56(768~) / 60(1000~)
+// 프레임 폭: 모바일 좌우 16 / 768~ 40 / 1000~ 50(최대 1340) — [2]와 같음. [3]부터 구역들이 같이 씀
+export const FRAME =
+  "w-[calc(100%-32px)] min-[768px]:w-[calc(100%-80px)] min-[1000px]:w-[min(1340px,calc(100%-100px))]";
+
 function Node({ className }: { className: string }) {
   return <span aria-hidden className={`absolute z-10 size-[9px] -translate-1/2 bg-rule ${className}`} />;
 }
@@ -15,7 +19,7 @@ export default function SectionBar({ ko, en, id }: { ko: string; en: string; id?
   return (
     <div className="sticky top-[45px] z-40 py-[4px] min-[1000px]:top-[53px]">
       <div className="border-y border-rule">
-        <div className="relative mx-auto flex h-[48px] w-[calc(100%-32px)] items-center border-x border-rule bg-pale px-4 min-[768px]:h-[56px] min-[768px]:w-[calc(100%-80px)] min-[768px]:px-7 min-[1000px]:h-[60px] min-[1000px]:w-[min(1340px,calc(100%-100px))] min-[1000px]:px-[40px]">
+        <div className={`relative mx-auto flex min-h-[48px] items-center py-2 border-x border-rule bg-pale px-4 min-[768px]:min-h-[56px] min-[768px]:px-7 min-[1000px]:min-h-[60px] min-[1000px]:py-0 min-[1000px]:px-[40px] ${FRAME}`}>
           <Node className="top-[-0.5px] left-[0.5px]" />
           <Node className="top-[-0.5px] left-[calc(100%-0.5px)]" />
           <Node className="top-[calc(100%+0.5px)] left-[0.5px]" />
@@ -30,7 +34,7 @@ export default function SectionBar({ ko, en, id }: { ko: string; en: string; id?
         </div>
       </div>
       {/* 띠 위아래 4px 흰 여백에도 프레임 세로선이 끊기지 않게 */}
-      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-1/2 w-[calc(100%-32px)] -translate-x-1/2 border-x border-rule min-[768px]:w-[calc(100%-80px)] min-[1000px]:w-[min(1340px,calc(100%-100px))]" />
+      <div aria-hidden className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-rule ${FRAME}`} />
     </div>
   );
 }
