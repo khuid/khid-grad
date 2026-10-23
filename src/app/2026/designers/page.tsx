@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 // Figma 실측(1440): 제목 상자 높이 225(위아래 50) — 제목 DESIGNERS 44/600, 24 아래 학과명 20/500, 8 아래 영문 16/500 #A5A5A5,
 // 글자는 프레임 왼쪽에서 64 / 오른쪽 칸막이(프레임 왼쪽에서 1094) 뒤 246 칸 가운데 화살표 202.
 // 사진 격자: 4열, 칸 250×312.5, 칸 사이 24, 좌우 134, 제목 상자 아래선 → 첫 줄 82, 줄 사이 52.
-// 사진 → 이름 18.5(이름은 사진 왼쪽보다 2 안쪽에서 시작), 국문 20/500 ink – 11 – 영문 16/500 #777(밑줄 맞춤). 이름 색은 2026-10-23 결정: 국문 ink, 영문 #777.
+// 사진 → 이름 18.5(이름은 사진 왼쪽보다 4 안쪽에서 시작), 국문 20/500 ink – 11 – 영문 16/500 #777(밑줄 맞춤). 이름 색은 2026-10-23 결정: 국문 ink, 영문 #777.
 // 태블릿(768~999) 3열, 모바일 2열 — 4열이면 이름이 칸보다 길어져서
 // 모바일 2열: 좌우 여백은 프레임 폭의 6.5%(390에서 23, 464에서 28), 열 사이는 5%(390에서 18)
 export default function DesignersPage() {
@@ -62,7 +62,7 @@ export default function DesignersPage() {
                       className="absolute inset-0 size-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.04]"
                     />
                   </div>
-                  <p className="mt-3 flex flex-wrap items-baseline gap-x-[8px] pl-[2px] leading-[normal] font-medium tracking-[-0.04em] min-[1000px]:mt-[18px] min-[1000px]:gap-x-[11px]">
+                  <p className="mt-3 flex flex-wrap items-baseline gap-x-[8px] pl-[4px] leading-[normal] font-medium tracking-[-0.04em] min-[1000px]:mt-[18px] min-[1000px]:gap-x-[11px]">
                     <span className="text-[16px] text-ink transition-colors group-hover:text-key min-[768px]:text-[18px] min-[1000px]:text-[20px]">{p.ko}</span>
                     <span lang="en" className="text-[13px] text-[#777] transition-colors group-hover:text-key min-[768px]:text-[14px] min-[1000px]:text-[16px]">
                       {p.en}

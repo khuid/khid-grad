@@ -13,7 +13,7 @@ import SubPage, { OutlineArrow, TopBox } from "../../_components/SubPage";
 // Figma 실측(1440): 위 상자 높이 724(위아래 50), 사진 500×623.85(프레임 왼쪽에서 49), 사진 → 정보 58, 정보 줄은 사진 아래에 맞춤.
 // 이름 국문 44/600 – 16 – 영문 32/500 #777(2026-10-23 결정, 국문은 ink), 45 아래 CONTACT·PORTFOLIO(20/600 #1980FF, 값은 라벨 왼쪽에서 116, 16/400, 줄 사이 17·8).
 // 화살표 202는 정보 오른쪽 끝(프레임 오른쪽에서 48), 정보와 세로 가운데.
-// 작품: 위 상자 아래선 → 106, 3열 357.14×446.43(좌우 50, 사이 84), 그림 → 제목 → 이름들. 2026-10-23 결정: Figma(제목 28.57·이름 20)보다 줄여 제목 20/500 · 이름 16/500(사이 8), 글자는 그림보다 2 안쪽에서 시작.
+// 작품: 위 상자 아래선 → 106, 3열 357.14×446.43(좌우 50, 사이 84), 그림 → 제목 → 이름들. 2026-10-23 결정: Figma(제목 28.57·이름 20)보다 줄여 제목 20/500 · 이름 16/500(사이 8), 글자는 그림보다 4 안쪽에서 시작.
 // 모바일·태블릿(~999)은 사진 → 정보 세로 배치(사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 태블릿 3열
 export function generateStaticParams() {
   return DESIGNERS.map((p) => ({ slug: p.slug }));
@@ -111,10 +111,10 @@ function WorkCard({ work }: { work: Work }) {
     <>
       {/* 작품 대표 이미지 자리 (연한 하늘색 pale) */}
       <div className="aspect-[357.14/446.43] overflow-hidden bg-pale" />
-      <p className="mt-4 pl-[2px] text-[20px] leading-[normal] font-medium tracking-[-0.04em] min-[1000px]:mt-[24px]">
+      <p className="mt-4 pl-[4px] text-[20px] leading-[normal] font-medium tracking-[-0.04em] min-[1000px]:mt-[24px]">
         {work.title}
       </p>
-      <p className="mt-2 flex flex-wrap gap-x-[8px] pl-[2px] text-[16px] leading-[normal] font-medium tracking-[-0.04em]">
+      <p className="mt-2 flex flex-wrap gap-x-[8px] pl-[4px] text-[16px] leading-[normal] font-medium tracking-[-0.04em]">
         {work.members.map((m) => (
           <span key={m}>{m}</span>
         ))}
