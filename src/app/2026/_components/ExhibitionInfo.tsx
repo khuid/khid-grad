@@ -52,7 +52,7 @@ export default function ExhibitionInfo() {
       {/* 프레임 세로선: 구역 맨 위부터 끝까지 */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-rule ${FRAME}`}
+        className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-deepblue ${FRAME}`}
       />
 
       <div className="h-[24px] min-[768px]:h-[40px] min-[1000px]:h-[45px]" />
@@ -77,13 +77,13 @@ export default function ExhibitionInfo() {
             {/* 전시 정보 */}
             <div className="relative break-keep px-5 pt-0 pb-12 [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
               {/* 가운데 세로선: 띠의 4px 바깥 여백까지 늘려서 위·아래 띠 선에 딱 붙게 */}
-              <span aria-hidden className="absolute top-[-5px] right-0 bottom-[-5px] hidden w-px bg-rule min-[1000px]:block" />
+              <span aria-hidden className="absolute top-[-5px] right-0 bottom-[-5px] hidden w-px bg-deepblue min-[1000px]:block" />
               <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-6 min-[1000px]:flex-col min-[1000px]:justify-start min-[1000px]:gap-[65px]">
                 {EVENTS.map((e) => (
                   <div key={e.title}>
                     <h3
                       lang="en"
-                      className="text-heading flex items-center gap-[8px] text-rule max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]"
+                      className="text-heading flex items-center gap-[8px] text-deepblue max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -133,12 +133,12 @@ export default function ExhibitionInfo() {
                     className="mt-[3px] block size-[18px] -scale-x-100 min-[768px]:size-[20px] min-[1000px]:mt-[4px]"
                   />
                   <div>
-                    <p className="text-heading text-rule max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]">
+                    <p className="text-heading text-deepblue max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]">
                       {p.ko} 교수님
                     </p>
                     <p
                       lang="en"
-                      className="text-lead mt-[2px] text-rule max-[768px]:text-[16px] min-[768px]:max-[1000px]:text-[18px]"
+                      className="text-lead mt-[2px] text-deepblue max-[768px]:text-[16px] min-[768px]:max-[1000px]:text-[18px]"
                     >
                       {p.en}
                     </p>

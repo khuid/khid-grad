@@ -36,7 +36,7 @@ const CREDITS: string[][] = [
 function TeamCredit({ team }: { team: string }) {
   const t = TEAMS.find((x) => x.key === team)!;
   return (
-    <div className="flex flex-col gap-[6px] whitespace-nowrap text-rule min-[768px]:gap-[8px] min-[1000px]:gap-[10px]">
+    <div className="flex flex-col gap-[6px] whitespace-nowrap text-deepblue min-[768px]:gap-[8px] min-[1000px]:gap-[10px]">
       <p className="text-heading max-[340px]:text-[16px] min-[340px]:max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]">
         {t.title}
       </p>
@@ -59,7 +59,7 @@ export default function Credits() {
       {/* 프레임 세로선: 구역 맨 위부터 끝까지 */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-rule ${FRAME}`}
+        className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-deepblue ${FRAME}`}
       />
 
       <div>

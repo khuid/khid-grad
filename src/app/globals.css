@@ -16,11 +16,12 @@
 @theme {
   --color-key: #1980ff;
   --color-key-light: #75b3ff;
-  --color-pale: #e3f0ff; /* 연한 하늘색 */
-  --color-rule: #1a6ae8; /* [3] 구역부터 배경 라인 */
+  --color-pale: #e3f0ff; /* 연한 하늘색 — 띠(sticky 헤더) 배경, [2] 제목 박스 */
+  --color-deepblue: #1a6ae8; /* [3]부터 프레임 선·띠·소제목·팀명 */
+  --color-darkblue: #0257ff; /* 가장 진한 블루 ([1] 키비주얼 선) */
   --color-pointpink: #ff2eff; /* 마젠타 포인트([1] 클릭 시 방사형 화살표선) */
   --color-ink: #121212; /* 사이트 블랙(본문 정보·사람 이름) — 검정은 이것 하나로 통일 */
-  --color-line: #dddddd;
+  --color-lightgray: #e4e4e4; /* 상단바 아래선·[1] 배경 격자선 */
 }
 
 /* ── 2026 타이포그래피 시스템 (Freesentation 하나) ──

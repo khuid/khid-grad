@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
 // 2) 선이 다 그려지면 글자 면 조각이 랜덤 순서로 깜빡이며 생김 (처음 한 번)
 // 3) 선은 잠시 머물렀다 사라지고 다시 그려지기를 반복 (면, NOT 왼쪽 2026 선은 그대로)
 // 다른 구역에 갔다가 돌아오면 1)부터 다시 재생
-const LINE_COLORS = ["#0068FF", "#0257FF"];
+const LINE_COLORS = ["#0068FF", "#0257FF"]; // 둘째 = globals.css의 darkblue
 
 // 선 사이클 타이밍(ms)
 const STAGGER_TOTAL = 2200; // 첫 선 ~ 마지막 선 시작 간격 합

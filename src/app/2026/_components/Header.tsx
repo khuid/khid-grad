@@ -1,4 +1,4 @@
-// 상단바: 흰 배경 + 아래 1px #DDD. Figma(높이 60)를 52로 줄이고 안의 요소도 같은 비율(52/60)로 축소:
+// 상단바: 흰 배경 + 아래 1px lightgray(#E4E4E4, [1] 격자선과 같은 색). Figma(높이 60)를 52로 줄이고 안의 요소도 같은 비율(52/60)로 축소:
 // 로고 높이 24 → 20.8, 메뉴 글자 24 → 20.8, 인스타 버튼 32 → 27.73. 메뉴 간격은 넉넉하게 44(모바일 20).
 // 메뉴는 연한 파랑(#75B3FF) → 호버 시 진한 파랑 + 확대(Figma 메모 "호버: 확대").
 // 좌우 여백: 데스크탑 50, 1920부터 80(요소는 화면 양 끝으로).
@@ -10,7 +10,7 @@ const NAV = [
 
 export default function Header() {
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 border-b border-line bg-white">
+    <header className="fixed top-0 right-0 left-0 z-50 border-b border-lightgray bg-white">
       <div className="flex h-[44px] items-center justify-between px-4 min-[1000px]:h-[52px] min-[1000px]:px-[50px] min-[1920px]:px-[80px]">
         <a href="#top" aria-label="KHID 2026 홈">
           {/* eslint-disable-next-line @next/next/no-img-element */}
