@@ -29,7 +29,7 @@ export default async function Hero() {
       {/* 헤더 아래 ~ 줄자(격자 2칸) 위 사이에서 세로 가운데 */}
       <div className="relative z-10 flex flex-1 items-center justify-center px-9 pt-[84px] pb-[72px] min-[640px]:px-14 min-[768px]:px-10 min-[1280px]:px-0 min-[1280px]:pt-[52px] min-[1280px]:pb-[64px]">
         {/* 768부터는 Figma 데스크탑 배치를 그대로 축소: 묶음 폭(939 = 100cqw) 기준 비율로 크기·간격 지정 */}
-        <div className="@container flex w-full max-w-[939px] flex-col gap-[calc(28px*var(--s))] min-[768px]:gap-0 min-[1280px]:w-[939px]">
+        <div data-hero-content className="@container flex w-full max-w-[939px] flex-col gap-[calc(28px*var(--s))] min-[768px]:gap-0 min-[1280px]:w-[939px]">
           {/* 키비주얼 939×524. 문구는 컨테이너 폭 기준(cqw)으로 같이 줄어듦 */}
           <div className="@container relative aspect-[939/524] w-full">
             <KeyVisual fillSvg={fillSvg} lineSvg={lineSvg}>

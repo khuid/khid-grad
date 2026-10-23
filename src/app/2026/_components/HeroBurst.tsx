@@ -7,8 +7,9 @@ import { useEffect, useRef, useState } from "react";
 // - 터치 기기: 손가락이 닿는 순간이 아니라 탭으로 끝났을 때(click)만 —
 //   히어로를 스크롤하려고 손가락을 댈 때는 안 나오게
 // - 모바일(~767)은 화면이 작아서 선 길이 60%
-// - 첫 클릭 전까지 줄자 숫자 바로 위 가운데에 "CLICK ANYWHERE"(터치 기기는 "터치해보세요") 안내를 pointpink로 깜빡이게 둠.
-//   [1] 안 어디든 한 번 누르면 사라짐. 위치는 줄자 숫자(격자에 맞춰 화면마다 달라짐)를 재서 그 8px 위
+// - 첫 클릭 전까지 마지막 에셋(전시 정보·날짜 묶음) 바로 아래 가운데에 "CLICK ANYWHERE"(터치 기기는 "TAP ANYWHERE")
+//   안내를 pointpink로 깜빡이게 둠. [1] 안 어디든 한 번 누르면 사라짐.
+//   위치는 묶음([data-hero-content]) 아랫선에서 36(모바일 28) 아래. 줄자 숫자까지 공간이 모자라면 둘 사이 한가운데 — 화면 크기가 바뀌면 다시 잼
 const BURST_COLOR = "#FF2EFF"; // = globals.css의 pointpink. 스크립트로 그려서 값을 직접 씀 — 바꿀 땐 같이
 
 export default function HeroBurst({ areaId }: { areaId: string }) {
@@ -17,7 +18,7 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
   const [hint, setHint] = useState(true);
   const [touch, setTouch] = useState(false);
 
-  // 안내 위치: 줄자 숫자 윗선 8px 위 (격자·화면 크기가 바뀌면 다시)
+  // 안내 위치: 전시 정보 묶음 아래 (격자·화면 크기가 바뀌면 다시)
   useEffect(() => {
     if (!hint) return;
     const area = document.getElementById(areaId);
@@ -25,10 +26,19 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
     if (!area || !el) return;
     setTouch(window.matchMedia("(pointer: coarse)").matches);
     const place = () => {
+      const content = area.querySelector("[data-hero-content]");
+      if (!content) return;
+      const base = area.getBoundingClientRect().top;
+      const gap = window.matchMedia("(max-width: 767px)").matches ? 28 : 36;
+      const below = content.getBoundingClientRect().bottom - base;
+      let top = below + gap;
       const num = [...area.querySelectorAll(".font-ruler text")].find((t) => /^\d+$/.test(t.textContent ?? ""));
-      if (!num) return;
-      const top = num.getBoundingClientRect().top - area.getBoundingClientRect().top;
-      el.style.top = `${top - 8 - el.offsetHeight}px`;
+      if (num) {
+        // 공간이 모자라면(화면이 낮을 때) 묶음과 줄자 숫자 사이 한가운데
+        const numTop = num.getBoundingClientRect().top - base;
+        if (top + el.offsetHeight + 8 > numTop) top = (below + numTop - el.offsetHeight) / 2;
+      }
+      el.style.top = `${top}px`;
       el.style.visibility = "visible";
     };
     place();
@@ -132,10 +142,10 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
         <p
           ref={hintRef}
           aria-hidden
-          lang={touch ? undefined : "en"}
+          lang="en"
           className="pointer-events-none invisible absolute inset-x-0 z-20 text-center text-[13px] leading-[normal] font-semibold tracking-[-0.04em] text-pointpink motion-safe:animate-pulse min-[768px]:text-[15px]"
         >
-          {touch ? "터치해보세요" : "CLICK ANYWHERE"}
+          {touch ? "TAP ANYWHERE" : "CLICK ANYWHERE"}
         </p>
       )}
     </>
