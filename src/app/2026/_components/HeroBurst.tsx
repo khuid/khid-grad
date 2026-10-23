@@ -1,16 +1,48 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // [1] 구역 클릭 모션 (Figma 메모 "클릭 시 모션(메인에서만)"). 커서 모양은 SiteCursor.
 // - 누른 자리에서 분홍(#FF2EFF) 화살표선이 방사형으로 뻗어나감. 개수·각도·길이 랜덤
 // - 터치 기기: 손가락이 닿는 순간이 아니라 탭으로 끝났을 때(click)만 —
 //   히어로를 스크롤하려고 손가락을 댈 때는 안 나오게
 // - 모바일(~767)은 화면이 작아서 선 길이 60%
+// - 첫 클릭 전까지 줄자 숫자 바로 위 가운데에 "클릭해보세요"(터치 기기는 "터치해보세요") 안내를 pointpink로 깜빡이게 둠.
+//   [1] 안 어디든 한 번 누르면 사라짐. 위치는 줄자 숫자(격자에 맞춰 화면마다 달라짐)를 재서 그 8px 위
 const BURST_COLOR = "#FF2EFF"; // = globals.css의 pointpink. 스크립트로 그려서 값을 직접 씀 — 바꿀 땐 같이
 
 export default function HeroBurst({ areaId }: { areaId: string }) {
   const burstRef = useRef<SVGSVGElement>(null);
+  const hintRef = useRef<HTMLParagraphElement>(null);
+  const [hint, setHint] = useState(true);
+  const [touch, setTouch] = useState(false);
+
+  // 안내 위치: 줄자 숫자 윗선 8px 위 (격자·화면 크기가 바뀌면 다시)
+  useEffect(() => {
+    if (!hint) return;
+    const area = document.getElementById(areaId);
+    const el = hintRef.current;
+    if (!area || !el) return;
+    setTouch(window.matchMedia("(pointer: coarse)").matches);
+    const place = () => {
+      const num = [...area.querySelectorAll(".font-ruler text")].find((t) => /^\d+$/.test(t.textContent ?? ""));
+      if (!num) return;
+      const top = num.getBoundingClientRect().top - area.getBoundingClientRect().top;
+      el.style.top = `${top - 8 - el.offsetHeight}px`;
+      el.style.visibility = "visible";
+    };
+    place();
+    const ro = new ResizeObserver(place);
+    ro.observe(area);
+    // 격자(HeroGrid)는 화면 크기를 잰 뒤에 그려지니, 줄자 숫자가 생기거나 바뀔 때도 다시
+    const mo = new MutationObserver(place);
+    mo.observe(area, { childList: true, subtree: true });
+    document.fonts.ready.then(place);
+    return () => {
+      ro.disconnect();
+      mo.disconnect();
+    };
+  }, [areaId, hint]);
 
   useEffect(() => {
     const area = document.getElementById(areaId);
@@ -31,6 +63,7 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
     };
 
     const burst = (e: MouseEvent) => {
+      if (!(e.target as Element).closest("a, button")) setHint(false); // 첫 클릭(터치는 탭)에서 안내 숨김
       if (reduce.matches) return;
       // 링크·버튼 클릭에는 모션 없음
       if ((e.target as Element).closest("a, button")) return;
@@ -93,7 +126,18 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
   }, [areaId]);
 
   return (
-    <svg ref={burstRef} aria-hidden className="pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible" />
+    <>
+      <svg ref={burstRef} aria-hidden className="pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible" />
+      {hint && (
+        <p
+          ref={hintRef}
+          aria-hidden
+          className="pointer-events-none invisible absolute inset-x-0 z-20 text-center text-[13px] leading-[normal] font-semibold tracking-[-0.04em] text-pointpink motion-safe:animate-pulse min-[768px]:text-[15px]"
+        >
+          {touch ? "터치해보세요" : "클릭해보세요"}
+        </p>
+      )}
+    </>
   );
 }
 
