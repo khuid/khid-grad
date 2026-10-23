@@ -95,7 +95,8 @@ async function ClassView({
               {/* "지도교수 김선철, 이동민" — 이름 뒤 "교수님"은 안 붙임 (2026-10-23 결정) */}
               <span className="font-semibold">{c.professors.join(", ")}</span>
             </p>
-            <p className="mt-8 text-[14px] leading-[1.5] font-medium tracking-[-0.04em] text-ink min-[1000px]:mt-[56px] min-[1000px]:text-[15px]">
+            {/* 수업 설명: #777 (2026-10-23 결정), 데이터의 줄바꿈 그대로 */}
+            <p className="mt-8 text-[14px] leading-[1.5] font-medium tracking-[-0.04em] whitespace-pre-line text-[#777] min-[1000px]:mt-[56px] min-[1000px]:text-[15px]">
               {c.description ?? (
                 <span className="text-[#a5a5a5]">수업 설명 준비 중</span>
               )}
