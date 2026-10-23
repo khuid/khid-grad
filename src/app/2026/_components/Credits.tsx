@@ -13,7 +13,7 @@ import SectionBar, { FRAME } from "./SectionBar";
 // 340보다 좁으면(최소 320 대응) 글자도 16/14로 줄임.
 // 모바일 사진 격자는 Figma iPhone 390(프레임 선에서 12) 기준, 화면이 넓어지면 격자가 같이 커지고 좌우 여백도 조금씩(늘어난 폭의 6%) 늘어남.
 // 글자 크기는 [3]과 통일: 팀명 = 소제목(EXHIBITION·교수님 이름)과 같은 text-heading 18/22/24,
-// 이름 = 교수님 영문 이름과 같은 크기 16/18/20(굵기는 Figma대로 Regular)
+// 이름 = 교수님 영문 이름과 같은 크기 16/18/20(굵기는 Figma대로 Regular), 색은 [3] 전시정보 본문처럼 블랙(ink)
 //
 // ── 후원사 ── Figma 실측(1440): 띠 아래 100 / 로고 300×300 네 개를 붙여서 가운데 / 120
 const SPONSORS = [
@@ -40,7 +40,7 @@ function TeamCredit({ team }: { team: string }) {
       <p className="text-heading max-[340px]:text-[16px] min-[340px]:max-[768px]:text-[18px] min-[768px]:max-[1000px]:text-[22px]">
         {t.title}
       </p>
-      <p className="flex gap-x-[10px] text-[14px]/[1.15] font-normal min-[340px]:gap-x-[12px] min-[340px]:text-[16px]/[1.15] tracking-[-0.04em] min-[768px]:gap-x-[16px] min-[768px]:text-[18px]/[1.15] min-[1000px]:gap-x-[20px] min-[1000px]:text-[20px]/[1.15]">
+      <p className="flex gap-x-[10px] text-[14px]/[1.15] font-normal text-ink min-[340px]:gap-x-[12px] min-[340px]:text-[16px]/[1.15] tracking-[-0.04em] min-[768px]:gap-x-[16px] min-[768px]:text-[18px]/[1.15] min-[1000px]:gap-x-[20px] min-[1000px]:text-[20px]/[1.15]">
         {MEMBERS.filter((m) => m.team === team).map((m) => (
           <span key={m.name}>{m.name}</span>
         ))}

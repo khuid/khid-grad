@@ -47,7 +47,7 @@ export default function ExhibitionInfo() {
     <section
       id="info"
       aria-labelledby="info-title"
-      className="relative bg-white text-[#111]"
+      className="relative bg-white text-ink"
     >
       {/* 프레임 세로선: 구역 맨 위부터 끝까지 */}
       <div

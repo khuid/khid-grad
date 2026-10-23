@@ -12,12 +12,13 @@
   --font-ruler: var(--font-hahmlet), serif;
 }
 
-/* 2026 컬러: 메인은 key 하나. key-light는 상단바 메뉴 기본 상태에만 */
+/* 2026 컬러: 메인은 key 하나. key-light는 상단바 메뉴 기본 상태에만, 검정은 ink(#121212) 하나 */
 @theme {
   --color-key: #1980ff;
   --color-key-light: #75b3ff;
   --color-pale: #e3f0ff; /* 연한 하늘색 */
   --color-rule: #1a6ae8; /* [3] 구역부터 배경 라인 */
+  --color-ink: #121212; /* 사이트 블랙(본문 정보·사람 이름) — 검정은 이것 하나로 통일 */
   --color-line: #dddddd;
 }
 
