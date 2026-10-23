@@ -9,19 +9,32 @@ import { FRAME, Node } from "./SectionBar";
 // 모바일(~767)은 2×2이고, 위 여백 24 + 위 선까지 한 덩어리로 붙음.
 // 768~도 위 여백(40/50)째로 붙음 → 스크롤해도 탭·위 선이 처음 자리에서 전혀 움직이지 않음.
 // 탭 아래 흰 띠(24/28)까지 한 덩어리 → 작품이 탭 선에 닿지 않고 흰 여백 뒤로 사라짐
-export default function ProjectTabs({ current }: { current: ClassKey }) {
+// release: 부모가 --release를 정해 두면 그만큼 아래 여백(mb)을 둬서, 묶음 끝에서 그만큼 일찍 놓임
+export default function ProjectTabs({
+  current,
+  release,
+}: {
+  current: ClassKey;
+  release?: boolean;
+}) {
   return (
     <nav
       aria-label="수업"
-      className="sticky top-[45px] z-40 bg-white pt-[24px] min-[768px]:pt-[40px] min-[768px]:pb-[24px] min-[1000px]:top-[53px] min-[1000px]:pt-[50px] min-[1000px]:pb-[28px]"
+      className={`sticky top-[45px] z-40 bg-white pt-[24px] min-[768px]:pt-[40px] min-[768px]:pb-[24px] min-[1000px]:top-[53px] min-[1000px]:pt-[50px] min-[1000px]:pb-[28px] ${release ? "mb-(--release)" : ""}`}
     >
       {/* 흰 배경이 가린 위 여백·아래 흰 띠 구간의 프레임 세로선을 다시 그림 */}
       <div
         aria-hidden
         className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-deepblue ${FRAME}`}
       />
-      <span aria-hidden className="absolute inset-x-0 top-[24px] h-px bg-deepblue min-[768px]:top-[40px] min-[1000px]:top-[50px]" />
-      <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-deepblue min-[768px]:bottom-[24px] min-[1000px]:bottom-[28px]" />
+      <span
+        aria-hidden
+        className="absolute inset-x-0 top-[24px] h-px bg-deepblue min-[768px]:top-[40px] min-[1000px]:top-[50px]"
+      />
+      <span
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-px bg-deepblue min-[768px]:bottom-[24px] min-[1000px]:bottom-[28px]"
+      />
       <div className={`relative mx-auto py-px ${FRAME}`}>
         <Node className="top-[0.5px] left-[0.5px]" />
         <Node className="top-[0.5px] left-[calc(100%-0.5px)]" />
