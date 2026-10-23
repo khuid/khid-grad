@@ -9,6 +9,7 @@ import SectionBar, { FRAME } from "./SectionBar";
 // 모바일·태블릿(~999)은 약도 위, 정보 아래 세로 배치이고 가운데 세로선 없음.
 // 태블릿(768~)은 약도·정보·교수님 줄을 [4] 졸준위 사진 격자와 같은 폭(프레임의 1151.78/1340, 좌우 94.11씩)에 맞춤:
 // 정보 두 묶음은 왼쪽·오른쪽 끝에, 교수님 네 분도 첫 분 화살표 ~ 마지막 분 글자 끝이 그 폭 양 끝에 오고 사이만 늘고 줆.
+// 약도 위(띠 아래)·아래(정보 제목 위) 여백은 같게: 모바일 20, 태블릿 32.
 // 태블릿 교수님 줄 위아래 여백은 [4] 후원사 칸(위 40 + 로고 + 아래 56)과 같은 높이가 되게.
 //
 // Figma 실측(1440): 구역 위 ~ 띠 45 / 약도 712×520, 띠 아래 45·오른쪽 45·아래 95 /
@@ -61,7 +62,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <div className="grid [grid-template-areas:'map'_'info'] min-[1000px]:grid-cols-[calc(538/1340*100cqw)_minmax(0,1fr)] min-[1000px]:[grid-template-areas:'info_map']">
             {/* 약도 */}
-            <div className="p-4 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-7 min-[1000px]:p-[calc(45/1340*100cqw)] min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:pb-[calc(95/1340*100cqw)]">
+            <div className="p-4 pb-5 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-7 min-[768px]:pb-8 min-[1000px]:p-[calc(45/1340*100cqw)] min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:pb-[calc(95/1340*100cqw)]">
               <div className="relative aspect-[712/520] w-full overflow-hidden bg-pale">
                 <iframe
                   src={MAP_SRC}
@@ -74,7 +75,7 @@ export default function ExhibitionInfo() {
             </div>
 
             {/* 전시 정보 */}
-            <div className="break-keep px-5 pt-3 pb-12 [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-4 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-r min-[1000px]:border-rule min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
+            <div className="break-keep px-5 pt-0 pb-12 [grid-area:info] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-0 min-[768px]:pb-14 min-[1000px]:flex min-[1000px]:items-center min-[1000px]:border-r min-[1000px]:border-rule min-[1000px]:pt-[calc(45/1340*100cqw)] min-[1000px]:pr-0 min-[1000px]:pb-[calc(95/1340*100cqw)] min-[1000px]:pl-[calc(70/1340*100cqw)]">
               <div className="flex flex-col gap-[40px] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-6 min-[1000px]:flex-col min-[1000px]:justify-start min-[1000px]:gap-[65px]">
                 {EVENTS.map((e) => (
                   <div key={e.title}>
