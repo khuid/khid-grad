@@ -11,17 +11,18 @@ export const TEAMS: Team[] = [
   { key: "web", label: <>Team.<br />Web Design</>, title: "Team. Web Design" },
 ];
 
-// 사진은 나중에 일괄로: public/2026/committee/에 넣고 photo에 경로 적기
+// 사진: 자유컷(work/data/designers/pose)을 칸 비율로 가로 가운데·위 기준으로 잘라 640px WebP로 public/2026/committee/에.
+// 오지샘은 55명 명단 밖이라 work/지샘 프로필.jpeg, 이수민은 아직 사진 없음(회색 칸)
 // d = 데스크탑·태블릿 [칸, 줄], m = 모바일 [칸, 줄] (Figma iPhone 390: 4칸 × 4줄, 빈칸 유지)
 export const MEMBERS: { name: string; team: string; photo?: string; d: [number, number]; m: [number, number] }[] = [
-  { name: "장서영", team: "po", d: [1, 1], m: [1, 1] },
-  { name: "양성은", team: "anf", d: [2, 1], m: [2, 1] },
-  { name: "김동은", team: "comm", d: [4, 1], m: [4, 1] },
-  { name: "김현호", team: "mkt", d: [6, 1], m: [2, 2] },
-  { name: "박예은", team: "mkt", d: [7, 1], m: [3, 2] },
-  { name: "안지언", team: "space", d: [1, 2], m: [1, 3] },
-  { name: "이유택", team: "space", d: [2, 2], m: [2, 3] },
-  { name: "정예원", team: "space", d: [3, 2], m: [3, 3] },
-  { name: "오지샘", team: "brand", d: [5, 2], m: [2, 4] },
+  { name: "장서영", photo: "/2026/committee/p41-jang-seoyeong.webp", team: "po", d: [1, 1], m: [1, 1] },
+  { name: "양성은", photo: "/2026/committee/p26-yang-seongeun.webp", team: "anf", d: [2, 1], m: [2, 1] },
+  { name: "김동은", photo: "/2026/committee/p07-kim-dongeun.webp", team: "comm", d: [4, 1], m: [4, 1] },
+  { name: "김현호", photo: "/2026/committee/p14-kim-hyeonho.webp", team: "mkt", d: [6, 1], m: [2, 2] },
+  { name: "박예은", photo: "/2026/committee/p17-park-yeeun.webp", team: "mkt", d: [7, 1], m: [3, 2] },
+  { name: "안지언", photo: "/2026/committee/p25-ahn-jieon.webp", team: "space", d: [1, 2], m: [1, 3] },
+  { name: "이유택", photo: "/2026/committee/p35-lee-yutaek.webp", team: "space", d: [2, 2], m: [2, 3] },
+  { name: "정예원", photo: "/2026/committee/p45-jung-yewon.webp", team: "space", d: [3, 2], m: [3, 3] },
+  { name: "오지샘", photo: "/2026/committee/oh-jisaem.webp", team: "brand", d: [5, 2], m: [2, 4] },
   { name: "이수민", team: "web", d: [7, 2], m: [4, 4] },
 ];

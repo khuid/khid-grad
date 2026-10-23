@@ -57,7 +57,7 @@ export default function CommitteeGrid() {
           >
             {m.photo && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={m.photo} alt={m.name} className="absolute inset-0 size-full object-cover" />
+              <img src={m.photo} alt={m.name} className="absolute inset-0 size-full object-cover object-top" />
             )}
           </div>
         ))}
