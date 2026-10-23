@@ -5,11 +5,12 @@
      → 배경 회색·검정 옷처럼 무채색은 그대로, 얼굴·목·손만 톤이 내려감
   2) 전체에 약한 톤 곡선으로 검정을 살짝 들어 올려 대비를 줄임(--lift), 배경 회색(238)과 흰색은 그대로
   3) 그래도 혼자 웜하면 피부 쪽만 채도를 줄이고(--desat) 빨강을 조금 빼고 파랑을 조금 더함(--cool)
-  4) 너무 창백해지면 피부 쪽에 분홍기(빨강 +, 초록 −)를 살짝 더함(--pink)
+  4) 너무 창백해지면 피부 쪽 채도를 올리되(--desat 음수, 입술·볼처럼 이미 진한 곳은 제외) 초록을 조금 빼서
+     웜하지 않은 쿨한 분홍기로(--magenta). --pink(빨강 +)는 너무 빨개져서 오지샘 사진엔 안 씀
 기준 사진은 같은 폴더의 다른 WebP 전부.
 
 실행 (site.2026 폴더에서, Pillow·numpy 필요) — profile-photos.py를 다시 돌렸다면 이것도 다시:
-  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.65 --desat 0.15 --cool 3 --pink 5
+  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.8 --desat -0.4 --cool 6 --magenta 3
 """
 import argparse
 from pathlib import Path
@@ -55,9 +56,10 @@ def main() -> None:
     ap.add_argument("--refs", help="기준 사진 폴더 (기본: 대상과 같은 폴더)")
     ap.add_argument("--lift", type=float, default=8, help="검정을 이만큼 들어 올림(대비 줄이기)")
     ap.add_argument("--strength", type=float, default=1.0, help="피부색 맞추는 정도 0~1")
-    ap.add_argument("--desat", type=float, default=0.0, help="피부 쪽 채도 줄이는 정도 0~1")
+    ap.add_argument("--desat", type=float, default=0.0, help="피부 쪽 채도 줄이는 정도 0~1 (음수면 채도를 올림)")
     ap.add_argument("--cool", type=float, default=0.0, help="피부 쪽 빨강을 뺄 양(파랑은 그 0.6배 더함)")
     ap.add_argument("--pink", type=float, default=0.0, help="피부 쪽 빨강을 더할 양(초록은 그 0.6배 뺌)")
+    ap.add_argument("--magenta", type=float, default=0.0, help="피부 쪽 초록만 뺄 양 — 웜하지 않은(쿨한) 분홍기")
     a = ap.parse_args()
 
     target = Path(a.target)
@@ -76,15 +78,22 @@ def main() -> None:
     for ch in range(3):
         lut = curve(128, 128 + a.lift * (1 - 128 / BG), a.lift)  # 검정만 살짝 들어 올리는 약한 곡선
         out[..., ch] = lut[np.clip(f[..., ch], 0, 255).round().astype(np.uint8)].round().astype(np.uint8)
-    if a.desat or a.cool or a.pink:
+    if a.desat or a.cool or a.pink or a.magenta:
         f = out.astype(float)
         warm = np.clip((f[..., 0] - f[..., 2] - 8) / 22, 0, 1)[..., None]
         lum = (0.299 * f[..., 0] + 0.587 * f[..., 1] + 0.114 * f[..., 2])[..., None]
-        f = lum + (f - lum) * (1 - a.desat * warm)
+        k = warm
+        if a.desat < 0:
+            # 채도를 올릴 땐 이미 채도가 높은 곳(입술·볼 터치)은 빼고 옅은 피부만 — 안 그러면 입술이 빨개짐
+            mx, mn = f.max(axis=-1, keepdims=True), f.min(axis=-1, keepdims=True)
+            sat = (mx - mn) / np.maximum(mx, 1)
+            k = warm * np.clip(1 - (sat - 0.18) / 0.1, 0, 1)
+        f = lum + (f - lum) * (1 - a.desat * k)
         f[..., 0] -= a.cool * warm[..., 0]
         f[..., 2] += a.cool * 0.6 * warm[..., 0]
         f[..., 0] += a.pink * warm[..., 0]
         f[..., 1] -= a.pink * 0.6 * warm[..., 0]
+        f[..., 1] -= a.magenta * warm[..., 0]
         out = np.clip(f, 0, 255).round().astype(np.uint8)
     Image.fromarray(out).save(target, "WEBP", quality=85, method=6)
     print(f"{target.name}: skin {src_skin.round()} -> {skin_mean(out).round()} (ref {ref_skin.round()})")
