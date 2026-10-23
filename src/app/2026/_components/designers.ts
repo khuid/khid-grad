@@ -1,6 +1,6 @@
 // DESIGNERS 페이지 데이터: 졸전자 55명(졸준위만 한 56 이수민·57 오지샘 제외), 가나다 순 = work/data/designers/designers.csv 순서.
 // slug(주소 /2026/designers/<slug>)와 사진 파일명은 csv의 name_en. en은 임시 표기(성 + 이름 로마자) — 본인 표기를 받으면 en·slug·사진 이름을 같이 바꿀 것.
-// contact(이메일)·portfolio(링크 여러 개)는 나중에 일괄 입력. 비어 있으면 화면에 "준비 중".
+// contact(이메일, 필수)·portfolio(인스타·비핸스·개인 웹사이트 등 최대 3개)는 나중에 일괄 입력(제출 규격: work/docs/04_이미지제출가이드.md). 비어 있으면 화면에 "준비 중".
 // 프로필 아래 작품 3개는 projects.ts의 members(국문 이름)로 저절로 찾음
 export type Designer = {
   no: string;

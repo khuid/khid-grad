@@ -1,10 +1,12 @@
 // PROJECTS 데이터: 수업 4개(가나다 순) × 작품 자리 81개(받은 74개 + 빈 자리). 수업마다 /2026/projects/<수업>, 작품마다 /2026/projects/<수업>/<번호>.
 // 작품 제목·만든 사람(members, 국문 이름 1~4명)은 WORKS에. 목록·프로필 모두 제목 가나다-abc 순.
 // members에 넣은 이름은 DESIGNERS 프로필의 작품 카드에도 저절로 연결됨(이름이 같은 졸전자).
-// 이미지·영상·링크·수업 설명은 나중에 일괄 입력:
-//   thumb  목록 썸네일 4:5 (예: /2026/projects/spatial/01/thumb.webp)
-//   media  상세 왼쪽 세로 나열, 1920×1080 가로 이미지 + 영상 최대 1개, 합쳐서 3~7개 (사이 여백 0)
-//   links  상세 오른쪽 아래 바로가기 (Behance ↗ 등)
+// 이미지·영상·링크·설명은 나중에 일괄 입력 — 제출 규격은 work/docs/04_이미지제출가이드.md (구글폼, 팀당 대표 1인):
+//   thumb        목록 썸네일 4:5, JPG 1080×1350 권장 (예: /2026/projects/spatial/01/thumb.webp)
+//   media        상세 왼쪽 세로 나열(사이 여백 0): 16:9 장표 이미지 3~7장(1920×1080↑, 파일명 순서 넘버링)
+//                + 선택 영상 1개 — 15초 이내 MP4(10MB↓, type "video") 또는 유튜브 링크(type "youtube")
+//   description  국문 설명, 공백 포함 최대 400자
+//   links        작품별 외부 링크 최대 3개 (비핸스 등, 상세 오른쪽 아래 "Behance ↗")
 export type ClassKey = "spatial" | "capstone" | "smart" | "ai";
 
 export type Media =

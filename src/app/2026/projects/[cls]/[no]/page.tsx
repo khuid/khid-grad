@@ -93,10 +93,11 @@ function MediaItem({ media, index, alt }: { media: Media | null; index: number; 
   return <img src={media.src} alt={alt} loading={index ? "lazy" : "eager"} className="block aspect-video w-full object-cover" />;
 }
 
+// 정보 칸: 설명 최대 400자(공백 포함) + 링크 최대 3개(제출 규격). 낮은 화면에서 칸이 화면보다 길면 칸 안에서 스크롤
 function Info({ project: p }: { project: Project }) {
   const c = classOf(p.cls)!;
   return (
-    <aside className="order-1 flex flex-col gap-8 px-5 py-8 break-keep min-[768px]:sticky min-[768px]:top-[86px] min-[768px]:order-2 min-[768px]:self-start min-[768px]:px-6 min-[768px]:py-10 min-[1000px]:top-[104px] min-[1000px]:gap-[44px] min-[1000px]:px-[32px] min-[1000px]:py-[44px]">
+    <aside className="order-1 flex flex-col gap-8 px-5 py-8 break-keep min-[768px]:sticky min-[768px]:top-[86px] min-[768px]:max-h-[calc(100dvh-86px)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:order-2 min-[768px]:self-start min-[768px]:px-6 min-[768px]:py-10 min-[1000px]:top-[104px] min-[1000px]:max-h-[calc(100dvh-104px)] min-[1000px]:gap-[44px] min-[1000px]:px-[32px] min-[1000px]:py-[44px]">
       <div>
         <Link
           href={`/2026/projects/${c.key}`}
