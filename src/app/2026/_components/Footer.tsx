@@ -38,18 +38,16 @@ export default function Footer() {
       <div
         className={`mx-auto grid gap-y-10 py-10 [grid-template-areas:'title'_'info'_'logo'] min-[768px]:grid-cols-[auto_1fr] min-[768px]:gap-y-12 min-[768px]:[grid-template-areas:'title_title'_'logo_info'] min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'] ${FRAME}`}
       >
-        {/* 전시명 · 제목 · 부제 (~1199는 화살표를 전시명 줄 오른쪽에 둬서 제목이 폭을 다 쓰게) */}
-        <div className="flex flex-col gap-4 [grid-area:title]">
-          <div className="flex items-start justify-between gap-6">
-            <p className="text-caption">제 35회 경희대학교 산업디자인학과 졸업전시</p>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/2026/arrow-l.svg"
-              alt=""
-              aria-hidden
-              className="block size-[40px] shrink-0 min-[768px]:size-[52px] min-[1200px]:hidden"
-            />
-          </div>
+        {/* 전시명 · 제목 · 부제. ~1199는 화살표를 오른쪽 위 모서리에 띄워 둬서 전시명 → 제목 간격이 데스크탑처럼 16 */}
+        <div className="relative flex flex-col gap-4 [grid-area:title]">
+          <p className="text-caption">제 35회 경희대학교 산업디자인학과 졸업전시</p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/2026/arrow-l.svg"
+            alt=""
+            aria-hidden
+            className="absolute top-0 right-0 block size-[32px] min-[360px]:size-[40px] min-[768px]:size-[52px] min-[1200px]:hidden"
+          />
           <div className="flex flex-col gap-2">
             <p className="text-display max-[360px]:text-[22px] min-[360px]:max-[768px]:text-[26px] min-[768px]:max-[1000px]:text-[34px]">
               THIS IS NOT GRADUATION
