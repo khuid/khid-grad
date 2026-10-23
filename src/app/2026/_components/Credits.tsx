@@ -9,7 +9,7 @@ import SectionBar, { FRAME } from "./SectionBar";
 // 팀·이름은 격자 왼쪽에서 0 · 486 · 975에 세 칸, 순서는 위 사진 순서와 같음.
 // 팀명 24 SemiBold, 이름 20 Regular(이름 사이 20), 팀명 → 이름 10, 전부 #1A6AE8. P.O.와 AnF는 한 칸에 48 간격으로 나란히.
 // 태블릿(세 칸)·모바일(두 칸)은 글자 묶음을 사진 격자 왼쪽·오른쪽 끝에 맞추고, 화면 폭이 바뀌면 칸 사이만 늘고 줆.
-// 모바일 사진 격자는 Figma iPhone 390(폭 334) 기준, 넓은 모바일에서도 최대 400까지만 커지고 좌우 여백이 늘어남.
+// 모바일 사진 격자는 Figma iPhone 390(프레임 선에서 12) 기준, 화면이 넓어지면 격자가 같이 커지고 좌우 여백도 조금씩(늘어난 폭의 6%) 늘어남.
 // 글자 크기는 [3]과 통일: 팀명 = 소제목(EXHIBITION·교수님 이름)과 같은 text-heading 18/22/24,
 // 이름 = 교수님 영문 이름과 같은 크기 16/18/20(굵기는 Figma대로 Regular)
 //
@@ -67,8 +67,8 @@ export default function Credits() {
           en="PREPARATORY COMMITTEE"
         />
         <div className={`@container relative mx-auto ${FRAME}`}>
-          <div className="px-3 pt-8 pb-12 min-[768px]:mx-auto min-[768px]:w-[calc(1151.78/1340*100cqw)] min-[768px]:px-0 min-[768px]:pt-10 min-[768px]:pb-14 min-[1000px]:pt-[calc(62/1340*100cqw)] min-[1000px]:pb-[calc(120.5/1340*100cqw)]">
-            <div className="mx-auto max-w-[400px] min-[768px]:max-w-none">
+          <div className="px-[calc(12px+(100cqw-358px)*0.06)] pt-8 pb-12 min-[768px]:mx-auto min-[768px]:w-[calc(1151.78/1340*100cqw)] min-[768px]:px-0 min-[768px]:pt-10 min-[768px]:pb-14 min-[1000px]:pt-[calc(62/1340*100cqw)] min-[1000px]:pb-[calc(120.5/1340*100cqw)]">
+            <div>
               <CommitteeGrid />
               <ul
                 aria-labelledby="committee-title"
