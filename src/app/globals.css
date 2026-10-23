@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1980FF;
+  --background: #ffffff; /* 페이지 바탕(페이지 이동 중 잠깐 비는 순간에 보이는 색) — 파란 화면이 번쩍이지 않게 흰색 */
   --foreground: #eeeeee;
 }
 

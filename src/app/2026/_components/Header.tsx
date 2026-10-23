@@ -7,7 +7,7 @@ import Link from "next/link";
 // 모바일 구조(~999)는 높이 44, 좌우 16, 메뉴 글자 16
 // 지금 보고 있는 페이지 메뉴(current)는 진한 파랑으로 고정. 로고는 메인 페이지에선 맨 위로, 다른 페이지에선 메인으로
 const NAV = [
-  { key: "projects", href: "/2026/projects", label: "PROJECTS" },
+  { key: "projects", href: "/2026/projects/spatial", label: "PROJECTS" }, // 첫 수업 탭으로 바로 (/2026/projects를 거치면 한 번 더 넘겨져서 느림)
   { key: "designers", href: "/2026/designers", label: "DESIGNERS" },
 ];
 

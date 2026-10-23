@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import ClearPreview from "./ClearPreview";
 import ComingSoon from "./ComingSoon";
+import GateFallback from "./GateFallback";
 import { PREVIEW_COOKIE } from "./preview";
 
 // 2026-11-11 09:00 KST 이후 전체 사이트 공개. 메인·DESIGNERS 등 2026 페이지가 모두 이 게이트를 거침.
@@ -33,9 +34,10 @@ export function isOpen() {
 }
 
 export default function SiteGate({ children }: { children: React.ReactNode }) {
-  // 기다리는 동안은 이미지 없이 파란 화면만 (커밍순 이미지는 실제로 커밍순일 때만 받게)
+  // 기다리는 동안: 처음 접속은 이미지 없이 파란 화면만(커밍순 이미지는 실제로 커밍순일 때만 받게),
+  // 사이트 안 이동은 상단바 + 흰 화면 (GateFallback)
   return (
-    <Suspense fallback={<main className="fixed inset-0 bg-[#1980FF]" />}>
+    <Suspense fallback={<GateFallback />}>
       <Gate>{children}</Gate>
     </Suspense>
   );
