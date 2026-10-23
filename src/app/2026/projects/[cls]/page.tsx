@@ -59,13 +59,13 @@ async function ClassView({
       <div className={`@container mx-auto ${FRAME}`}>
         <div className="grid min-[768px]:grid-cols-[34cqw_minmax(0,1fr)] min-[1000px]:grid-cols-[calc(500/1340*100cqw)_minmax(0,1fr)] min-[1000px]:gap-x-[calc(45/1340*100cqw)]">
           {/* 페이지 전체가 스크롤되고, 탭(+아래 흰 띠)은 상단바 아래에 붙음. 태블릿·데스크탑(768~)은 왼쪽 수업 정보도
-              탭 아래에 붙어 제자리(상단바 45/53 + 위 여백 24 + 탭 50/54 + 흰 띠 24/28 = 143/159) → 오른쪽 작품만 흰 띠 뒤로 지나감.
+              탭 아래에 붙어 제자리(상단바 45/53 + 위 여백 40/50 + 탭 50/54 + 흰 띠 24/28 = 159/185) → 오른쪽 작품만 흰 띠 뒤로 지나감.
               모바일은 수업 정보 → 작품 세로 배치, 좌우 여백은 작품 격자와 같게(프레임 폭의 6.5%).
               작품 열: ~599 2열 / 600~ 3열 (한 화면에 더 많이, 2026-10-23 결정). 768~999는 수업 정보 칸을 34%로 좁힘 */}
           {/* 칸 안쪽 폭(100cqw)에 맞춰 수업명 크기 조절: 글자 수(--n) × 0.82em(Freesentation 한글 폭, 자간 포함) + 화살표(--a) + 16이 넘치지 않게, 최대 30/32/44 */}
           <div
             style={{ "--n": c.ko.length } as React.CSSProperties}
-            className="@container px-[6.5cqw] pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:sticky min-[768px]:top-[143px] min-[768px]:self-start min-[768px]:px-6 min-[768px]:pt-0 min-[768px]:pb-0 min-[1000px]:top-[159px] min-[1000px]:px-[32px]"
+            className="@container px-[6.5cqw] pt-10 pb-2 break-keep [--a:56px] min-[768px]:[--a:48px] min-[1000px]:[--a:calc(87/436*100cqw)] min-[768px]:sticky min-[768px]:top-[159px] min-[768px]:self-start min-[768px]:px-6 min-[768px]:pt-0 min-[768px]:pb-0 min-[1000px]:top-[185px] min-[1000px]:px-[32px]"
           >
             {/* 화살표는 수업명 윗선에 맞춤 (영문명이 두 줄이 돼도 내려가지 않게) */}
             <div className="flex items-start justify-between gap-4">
