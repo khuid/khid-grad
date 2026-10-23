@@ -7,19 +7,20 @@ import { FRAME, Node } from "./SectionBar";
 // 높이·글자는 메인 띠(SectionBar)와 같게(2026-10-23 결정): 안쪽 높이 52/48/44, 글자 20.8/18/16 (데스크탑/태블릿/모바일).
 // 선은 메인 양식(deepblue 1px), 프레임 모서리에 9×9 사각형.
 // 모바일(~767)은 2×2이고, 위 여백 24 + 위 선까지 한 덩어리로 붙음.
-// 768~는 위 여백은 스크롤되어 올라가고, 탭 아래 흰 띠(24/28)까지 한 덩어리로 붙음 → 작품이 탭 선에 닿지 않고 흰 여백 뒤로 사라짐
+// 768~도 위 선 위로 흰 여백 24를 남기고 붙음(상단바 선과 탭 선이 겹치지 않게): 처음 여백 40/50 = 바깥 16/26 + 붙는 24.
+// 탭 아래 흰 띠(24/28)까지 한 덩어리 → 작품이 탭 선에 닿지 않고 흰 여백 뒤로 사라짐
 export default function ProjectTabs({ current }: { current: ClassKey }) {
   return (
     <nav
       aria-label="수업"
-      className="sticky top-[45px] z-40 bg-white pt-[24px] min-[768px]:mt-[40px] min-[768px]:pt-0 min-[768px]:pb-[24px] min-[1000px]:top-[53px] min-[1000px]:mt-[50px] min-[1000px]:pb-[28px]"
+      className="sticky top-[45px] z-40 bg-white pt-[24px] min-[768px]:mt-[16px] min-[768px]:pb-[24px] min-[1000px]:top-[53px] min-[1000px]:mt-[26px] min-[1000px]:pb-[28px]"
     >
-      {/* 흰 배경이 가린 위 여백(모바일)·아래 흰 띠(768~) 구간의 프레임 세로선을 다시 그림 */}
+      {/* 흰 배경이 가린 위 여백·아래 흰 띠 구간의 프레임 세로선을 다시 그림 */}
       <div
         aria-hidden
         className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-deepblue ${FRAME}`}
       />
-      <span aria-hidden className="absolute inset-x-0 top-[24px] h-px bg-deepblue min-[768px]:top-0" />
+      <span aria-hidden className="absolute inset-x-0 top-[24px] h-px bg-deepblue" />
       <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-deepblue min-[768px]:bottom-[24px] min-[1000px]:bottom-[28px]" />
       <div className={`relative mx-auto py-px ${FRAME}`}>
         <Node className="top-[0.5px] left-[0.5px]" />
