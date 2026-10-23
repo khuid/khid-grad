@@ -7,6 +7,7 @@ import ComingSoon from "./_components/ComingSoon";
 import Concept from "./_components/Concept";
 import Credits from "./_components/Credits";
 import ExhibitionInfo from "./_components/ExhibitionInfo";
+import Footer from "./_components/Footer";
 import Header from "./_components/Header";
 import Hero from "./_components/Hero";
 import { PREVIEW_COOKIE } from "./_components/preview";
@@ -27,7 +28,7 @@ export const viewport: Viewport = {
 //    공개 시각 이후 졸준위가 직접 삭제를 요청할 때만 지울 것. 미리 지우면 그 배포 순간 사이트가 공개됨
 const OPEN_AT = new Date("2026-11-11T09:00:00+09:00").getTime();
 
-// 구역별로 만들어 가는 중: [1] 히어로, [2] 기획, [3] 전시안내·지도교수, [4] 졸준위·후원사
+// 구역별로 만들어 가는 중: [1] 히어로, [2] 기획, [3] 전시안내·지도교수, [4] 졸준위·후원사, 푸터
 function FullSite() {
   return (
     <>
@@ -38,6 +39,7 @@ function FullSite() {
         <ExhibitionInfo />
         <Credits />
       </main>
+      <Footer />
       <SiteCursor heroId="top" />
     </>
   );
