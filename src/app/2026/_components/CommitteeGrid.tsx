@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { MEMBERS, TEAMS } from "./committee";
 
+const AUTO_CLOSE_MS = 2500;
+
 // [4] 졸준위 프로필 사진 격자 + 팀 덮개.
 // 데스크탑·태블릿(768~)은 Figma 그대로 7칸 × 2줄, 빈칸(3·5·11·13번)은 비워 둠.
 // 모바일(~767)은 Figma iPhone 390 배치: 4칸 × 4줄, 빈칸 유지(격자 334, 칸 사이 가로 3.21 / 세로 5.05).
-// 팀 덮개: 마우스는 팀 구역에 올리면, 터치는 누르면(다시 누르거나 바깥 누르면 닫힘)
+// 팀 덮개: 마우스는 팀 구역에 올리면, 터치는 누르면(2.5초 뒤 저절로, 또는 다시 누르거나 바깥 누르면 닫힘)
 // 반투명 블루(#1980FF 80%) 위에 흰 글자로 팀 이름만. 여러 명인 팀은 사람 사이 여백까지 한 덩어리로 덮음.
 // 1명인 팀은 "Team." 줄바꿈 "팀명", 가운데 정렬.
 //
@@ -30,12 +32,17 @@ export default function CommitteeGrid() {
   const [open, setOpen] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
-  // 터치로 연 덮개는 격자 바깥을 누르면 닫힘
+  // 터치로 연 덮개는 2.5초 지나면 저절로 닫힘 (다시 누르거나 격자 바깥을 눌러도 닫힘).
+  // 다른 팀을 누르면 그 팀으로 바뀌고 시간은 처음부터 다시
   useEffect(() => {
     if (!open) return;
     const close = (e: PointerEvent) => !ref.current?.contains(e.target as Node) && setOpen(null);
+    const timer = window.setTimeout(() => setOpen(null), AUTO_CLOSE_MS);
     document.addEventListener("pointerdown", close);
-    return () => document.removeEventListener("pointerdown", close);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("pointerdown", close);
+    };
   }, [open]);
 
   return (
