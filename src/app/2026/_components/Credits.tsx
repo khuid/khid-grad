@@ -8,9 +8,10 @@ import SectionBar, { FRAME } from "./SectionBar";
 // ── 졸준위 ── Figma 실측(1440): 띠 아래 62 / 사진 격자 1151.78 (가운데) / 82 / 팀·이름 두 줄(61, 줄 사이 40) / 120.5
 // 팀·이름은 격자 왼쪽에서 0 · 486 · 975에 세 칸, 순서는 위 사진 순서와 같음.
 // 팀명 24 SemiBold, 이름 20 Regular(이름 사이 20), 팀명 → 이름 10, 전부 #1A6AE8. P.O.와 AnF는 한 칸에 48 간격으로 나란히.
-// 태블릿은 세 칸을 같은 폭으로.
-// 모바일은 Figma iPhone 390: 격자(334) 아래 63 / 두 칸, 격자 왼쪽에서 16 · 186.8 / 줄 간격 70(묶음 41.7) /
-// 팀명 16.13, 이름 13.44(이름 사이 13.44), 팀명 → 이름 6.72, P.O.–AnF 31.4
+// 태블릿(세 칸)·모바일(두 칸)은 글자 묶음을 사진 격자 왼쪽·오른쪽 끝에 맞추고, 화면 폭이 바뀌면 칸 사이만 늘고 줆.
+// 모바일 사진 격자는 Figma iPhone 390(폭 334) 기준, 넓은 모바일에서도 최대 400까지만 커지고 좌우 여백이 늘어남.
+// 글자 크기는 [3]과 통일: 팀명 = 소제목(EXHIBITION·교수님 이름)과 같은 text-heading 18/22/24,
+// 이름 = 교수님 영문 이름과 같은 크기 16/18/20(굵기는 Figma대로 Regular)
 //
 // ── 후원사 ── Figma 실측(1440): 띠 아래 100 / 로고 300×300 네 개를 붙여서 가운데 / 120
 const SPONSORS = [
@@ -21,14 +22,23 @@ const SPONSORS = [
 ];
 
 // 팀·이름 묶음 (사진 순서와 같은 순서로 채움: 데스크탑·태블릿 3칸, 모바일 2칸)
-const CREDITS: string[][] = [["po", "anf"], ["comm"], ["mkt"], ["space"], ["brand"], ["web"]];
+const CREDITS: string[][] = [
+  ["po", "anf"],
+  ["comm"],
+  ["mkt"],
+  ["space"],
+  ["brand"],
+  ["web"],
+];
 
 function TeamCredit({ team }: { team: string }) {
   const t = TEAMS.find((x) => x.key === team)!;
   return (
-    <div className="flex flex-col gap-[6.72px] whitespace-nowrap text-rule min-[768px]:gap-[6px] min-[1000px]:gap-[10px]">
-      <p className="text-heading max-[767px]:text-[16.13px]/[19px] min-[768px]:max-[999px]:text-[20px]">{t.title}</p>
-      <p className="flex gap-x-[13.44px] text-[13.44px]/[16px] font-normal tracking-[-0.04em] min-[768px]:gap-x-[16px] min-[768px]:text-[17px]/[1.15] min-[1000px]:gap-x-[20px] min-[1000px]:text-[20px]/[1.15]">
+    <div className="flex flex-col gap-[6px] whitespace-nowrap text-rule min-[768px]:gap-[8px] min-[1000px]:gap-[10px]">
+      <p className="text-heading max-[767px]:text-[18px] min-[768px]:max-[999px]:text-[22px]">
+        {t.title}
+      </p>
+      <p className="flex gap-x-[12px] text-[16px]/[1.15] font-normal tracking-[-0.04em] min-[768px]:gap-x-[16px] min-[768px]:text-[18px]/[1.15] min-[1000px]:gap-x-[20px] min-[1000px]:text-[20px]/[1.15]">
         {MEMBERS.filter((m) => m.team === team).map((m) => (
           <span key={m.name}>{m.name}</span>
         ))}
@@ -39,7 +49,11 @@ function TeamCredit({ team }: { team: string }) {
 
 export default function Credits() {
   return (
-    <section id="credits" aria-label="졸업전시준비위원회와 후원사" className="relative bg-white">
+    <section
+      id="credits"
+      aria-label="졸업전시준비위원회와 후원사"
+      className="relative bg-white"
+    >
       {/* 프레임 세로선: 구역 맨 위부터 끝까지 */}
       <div
         aria-hidden
@@ -47,22 +61,31 @@ export default function Credits() {
       />
 
       <div>
-        <SectionBar id="committee-title" ko="졸업전시준비위원회" en="PREPARATORY COMMITTEE" />
+        <SectionBar
+          id="committee-title"
+          ko="졸업전시준비위원회"
+          en="PREPARATORY COMMITTEE"
+        />
         <div className={`@container relative mx-auto ${FRAME}`}>
-          <div className="px-3 pt-8 pb-12 min-[768px]:px-7 min-[768px]:pt-10 min-[768px]:pb-14 min-[1000px]:mx-auto min-[1000px]:w-[calc(1151.78/1340*100cqw)] min-[1000px]:px-0 min-[1000px]:pt-[calc(62/1340*100cqw)] min-[1000px]:pb-[calc(120.5/1340*100cqw)]">
-            <CommitteeGrid />
-            <ul
-              aria-labelledby="committee-title"
-              className="mt-[63px] grid grid-cols-[170.84fr_147.16fr] gap-y-[28.28px] pl-4 min-[768px]:mt-10 min-[768px]:grid-cols-3 min-[768px]:gap-x-4 min-[768px]:gap-y-8 min-[768px]:pl-0 min-[1000px]:mt-[calc(82/1340*100cqw)] min-[1000px]:grid-cols-[486fr_489fr_176.78fr] min-[1000px]:gap-x-0 min-[1000px]:gap-y-[40px]"
-            >
-              {CREDITS.map((teams) => (
-                <li key={teams.join()} className="flex gap-[31.4px] min-[768px]:gap-[32px] min-[1000px]:gap-[48px]">
-                  {teams.map((t) => (
-                    <TeamCredit key={t} team={t} />
-                  ))}
-                </li>
-              ))}
-            </ul>
+          <div className="px-3 pt-8 pb-12 min-[768px]:mx-auto min-[768px]:w-[calc(1151.78/1340*100cqw)] min-[768px]:px-0 min-[768px]:pt-10 min-[768px]:pb-14 min-[1000px]:pt-[calc(62/1340*100cqw)] min-[1000px]:pb-[calc(120.5/1340*100cqw)]">
+            <div className="mx-auto max-w-[400px] min-[768px]:max-w-none">
+              <CommitteeGrid />
+              <ul
+                aria-labelledby="committee-title"
+                className="mt-[56px] grid grid-cols-[repeat(2,auto)] justify-between gap-x-4 gap-y-[28px] min-[768px]:mt-10 min-[768px]:grid-cols-[repeat(3,auto)] min-[768px]:gap-y-8 min-[1000px]:mt-[calc(82/1340*100cqw)] min-[1000px]:grid-cols-[486fr_489fr_176.78fr] min-[1000px]:justify-normal min-[1000px]:gap-x-0 min-[1000px]:gap-y-[40px]"
+              >
+                {CREDITS.map((teams) => (
+                  <li
+                    key={teams.join()}
+                    className="flex gap-[32px] min-[1000px]:gap-[48px]"
+                  >
+                    {teams.map((t) => (
+                      <TeamCredit key={t} team={t} />
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +100,13 @@ export default function Credits() {
             {SPONSORS.map((s) => (
               <li key={s.name}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.src} alt={s.name} width={300} height={300} className="block aspect-square h-auto w-full" />
+                <img
+                  src={s.src}
+                  alt={s.name}
+                  width={300}
+                  height={300}
+                  className="block aspect-square h-auto w-full"
+                />
               </li>
             ))}
           </ul>

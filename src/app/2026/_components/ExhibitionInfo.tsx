@@ -78,7 +78,7 @@ export default function ExhibitionInfo() {
                   <div key={e.title}>
                     <h3
                       lang="en"
-                      className="text-heading flex items-center gap-[8px] text-rule max-[767px]:text-[20px] min-[768px]:max-[999px]:text-[22px]"
+                      className="text-heading flex items-center gap-[8px] text-rule max-[767px]:text-[18px] min-[768px]:max-[999px]:text-[22px]"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -128,7 +128,7 @@ export default function ExhibitionInfo() {
                     className="mt-[3px] block size-[18px] -scale-x-100 min-[768px]:size-[20px] min-[1000px]:mt-[4px]"
                   />
                   <div>
-                    <p className="text-heading text-rule max-[767px]:text-[19px] min-[768px]:max-[999px]:text-[21px]">
+                    <p className="text-heading text-rule max-[767px]:text-[18px] min-[768px]:max-[999px]:text-[22px]">
                       {p.ko} 교수님
                     </p>
                     <p
