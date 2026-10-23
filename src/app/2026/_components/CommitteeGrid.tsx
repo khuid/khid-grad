@@ -65,9 +65,11 @@ export default function CommitteeGrid() {
               type="button"
               aria-label={t.title}
               aria-pressed={on}
-              onClick={(e) => {
-                // 마우스 클릭은 호버로 이미 보이니 터치(손가락·펜)일 때만 열고 닫기
-                if ((e.nativeEvent as PointerEvent).pointerType === "mouse") return;
+              onClick={() => {
+                // 호버가 되는 화면(마우스)은 올리기만 해도 보이니 클릭으로 열지 않음.
+                // 호버가 안 되는 화면(휴대폰·태블릿)은 누를 때마다 열고 닫기 — 클릭이 "마우스"로 들어오는 브라우저도 있어서
+                // 입력 종류가 아니라 화면이 호버를 지원하는지로 판단
+                if (window.matchMedia("(hover: hover)").matches) return;
                 setOpen(on ? null : t.key);
               }}
               style={{ "--dc": d.col, "--dr": d.row, "--mc": mo.col, "--mr": mo.row } as Vars}
