@@ -11,7 +11,7 @@ import SectionBar, { FRAME } from "./SectionBar";
 // 정보 두 묶음은 왼쪽·오른쪽 끝에, 교수님 네 분도 첫 분 화살표 ~ 마지막 분 글자 끝이 그 폭 양 끝에 오고 사이만 늘고 줆.
 // 띠 → 내용, 내용 → 다음 띠 여백은 위아래 같게: 모바일 52 / 태블릿 60 (전시안내·졸준위·후원사 모두). 약도 → 정보 제목 32.
 // 지도교수 칸은 모바일·태블릿 모두 [4] 후원사 칸(위 + 로고 + 아래)과 같은 높이가 되게 위아래 여백을 계산.
-// 단 480~767(2×2, 줄 사이 48)은 위아래가 줄 사이보다 좁아 보이지 않게 최소 48.
+// 모바일 2×2는 줄 사이 64. 480 미만은 후원사(로고 75%) 높이에 맞춰 계산, 480~767은 위아래 48 고정이고 후원사가 이 높이에 맞춤.
 //
 // Figma 실측(1440): 구역 위 ~ 띠 45 / 약도 712×520, 띠 아래 45·오른쪽 45·아래 95 /
 // 정보는 프레임 왼쪽에서 70, 약도와 세로 가운데 맞춤. 화살표 20(arrow/S 좌우반전) – 제목 간격 8,
@@ -121,7 +121,7 @@ export default function ExhibitionInfo() {
         <div className={`@container relative mx-auto ${FRAME}`}>
           <ul
             aria-labelledby="professor-title"
-            className="grid grid-cols-2 gap-y-12 py-[calc(50cqw-37.5px)] min-[480px]:py-[max(48px,calc((min(128px,(100cqw-32px)/4)-43px)/2))] min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((59px+min(128px,(100cqw-56px)/4))/2)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
+            className="grid grid-cols-2 gap-y-16 py-[calc(37.5cqw-41.5px)] min-[480px]:py-12 min-[768px]:grid-cols-[repeat(4,auto)] min-[768px]:justify-between min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:py-[calc((59px+min(128px,(100cqw-56px)/4))/2)] min-[1000px]:grid-cols-4 min-[1000px]:justify-normal min-[1000px]:px-0 min-[1000px]:mx-auto min-[1000px]:w-[calc(1052/1340*100cqw)] min-[1000px]:pt-[calc(194/1340*100cqw)] min-[1000px]:pb-[calc(190/1340*100cqw)]"
           >
             {PROFESSORS.map((p) => (
               <li key={p.en} className="flex justify-center">
