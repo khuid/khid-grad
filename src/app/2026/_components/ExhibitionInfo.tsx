@@ -1,3 +1,4 @@
+import MapEmbed from "./MapEmbed";
 import SectionBar, { FRAME } from "./SectionBar";
 
 // [3] 전시안내 + 지도교수. 흰 배경 + #1A6AE8 프레임 선, 제목 띠는 스크롤 시 상단바 아래에 붙음(SectionBar).
@@ -21,7 +22,6 @@ import SectionBar, { FRAME } from "./SectionBar";
 // Figma 실측(1440): 띠 아래 내용 높이 440, 네 분을 폭 263짜리 칸 4개(가운데 정렬, 1052)에 한 분씩 칸 가운데.
 // 화살표 20 – 이름 간격 12, 이름(24) 아래 2 띄우고 영문(text-lead 20/500/1.4), 둘 다 #1A6AE8. 태블릿 4열 / 모바일 2열
 const MAP_QUERY = "경희대학교 국제캠퍼스 예술디자인대학";
-const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&hl=ko&z=16&output=embed`;
 
 const ADDRESS = [
   "경기도 용인시 기흥구 덕영대로 1732",
@@ -64,15 +64,7 @@ export default function ExhibitionInfo() {
           <div className="grid [grid-template-areas:'map'_'info'] min-[1000px]:grid-cols-[calc(538/1340*100cqw)_minmax(0,1fr)] min-[1000px]:[grid-template-areas:'info_map']">
             {/* 약도 */}
             <div className="px-4 pt-12 pb-8 [grid-area:map] min-[768px]:px-[calc(94.11/1340*100cqw)] min-[768px]:pt-14 min-[768px]:pb-8 min-[1000px]:px-[calc(45/1340*100cqw)] min-[1000px]:py-[calc(70/1340*100cqw)]">
-              <div className="relative aspect-[712/520] w-full overflow-hidden bg-pale">
-                <iframe
-                  src={MAP_SRC}
-                  title={`약도: ${MAP_QUERY}`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="absolute inset-0 size-full border-0"
-                />
-              </div>
+              <MapEmbed query={MAP_QUERY} title={`약도: ${MAP_QUERY}`} />
             </div>
 
             {/* 전시 정보 */}
