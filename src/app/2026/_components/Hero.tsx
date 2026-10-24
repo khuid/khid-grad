@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import HeroBurst from "./HeroBurst";
 import HeroGrid from "./HeroGrid";
+import HeroHeightLock from "./HeroHeightLock";
 import KeyVisual from "./KeyVisual";
 import SponsorMarquee from "./SponsorMarquee";
 
@@ -77,6 +78,7 @@ export default async function Hero() {
       </div>
 
       <HeroBurst areaId="top" />
+      <HeroHeightLock targetId="top" />
     </section>
   );
 }
