@@ -1,0 +1,15 @@
+/* YYYY 사이트 전용 스타일 — YYYY 페이지에서만 불러옴(layout.tsx). 다른 연도와 공유하지 않음.
+   아래 두 줄은 지우지 말 것: Tailwind가 이 연도 폴더(src/app/YYYY) 안의 코드만 읽게 해서 다른 연도와 섞이지 않게 함 */
+@import "tailwindcss" source(none);
+@source "./";
+
+/* [정하기] 이 해의 색·글꼴·글자 크기 규칙. 이전 연도 값을 가져오지 말고 새로 정할 것 */
+@theme {
+  /* 예) --color-key: #000000; */
+}
+
+/* [정하기] 이 해의 바탕색·글자색 (흰 바탕도 매년 정하는 것 — 공통 아님) */
+body {
+  background: #ffffff;
+  color: #000000;
+}
