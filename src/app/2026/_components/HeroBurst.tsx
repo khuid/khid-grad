@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 // - 첫 클릭 전까지 마지막 에셋(전시 정보·날짜 묶음) 바로 아래 가운데에 "CLICK ANYWHERE"(터치 기기는 "TAP ANYWHERE")
 //   안내를 pointpink로 깜빡이게 둠. [1] 안 어디든 한 번 누르면 사라짐.
 //   위치는 묶음([data-hero-content]) 아랫선에서 36(모바일 28) 아래. 줄자 숫자까지 공간이 모자라면 둘 사이 한가운데 — 화면 크기가 바뀌면 다시 잼
-const BURST_COLOR = "#FF2EFF"; // = globals.css의 pointpink. 스크립트로 그려서 값을 직접 씀 — 바꿀 땐 같이
+const BURST_COLOR = "#FF2EFF"; // = 2026.css의 pointpink. 스크립트로 그려서 값을 직접 씀 — 바꿀 땐 같이
 
 export default function HeroBurst({ areaId }: { areaId: string }) {
   const burstRef = useRef<SVGSVGElement>(null);

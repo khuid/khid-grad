@@ -1,13 +1,17 @@
-"""Freesentation 웹폰트 경량화(서브셋).
+"""웹폰트 경량화(서브셋) — [모든 연도 공통 도구] 단, 한 번에 한 연도만 다룸.
 
-fonts-src/의 원본(한글 1만여 자 전체)에서 실제로 쓸 글자만 남겨 public/fonts/에 저장.
-남기는 글자 = 기본 세트(영문·숫자·기호 + 자주 쓰는 한글 2,350자 KS X 1001) + 사이트 소스에 실제로 들어 있는 글자 전부.
-→ 나중에 디자이너 이름·작품명처럼 기본 세트에 없는 글자가 데이터로 들어와도,
-  데이터를 추가한 뒤 이 스크립트를 한 번 다시 돌리면 그 글자까지 자동으로 포함됨.
+연도마다 쓰는 폰트가 다를 수 있으므로 폰트는 연도별로 따로 둠:
+  원본(글자 전체)  fonts-src/<연도>/     (.woff2 · .ttf · .otf)
+  경량본(실제 사용) public/<연도>/fonts/   ← 그 연도 layout.tsx가 불러오는 파일
+남기는 글자 = 기본 세트(영문·숫자·기호 + 자주 쓰는 한글 2,350자 KS X 1001)
+            + 그 연도 소스(src/app/<연도>/, public/<연도>/의 json)에 실제로 들어 있는 글자 전부.
+→ 디자이너 이름·작품명처럼 기본 세트에 없는 글자가 데이터로 들어와도,
+  데이터를 다 넣은 뒤 이 스크립트를 한 번 다시 돌리면 그 글자까지 자동으로 포함됨.
+  다른 연도의 폰트 파일은 건드리지 않음.
 
-실행 (site.2026 폴더에서):
+실행 (사이트 폴더에서, 연도를 꼭 적기):
   pip install fonttools brotli   # 처음 한 번
-  python3 scripts/subset-fonts.py
+  python3 scripts/subset-fonts.py 2026
 """
 import pathlib
 import sys
@@ -15,11 +19,16 @@ import sys
 from fontTools import subset
 from fontTools.ttLib import TTFont
 
+if len(sys.argv) != 2 or not sys.argv[1].isdigit():
+    sys.exit("연도를 적어 주세요. 예: python3 scripts/subset-fonts.py 2026")
+YEAR = sys.argv[1]
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SRC = ROOT / "fonts-src"
-OUT = ROOT / "public" / "fonts"
-# 글자를 모을 사이트 소스 (코드·문구·데이터)
-SCAN = [(ROOT / "src", ("*.ts", "*.tsx", "*.css", "*.json", "*.md")), (ROOT / "public", ("*.json",))]
+SRC = ROOT / "fonts-src" / YEAR
+OUT = ROOT / "public" / YEAR / "fonts"
+# 글자를 모을 그 연도 소스 (코드·문구·데이터)
+SCAN = [(ROOT / "src" / "app" / YEAR, ("*.ts", "*.tsx", "*.css", "*.json", "*.md")), (ROOT / "public" / YEAR, ("*.json",))]
+if not SRC.is_dir():
+    sys.exit(f"원본 폰트 폴더가 없어요: {SRC}")
 
 base = set(chr(c) for c in range(0x20, 0x7F))  # 영문·숫자·기본 기호
 base |= set(chr(c) for c in range(0xA0, 0x100))  # 라틴 보충(·, ©, ° 등)
@@ -51,12 +60,12 @@ opts.notdef_outline = True
 opts.hinting = False  # 힌팅 정보 제거(화면 표시엔 거의 영향 없음, 용량 큼)
 
 OUT.mkdir(parents=True, exist_ok=True)
-for src in sorted(SRC.glob("*.woff2")):
+for src in sorted(p for p in SRC.iterdir() if p.suffix.lower() in (".woff2", ".ttf", ".otf")):
     font = TTFont(src)
     sub = subset.Subsetter(opts)
     sub.populate(text="".join(chars))
     sub.subset(font)
-    dst = OUT / src.name
+    dst = OUT / (src.stem + ".woff2")
     font.flavor = "woff2"
     font.save(dst)
     print(f"{src.name}: {src.stat().st_size // 1024}KB -> {dst.stat().st_size // 1024}KB")

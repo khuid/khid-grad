@@ -3,18 +3,20 @@ import { Hahmlet } from "next/font/google";
 import { connection } from "next/server";
 import localFont from "next/font/local";
 import { NavTrack } from "./_components/BackButton";
-import CopyGuard from "./_components/CopyGuard";
 import { isOpen } from "./_components/SiteGate";
+import "./2026.css";
+
+// 2026 사이트 전용 설정(폰트·스타일·파비콘·링크 미리보기) — 다른 연도와 공유하지 않음. 파비콘은 이 폴더의 icon1.ico·icon2.svg·apple-icon.png
 
 // 2026 사이트 폰트: 본문·UI 전부 Freesentation 하나. 굵기는 ExtraBold·SemiBold·Medium·Regular 네 가지만
 // Hahmlet은 히어로 배경 격자의 줄자 숫자·각도 표기 전용
 const freesentation = localFont({
   variable: "--font-freesentation",
   src: [
-    { path: "../../../public/fonts/Freesentation-4Regular.woff2", weight: "400", style: "normal" },
-    { path: "../../../public/fonts/Freesentation-5Medium.woff2", weight: "500", style: "normal" },
-    { path: "../../../public/fonts/Freesentation-6SemiBold.woff2", weight: "600", style: "normal" },
-    { path: "../../../public/fonts/Freesentation-8ExtraBold.woff2", weight: "800", style: "normal" },
+    { path: "../../../public/2026/fonts/Freesentation-4Regular.woff2", weight: "400", style: "normal" },
+    { path: "../../../public/2026/fonts/Freesentation-5Medium.woff2", weight: "500", style: "normal" },
+    { path: "../../../public/2026/fonts/Freesentation-6SemiBold.woff2", weight: "600", style: "normal" },
+    { path: "../../../public/2026/fonts/Freesentation-8ExtraBold.woff2", weight: "800", style: "normal" },
   ],
 });
 
@@ -48,7 +50,6 @@ export default function Layout2026({ children }: LayoutProps<"/2026">) {
   return (
     <div className={`${freesentation.variable} ${hahmlet.variable} font-sans`}>
       {children}
-      <CopyGuard />
       <NavTrack />
     </div>
   );

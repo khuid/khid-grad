@@ -2,10 +2,11 @@
 
 import { useEffect } from "react";
 
+// [모든 연도 공통] 루트 layout에서 모든 페이지에 붙음.
 // 이미지·영상 무단 저장 방지(완벽한 차단은 불가능 — 화면에 보이는 파일은 이미 브라우저로 내려온 것이라
 // 마음먹으면 꺼낼 수 있음. 여기서는 쉬운 길만 막음):
 // - 이미지·영상 위 우클릭 메뉴(이미지 복사·저장) 막기
-// - 끌어다 바탕화면에 놓기 막기 (모바일 길게 눌러 저장은 globals.css의 -webkit-touch-callout으로)
+// - 끌어다 바탕화면에 놓기 막기 (모바일 길게 눌러 저장은 _common/common.css의 -webkit-touch-callout으로)
 // - 배포 사이트에선 개발자 도구·소스 보기·페이지 저장 단축키 막기 (브라우저 메뉴로 여는 건 못 막음)
 const MEDIA = "img, video, picture, svg, canvas, [data-protect]";
 

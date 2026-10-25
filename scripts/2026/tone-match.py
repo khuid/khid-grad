@@ -1,4 +1,5 @@
-"""프로필 사진 한 장의 톤을 다른 사진들에 맞추기 (profile-photos.py로 만든 웹용 WebP에 덮어씀).
+"""[2026 전용 도구] 2026 시안 기준 규칙이라 다른 연도에 그대로 쓰지 말 것.
+프로필 사진 한 장의 톤을 다른 사진들에 맞추기 (scripts/2026/profile-photos.py로 만든 웹용 WebP에 덮어씀).
 
 다른 사진들과 조명·보정이 달라 혼자 튀는 사진용 — 2026-10-23 오지샘(p57) 자유컷에 처음 씀.
   1) 피부만 기준 사진들의 피부 평균색으로: 따뜻한 색(R−B가 큰) 픽셀일수록 채널별 비율(기준 피부 ÷ 이 사진 피부)을 더 세게 곱함
@@ -11,7 +12,7 @@
 기준 사진은 같은 폴더의 다른 WebP 전부.
 
 실행 (site.2026 폴더에서, Pillow·numpy 필요) — profile-photos.py를 다시 돌렸다면 이것도 다시:
-  python3 scripts/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.8 --desat -0.4 --cool 6 --magenta 3 --dim-white 0.9
+  python3 scripts/2026/tone-match.py public/2026/committee/p57-oh-jisaem.webp --strength 0.8 --desat -0.4 --cool 6 --magenta 3 --dim-white 0.9
 """
 import argparse
 from pathlib import Path

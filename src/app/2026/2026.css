@@ -1,4 +1,8 @@
-@import "tailwindcss";
+/* 2026 사이트 전용 스타일 — 2026 페이지에서만 불러옴(src/app/2026/layout.tsx). 다른 연도와 공유하지 않음.
+   Tailwind도 2026 폴더(src/app/2026) 안의 코드만 읽어서 만들기 때문에, 다른 연도가 같은 클래스·색 이름을 써도 섞이지 않음.
+   모든 연도 공통 규칙은 src/app/_common/common.css */
+@import "tailwindcss" source(none);
+@source "./";
 
 :root {
   --background: #ffffff; /* 페이지 바탕(페이지 이동 중 잠깐 비는 순간에 보이는 색) — 파란 화면이 번쩍이지 않게 흰색 */
@@ -113,26 +117,16 @@
   letter-spacing: -0.04em;
 }
 
+/* 2026 페이지 바탕·글자 다듬기 */
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 body {
+  min-height: 100%;
   background: var(--background);
   color: var(--foreground);
-}
-
-/* 휴대폰(특히 카카오톡 인앱 브라우저)에서 맨 위·맨 아래 튕김(바운스)을 끔:
-   맨 끝에서 다시 스크롤할 때 튕김과 브라우저 도구막대 등장이 겹쳐 덜컹거리는 느낌을 줄임 */
-html,
-body {
-  overscroll-behavior-y: none;
-}
-
-/* 이미지·영상 저장 방지(CopyGuard와 함께): 끌어가기·선택·모바일 길게 눌러 저장 메뉴 막기 */
-img,
-video,
-svg,
-[data-protect] {
-  -webkit-user-drag: none;
-  user-select: none;
-  -webkit-touch-callout: none;
 }
 
 /* 마우스 기기에선 기본 커서를 숨기고 SiteCursor(파란 화살표)로 대신함 — 링크 위에서도 */
