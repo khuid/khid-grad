@@ -47,8 +47,9 @@ export default async function Hero() {
 
           {/* 전시 정보: 768부터 왼쪽 아래 정보 3줄 / 오른쪽 아래 날짜(Figma 그대로).
               2열일 땐 제목은 날짜 윗선, 장소·시간은 날짜 아랫선에 맞춤(정보 칸을 날짜 높이만큼 늘려 위·아래로 벌림).
-              모바일(~767)만 키비주얼 → 날짜 → 정보 순 세로 배치, 가운데 정렬 */}
-          <div className="flex flex-col-reverse items-center min-[768px]:items-stretch gap-[calc(16px*var(--s))] min-[768px]:mt-[calc(45/939*100cqw)] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-[3cqw] min-[768px]:pr-[calc(57.8/939*100cqw)] min-[768px]:pl-[calc(15/939*100cqw)]">
+              모바일(~767)만 키비주얼 → 날짜 → 정보 순 세로 배치, 가운데 정렬.
+              1280 이상에서 화면 높이가 890 미만이면 CLICK ANYWHERE와 붙어 보여서 격자 반 칸(16)만 위로 — 자리는 그대로 두고 그림만 옮김 */}
+          <div className="relative [@media(min-width:1280px)_and_(max-height:889px)]:-top-[16px] flex flex-col-reverse items-center min-[768px]:items-stretch gap-[calc(16px*var(--s))] min-[768px]:mt-[calc(45/939*100cqw)] min-[768px]:flex-row min-[768px]:justify-between min-[768px]:gap-[3cqw] min-[768px]:pr-[calc(57.8/939*100cqw)] min-[768px]:pl-[calc(15/939*100cqw)]">
             <div className="flex flex-col gap-[calc(9px*var(--s))] text-center min-[768px]:justify-between min-[768px]:pt-[calc(3/939*100cqw)] min-[768px]:text-left">
               <h1 className="text-subtitle break-keep text-key max-[768px]:text-[length:calc(15px*var(--s))] min-[768px]:max-[1280px]:text-[length:max(16px,calc(24/939*100cqw))]">
                 {/* 좁은 화면에서 두 줄이 되면 "제 35회 졸업전시회"가 통째로 아랫줄로 */}
