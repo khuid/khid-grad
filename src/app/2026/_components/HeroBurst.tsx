@@ -38,6 +38,8 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
         const numTop = num.getBoundingClientRect().top - base;
         if (top + el.offsetHeight + 8 > numTop) top = (below + numTop - el.offsetHeight) / 2;
       }
+      // 1280 이상·높이 890 미만(전시 정보를 반 칸 올린 구간, Hero.tsx)은 4 더 내림 — 줄자 숫자와 겹쳐도 됨
+      if (window.matchMedia("(min-width: 1280px) and (max-height: 889px)").matches) top += 4;
       el.style.top = `${top}px`;
       el.style.visibility = "visible";
     };
