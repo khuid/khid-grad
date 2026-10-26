@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 //   히어로를 스크롤하려고 손가락을 댈 때는 안 나오게
 // - 모바일(~767)은 화면이 작아서 선 길이 60%
 // - 첫 클릭 전까지 마지막 에셋(전시 정보·날짜 묶음) 바로 아래 가운데에 "CLICK ANYWHERE"(터치 기기는 "TAP ANYWHERE")
-//   안내를 pointpink로 깜빡이게 둠. [1] 안 어디든 한 번 누르면 사라짐.
+//   안내를 pointpink로 깜빡이게 둠(글자 13 → 768부터 15 → 1280부터 16). [1] 안 어디든 한 번 누르면 사라짐.
 //   위치는 묶음([data-hero-content]) 아랫선에서 36(모바일 28) 아래. 줄자 숫자까지 공간이 모자라면 둘 사이 한가운데 — 화면 크기가 바뀌면 다시 잼
 const BURST_COLOR = "#FF2EFF"; // = 2026.css의 pointpink. 스크립트로 그려서 값을 직접 씀 — 바꿀 땐 같이
 
@@ -145,7 +145,7 @@ export default function HeroBurst({ areaId }: { areaId: string }) {
           ref={hintRef}
           aria-hidden
           lang="en"
-          className="pointer-events-none invisible absolute inset-x-0 z-20 text-center text-[13px] leading-[normal] font-semibold tracking-[-0.04em] text-pointpink motion-safe:animate-pulse min-[768px]:text-[15px]"
+          className="pointer-events-none invisible absolute inset-x-0 z-20 text-center text-[13px] leading-[normal] font-semibold tracking-[-0.04em] text-pointpink motion-safe:animate-pulse min-[768px]:text-[15px] min-[1280px]:text-[16px]"
         >
           {touch ? "TAP ANYWHERE" : "CLICK ANYWHERE"}
         </p>
