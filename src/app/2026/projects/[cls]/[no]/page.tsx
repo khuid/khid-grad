@@ -7,6 +7,7 @@ import { classOf, PROJECTS, type Media, type Project } from "../../../_component
 import { FRAME, Node } from "../../../_components/SectionBar";
 import SiteGate from "../../../_components/SiteGate";
 import SubPage from "../../../_components/SubPage";
+import LazyVideo from "../../../_components/LazyVideo";
 import VideoFrame from "../../../_components/VideoFrame";
 
 // 작품 상세 (/2026/projects/<수업>/<번호>). 왼쪽 작품 이미지·영상을 세로로(사이 여백 0) 스크롤, 오른쪽 정보는 제자리.
@@ -72,8 +73,9 @@ async function ProjectView({ params }: { params: PageProps<"/2026/projects/[cls]
       <div className="relative">
         <div className={`@container relative mx-auto ${FRAME}`}>
           <div className="grid min-[768px]:grid-cols-[60cqw_minmax(0,1fr)] min-[1000px]:grid-cols-[calc(800/1340*100cqw)_minmax(0,1fr)]">
-            {/* 미디어: 프레임 왼쪽 선은 가리지 않게 1px 띄움. 사이 여백 0 (각 항목 block) */}
-            <div className="order-2 ml-px pb-[24px] max-[768px]:mr-px min-[768px]:order-1 min-[768px]:pb-[50px]">
+            {/* 미디어: 프레임 왼쪽 선은 가리지 않게 1px 띄움. 사이 여백 0 (각 항목 block).
+                높이가 소수점(예 376.31)이라 브라우저에 따라 경계에 바탕이 비치는 머리카락 선이 생길 수 있어 다음 항목을 1px 겹침 */}
+            <div className="order-2 ml-px pb-[24px] max-[768px]:mr-px min-[768px]:order-1 min-[768px]:pb-[50px] [&>*+*]:-mt-px">
               {(p.media.length ? p.media : PLACEHOLDER).map((m, i) => (
                 <MediaItem key={i} media={m} index={i} alt={`${p.title} ${i + 1}`} />
               ))}
@@ -93,7 +95,7 @@ function MediaItem({ media, index, alt }: { media: Media | null; index: number; 
   if (!media) return <div className={`block aspect-video w-full ${index % 2 ? "bg-[#ededed]" : "bg-pale"}`} />;
   if (media.type === "youtube") return <VideoFrame youtubeId={media.id} />;
   if (media.type === "video")
-    return <video src={media.src} autoPlay muted loop playsInline className="block aspect-video w-full object-cover" />;
+    return <LazyVideo src={media.src} className="block aspect-video w-full object-cover" />;
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={media.src} alt={alt} loading={index ? "lazy" : "eager"} className="block aspect-video w-full object-cover" />;
 }
