@@ -60,10 +60,12 @@ function href(v: string) {
   return `https://${v}`;
 }
 
-// 화면 표시: https://·www.·끝 / 를 빼고, 지금 가장 긴 링크(behance.net/dbe43dfe = 20자)보다 길면 20자에서 말줄임표(…까지 20자, 2026-10-27 결정).
-// 원래 주소는 링크와 title(마우스 올리면 전체)에 그대로
-const MAX_CHARS = 20;
+// 화면 표시(2026-10-27 결정): 인스타(@아이디)는 전체 그대로 — 360 이하 화면에서 한 줄에 안 들어갈 때만 CSS 말줄임표(IG_FIT).
+// 나머지 주소는 https://·www.·끝 / 를 빼고 25자(…까지)를 넘으면 말줄임표. 원래 주소는 링크와 title(마우스 올리면 전체)에 그대로
+const MAX_CHARS = 25;
+const IG_FIT = "max-[361px]:truncate";
 function label(v: string) {
+  if (v.startsWith("@")) return v;
   const s = v.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "");
   return s.length > MAX_CHARS ? `${s.slice(0, MAX_CHARS - 1)}…` : s;
 }
@@ -99,7 +101,7 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
                     <dt lang="en" className={LABEL}>PORTFOLIO</dt>
                     <dd className={`${VALUE} flex flex-col gap-1`}>
                       {p.portfolio.map((v) => (
-                        <a key={v} href={href(v)} target="_blank" rel="noreferrer" title={v} className="hover:text-key">
+                        <a key={v} href={href(v)} target="_blank" rel="noreferrer" title={v} className={`hover:text-key ${v.startsWith("@") ? IG_FIT : ""}`}>
                           {label(v)}
                         </a>
                       ))}
