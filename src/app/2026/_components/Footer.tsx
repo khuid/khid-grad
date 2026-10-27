@@ -84,8 +84,8 @@ export default function Footer() {
           ))}
         </dl>
 
-        {/* 경희 휘장 + KHID 로고. 데스크탑(1200~)만 4 내림(사용자 결정 2026-10-28) */}
-        <div className="flex items-center gap-3 [grid-area:logo] min-[768px]:self-end min-[1200px]:-mb-1">
+        {/* 경희 휘장 + KHID 로고. 태블릿·데스크탑(768~)은 4 내림(사용자 결정 2026-10-28) */}
+        <div className="flex items-center gap-3 [grid-area:logo] min-[768px]:-mb-1 min-[768px]:self-end">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/2026/footer/khu-emblem.svg" alt="경희대학교" width={40} height={40} className="block size-[40px]" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
