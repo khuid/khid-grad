@@ -46,7 +46,7 @@ const LABEL = "text-[16px] leading-[normal] font-semibold tracking-[-0.04em] tex
 const VALUE = "text-[14px] leading-[normal] tracking-[-0.04em] break-all min-[768px]:text-[15px] min-[1000px]:text-[16px]";
 const EMPTY = <span className="text-[#a5a5a5]">준비 중</span>;
 
-// 포트폴리오 값: http로 시작하면 그대로, @계정은 인스타그램, 나머지 주소는 https:// 붙여서 링크
+// 포트폴리오(선택)는 안 쓴 사람이면 PORTFOLIO 줄 자체를 뺌. 값: http로 시작하면 그대로, @계정은 인스타그램, 나머지 주소는 https:// 붙여서 링크
 function href(v: string) {
   if (/^https?:\/\//.test(v)) return v;
   if (v.startsWith("@")) return `https://www.instagram.com/${v.slice(1)}/`;
@@ -79,16 +79,18 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
               <dl className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-[14px] gap-y-[14px] min-[1000px]:mt-[45px] min-[1000px]:gap-x-[18px] min-[1000px]:gap-y-[17px]">
                 <dt lang="en" className={LABEL}>CONTACT</dt>
                 <dd className={VALUE}>{p.contact ? <a href={`mailto:${p.contact}`} className="hover:text-key">{p.contact}</a> : EMPTY}</dd>
-                <dt lang="en" className={LABEL}>PORTFOLIO</dt>
-                <dd className={`${VALUE} flex flex-col gap-2`}>
-                  {p.portfolio.length
-                    ? p.portfolio.map((v) => (
+                {p.portfolio.length > 0 && (
+                  <>
+                    <dt lang="en" className={LABEL}>PORTFOLIO</dt>
+                    <dd className={`${VALUE} flex flex-col gap-2`}>
+                      {p.portfolio.map((v) => (
                         <a key={v} href={href(v)} target="_blank" rel="noreferrer" className="hover:text-key">
                           {v}
                         </a>
-                      ))
-                    : EMPTY}
-                </dd>
+                      ))}
+                    </dd>
+                  </>
+                )}
               </dl>
             </div>
             <OutlineArrow className="w-[72px] shrink-0 [--sw:1.1px] min-[600px]:w-[88px] min-[600px]:[--sw:1.3px] min-[1000px]:w-[calc(202/1340*100cqw)] min-[1000px]:[--sw:1.5px]" />

@@ -23,7 +23,7 @@ export const MEMBERS: { name: string; team: string; photo?: string; d: [number, 
   { name: "박예은", photo: "/2026/committee/p17-park-yeeun.webp", team: "mkt", d: [7, 1], m: [3, 2] },
   { name: "안지언", photo: "/2026/committee/p25-ahn-jieon.webp", team: "space", d: [1, 2], m: [1, 3] },
   { name: "이유택", photo: "/2026/committee/p35-lee-yutaek.webp", team: "space", d: [2, 2], m: [2, 3] },
-  { name: "정예원", photo: "/2026/committee/p45-jung-yewon.webp", team: "space", d: [3, 2], m: [3, 3] },
+  { name: "정예원", photo: "/2026/committee/p45-jeong-yewon.webp", team: "space", d: [3, 2], m: [3, 3] },
   { name: "오지샘", photo: "/2026/committee/p57-oh-jisaem.webp", team: "brand", d: [5, 2], m: [2, 4] },
   { name: "이수민", photo: "/2026/committee/p56-lee-sumin.webp", team: "web", d: [7, 2], m: [4, 4] },
 ];
