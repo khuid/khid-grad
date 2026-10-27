@@ -14,7 +14,8 @@ import WorkCard from "../../_components/WorkCard";
 //
 // Figma 실측(1440): 위 상자 높이 724(위아래 50), 사진 500×623.85(프레임 왼쪽에서 49), 사진 → 정보 58, 정보 줄은 사진 아래에 맞춤.
 // 이름 국문 44/600 – 16 – 영문 32/500 #777(2026-10-23 결정, 국문은 ink), 45 아래 CONTACT·PORTFOLIO(20/600 #1980FF, 값은 라벨 왼쪽에서 116, 16/400, 줄 사이 17·8).
-// 화살표 202는 정보 오른쪽 끝(프레임 오른쪽에서 48), 정보와 세로 가운데.
+// 화살표 202는 정보 오른쪽 끝(프레임 오른쪽에서 48). 정보 마지막 줄 글자 바닥(기준선)을 화살표 그림 아래 끝에 맞춤(2026-10-27 결정, 모든 폭)
+// — 정보 아래 여백 = 화살표 SVG 아래 빈칸(21.893/202 = 화살표 폭의 10.84%) − 줄 높이 아래 여백(글자 크기의 약 22%).
 // 작품: 위 상자 아래선 → 106, 3열 357.14×446.43(좌우 50, 사이 84), 그림 → 제목 → 이름들. 2026-10-23 결정: Figma(제목 28.57·이름 20)보다 줄여 제목 20/500 · 이름 16/500(사이 8), 글자는 그림보다 4 안쪽에서 시작.
 // 600~999도 데스크탑처럼 사진 왼쪽 | 정보 오른쪽. 사진을 프레임 폭의 34%로 줄이고 여백 24, 사진 → 정보 28, 이름 32/24, 화살표 88.
 // 모바일(~599)은 사진 → 정보 세로 배치(좌우 여백 20, 위아래 40, 사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 600~ 3열
@@ -69,8 +70,8 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
             <img src={posePhoto(p)} alt={p.ko} className="absolute inset-0 size-full object-cover object-top" />
           </div>
 
-          <div className="mx-auto flex w-full max-w-[480px] items-end justify-between gap-4 pl-[4px] min-[600px]:mx-0 min-[600px]:max-w-none min-[600px]:items-center min-[600px]:self-end min-[600px]:pl-0">
-            <div className="min-w-0">
+          <div className="mx-auto flex w-full max-w-[480px] items-end justify-between gap-4 pl-[4px] min-[600px]:mx-0 min-[600px]:max-w-none min-[600px]:self-end min-[600px]:pl-0">
+            <div className="min-w-0 mb-[4.7px] min-[600px]:mb-[6.5px] min-[768px]:mb-[6.3px] min-[1000px]:mb-[calc(21.893/1340*100cqw-3.5px)]">
               <h1 className="flex flex-wrap items-baseline gap-x-3 leading-[normal] tracking-[-0.04em] min-[1000px]:gap-x-4">
                 <span className="text-[30px] font-semibold text-ink min-[600px]:text-[32px] min-[1000px]:text-[44px]">{p.ko}</span>
                 <span lang="en" className="text-[20px] font-medium text-[#777] min-[600px]:text-[24px] min-[1000px]:text-[32px]">
