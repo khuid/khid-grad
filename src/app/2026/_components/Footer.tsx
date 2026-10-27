@@ -36,7 +36,7 @@ export default function Footer() {
   return (
     <footer data-cursor="light" className="bg-key text-white">
       <div
-        className={`mx-auto grid gap-y-10 py-10 max-[768px]:px-[calc(8px+(100%-390px)*0.06)] [grid-template-areas:'title'_'info'_'logo'] min-[768px]:grid-cols-[auto_1fr] min-[768px]:gap-y-12 min-[768px]:[grid-template-areas:'title_title'_'logo_info'] min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'] ${FRAME}`}
+        className={`mx-auto grid gap-y-10 py-10 max-[768px]:px-[calc(8px+(100%-390px)*0.06)] [grid-template-areas:'title'_'info'_'logo'_'note'] min-[768px]:grid-cols-[auto_1fr] min-[768px]:gap-y-12 min-[768px]:[grid-template-areas:'title_title'_'logo_info'_'note_note'] min-[1200px]:grid-cols-[1fr_auto] min-[1200px]:grid-rows-[auto_1fr_auto_auto] min-[1200px]:gap-y-[52px] min-[1200px]:[grid-template-areas:'title_arrow'_'title_info'_'logo_info'_'note_note'] ${FRAME}`}
       >
         {/* 모바일 제목 크기는 화살표와 안 겹치게 폭별로: ~330 20 / 331~359 22 / 360~381 24 / 382~ 26 */}
         {/* 전시명 · 제목 · 부제. ~1199는 화살표를 오른쪽 위 모서리에 띄워 둬서 전시명 → 제목 간격이 데스크탑처럼 16 */}
@@ -91,6 +91,11 @@ export default function Footer() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/2026/footer/khid-logo.svg" alt="KHID" width={52} height={18} className="block h-[18px] w-[52px]" />
         </div>
+
+        {/* 방문 통계 안내: 맨 아래 한 줄(작게, 흰색 60%), 768~ 오른쪽 끝 정렬. 위 줄과의 간격은 grid 줄 간격을 빼서 24 */}
+        <p className="-mt-4 text-[11px] leading-[1.4] tracking-[-0.02em] break-keep text-white/60 [grid-area:note] min-[768px]:-mt-6 min-[768px]:justify-self-end min-[768px]:text-right min-[768px]:text-[12px] min-[1200px]:-mt-7">
+          이 사이트는 방문 통계를 위해 Google Analytics를 사용합니다.
+        </p>
       </div>
     </footer>
   );
