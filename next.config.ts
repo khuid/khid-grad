@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  // next dev가 AI 도구용 AGENTS.md를 자동으로 만들지 않게 — 같은 안내는 CLAUDE.md에 둠
+  agentRules: false,
   experimental: {
     agentUpgrade: "security",
   },

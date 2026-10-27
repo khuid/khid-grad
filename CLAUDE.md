@@ -9,3 +9,4 @@
 - 시각 요소는 이전 연도 값을 기본값으로 쓰지 않습니다. 정해지지 않았으면 추측하지 말고 묻습니다.
 - 연도에 새 기능을 만들면 FEATURES.md에 추가합니다.
 - 작업을 마치면 `python3 scripts/check-year.py YYYY`로 점검합니다.
+- 이 사이트의 Next.js는 최신 버전이라 API·규칙·파일 구조가 예전과 다를 수 있습니다. Next.js 코드를 쓰기 전에 `node_modules/next/dist/docs/`의 해당 안내를 먼저 읽고, 지원 중단(deprecation) 안내를 따릅니다. (원래 next dev가 만들던 AGENTS.md 내용 — next.config의 `agentRules: false`로 끄고 여기로 옮김)
