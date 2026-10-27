@@ -60,6 +60,14 @@ function href(v: string) {
   return `https://${v}`;
 }
 
+// 화면 표시: https://·www.·끝 / 를 빼고, 지금 가장 긴 링크(behance.net/dbe43dfe = 20자)보다 길면 20자에서 말줄임표(…까지 20자, 2026-10-27 결정).
+// 원래 주소는 링크와 title(마우스 올리면 전체)에 그대로
+const MAX_CHARS = 20;
+function label(v: string) {
+  const s = v.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "");
+  return s.length > MAX_CHARS ? `${s.slice(0, MAX_CHARS - 1)}…` : s;
+}
+
 async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">["params"] }) {
   const slug = decodeURIComponent((await params).slug);
   const p = DESIGNERS.find((d) => d.slug === slug);
@@ -91,8 +99,8 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
                     <dt lang="en" className={LABEL}>PORTFOLIO</dt>
                     <dd className={`${VALUE} flex flex-col gap-1`}>
                       {p.portfolio.map((v) => (
-                        <a key={v} href={href(v)} target="_blank" rel="noreferrer" className="hover:text-key">
-                          {v}
+                        <a key={v} href={href(v)} target="_blank" rel="noreferrer" title={v} className="hover:text-key">
+                          {label(v)}
                         </a>
                       ))}
                     </dd>
