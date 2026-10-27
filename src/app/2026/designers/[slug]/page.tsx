@@ -110,10 +110,10 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
                 )}
               </dl>
             </div>
-            <OutlineArrow
-              trim
-              className="min-w-[32px] shrink basis-[64px] [--sw:1px] min-[600px]:basis-[88px] min-[600px]:[--sw:1.3px] min-[1000px]:basis-[calc(202/1340*100cqw)] min-[1000px]:[--sw:1.5px]"
-            />
+            {/* 크기는 감싸는 div가 정함 — iOS Safari는 SVG에 직접 준 flex-basis를 무시하고 작게 그림 */}
+            <div className="min-w-[32px] shrink basis-[64px] [--sw:1px] min-[600px]:basis-[88px] min-[600px]:[--sw:1.3px] min-[1000px]:basis-[calc(202/1340*100cqw)] min-[1000px]:[--sw:1.5px]">
+              <OutlineArrow trim className="w-full" />
+            </div>
           </div>
         </div>
       </TopBox>
