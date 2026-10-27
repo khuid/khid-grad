@@ -15,10 +15,13 @@ import WorkCard from "../../_components/WorkCard";
 // Figma 실측(1440): 위 상자 높이 724(위아래 50), 사진 500×623.85(프레임 왼쪽에서 49), 사진 → 정보 58, 정보 줄은 사진 아래에 맞춤.
 // 이름 국문 44/600 – 16 – 영문 32/500 #777(2026-10-23 결정, 국문은 ink), 45 아래 CONTACT·PORTFOLIO(20/600 #1980FF, 값은 라벨 왼쪽에서 116, 16/400, 줄 사이 17·8).
 // 화살표 202는 정보 오른쪽 끝(프레임 오른쪽에서 48). 정보 마지막 줄 글자 바닥(기준선)을 화살표 그림 아래 끝에 맞춤(2026-10-27 결정, 모든 폭)
-// — 정보 아래 여백 = 화살표 SVG 아래 빈칸(21.893/202 = 화살표 폭의 10.84%) − 값 줄(LINE 20/22/24)의 기준선 아래 여백(실측).
+// — 화살표는 아래 빈칸을 잘라(trim) 상자 끝 = 그림 끝, 정보는 값 줄(LINE 20/22/24)의 기준선 아래 여백(실측 5/6/6.5)만큼 아래로 뺌.
+//   줄 아래 여백(7 / 9.5 / 21.893/1340)은 예전 잘리기 전 화살표 빈칸 높이라 사진 대비 위치는 그대로.
+// 화살표 크기(2026-10-27): 모바일 최대 64 / 600~ 88 / 1000~ 202 비율. 정보 글자는 줄바꿈하지 않고 화살표가 남는 자리만큼 줄어듦(최소 32),
+//   그래도 모자라면 그때 글자가 줄바꿈(정보 폭 최대 = 줄 폭 − 32 − 사이 16).
 // 작품: 위 상자 아래선 → 106, 3열 357.14×446.43(좌우 50, 사이 84), 그림 → 제목 → 이름들. 2026-10-23 결정: Figma(제목 28.57·이름 20)보다 줄여 제목 20/500 · 이름 16/500(사이 8), 글자는 그림보다 4 안쪽에서 시작.
-// 600~999도 데스크탑처럼 사진 왼쪽 | 정보 오른쪽. 사진을 프레임 폭의 34%로 줄이고 여백 24, 사진 → 정보 28, 이름 32/24, 화살표 88.
-// 모바일(~599)은 화살표 44(2026-10-27), 사진 → 정보 세로 배치(좌우 여백 20, 위아래 40, 사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 600~ 3열
+// 600~999도 데스크탑처럼 사진 왼쪽 | 정보 오른쪽. 사진을 프레임 폭의 34%로 줄이고 여백 24, 사진 → 정보 28, 이름 32/24.
+// 모바일(~599)은 사진 → 정보 세로 배치(좌우 여백 20, 위아래 40, 사진은 최대 480 가로 가운데, 정보 줄도 사진 폭에 맞추고 글자는 사진보다 4 안쪽), 작품은 모바일 1열(사진과 같은 폭: 최대 480 가운데) / 600~ 3열
 export function generateStaticParams() {
   return DESIGNERS.map((p) => ({ slug: p.slug }));
 }
@@ -47,7 +50,7 @@ export default function ProfilePage({ params }: PageProps<"/2026/designers/[slug
 // 라벨과 값 줄 높이를 같게(20/22/24) 해서 값 글자가 라벨 글자 세로 가운데에 오게 함(2026-10-27). 포트폴리오 여러 줄이면 첫 줄이 라벨과 나란히
 const LINE = "leading-[20px] min-[768px]:leading-[22px] min-[1000px]:leading-[24px]";
 const LABEL = `${LINE} text-[16px] font-semibold tracking-[-0.04em] text-key min-[768px]:text-[18px] min-[1000px]:text-[20px]`;
-const VALUE = `${LINE} text-[14px] tracking-[-0.04em] break-all min-[768px]:text-[15px] min-[1000px]:text-[16px]`;
+const VALUE = `${LINE} text-[14px] tracking-[-0.04em] [overflow-wrap:anywhere] min-[768px]:text-[15px] min-[1000px]:text-[16px]`;
 const EMPTY = <span className="text-[#a5a5a5]">준비 중</span>;
 
 // CONTACT 이메일은 누르면 복사(CopyText — 2026 사이트 메일은 전부 복사). 포트폴리오(선택)는 안 쓴 사람이면 PORTFOLIO 줄 자체를 뺌. 값: http로 시작하면 그대로, @계정은 인스타그램, 나머지 주소는 https:// 붙여서 링크
@@ -72,8 +75,8 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
             <img src={posePhoto(p)} alt={p.ko} className="absolute inset-0 size-full object-cover object-top" />
           </div>
 
-          <div className="mx-auto flex w-full max-w-[480px] items-end justify-between gap-4 pl-[4px] min-[600px]:mx-0 min-[600px]:max-w-none min-[600px]:self-end min-[600px]:pl-0">
-            <div className="min-w-0 mb-[-0.2px] min-[600px]:mb-[4.5px] min-[768px]:mb-[3.5px] min-[1000px]:mb-[calc(21.893/1340*100cqw-6.5px)]">
+          <div className="mx-auto flex w-full max-w-[480px] items-end justify-between gap-4 pb-[7px] pl-[4px] min-[600px]:pb-[9.5px] min-[1000px]:pb-[calc(21.893/1340*100cqw)] min-[600px]:mx-0 min-[600px]:max-w-none min-[600px]:self-end min-[600px]:pl-0">
+            <div className="max-w-[calc(100%-48px)] shrink-0 mb-[-5px] min-[768px]:mb-[-6px] min-[1000px]:mb-[-6.5px]">
               <h1 className="flex flex-wrap items-baseline gap-x-3 leading-[normal] tracking-[-0.04em] min-[1000px]:gap-x-4">
                 <span className="text-[30px] font-semibold text-ink min-[600px]:text-[32px] min-[1000px]:text-[44px]">{p.ko}</span>
                 <span lang="en" className="text-[20px] font-medium text-[#777] min-[600px]:text-[24px] min-[1000px]:text-[32px]">
@@ -97,7 +100,10 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
                 )}
               </dl>
             </div>
-            <OutlineArrow className="w-[44px] shrink-0 [--sw:1px] min-[600px]:w-[88px] min-[600px]:[--sw:1.3px] min-[1000px]:w-[calc(202/1340*100cqw)] min-[1000px]:[--sw:1.5px]" />
+            <OutlineArrow
+              trim
+              className="min-w-[32px] shrink basis-[64px] [--sw:1px] min-[600px]:basis-[88px] min-[600px]:[--sw:1.3px] min-[1000px]:basis-[calc(202/1340*100cqw)] min-[1000px]:[--sw:1.5px]"
+            />
           </div>
         </div>
       </TopBox>

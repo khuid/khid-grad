@@ -72,9 +72,14 @@ export function Divider() {
 // 큰 화살표(외곽선, Figma designers 오른쪽 위·profiles 이름 옆). 모양은 public/2026/arrow-outline.svg와 같고,
 // 원본은 오른쪽 아래를 가리켜서 좌우반전. 선 굵기는 화살표 크기와 상관없이 화면 기준 px로 고정(--sw, 최대 1.5 — 2026-10-23 결정).
 // 원래처럼 크기에 비례하면 작은 화면에서 더 얇아지는데, 그 값(1.1~1.3)은 각 사용처에서 --sw로 그대로 둠
-export function OutlineArrow({ className = "" }: { className?: string }) {
+// trim: 아래 빈칸(180.107~202)을 잘라 그림 아래 끝 = 상자 아래 끝(프로필에서 글자 기준선과 맞출 때). 선이 잘리지 않게 overflow-visible
+export function OutlineArrow({ className = "", trim = false }: { className?: string; trim?: boolean }) {
   return (
-    <svg viewBox="0 0 202 202" aria-hidden className={`block h-auto max-w-none -scale-x-100 ${className}`}>
+    <svg
+      viewBox={trim ? "0 0 202 180.107" : "0 0 202 202"}
+      aria-hidden
+      className={`block h-auto max-w-none -scale-x-100 ${trim ? "aspect-[202/180.107] overflow-visible" : ""} ${className}`}
+    >
       <path
         d="M48.8019 16.1097L131.891 102.178L131.909 26.1915L177.486 70.933L177.613 165.666L177.613 180.107L163.226 180.107L68.4933 180.107L23.6791 134.585L99.756 134.494L16.0133 47.7357L48.8019 16.1097Z"
         fill="none"
