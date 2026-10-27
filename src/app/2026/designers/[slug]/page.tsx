@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import CopyText from "../../_components/CopyText";
 import { DESIGNERS, posePhoto } from "../../_components/designers";
 import { worksOf } from "../../_components/projects";
 import { FRAME } from "../../_components/SectionBar";
@@ -46,7 +47,7 @@ const LABEL = "text-[16px] leading-[normal] font-semibold tracking-[-0.04em] tex
 const VALUE = "text-[14px] leading-[normal] tracking-[-0.04em] break-all min-[768px]:text-[15px] min-[1000px]:text-[16px]";
 const EMPTY = <span className="text-[#a5a5a5]">준비 중</span>;
 
-// 포트폴리오(선택)는 안 쓴 사람이면 PORTFOLIO 줄 자체를 뺌. 값: http로 시작하면 그대로, @계정은 인스타그램, 나머지 주소는 https:// 붙여서 링크
+// CONTACT 이메일은 누르면 복사(CopyText — 2026 사이트 메일은 전부 복사). 포트폴리오(선택)는 안 쓴 사람이면 PORTFOLIO 줄 자체를 뺌. 값: http로 시작하면 그대로, @계정은 인스타그램, 나머지 주소는 https:// 붙여서 링크
 function href(v: string) {
   if (/^https?:\/\//.test(v)) return v;
   if (v.startsWith("@")) return `https://www.instagram.com/${v.slice(1)}/`;
@@ -78,7 +79,7 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
               </h1>
               <dl className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-[14px] gap-y-[14px] min-[1000px]:mt-[45px] min-[1000px]:gap-x-[18px] min-[1000px]:gap-y-[17px]">
                 <dt lang="en" className={LABEL}>CONTACT</dt>
-                <dd className={VALUE}>{p.contact ? <a href={`mailto:${p.contact}`} className="hover:text-key">{p.contact}</a> : EMPTY}</dd>
+                <dd className={VALUE}>{p.contact ? <CopyText text={p.contact} /> : EMPTY}</dd>
                 {p.portfolio.length > 0 && (
                   <>
                     <dt lang="en" className={LABEL}>PORTFOLIO</dt>
