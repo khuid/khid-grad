@@ -2,7 +2,8 @@
 // 작품 제목·만든 사람(members, 국문 이름 1~4명)은 WORKS에. 목록·프로필 모두 제목 가나다-abc 순.
 // members에 넣은 이름은 DESIGNERS 프로필의 작품 카드에도 저절로 연결됨(이름이 같은 졸전자).
 // 이미지·영상·링크·설명은 나중에 일괄 입력 — 제출 규격은 work/docs/04_이미지제출가이드.md (구글폼, 팀당 대표 1인):
-//   thumb        목록 썸네일 4:5, JPG 1080×1350 권장 (예: /2026/projects/spatial/01/thumb.webp)
+//   thumb        목록 썸네일 4:5, JPG 1080×1350 권장
+// 파일은 public/2026/projects/<수업>/<제목 slug>/ (thumb.webp, 01.webp…, 영상 NN.mp4) — scripts/2026/import-media.py로 만들고 아래 FILES에 등록
 //   media        상세 왼쪽 세로 나열(사이 여백 0): 16:9 장표 이미지 3~7장(1920×1080↑, 파일명 순서 넘버링)
 //                + 선택 영상 1개 — 15초 이내 MP4(10MB↓, type "video") 또는 유튜브 링크(type "youtube")
 //   description  국문 설명, 공백 포함 최대 400자
@@ -116,7 +117,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
       "RE:SOURCE는 자원은 고갈되고 쓰레기는 넘쳐나는 근미래를 배경으로, 버려진 쓰레기를 현장에서 바로 자원으로 되살리는 모빌리티와 슈트 디자인이다. 캐터필러로 매립지를 오가는 모빌리티는 지붕 뒤 세 개의 로봇팔로 쓰레기를 집어 투입구에 넣고, 차 안에서 선별·분쇄·세척·열처리를 거쳐 재질별 펠릿 캡슐로 만들어 짐칸에 싣는다. 작업자가 입는 슈트는 판초처럼 덧입는 하드 쉘과 두 개의 로봇팔로 무거운 작업을 대신하고, 위험하거나 쉴 때는 판초가 부풀어 몸을 감싸는 돔 쉘터가 된다. 두 오브젝트는 화이트 앤 그레이 바탕에 포인트 컬러 라인과 숫자로 하나의 디자인 언어를 공유하며, 쓰레기를 외부 플랜트로 보내지 않고 현장에서 해결하는 하나의 시스템을 제안한다.",
     ],
     ["Pacer", ["안지언", "이보화"]],
-    ["Swig", ["정예원", "박예은"]],
+    [
+      "Swig",
+      ["정예원", "박예은"],
+      "Swig는 바쁜 일상과 장시간의 업무 속에서 물 마시는 것을 잊기 쉬운 사람들을 위한 이동형 퍼스널 워터 시스템이다. 정수 및 급·배수 기능을 담당하는 고정 베이스와 사용자에게 물을 전달하는 이동형 디바이스로 구성된다. 사용자의 위치와 움직임을 인식해 곁으로 직접 이동하며, 적절한 순간에 부드러운 알림을 제공해 자연스러운 수분 섭취를 유도한다. 또한 물의 온도, 섭취 간격, 1회 섭취량을 자유롭게 조절할 수 있으며, 다양한 캡슐을 통해 개인의 취향과 필요에 맞는 맞춤형 수분 경험을 제공한다. 물방울에서 영감을 받은 부드러운 형태와 가구를 닮은 디자인은 생활 공간에 자연스럽게 어우러진다. Swig는 물을 마시기 위해 일상의 흐름을 멈추는 대신, 수분 섭취가 일상의 리듬 속에 자연스럽게 스며드는 새로운 방식을 제안한다.",
+    ],
     ["ZEEN", ["조해린", "손예원"]],
     ["LYAXOME", ["김태령", "이수진", "하채연"]],
     ["NEXUS", ["이진", "임형민", "전예영"]],
@@ -151,7 +156,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
     ["ONBIT", ["이규진", "이유택"]],
     ["FACEHUG", ["권정현", "김예림", "박효찬"]],
     ["ELGO", ["이보화"]],
-    ["cʌret", ["정예원", "김현호", "박예은", "안지언"]],
+    [
+      "Caret",
+      ["정예원", "김현호", "박예은", "안지언"],
+      "CARET은 병동에서 반복적으로 이루어지는 배식과 바이탈 체크를 하나의 플랫폼으로 통합한 모듈형 서비스 로봇이. 정해진 식사 시간에는 환자에게 식사를 전달하고 회수하며, 그 외 시간에는 생체 신호 측정을 보조하는 방식으로 역할을 전환해 병동 업무의 효율성을 높인다.\n확장형 식판 거치대와 교체형 의료기기 모듈을 적용해 각 업무에 유연하게 대응하며, 컴팩트한 ㄷ자형 구조를 통해 제한된 병실에서도 환자 가까이 접근할 수 있도록 설계했다. 또한 병동별 필요에 따라 의료기기 구성을 변경할 수 있어 다양한 의료 환경에서 활용할 수 있다.\nCARET은 단순한 업무 자동화를 넘어, 의료진의 반복적인 업무 부담을 줄이고 간호사가 환자 관찰과 의료적 판단에 더 집중할 수 있는 새로운 병동 서비스를 제안한다.",
+    ],
     ["Knoticy", ["김도경"]],
     ["HO:RONG", ["이진"]],
     ["DEVOID", ["박한나", "성아현", "이진주", "전예영"]],
@@ -171,6 +180,29 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
     ["arti", ["한예지"]],
   ],
 };
+
+// 받은 파일: "<수업>/<제목 slug>" → 장표 번호 순서 ("NN" = NN.webp, "NN.mp4" = 영상). thumb.webp는 늘 함께 있음
+const FILES: Record<string, string[]> = {
+  "ai/caret": ["01", "02", "03", "04", "05", "06", "07"],
+  "ai/vn": ["01", "02.mp4", "03", "04", "05", "06", "07"],
+  "smart/re-source": ["01.mp4", "02", "03", "04", "05", "06", "07"],
+  "smart/swig": ["01", "02", "03", "04", "05", "06", "07"],
+  "spatial/limen-the-threshold-of-senses": ["01", "02", "03", "04", "05", "06", "07.mp4"],
+};
+
+// 제목 → 폴더 이름 (영문·숫자만, 나머지는 -)
+const slug = (title: string) => title.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase();
+
+function filesOf(cls: ClassKey, title: string): Pick<Project, "thumb" | "media"> {
+  const key = `${cls}/${slug(title)}`;
+  const list = FILES[key];
+  if (!list) return { media: [] };
+  const dir = `/2026/projects/${key}`;
+  return {
+    thumb: `${dir}/thumb.webp`,
+    media: list.map((f): Media => (f.endsWith(".mp4") ? { type: "video", src: `${dir}/${f}` } : { type: "image", src: `${dir}/${f}.webp` })),
+  };
+}
 
 // 작품 제목 가나다 → abc → 숫자·기호 순 (앞의 기호·공백은 무시, 대소문자 구분 없음)
 function group(title: string) {
@@ -198,7 +230,7 @@ export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
     no: String(i + 1).padStart(2, "0"),
     ...w,
     links: [],
-    media: [],
+    ...filesOf(c.key, w.title),
   }));
 });
 
