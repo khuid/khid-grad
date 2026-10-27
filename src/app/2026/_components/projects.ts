@@ -74,9 +74,14 @@ const SLOTS: Record<ClassKey, number> = { spatial: 10, capstone: 18, smart: 29, 
 // 수업별 작품 [제목, 만든 사람들] — work/data/projects/project-list.xlsx(2026-10-23)에서 작품명·팀원 이름만 옮김(순서 상관없음, 아래에서 정렬).
 // 같은 수업에 팀원이 똑같은 줄이 또 있으면 첫 줄만(스융디 ATOA·인지디 Knoticy 중복 제외).
 // "1. Put _ [ ]. 2. Bruiser"는 한 작품. ZHANG YICHENG = 장일정
-const WORKS: Record<ClassKey, [title: string, members: string[]][]> = {
+// 셋째 값 = 소개글(구글폼 작품 응답에서 옮김, 2026-10-27~). 응답은 팀원 이름이 모두 같은 작품에 맞추고, 제목도 응답 표기로 바꿈(소개글은 받은 그대로)
+const WORKS: Record<ClassKey, [title: string, members: string[], description?: string][]> = {
   spatial: [
-    ["LIMEN : The Threshold of Senses", ["최성지", "김남경", "박세권"]],
+    [
+      "LIMEN : The Threshold of Senses",
+      ["최성지", "김남경", "박세권"],
+      "2046년, AI와 VR이 일상이 된 초연결 시대. 보고 듣는 정보는 넘치지만 손끝의 감각은 무뎌졌습니다. LIMEN(라틴어로 '문턱')은 디지털을 끄는 대신 가현실강·햅틱·홀로그램 같은 미래 기술로 아날로그 감각을 다시 켜는 디지로그 복합 공간입니다. 1968년 김수근이 설계한 국내 최초의 주상복합 세운상가를 허물지 않고, 공중보행데크로 이어진 상가군의 틀을 이어받아 2046년의 모습으로 다시 지었습니다. 3개 동 8개 층에 10개 공간이 있으며, 메인 콘텐츠인 오감 탐색 공간에서는 탐정이 되어 옛 상가에 숨은 흔적을 보고, 듣고, 냄새 맡고, 만져서 찾아냅니다. 상인과 함께 고치는 공간, 창업자의 작업실, 사라진 장인의 손기술을 남기는 공간까지, 감각 체험을 넘어 상생·창작·보존을 잇습니다.",
+    ],
     ["이상유희", ["박효찬"]],
     ["Microbial Loop Habitat", ["조해린", "손예원"]],
     ["이음마루", ["김윤주", "정보연", "이수연"]],
@@ -177,7 +182,7 @@ export function byTitle(a: { title: string }, b: { title: string }) {
 export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
   // 만든 사람도 가나다 순
   const filled = WORKS[c.key]
-    .map(([title, members]) => ({ title, members: [...members].sort((a, b) => a.localeCompare(b, "ko")) }))
+    .map(([title, members, description]) => ({ title, members: [...members].sort((a, b) => a.localeCompare(b, "ko")), description }))
     .sort(byTitle);
   const empty = Array.from({ length: Math.max(0, SLOTS[c.key] - filled.length) }, () => ({ title: "작품 제목", members: [] }));
   return [...filled, ...empty].map((w, i) => ({
