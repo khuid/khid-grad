@@ -24,7 +24,7 @@
 | 가장 바깥 틀 | `src/app/layout.tsx` | 언어(한국어), 링크 미리보기 주소 기준, 기본 제목. 바탕색·글꼴 등은 **넣지 않음** |
 | 화면 튕김 방지 | `src/app/_common/common.css` | 휴대폰에서 맨 위·아래 바운스 끔(카카오톡 덜컹거림 방지) |
 | 이미지 저장 방지 | `src/app/_common/common.css`, `CopyGuard.tsx` | 이미지·영상 우클릭/끌기/길게 눌러 저장 막기, 배포 사이트에서 개발자 도구 단축키 막기 |
-| 방문자 기록 | `src/app/_common/Analytics.tsx` | Google Analytics 4. 배포 사이트에서만 모든 연도 방문을 기록(월·주·일·시간대별, 페이지별). 측정 ID는 이 파일의 `GA_ID` |
+| 방문자 기록 | `src/app/_common/Analytics.tsx` | Google Analytics 4. 배포 사이트에서만 모든 연도 방문을 기록(월·주·일·시간대별, 페이지별). 측정 ID는 이 파일의 `GA_ID`. 운영자 기기는 주소 끝 `?notrack=1`로 한 번 들어가면 그 브라우저에서 기록 안 됨(`?notrack=0` 해제) |
 | 이미지 최적화 | `next.config.ts` | 지원 브라우저엔 AVIF, 아니면 WebP로 자동 변환 |
 | 폰트 경량화 도구 | `scripts/subset-fonts.py` | 도구만 공통. **연도를 지정해서** 그 연도 폰트만 만듦 (아래 참고) |
 | 새 연도 시작 틀·점검 도구 | `templates/new-year/`, `scripts/new-year.py`, `scripts/check-year.py` | 빈 시작 틀로 새 연도를 만들고, 다 채웠는지 점검 (아래 "새 연도 추가") |
