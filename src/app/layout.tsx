@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Analytics from "./_common/Analytics";
 import CopyGuard from "./_common/CopyGuard";
 import "./_common/common.css";
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {children}
         <CopyGuard />
+        <Analytics />
       </body>
     </html>
   );
