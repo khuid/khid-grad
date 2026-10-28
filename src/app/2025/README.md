@@ -28,7 +28,8 @@
 - [x] 이미지 — 로고(TNM·THE NEXT MOVE·푸터 타이틀·경희대·KHID), 목록 제목 6개((MOVE)S·(PROJECT)S·(TRACE)S / (PLAYER)S·(DESIGNER)S·(THINKER)S), 후원 로고 5개 — 프레이머 복사본에서 Copy SVG로 뽑음 → `public/2025/`
 - [ ] 사진·이미지 — 소개 이미지 2장, 단체 사진, 작품 이미지, 참여자 사진: 사용자가 원본을 따로 줌 (프레이머에서 뽑지 않음)
 - [ ] 메인 영상 YouTube ID — `_components/home.ts`의 `VIDEO_ID`
-- [ ] 디자이너·작품 데이터 — `_components/designers.ts`, `_components/works.ts`, 과목 교수님·소개 `_components/categories.ts` (`[샘플]`·`[데이터]` 전부 바꾸기)
+- [x] 디자이너 63명 — `_components/designers.ts` (프레이머 프로필 값, 2026-10-29). 프로필 사진만 남음
+- [ ] 작품 데이터 — `_components/works.ts`, 과목 교수님·소개 `_components/categories.ts` (`[샘플]`·`[데이터]` 전부 바꾸기)
 - [ ] 마지막 점검 — `python3 scripts/check-year.py 2025`
 
 ## 프레이머에서 못 읽어 임시로 둔 것 ([추정] 표시)
