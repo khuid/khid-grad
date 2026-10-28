@@ -10,17 +10,24 @@ const BIG = { src: "/2026/cursor-hero.svg", w: 72, h: 70.95 }; // Figma 90×88.6
 const SMALL = { w: 25.2, h: 24.83 }; // Figma 36×35.47의 70%
 const SMALL_BLUE = "/2026/cursor.svg";
 const SMALL_WHITE = "/2026/cursor-white.svg";
+// 크기 전환: 두 화살표를 큰 크기로 끝점에 겹쳐 두고, 묶음을 끝점(왼쪽 위) 기준으로 0.18초 동안 키우고/줄이면서 서로 바꿔 보임
+// (모양은 같고 흰 테두리 굵기 비율만 달라서 겹쳐 바꿔도 티 안 남. 작아진 상태는 기존 작은 화살표 크기와 같음)
+const SHRINK = SMALL.w / BIG.w;
+const EASE = "duration-[180ms] ease-out";
+const IMG = `absolute top-0 left-0 block max-w-none transition-opacity ${EASE}`;
 
 export default function SiteCursor({ heroId }: { heroId: string }) {
   const ref = useRef<HTMLDivElement>(null);
+  const scaleRef = useRef<HTMLDivElement>(null);
   const bigRef = useRef<HTMLImageElement>(null);
   const smallRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const cursor = ref.current;
+    const scaler = scaleRef.current;
     const big = bigRef.current;
     const small = smallRef.current;
-    if (!cursor || !big || !small) return;
+    if (!cursor || !scaler || !big || !small) return;
     const fine = window.matchMedia("(pointer: fine)");
     const root = document.documentElement;
 
@@ -29,8 +36,9 @@ export default function SiteCursor({ heroId }: { heroId: string }) {
     const size = () => {
       const hero = document.getElementById(heroId)?.getBoundingClientRect();
       const inHero = !!hero && y >= hero.top && y < hero.bottom;
-      big.style.display = inHero ? "block" : "none";
-      small.style.display = inHero ? "none" : "block";
+      scaler.style.transform = inHero ? "scale(1)" : `scale(${SHRINK})`;
+      big.style.opacity = inHero ? "1" : "0";
+      small.style.opacity = inHero ? "0" : "1";
       if (!inHero) {
         // 마우스 바로 아래 요소가 파란 배경 구역이면 흰 화살표 (상단바 위면 파란 화살표)
         const light = !!document.elementFromPoint(x, y)?.closest('[data-cursor="light"]');
@@ -93,10 +101,12 @@ export default function SiteCursor({ heroId }: { heroId: string }) {
       aria-hidden
       className="pointer-events-none fixed top-0 left-0 z-[60] opacity-0 transition-opacity duration-150"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img ref={bigRef} src={BIG.src} alt="" width={BIG.w} height={BIG.h} className="block max-w-none" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img ref={smallRef} src={SMALL_BLUE} alt="" width={SMALL.w} height={SMALL.h} className="hidden max-w-none" />
+      <div ref={scaleRef} className={`relative origin-top-left transition-transform ${EASE}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img ref={bigRef} src={BIG.src} alt="" width={BIG.w} height={BIG.h} className={IMG} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img ref={smallRef} src={SMALL_BLUE} alt="" width={BIG.w} height={BIG.h} className={`${IMG} opacity-0`} />
+      </div>
     </div>
   );
 }
