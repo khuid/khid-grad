@@ -13,8 +13,8 @@ const NAV = [
   { key: "designers", href: "/2025/designers/gn", label: "DESIGNERS" },
 ] as const;
 
-// 프레이머 스프링(0.4초, 튐 0.2)을 CSS로 비슷하게
-const SPRING = "transition-colors duration-[400ms] ease-[cubic-bezier(0.3,1.3,0.6,1)]";
+// 프레이머 스프링(0.4초, 튐 0.2) — 곡선은 2025.css의 --ease-spring
+const SPRING = "transition-colors duration-[400ms] ease-spring";
 const HOVER_HOME = "hover:bg-white hover:text-red active:bg-transparent active:text-white";
 const HOVER_PAGE = "hover:bg-red hover:text-white active:bg-transparent active:text-red";
 

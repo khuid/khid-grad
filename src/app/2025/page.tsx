@@ -150,7 +150,7 @@ function Sponsors() {
               src={s.src}
               alt={s.name}
               style={{ "--w": s.w, "--hw": s.hw } as CSSProperties}
-              className="block h-auto w-(--w) transition-[width] duration-[400ms] ease-[cubic-bezier(0.3,1.3,0.6,1)] group-hover:w-(--hw)"
+              className="block h-auto w-(--w) transition-[width] duration-[400ms] ease-spring group-hover:w-(--hw)"
             />
           </div>
         ))}

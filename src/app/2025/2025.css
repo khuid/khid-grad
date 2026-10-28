@@ -26,6 +26,12 @@
   --font-inter: var(--font-interdisplay, "Inter Display"), "Inter", sans-serif;
 }
 
+/* 2025 움직임 — 프레이머 Spring(Time 0.4초, Bounce 0.2)을 CSS로 옮긴 곡선. duration-[400ms]와 같이 씀 (ease-spring)
+   상단바 로고·메뉴 hover, 후원 로고 hover에 쓰임. 0.4초를 0.025초 간격으로 계산한 값(살짝 1.5% 넘쳤다 돌아옴) */
+@theme {
+  --ease-spring: linear(0, 0.117, 0.344, 0.569, 0.748, 0.872, 0.949, 0.99, 1.009, 1.015, 1.014, 1.011, 1.008, 1.005, 1.002, 1.001, 1);
+}
+
 body {
   background: #ffffff;
   color: var(--color-ink);
