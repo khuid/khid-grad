@@ -12,7 +12,8 @@ export type Designer = {
   intro: string; // 자기소개
   answers: [string, string]; // 아래 QUESTIONS 두 개에 대한 답
   email?: string;
-  portfolio?: { text: string; href: string };
+  // 2025 규칙: 인스타 아이디(@…)는 href 없이 글자만, 그 밖의 포트폴리오 주소는 링크가 있을 때만 href
+  portfolio?: { text: string; href?: string };
 };
 
 // 모든 디자이너에게 같은 질문 (프레이머 profile 컴포넌트 문구 그대로)

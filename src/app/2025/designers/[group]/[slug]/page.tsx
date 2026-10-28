@@ -87,9 +87,13 @@ async function ProfileView({ params }: { params: PageProps<"/2025/designers/[gro
                 <div className="flex flex-wrap items-baseline gap-x-[16px] gap-y-[4px]">
                   <dt className="text-[20px] text-black">PORTFOLIO</dt>
                   <dd className="text-[14px] text-gray min-[1440px]:text-[16px]">
-                    <a href={d.portfolio.href} target="_blank" rel="noreferrer" className="hover:underline">
-                      {d.portfolio.text}
-                    </a>
+                    {d.portfolio.href ? (
+                      <a href={d.portfolio.href} target="_blank" rel="noreferrer" className="hover:underline">
+                        {d.portfolio.text}
+                      </a>
+                    ) : (
+                      d.portfolio.text
+                    )}
                   </dd>
                 </div>
               )}

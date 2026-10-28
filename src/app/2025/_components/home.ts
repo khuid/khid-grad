@@ -27,13 +27,13 @@ export const PROFESSORS = [
   { ko: "최유식", en: "Choi Yoosik" },
 ];
 
-// 후원 — 로고는 프레이머 sponsorship/* 컴포넌트에서 뽑은 SVG. w = 칸 폭 대비 로고 폭 (프레이머 값)
+// 후원 — 로고는 프레이머 sponsorship/* 컴포넌트에서 뽑은 SVG. w = 칸 폭 대비 로고 폭, hw = 마우스를 올렸을 때 (프레이머 값)
 export const SPONSORS = [
-  { name: "Yoondesign", src: "/2025/sponsors/yoondesign.svg", w: "67%" },
-  { name: "F/A/B/A", src: "/2025/sponsors/faba.svg", w: "67%" },
-  { name: "RixFont", src: "/2025/sponsors/rixfont.svg", w: "67%" },
-  { name: "3DPAGE", src: "/2025/sponsors/3dpage.svg", w: "66%" },
-  { name: "LOWLIT COLLECTIVE", src: "/2025/sponsors/lowlit.svg", w: "79%" },
+  { name: "Yoondesign", src: "/2025/sponsors/yoondesign.svg", w: "67%", hw: "77%" },
+  { name: "F/A/B/A", src: "/2025/sponsors/faba.svg", w: "67%", hw: "78%" },
+  { name: "RixFont", src: "/2025/sponsors/rixfont.svg", w: "67%", hw: "78%" },
+  { name: "3DPAGE", src: "/2025/sponsors/3dpage.svg", w: "66%", hw: "75%" },
+  { name: "LOWLIT COLLECTIVE", src: "/2025/sponsors/lowlit.svg", w: "79%", hw: "85%" },
 ];
 
 // [데이터] 메인 영상 YouTube 영상 ID (주소 watch?v= 뒤의 글자)

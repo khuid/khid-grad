@@ -71,7 +71,7 @@ export default function ListLayout({
   current: "projects" | "designers";
   tabs: Tab[];
   tabKey: string;
-  title: { words: { src: string; label: string }[]; h: string }; // 빨간 제목 — 단어가 2초마다 바뀜 (CycleTitle)
+  title: { words: { src: string; label: string; hold: number }[]; h: string }; // 빨간 제목 — 단어가 hold초씩 머물다 바뀜 (CycleTitle)
   fullHeightTop?: boolean; // 디자이너 목록: 위쪽 소개가 화면 높이만큼(100vh), 정보는 아래쪽 끝에
   info: ReactNode;
   bar: { ko: string; en?: string };

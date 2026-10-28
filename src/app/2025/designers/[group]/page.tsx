@@ -39,7 +39,7 @@ async function GroupView({ params }: { params: PageProps<"/2025/designers/[group
       current="designers"
       tabs={GROUPS.map((x) => ({ key: x.slug, label: x.label, href: groupHref(x) }))}
       tabKey={g.slug}
-      title={{ words: [{ src: "/2025/titles/players.svg", label: "(PLAYER)S" }, { src: "/2025/titles/designers.svg", label: "(DESIGNER)S" }, { src: "/2025/titles/thinkers.svg", label: "(THINKER)S" }], h: "h-[44px] min-[720px]:h-[84.5px] min-[1440px]:h-[140px]" }}
+      title={{ words: [{ src: "/2025/titles/players.svg", label: "(PLAYER)S", hold: 2 }, { src: "/2025/titles/designers.svg", label: "(DESIGNER)S", hold: 2 }, { src: "/2025/titles/thinkers.svg", label: "(THINKER)S", hold: 2 }], h: "h-[44px] min-[720px]:h-[84.5px] min-[1440px]:h-[140px]" }}
       fullHeightTop
       bar={{ ko: g.label }}
       info={

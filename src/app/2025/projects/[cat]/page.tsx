@@ -39,7 +39,7 @@ async function CategoryView({ params }: { params: PageProps<"/2025/projects/[cat
       current="projects"
       tabs={CATEGORIES.map((x) => ({ key: x.slug, label: x.ko, href: categoryHref(x) }))}
       tabKey={c.slug}
-      title={{ words: [{ src: "/2025/titles/moves.svg", label: "(MOVE)S" }, { src: "/2025/titles/projects.svg", label: "(PROJECT)S" }, { src: "/2025/titles/traces.svg", label: "(TRACE)S" }], h: "h-[60px] min-[720px]:h-[97px] min-[1440px]:h-[140px]" }}
+      title={{ words: [{ src: "/2025/titles/moves.svg", label: "(MOVE)S", hold: 2 }, { src: "/2025/titles/projects.svg", label: "(PROJECT)S", hold: 2.9 }, { src: "/2025/titles/traces.svg", label: "(TRACE)S", hold: 2.9 }], h: "h-[60px] min-[720px]:h-[97px] min-[1440px]:h-[140px]" }}
       bar={{ ko: c.ko, en: c.barEn }}
       info={
         <div className="flex w-full flex-col gap-[24px] min-[720px]:gap-[28px] min-[1440px]:gap-[32px]">

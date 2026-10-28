@@ -1,15 +1,22 @@
 import Link from "next/link";
 
 // 상단바 — 프레이머 header 컴포넌트. 스크롤해도 맨 위에 붙어 있음(sticky).
-// 높이 60 (Phone 45). 왼쪽 로고 칸: 패딩 12 32, 로고 38.5×36 (Phone 패딩 12, 칸 폭 50.5). 오른쪽 메뉴 두 칸 각 140.
-// home: 빨간 바탕 + 흰 글자 / 그 밖의 페이지: 흰 바탕 + 아래 검정 선, 지금 보는 메뉴만 빨강
-// 로고 TNM(프레이머 logo2·logo1 컴포넌트에서 뽑은 SVG)은 글자색(currentColor)을 따름
-//   home: 흰 로고, 마우스를 올리면 흰 바탕 + 빨간 로고 / 그 밖: 검정 로고, 마우스를 올리면 빨간 바탕 + 흰 로고
-// [추정] 메뉴 글자 크기(14, Phone 12)와 Phone의 메뉴 칸 폭은 프레이머에서 못 읽어 화면을 보고 맞춤
+// 높이 60 (Phone 45). 왼쪽 로고 칸: 패딩 12 32, 로고 38.5×36 (Phone 패딩 12, 칸 폭 50.5).
+// 오른쪽 메뉴(프레이머 nav_tab): 칸 140×60, 글자 16/150 (Phone 102.5×44, 14)
+// 로고 TNM(프레이머 logo2·logo1에서 뽑은 SVG)은 글자색(currentColor)을 따름
+// 마우스 올림(hover)·누름(active) — 프레이머 variant 값, 바뀔 때 스프링 0.4초(튐 0.2)
+//   home(빨간 바탕): 로고·메뉴 흰색 → 올리면 흰 바탕 + 빨강, 누르면 원래대로
+//   그 밖(흰 바탕): 로고·메뉴 검정 → 올리면 빨간 바탕 + 흰색, 누르면 빨강 글자만
+//   지금 보는 메뉴: 빨강 글자 → 올리거나 누르면 빨간 바탕 + 흰색
 const NAV = [
   { key: "projects", href: "/2025/projects/futuristic-space", label: "PROJECTS" },
   { key: "designers", href: "/2025/designers/gn", label: "DESIGNERS" },
 ] as const;
+
+// 프레이머 스프링(0.4초, 튐 0.2)을 CSS로 비슷하게
+const SPRING = "transition-colors duration-[400ms] ease-[cubic-bezier(0.3,1.3,0.6,1)]";
+const HOVER_HOME = "hover:bg-white hover:text-red active:bg-transparent active:text-white";
+const HOVER_PAGE = "hover:bg-red hover:text-white active:bg-transparent active:text-red";
 
 export default function Header({ current }: { current?: "projects" | "designers" }) {
   const home = !current;
@@ -22,9 +29,7 @@ export default function Header({ current }: { current?: "projects" | "designers"
       <Link
         href="/2025"
         aria-label="KHID 2025 홈"
-        className={`flex items-center justify-center p-[12px] transition-colors min-[720px]:px-[32px] ${
-          home ? "hover:bg-white hover:text-red" : "hover:bg-red hover:text-white"
-        }`}
+        className={`flex items-center justify-center p-[12px] min-[720px]:px-[32px] ${SPRING} ${home ? HOVER_HOME : HOVER_PAGE}`}
       >
         <TnmLogo className="h-[24.7px] w-auto min-[720px]:h-[36px]" />
       </Link>
@@ -34,8 +39,8 @@ export default function Header({ current }: { current?: "projects" | "designers"
             key={n.key}
             href={n.href}
             aria-current={current === n.key ? "page" : undefined}
-            className={`flex w-[96px] items-center justify-center font-en text-[12px] min-[720px]:w-[140px] min-[720px]:text-[14px] ${
-              current === n.key ? "text-red" : ""
+            className={`flex w-[102.5px] items-center justify-center font-en text-[14px] leading-[1.5] min-[720px]:w-[140px] min-[720px]:text-[16px] ${SPRING} ${
+              home ? HOVER_HOME : current === n.key ? "text-red hover:bg-red hover:text-white active:bg-red active:text-white" : HOVER_PAGE
             }`}
           >
             {n.label}

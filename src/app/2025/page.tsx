@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Footer from "./_components/Footer";
 import Header from "./_components/Header";
 import HeroArrow from "./_components/HeroArrow";
@@ -28,12 +29,13 @@ function Hero() {
 }
 
 function Overview() {
+  // [데이터] 이미지는 사용자가 따로 줌 (public/2025/에 넣고 src로 연결)
   // 프레이머: 글이 그려진 이미지 2장(바둑판 격자 + where is the NEXT MOVE? / what is the BEST MOVE?)
   // 가로 2칸, 각 정사각형 (Desktop 720·Tablet 360) / Phone은 세로로 쌓임
   return (
     <section className="flex flex-col min-[720px]:flex-row">
-      <Ph src="/2025/overview-1.jpg" label="where is the NEXT MOVE? 우리는 다음 수를 어디에 둬야 하는가?" className="aspect-square w-full min-[720px]:w-1/2" />
-      <Ph src="/2025/overview-2.jpg" label="what is the BEST MOVE? 격동의 시대, 디자이너에게 최선의 수란 무엇인가?" className="aspect-square w-full min-[720px]:w-1/2" />
+      <Ph label="소개 이미지 1 — where is the NEXT MOVE?" className="aspect-square w-full min-[720px]:w-1/2" />
+      <Ph label="소개 이미지 2 — what is the BEST MOVE?" className="aspect-square w-full min-[720px]:w-1/2" />
     </section>
   );
 }
@@ -94,7 +96,7 @@ function Committee() {
     <section>
       <SectionBar ko="졸업전시준비위원회" en="Preparatory Committee" />
       <div className="flex flex-col gap-[28px] px-[16px] pt-[20px] pb-[40px] min-[720px]:px-[40px] min-[720px]:pt-[32px] min-[720px]:pb-[60px] min-[1440px]:px-[80px] min-[1440px]:pt-[60px] min-[1440px]:pb-[100px]">
-        <Ph src="/2025/committee.jpg" label="졸업전시준비위원회 단체 사진" className="aspect-[1280/864.5] w-full" />
+        <Ph label="졸업전시준비위원회 단체 사진" className="aspect-[1280/864.5] w-full" />
         <div className="flex flex-col gap-[24px] text-ink min-[720px]:text-black min-[1440px]:text-ink">
           {COMMITTEE.map((row) => (
             <div key={row[0].team} className="flex gap-[10px]">
@@ -136,7 +138,7 @@ function Professors() {
 
 function Sponsors() {
   // 프레이머: 패딩 120 80 (Tablet 80 40 / Phone 60 16), 가운데, 줄바꿈. 간격 가로 20·세로 10 (16·8 / 8·4)
-  // 로고 칸 정사각형 240 (180 / 100), 바탕 #FDFDFD. 로고는 칸 폭의 66~79%, 마우스를 올리면 약 1.15배 (프레이머 sponsorship/* Hover: 67%→77%)
+  // 로고 칸 정사각형 240 (180 / 100), 바탕 #FDFDFD. 로고 폭은 칸 대비 % (w), 마우스를 올리면 hw로 커짐 — 프레이머 sponsorship/* Hover, 스프링 0.4초(튐 0.2)
   return (
     <section>
       <SectionBar ko="후원" en="Sponsorship" />
@@ -144,7 +146,12 @@ function Sponsors() {
         {SPONSORS.map((s) => (
           <div key={s.name} className="group flex size-[100px] items-center justify-center bg-paper min-[720px]:size-[180px] min-[1440px]:size-[240px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={s.src} alt={s.name} style={{ width: s.w }} className="block h-auto transition-transform duration-300 ease-out group-hover:scale-[1.15]" />
+            <img
+              src={s.src}
+              alt={s.name}
+              style={{ "--w": s.w, "--hw": s.hw } as CSSProperties}
+              className="block h-auto w-(--w) transition-[width] duration-[400ms] ease-[cubic-bezier(0.3,1.3,0.6,1)] group-hover:w-(--hw)"
+            />
           </div>
         ))}
       </div>
