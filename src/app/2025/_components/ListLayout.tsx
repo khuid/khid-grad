@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
-import Ph from "./Ph";
+import CycleTitle from "./CycleTitle";
 import SectionBar from "./SectionBar";
 
 // 작품 목록(과목별)·디자이너 목록(초성별)이 같이 쓰는 틀 — 프레이머 /projects-…, /designers-… 페이지
@@ -71,7 +71,7 @@ export default function ListLayout({
   current: "projects" | "designers";
   tabs: Tab[];
   tabKey: string;
-  title: { label: string; w: string; tabletW: string; desktopW: string }; // 빨간 제목 이미지 "(MOVE)S" / "(PLAYER)S"
+  title: { words: { src: string; label: string }[]; h: string }; // 빨간 제목 — 단어가 2초마다 바뀜 (CycleTitle)
   fullHeightTop?: boolean; // 디자이너 목록: 위쪽 소개가 화면 높이만큼(100vh), 정보는 아래쪽 끝에
   info: ReactNode;
   bar: { ko: string; en?: string };
@@ -91,10 +91,7 @@ export default function ListLayout({
             }`}
           >
             <h1>
-              <Ph
-                label={`제목 이미지 ${title.label}`}
-                className={`aspect-[606/140] ${title.w} ${title.tabletW} ${title.desktopW} text-red`}
-              />
+              <CycleTitle words={title.words} className={title.h} />
             </h1>
             {info}
           </section>

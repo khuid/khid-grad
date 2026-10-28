@@ -14,8 +14,9 @@ function Hero() {
   return (
     <section className="flex flex-col items-center gap-[80px] bg-red px-[40px] pt-[240px] pb-[120px] min-[720px]:gap-0 min-[720px]:px-[60px] min-[720px]:pt-[80px] min-[720px]:pb-[40px] min-[1440px]:px-[200px] min-[1440px]:pt-[120px] min-[1440px]:pb-[80px]">
       <div className="flex flex-col items-center gap-[32px] min-[720px]:gap-[40px] min-[1440px]:gap-[60px]">
-        {/* [데이터] THE NEXT MOVE 로고 (프레이머 thenextmove — 스크롤에 따라 움직임 있음 [추정: 애니메이션 미구현]) */}
-        <Ph label="THE NEXT MOVE 로고" className="aspect-[694/480] h-[200px] min-[720px]:h-[280px] min-[1440px]:h-[480px]" />
+        {/* THE NEXT MOVE 로고 — 프레이머 logo2에서 뽑은 SVG. 스크롤에 따른 움직임은 [추정: 미구현] */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/2025/logo-thenextmove.svg" alt="THE NEXT MOVE" className="block aspect-[694/480] h-[200px] min-[720px]:h-[280px] min-[1440px]:h-[480px]" />
         <p className="text-center font-en text-[20px] leading-[1.4] text-white min-[720px]:leading-[1.5] min-[1440px]:text-[40px]">
           where is the NEXT MOVE,
           <br className="min-[720px]:hidden" /> what is the BEST MOVE?
@@ -31,8 +32,8 @@ function Overview() {
   // 가로 2칸, 각 정사각형 (Desktop 720·Tablet 360) / Phone은 세로로 쌓임
   return (
     <section className="flex flex-col min-[720px]:flex-row">
-      <Ph label="소개 이미지 1 — where is the NEXT MOVE?" className="aspect-square w-full min-[720px]:w-1/2" />
-      <Ph label="소개 이미지 2 — what is the BEST MOVE?" className="aspect-square w-full min-[720px]:w-1/2" />
+      <Ph src="/2025/overview-1.jpg" label="where is the NEXT MOVE? 우리는 다음 수를 어디에 둬야 하는가?" className="aspect-square w-full min-[720px]:w-1/2" />
+      <Ph src="/2025/overview-2.jpg" label="what is the BEST MOVE? 격동의 시대, 디자이너에게 최선의 수란 무엇인가?" className="aspect-square w-full min-[720px]:w-1/2" />
     </section>
   );
 }
@@ -93,7 +94,7 @@ function Committee() {
     <section>
       <SectionBar ko="졸업전시준비위원회" en="Preparatory Committee" />
       <div className="flex flex-col gap-[28px] px-[16px] pt-[20px] pb-[40px] min-[720px]:px-[40px] min-[720px]:pt-[32px] min-[720px]:pb-[60px] min-[1440px]:px-[80px] min-[1440px]:pt-[60px] min-[1440px]:pb-[100px]">
-        <Ph label="졸업전시준비위원회 단체 사진" className="aspect-[1280/864.5] w-full" />
+        <Ph src="/2025/committee.jpg" label="졸업전시준비위원회 단체 사진" className="aspect-[1280/864.5] w-full" />
         <div className="flex flex-col gap-[24px] text-ink min-[720px]:text-black min-[1440px]:text-ink">
           {COMMITTEE.map((row) => (
             <div key={row[0].team} className="flex gap-[10px]">
@@ -135,13 +136,16 @@ function Professors() {
 
 function Sponsors() {
   // 프레이머: 패딩 120 80 (Tablet 80 40 / Phone 60 16), 가운데, 줄바꿈. 간격 가로 20·세로 10 (16·8 / 8·4)
-  // 로고 칸 정사각형 240 (180 / 100)
+  // 로고 칸 정사각형 240 (180 / 100), 바탕 #FDFDFD. 로고는 칸 폭의 66~79%, 마우스를 올리면 약 1.15배 (프레이머 sponsorship/* Hover: 67%→77%)
   return (
     <section>
       <SectionBar ko="후원" en="Sponsorship" />
       <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[4px] px-[16px] py-[60px] min-[720px]:gap-x-[16px] min-[720px]:gap-y-[8px] min-[720px]:px-[40px] min-[720px]:py-[80px] min-[1440px]:gap-x-[20px] min-[1440px]:gap-y-[10px] min-[1440px]:px-[80px] min-[1440px]:py-[120px]">
         {SPONSORS.map((s) => (
-          <Ph key={s} label={`${s} 로고`} className="size-[100px] min-[720px]:size-[180px] min-[1440px]:size-[240px]" />
+          <div key={s.name} className="group flex size-[100px] items-center justify-center bg-paper min-[720px]:size-[180px] min-[1440px]:size-[240px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={s.src} alt={s.name} style={{ width: s.w }} className="block h-auto transition-transform duration-300 ease-out group-hover:scale-[1.15]" />
+          </div>
         ))}
       </div>
     </section>

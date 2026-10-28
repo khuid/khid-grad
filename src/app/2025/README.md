@@ -17,7 +17,7 @@
 | 디자이너 프로필 | `/2025/designers/<초성>/<slug>` | `designers/[group]/[slug]/page.tsx` |
 
 ## 지금 상태 (2026-10-28, 브랜치 `2025`)
-디자인(틀)만 잡은 상태. 이미지는 회색 빈칸, 작품·디자이너는 `[샘플]` 가짜 데이터.
+디자인(틀) + 로고·제목·소개 이미지·단체 사진·후원 로고까지 넣은 상태. 작품·프로필 사진은 회색 빈칸, 작품·디자이너는 `[샘플]` 가짜 데이터.
 
 ## 처음 채울 것 (시각 요소는 전부 새로 정함)
 - [x] 색·글꼴·글자 크기·바탕색 — `2025.css` (프레이머 값)
@@ -25,7 +25,8 @@
 - [ ] 파비콘 — `icon.svg`(또는 `icon.png`), `apple-icon.png`를 이 폴더에
 - [ ] 링크 미리보기 이미지(1200×630) — `public/2025/`, 연결 `layout.tsx`
 - [x] 메인 페이지 — `page.tsx`
-- [ ] 이미지 — 로고(TNM·THE NEXT MOVE·(MOVE)S·(PLAYER)S·푸터 타이틀·경희대·KHID), 소개 이미지 2장, 단체 사진, 후원 로고 5개
+- [x] 이미지 — 로고(TNM·THE NEXT MOVE·푸터 타이틀·경희대·KHID), 목록 제목 6개((MOVE)S·(PROJECT)S·(TRACE)S / (PLAYER)S·(DESIGNER)S·(THINKER)S), 소개 이미지 2장, 단체 사진, 후원 로고 5개 — 전부 프레이머 복사본에서 뽑음(벡터는 Copy SVG, 사진은 framerusercontent 원본을 줄여서) → `public/2025/`
+- [ ] 작품 이미지·참여자 사진 — 사용자가 가진 원본으로 (프레이머에서 뽑지 않음)
 - [ ] 메인 영상 YouTube ID — `_components/home.ts`의 `VIDEO_ID`
 - [ ] 디자이너·작품 데이터 — `_components/designers.ts`, `_components/works.ts`, 과목 교수님·소개 `_components/categories.ts` (`[샘플]`·`[데이터]` 전부 바꾸기)
 - [ ] 마지막 점검 — `python3 scripts/check-year.py 2025`
@@ -42,3 +43,6 @@
 | 기능 | 가져온 연도 | 그대로 / 바꾼 것 |
 |---|---|---|
 | (없음) | | |
+
+## 이 연도에서 새로 만든 기능
+- 바뀌는 제목 `CycleTitle.tsx` — 목록 페이지 제목이 2초마다 바뀜 (FEATURES.md에 적음)

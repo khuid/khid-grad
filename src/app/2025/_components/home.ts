@@ -27,8 +27,14 @@ export const PROFESSORS = [
   { ko: "최유식", en: "Choi Yoosik" },
 ];
 
-// 후원 — 로고 이미지는 [데이터] (원본 받으면 public/2025/sponsors/에)
-export const SPONSORS = ["Yoondesign", "F/A/B/A", "RixFont", "3DPAGE", "LOWLIT COLLECTIVE"];
+// 후원 — 로고는 프레이머 sponsorship/* 컴포넌트에서 뽑은 SVG. w = 칸 폭 대비 로고 폭 (프레이머 값)
+export const SPONSORS = [
+  { name: "Yoondesign", src: "/2025/sponsors/yoondesign.svg", w: "67%" },
+  { name: "F/A/B/A", src: "/2025/sponsors/faba.svg", w: "67%" },
+  { name: "RixFont", src: "/2025/sponsors/rixfont.svg", w: "67%" },
+  { name: "3DPAGE", src: "/2025/sponsors/3dpage.svg", w: "66%" },
+  { name: "LOWLIT COLLECTIVE", src: "/2025/sponsors/lowlit.svg", w: "79%" },
+];
 
 // [데이터] 메인 영상 YouTube 영상 ID (주소 watch?v= 뒤의 글자)
 export const VIDEO_ID = "";
