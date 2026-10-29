@@ -42,7 +42,7 @@ for work in sorted(p for p in src_root.glob("*/*") if p.is_dir()):
             continue
         if kind not in "56":
             continue
-        m = re.search(r"_(\d+)\D*\.\w+$", f.name)
+        m = re.search(r"[_ ](\d+)\D*\.\w+$", f.name)  # "…_01 - 이름.jpg" 또는 "… 1 - 이름.jpg"
         if not m:
             print(f"!! {cls}/{slug}: 번호 없는 파일 {f.name}")
             continue
