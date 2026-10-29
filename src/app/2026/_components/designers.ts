@@ -1,6 +1,6 @@
 // DESIGNERS 페이지 데이터: 졸전자 55명(졸준위만 한 56 이수민·57 오지샘 제외), 가나다 순 = work/data/designers/designers.csv 순서.
 // slug(주소 /2026/designers/<slug>)와 사진 파일명은 csv의 name_en. en은 임시 표기(성 + 이름 로마자) — 본인 표기를 받으면 en·slug·사진 이름을 같이 바꿀 것.
-// en·contact(이메일)·portfolio는 구글폼 응답(11/1 마감)에서 옮김 — 영문은 본인 표기 그대로(성 이름 순). 이메일이 없으면 화면에 "준비 중".
+// en·contact(이메일)·portfolio는 구글폼 응답(11/1 마감)에서 옮김 — 영문은 본인 철자 그대로, 형식만 "성 이름"(성 뒤만 띄움, 이름은 붙여 씀, 성·이름 첫 글자만 대문자 — 홍길동 → Hong Gildong). 이메일이 없으면 화면에 "준비 중".
 // portfolio(선택, 최대 3개): 인스타는 "@아이디"(아이디·링크 둘 다 쓴 사람도 하나로), 나머지는 https://www. 뺀 주소. 비어 있으면 PORTFOLIO 줄 자체를 안 보임.
 // 프로필 아래 작품 3개는 projects.ts의 members(국문 이름)로 저절로 찾음
 export type Designer = {
@@ -62,7 +62,7 @@ export const DESIGNERS: Designer[] = [
   d("38", "이진주", "lee-jinju", "Lee Jinju"),
   d("39", "이하은", "lee-haeun", "Lee Haeun"),
   d("40", "임형민", "lim-hyeongmin", "Lim Hyeongmin"),
-  d("41", "장서영", "jang-seoyeong", "Jang SeoYeong", "julie3418@naver.com", ["@seoyeong_jang_"]),
+  d("41", "장서영", "jang-seoyeong", "Jang Seoyeong", "julie3418@naver.com", ["@seoyeong_jang_"]),
   d("42", "장일정", "zhang-yicheng", "Zhang Yicheng"), // 본인 영문 표기 ZHANG YICHENG
   d("43", "전예영", "jeon-yeyeong", "Jeon Yeyeong"),
   d("44", "정보연", "jung-boyeon", "Jung Boyeon"),
