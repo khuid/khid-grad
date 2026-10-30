@@ -17,13 +17,14 @@
   --color-paper: #fdfdfd; /* 작품·디자이너 페이지 배경 */
 }
 
-/* 2025 폰트 — 영문 ITC Avant Garde Gothic, 한글 윤고딕 700, 프로필 자기소개·답변만 Inter Display.
-   [정하기] 폰트 파일이 아직 없음: 원본을 fonts-src/2025/에 넣고 layout.tsx에서 연결하면 아래 이름 대신 그 파일이 쓰임.
-   그전까지는 각 줄 뒤쪽의 비슷한 글꼴(기기에 있는 것)로 보임 */
-@theme {
-  --font-en: var(--font-avantgarde, "ITC Avant Garde Gothic"), "ITC Avant Garde Gothic Std", "Century Gothic", sans-serif;
-  --font-ko: var(--font-yoongothic, "Yoon Gothic 700"), "YoonGothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-  --font-inter: var(--font-interdisplay, "Inter Display"), "Inter", sans-serif;
+/* 2025 폰트 — 프레이머 원본은 영문 ITC Avant Garde Gothic, 한글 윤고딕 700, 프로필 자기소개·답변만 Inter Display.
+   2026-10-29 사용자 결정: 로고가 아닌 글자는 영문·한글 모두 Pretendard로 바꿈(원본 둘 다 유료). 프로필 자기소개·답변도 Pretendard. 연결은 layout.tsx
+   자간은 프레이머 값 그대로 0, 행간은 각 글자의 leading-[…] (프레이머 % 그대로)
+   inline: --font-pretendard가 2025 감싸는 div에 붙어서, 글자를 쓰는 자리에서 값을 풀어야 함 */
+@theme inline {
+  --font-en: var(--font-pretendard), "Pretendard", "Apple SD Gothic Neo", sans-serif;
+  --font-ko: var(--font-pretendard), "Pretendard", "Apple SD Gothic Neo", sans-serif;
+  --font-inter: var(--font-pretendard), "Pretendard", "Apple SD Gothic Neo", sans-serif; /* 원본 Inter Display(한글 없음) — Pretendard 영문이 Inter 기반이라 같이 바꿈 */
 }
 
 /* 2025 움직임 — 프레이머 Spring(Time 0.4초, Bounce 0.2)을 CSS로 옮긴 곡선. duration-[400ms]와 같이 씀 (ease-spring)

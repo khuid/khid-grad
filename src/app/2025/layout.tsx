@@ -1,14 +1,21 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import "./2025.css";
 
 // 2025 사이트 전용 설정 — 다른 연도와 공유하지 않음.
 // 2025는 지난 연도를 나중에 추가한 것 (제34회 THE NEXT MOVE : 공존의 설계). 디자인 원본은 프레이머 khid2025.
 
-// [정하기] 폰트: 원본(ITC Avant Garde Gothic, 윤고딕 700, Inter Display)을 fonts-src/2025/에 넣고
-// `python3 scripts/subset-fonts.py 2025`로 public/2025/fonts/에 경량본을 만든 뒤 아래처럼 연결.
-// 변수 이름은 2025.css가 찾는 이름(--font-avantgarde, --font-yoongothic, --font-interdisplay)으로 맞출 것
-// 예) import localFont from "next/font/local";
-//     const avant = localFont({ variable: "--font-avantgarde", src: [{ path: "../../../public/2025/fonts/파일이름.woff2", weight: "400" }] });
+// 폰트 (2026-10-29 사용자 결정, 로컬 확인용): 로고가 아닌 글자는 영문·한글 모두 Pretendard(무료, SIL OFL)로.
+//   프레이머 원본은 영문 ITC Avant Garde Gothic, 한글 윤고딕 700 — 둘 다 유료(어도비 폰트)라 바꿈. 로고·제목은 이미 SVG라 그대로.
+//   프로필 자기소개·답변(원본 Inter Display)도 Pretendard — Pretendard 영문이 Inter 기반.
+//   원본 fonts-src/2025/ → 데이터를 다 넣은 뒤 `python3 scripts/subset-fonts.py 2025`로 public/2025/fonts/에 경량본(지금은 원본 그대로 복사)
+const pretendard = localFont({
+  variable: "--font-pretendard",
+  src: [
+    { path: "../../../public/2025/fonts/Pretendard-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../../../public/2025/fonts/Pretendard-Bold.woff2", weight: "700", style: "normal" },
+  ],
+});
 
 // [정하기] 링크 미리보기(카톡·인스타 등): 1200×630 이미지를 public/2025/에 넣고 아래 images에 연결
 export const metadata: Metadata = {
@@ -32,5 +39,5 @@ export const viewport: Viewport = {
 // [정하기] 파비콘: icon.svg(또는 icon.png)와 apple-icon.png(180×180)을 이 폴더(src/app/2025/)에 넣으면 자동으로 붙음
 
 export default function Layout2025({ children }: LayoutProps<"/2025">) {
-  return <div className="font-ko text-ink">{children}</div>;
+  return <div className={`${pretendard.variable} font-ko text-ink`}>{children}</div>;
 }

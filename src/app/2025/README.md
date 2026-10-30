@@ -21,7 +21,7 @@
 
 ## 처음 채울 것 (시각 요소는 전부 새로 정함)
 - [x] 색·글꼴·글자 크기·바탕색 — `2025.css` (프레이머 값)
-- [ ] 폰트 파일 — ITC Avant Garde Gothic, 윤고딕 700, Inter Display 원본을 `fonts-src/2025/`에, 연결 `layout.tsx`
+- [ ] 폰트 — 2026-10-29: 로고가 아닌 글자는 전부 Pretendard(무료)로 바꿔 로컬 확인 중 (원본 ITC Avant Garde Gothic·윤고딕 700은 유료). 원본 `fonts-src/2025/`, 데이터 다 넣은 뒤 `python3 scripts/subset-fonts.py 2025`
 - [ ] 파비콘 — `icon.svg`(또는 `icon.png`), `apple-icon.png`를 이 폴더에
 - [ ] 링크 미리보기 이미지(1200×630) — `public/2025/`, 연결 `layout.tsx`
 - [x] 메인 페이지 — `page.tsx`
