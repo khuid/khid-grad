@@ -3,10 +3,10 @@
 일치하는 작품이 0개·2개 이상이면 넣지 않고 "!!"로 알림 → 사용자에게 확인.
 시트는 csv로 받기: https://docs.google.com/spreadsheets/d/<ID>/export?format=csv
 
-실행 (site.2026 폴더에서):
-  python3 scripts/2026/import-works.py src/app/2026/_components/projects.ts 시트1.csv 시트2.csv ...
+실행 (저장소의 2026 폴더에서):
+  python3 scripts/import-works.py src/app/2026/_components/projects.ts 시트1.csv 시트2.csv ...
 수업별 시트는 앞에 "수업키=" 를 붙이면 그 수업 안에서만 찾음 (같은 팀이 여러 수업에 작품이 있을 때 필수):
-  python3 scripts/2026/import-works.py src/app/2026/_components/projects.ts smart=스융디.csv
+  python3 scripts/import-works.py src/app/2026/_components/projects.ts smart=스융디.csv
 """
 import csv, json, re, sys
 from pathlib import Path

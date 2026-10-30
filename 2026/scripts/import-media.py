@@ -7,8 +7,8 @@
 규격(4:5, 16:9, 3~7장, 영상 15초·10MB)과 다르면 고치지 않고 "!!"로 알림 → 사용자에게 확인.
 끝나면 projects.ts의 FILES에 붙일 줄을 출력.
 
-실행 (site.2026 폴더에서):
-  python3 scripts/2026/import-media.py ../work/data/form-uploads
+실행 (저장소의 2026 폴더에서):
+  python3 scripts/import-media.py ../../work/data/form-uploads
 """
 import os, re, shutil, subprocess, sys
 from pathlib import Path

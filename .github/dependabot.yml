@@ -1,0 +1,12 @@
+# [모든 연도 공통] 보안 알림 — 연도 앱마다 프로그램(Next.js 등)이 따로 설치되므로 연도 폴더를 모두 적어 둠.
+# 보안 문제가 생기면 GitHub이 그 연도 폴더에 고치는 PR을 만들어 줌. 일반 버전 올리기 PR은 만들지 않음(open-pull-requests-limit: 0).
+# 실제 반영은 PR을 합치기보다 scripts/update-all.sh로 모든 연도를 한 번에 올리고 빌드까지 확인하는 걸 권장(README "보안 업데이트").
+# 새 연도는 scripts/new-year.py가 directories에 자동으로 추가함.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directories:
+      - "/2026"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0

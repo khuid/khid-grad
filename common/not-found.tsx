@@ -29,7 +29,6 @@ export default function NotFound() {
       </p>
       <div style={{ display: "flex", gap: 24, fontSize: 15 }}>
         {/* 최신 연도 사이트(/ 가 최신 연도로 보내 줌). 연도 사이를 오가는 링크라 <Link> 대신 <a>로 새로 불러옴(README) */}
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" style={link}>
           졸업전시 보러 가기
         </a>

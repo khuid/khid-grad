@@ -9,12 +9,12 @@
   - 확대는 안 함(사람마다 머리 크기가 달라지지 않게). 원본 위가 모자라면 배경 회색으로 채워 사진을 내림.
 같은 값을 DESIGNERS 페이지 사진에도 씀 — 바꾸려면 여기 숫자만.
 
-실행 (site.2026 폴더에서, Pillow 필요):
-  python3 scripts/2026/profile-photos.py --kind pose --out public/2026/committee --names 장서영,양성은
-  python3 scripts/2026/profile-photos.py --kind pose --out ... --extra 57=../work/지샘\\ 프로필.jpeg  (원본 폴더 밖 임시 사진)
+실행 (저장소의 2026 폴더에서, Pillow 필요):
+  python3 scripts/profile-photos.py --kind pose --out public/2026/committee --names 장서영,양성은
+  python3 scripts/profile-photos.py --kind pose --out ... --extra 57=../../work/지샘\\ 프로필.jpeg  (원본 폴더 밖 임시 사진)
   DESIGNERS 페이지(졸전자만, 목록 정면 640 / 프로필 자유컷 1000):
-  python3 scripts/2026/profile-photos.py --kind front --group designer --out public/2026/designers/front
-  python3 scripts/2026/profile-photos.py --kind pose --group designer --width 1000 --out public/2026/designers/pose
+  python3 scripts/profile-photos.py --kind front --group designer --out public/2026/designers/front
+  python3 scripts/profile-photos.py --kind pose --group designer --width 1000 --out public/2026/designers/pose
 """
 import argparse
 import csv
@@ -26,8 +26,8 @@ HEAD_TOP_RATIO = 0.09  # 머리 꼭대기 ~ 칸 위 = 칸 높이의 9%
 CELL_RATIO = 198.16 / 158.76  # 칸 세로/가로 (Figma 158.76×198.16)
 DARK = 90  # 이보다 어두운 픽셀을 머리카락으로 봄(배경은 밝은 회색·흰색)
 
-ROOT = Path(__file__).resolve().parent.parent.parent  # 사이트 폴더 (이 파일은 scripts/2026/ 안)
-DATA = ROOT.parent / "work" / "data" / "designers"
+ROOT = Path(__file__).resolve().parent.parent  # 2026 앱 폴더 (이 파일은 2026/scripts/ 안)
+DATA = ROOT.parent.parent / "work" / "data" / "designers"  # 저장소 바깥의 졸준위 작업 폴더
 
 
 def head_top(im: Image.Image) -> int:
