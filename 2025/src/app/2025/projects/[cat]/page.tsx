@@ -40,7 +40,7 @@ async function CategoryView({ params }: { params: PageProps<"/2025/projects/[cat
       current="projects"
       tabs={CATEGORIES.map((x) => ({ key: x.slug, label: x.tab ?? x.ko, href: categoryHref(x) }))}
       tabKey={c.slug}
-      title={{ words: [{ src: "/2025/titles/moves.svg", label: "(MOVE)S", hold: 2 }, { src: "/2025/titles/projects.svg", label: "(PROJECT)S", hold: 2.9 }, { src: "/2025/titles/traces.svg", label: "(TRACE)S", hold: 2.9 }], h: "h-[60px] min-[720px]:h-[97px] min-[1440px]:h-[140px]" }}
+      title={{ words: [{ src: "/2025/titles/moves.svg", label: "(MOVE)S", hold: 2 }, { src: "/2025/titles/projects.svg", label: "(PROJECT)S", hold: 2.9 }, { src: "/2025/titles/traces.svg", label: "(TRACE)S", hold: 2.9 }], h: "h-[48px] min-[720px]:h-[72px] min-[1440px]:h-[140px]" }}
       bar={{ ko: c.barKo ?? c.ko, en: c.barEn }}
       info={
         <div className="flex w-full flex-col gap-[24px] min-[720px]:gap-[28px] min-[1440px]:gap-[32px]">
@@ -50,7 +50,7 @@ async function CategoryView({ params }: { params: PageProps<"/2025/projects/[cat
           </div>
           {c.professors.length > 0 && (
           <div className="flex flex-col gap-[8px] text-[16px] leading-[1.5] min-[1440px]:text-[20px]">
-            <p className="flex flex-wrap justify-center gap-x-[16px] gap-y-[8px] min-[720px]:justify-start min-[720px]:gap-x-[20px] min-[1440px]:gap-x-[28px]">
+            <p className="flex flex-wrap gap-x-[16px] gap-y-[8px] min-[720px]:gap-x-[20px] min-[1440px]:gap-x-[28px]">
               <span className="font-ko">지도교수</span>
               <span className="flex flex-wrap gap-x-[16px] gap-y-[8px] font-ko min-[1440px]:gap-x-[20px]">
                 {c.professors.map((p) => (
@@ -58,7 +58,7 @@ async function CategoryView({ params }: { params: PageProps<"/2025/projects/[cat
                 ))}
               </span>
             </p>
-            <p className="flex flex-wrap justify-center gap-x-[16px] gap-y-[8px] min-[720px]:justify-start min-[720px]:gap-x-[20px] min-[1440px]:gap-x-[28px]">
+            <p className="flex flex-wrap gap-x-[16px] gap-y-[8px] min-[720px]:gap-x-[20px] min-[1440px]:gap-x-[28px]">
               <span className="font-en">Professor</span>
               <span className="flex flex-wrap gap-x-[16px] gap-y-[8px] font-en min-[1440px]:gap-x-[20px]">
                 {c.professors.map((p) => (

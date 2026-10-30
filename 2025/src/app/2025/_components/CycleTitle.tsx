@@ -22,7 +22,7 @@ export default function CycleTitle({
   }, [i, words]);
 
   return (
-    <span className="grid justify-items-center min-[720px]:justify-items-start">
+    <span className="grid justify-items-start">
       <span className="sr-only">{words[0].label}</span>
       {/* 셋을 같은 자리에 겹쳐 두고 지금 단어만 보이게 (미리 받아 두니 바뀔 때 깜빡이지 않음, 잔상 없이 바로 바뀜) */}
       {words.map((w, n) => (

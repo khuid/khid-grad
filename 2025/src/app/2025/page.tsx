@@ -12,13 +12,15 @@ import SectionBar from "./_components/SectionBar";
 
 function Hero() {
   // 프레이머: 패딩 120 200 80 200 (Tablet 80 60 40 60 / Phone 240 40 120 40, 간격 80)
-  // 로고 694×480 (Tablet 405×280 / Phone 높이 200), 로고–문구 60 (40 / 32), 문구 40/150 (20 / 20/140)
+  // 로고 Desktop: 자리 694×480, 보이는 크기는 0.75배(521×360) — 스크롤 움직임 시작 상태로 보임 / Tablet 305×210 / Phone 217×150
+  //   (2026-10-30 프레이머 미리보기를 3개 폭에서 재서 맞춤. 분석 문서의 405×280·높이 200은 틀 크기였음)
+  // 로고–문구 60 (40 / 32), 문구 40/150 (20 / 20/140)
   return (
     <section className="flex flex-col items-center gap-[80px] bg-red px-[40px] pt-[240px] pb-[120px] min-[720px]:gap-0 min-[720px]:px-[60px] min-[720px]:pt-[80px] min-[720px]:pb-[40px] min-[1440px]:px-[200px] min-[1440px]:pt-[120px] min-[1440px]:pb-[80px]">
       <div className="flex flex-col items-center gap-[32px] min-[720px]:gap-[40px] min-[1440px]:gap-[60px]">
         {/* THE NEXT MOVE 로고 — 프레이머 logo2에서 뽑은 SVG. 스크롤에 따른 움직임은 [추정: 미구현] */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/2025/logo-thenextmove.svg" alt="THE NEXT MOVE" className="block aspect-[694/480] h-[200px] min-[720px]:h-[280px] min-[1440px]:h-[480px]" />
+        <img src="/2025/logo-thenextmove.svg" alt="THE NEXT MOVE" className="block aspect-[694/480] h-[150px] min-[720px]:h-[210px] min-[1440px]:h-[480px] min-[1440px]:scale-75" />
         <p className="text-center font-en text-[20px] leading-[1.4] text-white min-[720px]:leading-[1.5] min-[1440px]:text-[40px]">
           where is the NEXT MOVE,
           <br className="min-[720px]:hidden" /> what is the BEST MOVE?

@@ -100,11 +100,15 @@ async function ProfileView({ params }: { params: PageProps<"/2025/designers/[gro
             </dl>
           </article>
 
-          {/* 작품 목록 — 프레이머 project_thumbnail (정사각형). [확인 필요] 썸네일 위 글자·hover 모습은 프레이머에서 못 읽음 */}
+          {/* 작품 목록 — 프레이머 project_thumbnail (정사각형). 마우스를 올리면 #121212 60% 덮개 + 가운데 작품 제목(#FDFDFD)
+              Desktop: 패딩 40·글자 40/140 / Tablet·Phone(small): 패딩 24·글자 20/140. 바뀔 때 스프링 0.4초 (2026-10-30 프레이머 값) */}
           <div className="flex w-full flex-col gap-[24px] min-[720px]:w-[364px] min-[720px]:gap-[52px] min-[1440px]:w-[777px] min-[1440px]:gap-[80px]">
             {works.map((w) => (
-              <Link key={w.id + w.cat} href={workHref(w)} aria-label={w.title}>
+              <Link key={w.id + w.cat} href={workHref(w)} className="group relative block">
                 <Ph src={w.thumbnail} label={`작품 썸네일 — ${w.title}`} className="h-[310px] w-full min-[720px]:aspect-square min-[720px]:h-auto" />
+                <span className="absolute inset-0 flex items-center justify-center bg-ink/60 p-[24px] text-center font-ko text-[20px] leading-[1.4] text-[#FDFDFD] opacity-0 transition-opacity duration-[400ms] ease-spring group-hover:opacity-100 group-focus-visible:opacity-100 min-[1440px]:p-[40px] min-[1440px]:text-[40px]">
+                  {w.card ?? w.title}
+                </span>
               </Link>
             ))}
           </div>

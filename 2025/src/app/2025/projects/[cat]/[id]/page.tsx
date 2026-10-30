@@ -11,8 +11,8 @@ import { membersOf, WORKS } from "../../../_components/works";
 // 작품 상세 (/2025/projects/<과목>/<작품>) — 프레이머 /futuristic_space/미공디_dcro 등 73개 공통 틀. 값은 분석 문서 4장
 // 1) 작품 정보(projects_title): Desktop 패딩 100 80, [왼쪽 정보 | 오른쪽 썸네일 716×716], 간격 40
 //    왼쪽 위: 팀원 20/150(간격 16) → 32 → 제목 48/110 → 20 → 과목명 34/140 빨강 / 왼쪽 아래: 소개 16/160 #93999D
-//    small(Phone): 패딩 40 16, 썸네일(폭 가득×358) 위 → 40 → 팀원 14(8) → 16 → 제목 24 → 8 → 과목명 16 → 24 → 소개 12
-//    Tablet은 프레이머에 small이 아닌 다른 값이 있으나 읽지 못함 → small 배치로 둠 [추정]
+//    small(Phone·Tablet): 패딩 40 16, 썸네일(폭 가득 정사각형) 위 → 40 → 팀원 14(8) → 16 → 제목 24 → 8 → 과목명 16 → 24 → 소개 12
+//    Tablet: 프레이머도 small 그대로 폭만 늘어남(컴포넌트 variant는 Variant 1·small 둘뿐). 썸네일은 폭 가득 정사각형 (Phone 358 = 390-32)
 // 2) 웹 판넬: 위 80, 긴 이미지들을 폭 가득 세로로 이어 붙임
 // 3) 팀원 카드: 가운데·줄바꿈, 간격 40·20 (Tablet·Phone 16·8), 패딩 160 80 (Tablet 80 16 / Phone 60 16)
 export function generateStaticParams() {
@@ -51,7 +51,7 @@ async function WorkView({ params }: { params: PageProps<"/2025/projects/[cat]/[i
           <Ph
             src={w.thumbnail}
             label="작품 썸네일"
-            className="h-[358px] w-full min-[1440px]:order-2 min-[1440px]:size-[716px] min-[1440px]:shrink-0"
+            className="aspect-square w-full min-[1440px]:order-2 min-[1440px]:size-[716px] min-[1440px]:shrink-0"
           />
           <div className="flex flex-col gap-[24px] min-[1440px]:flex-1 min-[1440px]:justify-between">
             <div className="flex flex-col gap-[16px] min-[1440px]:gap-[32px]">

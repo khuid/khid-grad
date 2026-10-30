@@ -1,27 +1,32 @@
 import { FOOTER } from "./home";
 
-// 푸터 — 프레이머 footer 컴포넌트 (desktop / small 두 가지)
-// desktop: 빨간 바탕, 패딩 40, 위 줄 ↔ 아래 줄 간격 80. 위: "제 34회 …" 20/150 + 전시 제목 타이틀(449×31) | THE NEXT MOVE 로고(높이 72)
-//          아래: WHEN·WHERE·INSTAGRAM | 경희대학교·KHID 로고
-// small(Phone): 패딩 20 20 16 20, 줄 간격 24, 문구 12/150, 로고 폭 95
-// Tablet은 프레이머에 별도 variant가 있으나 안쪽 값을 못 읽음 → desktop 배치에 줄 간격만 줄여 전체 높이(338.5)를 맞춤 [추정]
-// [추정] WHEN 등 라벨·값 크기, 아래 로고 크기는 화면을 보고 맞춤. 전체 높이만 프레이머와 같게(Desktop 336 / Phone 199.5)
+// 푸터 — 프레이머 footer 컴포넌트. 2026-10-30 프레이머 미리보기를 3개 폭(1440·720·390)에서 재서 맞춤
+// Desktop(1440~): 빨간 바탕, 패딩 40, 위 줄 ↔ 아래 줄 80, 높이 336
+//   위: "제 34회 …" 20/130 → 16 → 전시 제목 타이틀(449×31) | 오른쪽 THE NEXT MOVE 로고(높이 72)
+//   아래(아래쪽 맞춤): WHEN·WHERE·INSTAGRAM 줄 간격 41(라벨 14 굵게 + 12 → 값 12) | 오른쪽 경희대(56) + 32 + KHID(44) 가로
+// Tablet(720~1439): Desktop과 같고, 아래 오른쪽 로고만 세로로 쌓임(경희대 위 · KHID 아래, 오른쪽 맞춤, 간격 10), 위쪽 맞춤. 높이 338.5
+// Phone(~719): 전부 세로. 패딩 20 20 16, 묶음 간격 24. 문구 12 → 타이틀(폭에 맞춤) → 4 → 로고(높이 36)
+//   줄 간격 18(라벨 10 굵게 + 8 → 값 10) → 아래: 경희대(왼쪽) · KHID(오른쪽)
+//   프레이머 Phone은 타이틀이 화면 밖으로 잘려 있어(넘침) 폭에 맞춰 줄임
 // 타이틀·로고는 프레이머 footer 컴포넌트에서 뽑은 SVG (public/2025/footer-*.svg, logo-*.svg)
-// 아래 로고 (프레이머 desktop): 경희대 [엠블럼 87×56 + 10 + 글자 138.5×28.5] + 32 + KHID 121×44. Tablet·Phone 크기는 [추정]
 export default function Footer() {
   return (
-    <footer className="flex flex-col gap-[24px] bg-red px-[20px] pt-[20px] pb-[16px] text-white min-[720px]:gap-[32px] min-[720px]:p-[40px] min-[1440px]:gap-[80px]">
-      <div className="flex items-start justify-between gap-[20px]">
+    <footer className="flex flex-col gap-[24px] bg-red px-[20px] pt-[20px] pb-[16px] text-white min-[720px]:gap-[80px] min-[720px]:p-[40px]">
+      <div className="flex flex-col gap-[4px] min-[720px]:flex-row min-[720px]:items-start min-[720px]:justify-between min-[720px]:gap-[20px]">
         <div className="flex flex-col gap-[8px] min-[720px]:gap-[16px]">
-          <p className="font-ko text-[12px] leading-[1.5] min-[720px]:text-[20px]">제 34회 경희대학교 산업디자인학과 졸업전시</p>
+          <p className="font-ko text-[12px] leading-[1.5] min-[720px]:text-[20px] min-[720px]:leading-[1.3]">제 34회 경희대학교 산업디자인학과 졸업전시</p>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/2025/footer-title.svg" alt="THE NEXT MOVE : 공존의 설계" className="block h-[15px] w-auto min-[720px]:h-[31px]" />
+          <img
+            src="/2025/footer-title.svg"
+            alt="THE NEXT MOVE : 공존의 설계"
+            className="block h-auto w-full max-w-[449px] min-[720px]:h-[31px] min-[720px]:w-auto min-[720px]:max-w-none min-[720px]:shrink-0"
+          />
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/2025/footer-tnm.svg" alt="THE NEXT MOVE" className="block h-[36px] w-auto shrink-0 min-[720px]:h-[72px]" />
+        <img src="/2025/footer-tnm.svg" alt="THE NEXT MOVE" className="block h-[36px] w-auto self-start shrink-0 min-[720px]:h-[72px]" />
       </div>
-      <div className="flex flex-wrap items-end justify-between gap-x-[40px] gap-y-[16px]">
-        <dl className="grid grid-cols-[auto_1fr] items-baseline gap-x-[8px] gap-y-[4px] min-[720px]:gap-x-[12px] min-[720px]:gap-y-[12px] min-[1440px]:gap-y-[18px]">
+      <div className="flex flex-col gap-[24px] min-[720px]:flex-row min-[720px]:items-start min-[720px]:justify-between min-[1440px]:items-end">
+        <dl className="flex flex-col gap-[3px] min-[720px]:gap-[20px]">
           {(
             [
               ["WHEN", FOOTER.when],
@@ -29,19 +34,19 @@ export default function Footer() {
               ["INSTAGRAM", FOOTER.instagram],
             ] as const
           ).map(([k, v]) => (
-            <div key={k} className="contents">
+            <div key={k} className="flex items-baseline gap-[8px] leading-[1.5] min-[720px]:gap-[12px]">
               <dt className="font-en text-[10px] font-bold min-[720px]:text-[14px]">{k}</dt>
               <dd className="font-ko text-[10px] min-[720px]:text-[12px]">{v}</dd>
             </div>
           ))}
         </dl>
         {/* eslint-disable @next/next/no-img-element */}
-        <div className="flex items-center gap-[12px] min-[720px]:gap-[24px] min-[1440px]:gap-[32px]">
-          <span className="flex h-[26px] items-center gap-[5px] min-[720px]:h-[48px] min-[720px]:gap-[9px] min-[1440px]:h-[56px] min-[1440px]:gap-[10px]">
+        <div className="flex items-center justify-between min-[720px]:flex-col min-[720px]:items-end min-[720px]:gap-[10px] min-[1440px]:flex-row min-[1440px]:items-center min-[1440px]:gap-[32px]">
+          <span className="flex h-[26px] items-center gap-[5px] min-[720px]:h-[56px] min-[720px]:gap-[10px]">
             <img src="/2025/logo-khu-emblem.svg" alt="" className="block h-full w-auto" />
             <img src="/2025/logo-khu-text.svg" alt="경희대학교" className="block h-[51%] w-auto" />
           </span>
-          <img src="/2025/logo-khid.svg" alt="KHID" className="block h-[18px] w-auto min-[720px]:h-[36px] min-[1440px]:h-[44px]" />
+          <img src="/2025/logo-khid.svg" alt="KHID" className="block h-[18px] w-auto min-[720px]:h-[44px]" />
         </div>
         {/* eslint-enable @next/next/no-img-element */}
       </div>
