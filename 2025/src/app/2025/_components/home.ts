@@ -84,8 +84,8 @@ export const SPONSORS = [
   { name: "LOWLIT COLLECTIVE", src: "/2025/sponsors/lowlit.svg", w: "79%", hw: "85%" },
 ];
 
-// [데이터] 메인 영상 YouTube 영상 ID (주소 watch?v= 뒤의 글자)
-export const VIDEO_ID = "";
+// 메인 영상 YouTube 영상 ID (주소 watch?v= 뒤의 글자)
+export const VIDEO_ID = "MMxnQp9ChqY"; // 사용자가 준 링크 youtu.be/MMxnQp9ChqY (2026-10-31)
 
 export const FOOTER = {
   when: "2025.11.12 Wed - 2025.11.16 Sun",

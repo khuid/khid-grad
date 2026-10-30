@@ -17,7 +17,7 @@ const pretendard = localFont({
   ],
 });
 
-// [정하기] 링크 미리보기(카톡·인스타 등): 1200×630 이미지를 public/2025/에 넣고 아래 images에 연결
+// 링크 미리보기(카톡·인스타 등): 프레이머 사이트 설정 Social preview 원본(1200×630) → public/2025/og.jpg (2026-10-31)
 export const metadata: Metadata = {
   title: "KHID 2025 Graduation Exhibition",
   description: "경희대학교 산업디자인학과 제34회 졸업전시 — THE NEXT MOVE : 공존의 설계",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "KHID 2025",
     title: "KHID 2025 Graduation Exhibition",
-    // images: [{ url: "/2025/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/2025/og.jpg", width: 1200, height: 630 }],
   },
   // [정하기] 폴더를 만들어 배포하는 순간 /2025 주소는 누구나 열 수 있음. 그동안 검색에는 안 나오게 막아 둠 — 공개할 때 이 줄을 지울 것
   robots: { index: false, follow: false },
@@ -36,7 +36,8 @@ export const viewport: Viewport = {
   themeColor: "#E60816",
 };
 
-// [정하기] 파비콘: icon.svg(또는 icon.png)와 apple-icon.png(180×180)을 이 폴더(src/app/2025/)에 넣으면 자동으로 붙음
+// 파비콘: icon.svg = 프레이머 사이트 설정 Favicon 원본(빨간 TNM, 밝은·어두운 화면 같은 파일) (2026-10-31)
+// [정하기] apple-icon.png(180×180): 프레이머에 따로 설정된 것이 없음(기본값) — 정해지면 이 폴더에 넣으면 자동으로 붙음
 
 export default function Layout2025({ children }: LayoutProps<"/2025">) {
   return <div className={`${pretendard.variable} font-ko text-ink`}>{children}</div>;
