@@ -3,7 +3,7 @@
 이 폴더는 2025 졸업전시(제34회 THE NEXT MOVE : 공존의 설계) 사이트 전용입니다. 다른 연도와 공유하지 않습니다.
 공통 규칙은 사이트 폴더의 `README.md`, 다른 연도에서 가져다 쓸 수 있는 기능은 `FEATURES.md`를 보세요.
 
-- 2025는 **지난 연도를 나중에 추가**한 것 → `src/app/page.tsx`(최신 연도 이동)는 바꾸지 않음
+- 2025는 **지난 연도를 나중에 추가**한 것 → 입구 `entry/vercel.json`의 `/` 이동(최신 연도 2026)은 바꾸지 않음
 - 디자인 원본: 프레이머 `khid2025` (보기 전용). 분석 내용: `work/docs/09_2025_프레이머_디자인분석.md`
 - 브레이크포인트는 프레이머 그대로: Phone ~719 / Tablet 720~1439 / Desktop 1440~
 
@@ -21,7 +21,7 @@
 
 ## 처음 채울 것 (시각 요소는 전부 새로 정함)
 - [x] 색·글꼴·글자 크기·바탕색 — `2025.css` (프레이머 값)
-- [ ] 폰트 — 2026-10-29: 로고가 아닌 글자는 전부 Pretendard(무료)로 바꿔 로컬 확인 중 (원본 ITC Avant Garde Gothic·윤고딕 700은 유료). 원본 `fonts-src/2025/`, 데이터 다 넣은 뒤 `python3 scripts/subset-fonts.py 2025`
+- [ ] 폰트 — 2026-10-29: 로고가 아닌 글자는 전부 Pretendard(무료)로 바꿔 로컬 확인 중 (원본 ITC Avant Garde Gothic·윤고딕 700은 유료). 원본 `2025/fonts-src/`, 데이터 다 넣은 뒤 `python3 scripts/subset-fonts.py 2025`
 - [ ] 파비콘 — `icon.svg`(또는 `icon.png`), `apple-icon.png`를 이 폴더에
 - [ ] 링크 미리보기 이미지(1200×630) — `public/2025/`, 연결 `layout.tsx`
 - [x] 메인 페이지 — `page.tsx`

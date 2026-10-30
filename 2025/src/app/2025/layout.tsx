@@ -8,7 +8,7 @@ import "./2025.css";
 // 폰트 (2026-10-29 사용자 결정, 로컬 확인용): 로고가 아닌 글자는 영문·한글 모두 Pretendard(무료, SIL OFL)로.
 //   프레이머 원본은 영문 ITC Avant Garde Gothic, 한글 윤고딕 700 — 둘 다 유료(어도비 폰트)라 바꿈. 로고·제목은 이미 SVG라 그대로.
 //   프로필 자기소개·답변(원본 Inter Display)도 Pretendard — Pretendard 영문이 Inter 기반.
-//   원본 fonts-src/2025/ → 데이터를 다 넣은 뒤 `python3 scripts/subset-fonts.py 2025`로 public/2025/fonts/에 경량본(지금은 원본 그대로 복사)
+//   원본 fonts-src/ → 데이터를 다 넣은 뒤 `python3 scripts/subset-fonts.py 2025`로 public/2025/fonts/에 경량본(지금은 원본 그대로 복사)
 const pretendard = localFont({
   variable: "--font-pretendard",
   src: [

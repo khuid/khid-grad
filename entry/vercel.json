@@ -3,12 +3,16 @@
   "framework": null,
   "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- .",
   "redirects": [
-    { "source": "/", "destination": "/2026", "permanent": false }
+    {"source": "/", "destination": "/2026", "permanent": false}
   ],
   "rewrites": [
-    { "source": "/2026", "destination": "https://khid-grad-2026.vercel.app/2026" },
-    { "source": "/2026/:path*", "destination": "https://khid-grad-2026.vercel.app/2026/:path*" },
-    { "source": "/2026-static/:path*", "destination": "https://khid-grad-2026.vercel.app/2026-static/:path*" },
-    { "source": "/_next/image", "has": [{ "type": "query", "key": "url", "value": "/2026/.*" }], "destination": "https://khid-grad-2026.vercel.app/_next/image" }
+    {"source": "/2026", "destination": "https://khid-grad-2026.vercel.app/2026"},
+    {"source": "/2026/:path*", "destination": "https://khid-grad-2026.vercel.app/2026/:path*"},
+    {"source": "/2026-static/:path*", "destination": "https://khid-grad-2026.vercel.app/2026-static/:path*"},
+    {"source": "/_next/image", "has": [{"type": "query", "key": "url", "value": "/2026/.*"}], "destination": "https://khid-grad-2026.vercel.app/_next/image"},
+    {"source": "/2025", "destination": "https://khid-grad-2025.vercel.app/2025"},
+    {"source": "/2025/:path*", "destination": "https://khid-grad-2025.vercel.app/2025/:path*"},
+    {"source": "/2025-static/:path*", "destination": "https://khid-grad-2025.vercel.app/2025-static/:path*"},
+    {"source": "/_next/image", "has": [{"type": "query", "key": "url", "value": "/2025/.*"}], "destination": "https://khid-grad-2025.vercel.app/_next/image"}
   ]
 }
