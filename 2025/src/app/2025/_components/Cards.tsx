@@ -31,31 +31,33 @@ export function WorkCard({ w }: { w: Work }) {
 }
 
 // 디자이너 카드 — 프레이머 designer_card (Variant 1: 폭 200 / small: 120)
-// Variant 1: 사진 200×270, 아래 한글 18/150 + 영문 16/150 나란히(간격 8), 사진–이름 12 (마우스 올리면 16)
+// Variant 1: 사진 200×270, 아래 한글 18/150 + 영문 16/150 나란히(간격 8), 사진–이름 12
+// 마우스 올리면 사진만 7% 커짐(위로 13·아래로 6, 이름은 그대로) — 2026-10-31 프레이머 미리보기에서 잼. 사진은 바뀌지 않음
 // small: 사진 120×160, 한글 12 + 영문 10 (줄바꿈)
 // size: "list" = Phone small / Tablet·Desktop 큰 카드 (디자이너 목록)
 //       "team" = Phone 폭 24% small / Tablet small / Desktop 폭 14% 큰 카드 (작품 상세 아래 팀원)
-// [확인 필요] 마우스를 올렸을 때 사진이 바뀌는지(예: 정면 → 포즈) 프레이머에서 확인 못 함
 export function DesignerCard({ d, size }: { d: Designer; size: "list" | "team" }) {
   const cls =
     size === "list"
       ? {
-          box: "w-[120px] gap-[8px] min-[720px]:w-[200px] min-[720px]:gap-[12px] min-[720px]:hover:gap-[16px]",
+          box: "w-[120px] gap-[8px] min-[720px]:w-[200px] min-[720px]:gap-[12px]",
+          zoom: "min-[720px]:group-hover:scale-[1.07]",
           name: "flex-col min-[720px]:flex-row min-[720px]:items-baseline",
           ko: "text-[12px] min-[720px]:text-[18px]",
           en: "text-[10px] min-[720px]:text-[16px]",
           photo: "aspect-[3/4] min-[720px]:aspect-[200/270]",
         }
       : {
-          box: "w-[24%] gap-[8px] min-[720px]:w-[120px] min-[1440px]:w-[14%] min-[1440px]:gap-[12px] min-[1440px]:hover:gap-[16px]",
+          box: "w-[24%] gap-[8px] min-[720px]:w-[120px] min-[1440px]:w-[14%] min-[1440px]:gap-[12px]",
+          zoom: "min-[1440px]:group-hover:scale-[1.07]",
           name: "flex-col min-[1440px]:flex-row min-[1440px]:items-baseline",
           ko: "text-[12px] min-[1440px]:text-[18px]",
           en: "text-[10px] min-[1440px]:text-[16px]",
           photo: "aspect-[3/4] min-[1440px]:aspect-[200/270]",
         };
   return (
-    <Link href={designerHref(d)} className={`flex flex-col transition-[gap] duration-300 ${cls.box}`}>
-      <Ph src={d.photo} label="프로필 사진" className={`w-full ${cls.photo}`} />
+    <Link href={designerHref(d)} className={`group flex flex-col ${cls.box}`}>
+      <Ph src={d.photo} label="프로필 사진" className={`w-full origin-[50%_69%] transition-transform duration-300 ${cls.photo} ${cls.zoom}`} />
       <p className={`flex items-center justify-center gap-x-[8px] text-center ${cls.name}`}>
         <span className={`font-ko leading-[1.5] ${cls.ko}`}>{d.ko}</span>
         <span className={`font-en leading-[1.5] ${cls.en}`}>{d.en}</span>

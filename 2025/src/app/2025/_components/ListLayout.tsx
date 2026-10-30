@@ -63,7 +63,7 @@ const DotPlus = ({ className }: { className?: string }) => <Dots dots={PLUS} w={
 
 function TopTabs({ tabs, current }: { tabs: Tab[]; current: string }) {
   return (
-    <nav className="sticky top-[45px] z-40 grid grid-cols-2 border-b border-ink bg-white min-[720px]:hidden">
+    <nav className="sticky top-[45px] z-[45] grid grid-cols-2 border-b border-ink bg-white min-[720px]:hidden">
       {tabs.map((t, i) => {
         const on = t.key === current;
         return (
@@ -91,6 +91,8 @@ export default function ListLayout({
   fullHeightTop = false,
   info,
   bar,
+  before,
+  after,
   children,
 }: {
   current: "projects" | "designers";
@@ -99,7 +101,9 @@ export default function ListLayout({
   title: { words: { src: string; label: string; hold: number }[]; h: string }; // 빨간 제목 — 단어가 hold초씩 머물다 바뀜 (CycleTitle)
   fullHeightTop?: boolean; // 디자이너 목록: 위쪽 소개가 화면 높이만큼(100vh), 정보는 아래쪽 끝에
   info: ReactNode;
-  bar: { ko: string; en?: string };
+  bar: { ko: string; en?: string; variant?: "list" | "sub" };
+  before?: ReactNode; // 위쪽 소개와 제목 바 사이 (일본 전공연수: 영상·교수진·현장 답사)
+  after?: ReactNode; // 카드 목록 다음 (일본 전공연수: 일본 학생 작품·협력 기관 로고)
   children: ReactNode;
 }) {
   return (
@@ -120,10 +124,12 @@ export default function ListLayout({
             </h1>
             {info}
           </section>
+          {before}
           <div>
-            <SectionBar ko={bar.ko} en={bar.en} variant="list" />
+            <SectionBar ko={bar.ko} en={bar.en} variant={bar.variant ?? "list"} />
             {children}
           </div>
+          {after}
         </div>
       </div>
       <Footer />

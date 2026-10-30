@@ -48,13 +48,13 @@ async function ProfileView({ params }: { params: PageProps<"/2025/designers/[gro
     <div className="min-h-screen bg-paper">
       <Header current="designers" />
       <main>
-        {/* [데이터] 프레이머는 작품 이미지 3장을 번갈아 보여 줌 — 실제 이미지가 오면 works의 대표 이미지로 */}
-        <ProfileHero images={works.length ? works.map((w) => w.thumbnail) : [undefined]} />
+        {/* 프레이머는 작품 이미지 3장을 번갈아 보여 줌 — 각 작품의 가로형 썸네일(16:9) */}
+        <ProfileHero images={works.length ? works.map((w) => w.wide) : [undefined]} />
 
         <div className="flex flex-col items-center gap-[60px] bg-white p-[40px] min-[720px]:flex-row min-[720px]:items-start min-[720px]:justify-center min-[720px]:gap-[24px] min-[1440px]:p-[60px]">
           <article className="flex w-full flex-col gap-[40px] min-[720px]:w-[252px] min-[1440px]:w-[519px] min-[1440px]:gap-[72px]">
             <div className="flex flex-col gap-[20px] min-[720px]:gap-[8px] min-[1440px]:gap-[46px]">
-              <Ph src={d.photo} label="프로필 사진" className="aspect-[519/688] w-full" />
+              <Ph src={d.pose} label="프로필 사진" className="aspect-[519/688] w-full" />
               <h1 className="flex flex-wrap items-end gap-x-[16px] gap-y-[4px] text-black min-[720px]:gap-[20px]">
                 <span className="font-ko text-[24px] leading-[1.4] min-[720px]:text-[20px] min-[1440px]:text-[34px]">{d.ko}</span>
                 <span className="font-en text-[24px] leading-[1.1] min-[720px]:text-[20px] min-[1440px]:text-[34px]">{d.en}</span>

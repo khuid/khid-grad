@@ -71,7 +71,8 @@ async function WorkView({ params }: { params: PageProps<"/2025/projects/[cat]/[i
 
         <section className="flex flex-col pt-[80px]">
           {w.panels.map((src, i) => (
-            <Ph key={i} src={src} label={`웹 판넬 ${i + 1}`} className="aspect-[1440/2400] w-full" />
+            // 이미지가 있으면 폭 가득 + 원본 비율 높이, 없으면 회색 빈칸(1440×2400)
+            <Ph key={i} src={src} size={w.panelSizes?.[i]} label={`웹 판넬 ${i + 1}`} className={src ? "h-auto w-full" : "aspect-[1440/2400] w-full"} />
           ))}
         </section>
 

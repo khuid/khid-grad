@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { WorkCard } from "../../_components/Cards";
 import { CATEGORIES, categoryHref, categoryOf } from "../../_components/categories";
+import { GlobalExperts, GlobalJpWorks, GlobalPartners, GlobalVideo, GlobalVisits } from "../../_components/GlobalSections";
 import ListLayout from "../../_components/ListLayout";
 import { WORKS, worksIn } from "../../_components/works";
 
@@ -33,6 +34,7 @@ async function CategoryView({ params }: { params: PageProps<"/2025/projects/[cat
   const c = categoryOf(cat);
   if (!c) notFound();
   // 일본 전공연수처럼 다른 과목 작품을 모아 보여 주는 페이지는 workIds 순서대로
+  const global = c.slug === "global-design"; // 일본 전공연수: 영상·교수진·현장 답사·일본 학생 작품이 더 붙음 (GlobalSections.tsx)
   const works = c.workIds ? c.workIds.flatMap((id) => WORKS.filter((w) => w.id === id)) : worksIn(c.slug);
 
   return (
@@ -41,7 +43,24 @@ async function CategoryView({ params }: { params: PageProps<"/2025/projects/[cat
       tabs={CATEGORIES.map((x) => ({ key: x.slug, label: x.tab ?? x.ko, href: categoryHref(x) }))}
       tabKey={c.slug}
       title={{ words: [{ src: "/2025/titles/moves.svg", label: "(MOVE)S", hold: 2 }, { src: "/2025/titles/projects.svg", label: "(PROJECT)S", hold: 2.9 }, { src: "/2025/titles/traces.svg", label: "(TRACE)S", hold: 2.9 }], h: "h-[48px] min-[720px]:h-[72px] min-[1440px]:h-[140px]" }}
-      bar={{ ko: c.barKo ?? c.ko, en: c.barEn }}
+      bar={{ ko: c.barKo ?? c.ko, en: c.barEn, variant: global ? "sub" : "list" }}
+      before={
+        global && (
+          <>
+            <GlobalVideo />
+            <GlobalExperts />
+            <GlobalVisits />
+          </>
+        )
+      }
+      after={
+        global && (
+          <>
+            <GlobalJpWorks />
+            <GlobalPartners />
+          </>
+        )
+      }
       info={
         <div className="flex w-full flex-col gap-[24px] min-[720px]:gap-[28px] min-[1440px]:gap-[32px]">
           <div className="flex flex-col gap-[8px]">

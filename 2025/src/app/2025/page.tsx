@@ -97,7 +97,8 @@ function Committee() {
     <section>
       <SectionBar ko="졸업전시준비위원회" en="Preparatory Committee" />
       <div className="flex flex-col gap-[28px] px-[16px] pt-[20px] pb-[40px] min-[720px]:px-[40px] min-[720px]:pt-[32px] min-[720px]:pb-[60px] min-[1440px]:px-[80px] min-[1440px]:pt-[60px] min-[1440px]:pb-[100px]">
-        <Ph label="졸업전시준비위원회 단체 사진" className="aspect-[1280/864.5] w-full" />
+        {/* 단체 사진: 이전 기수 원본 파일이 없어 프레이머에 올라가 있던 원본(3464×2340)을 받아 씀 (사용자 요청 2026-10-31) */}
+        <Ph src="/2025/committee.webp" label="졸업전시준비위원회 단체 사진" className="aspect-[1280/864.5] w-full" />
         <div className="flex flex-col gap-[24px] text-ink min-[720px]:text-black min-[1440px]:text-ink">
           {COMMITTEE.map((row) => (
             <div key={row[0].team} className="flex gap-[10px]">

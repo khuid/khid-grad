@@ -16,8 +16,8 @@
 | 디자이너 목록 | `/2025/designers/<초성: gn·rbs·o·jch>` (`/2025/designers`는 ㄱ·ㄴ으로) | `designers/[group]/page.tsx` |
 | 디자이너 프로필 | `/2025/designers/<초성>/<slug>` | `designers/[group]/[slug]/page.tsx` |
 
-## 지금 상태 (2026-10-28, 브랜치 `2025`)
-디자인(틀) + 로고·제목·후원 로고(벡터)까지 넣은 상태. 사진·이미지는 회색 빈칸, 작품·디자이너는 `[샘플]` 가짜 데이터.
+## 지금 상태 (2026-10-31, 브랜치 `2025`)
+디자인·글·사진까지 다 넣은 상태 (2026-10-31). 남은 것: 메인 영상 ID, 파비콘·링크 미리보기 이미지, 폰트 정리, 마지막 점검.
 
 ## 처음 채울 것 (시각 요소는 전부 새로 정함)
 - [x] 색·글꼴·글자 크기·바탕색 — `2025.css` (프레이머 값)
@@ -26,11 +26,16 @@
 - [ ] 링크 미리보기 이미지(1200×630) — `public/2025/`, 연결 `layout.tsx`
 - [x] 메인 페이지 — `page.tsx`
 - [x] 이미지 — 로고(TNM·THE NEXT MOVE·푸터 타이틀·경희대·KHID), 목록 제목 6개((MOVE)S·(PROJECT)S·(TRACE)S / (PLAYER)S·(DESIGNER)S·(THINKER)S), 후원 로고 5개 — 프레이머 복사본에서 Copy SVG로 뽑음 → `public/2025/`
-- [ ] 사진·이미지 — 단체 사진, 작품 이미지, 참여자 사진: 사용자가 원본을 따로 줌 (프레이머에서 뽑지 않음). 소개 2칸은 이미지 대신 격자+글자로 다시 그림(`OverviewBoard.tsx`, 2026-10-30)
+- [x] 사진·이미지 (2026-10-31) — 소개 2칸은 이미지 대신 격자+글자로 다시 그림(`OverviewBoard.tsx`, 2026-10-30)
+  - 작품 이미지: 구글 드라이브 수업별 제출 폴더 + "웹판넬_수정제출" 폴더(최종본)를 zip으로 받아 `scripts/import-work-images.py`로 변환 → `public/2025/projects/<과목>/<작품 id>/`(thumb·wide·01…), 목록은 `_components/work-images.ts`(자동 생성). 원본은 `work/data/2025_projects_src`·`_fix` (git 밖)
+    정방형 = 카드·상세 썸네일, 가로형(16:9) = 디자이너 프로필 맨 위 큰 이미지, 웹판넬 = 상세 아래(아주 긴 판넬은 8000px씩 잘라 틈 없이 이어 붙임)
+  - 디자이너 사진: `2025개인 프로필 보정`(목록 카드) · `2025컨셉사진 보정`(프로필 페이지) → `scripts/import-designer-photos.py` → `public/2025/designers/<slug>.webp`, `<slug>-pose.webp`
+  - 졸준위 단체 사진: 이전 기수 원본이 없어 프레이머에 올라가 있던 원본(3464×2340)을 받아 씀 → `public/2025/committee.webp`
+  - 일본 전공연수: 드라이브 "일본관련" 폴더만 씀 — 교수진·현장 답사 사진·협력 기관 로고는 리플렛(.ai)에서 꺼냄, 일본 학생 작품 jpg 3장 → `public/2025/global/`
 - [ ] 메인 영상 YouTube ID — `_components/home.ts`의 `VIDEO_ID`
-- [x] 디자이너 63명 — `_components/designers.ts` (프레이머 프로필 값, 2026-10-29). 프로필 사진만 남음
-- [x] 작품 글 73개 — `_components/works.ts`, 과목 교수님·소개 `_components/categories.ts` (프레이머 값, 2026-10-30). 썸네일·웹 판넬 이미지만 남음
-- [ ] 일본 전공연수 페이지 나머지 — 영상·교수진·현장 답사·일본 학생 작품 글은 `_components/global.ts`에 있음, 화면은 아직 없음
+- [x] 디자이너 63명 — `_components/designers.ts` (프레이머 프로필 값, 2026-10-29), 사진 2026-10-31
+- [x] 작품 글 73개 — `_components/works.ts`, 과목 교수님·소개 `_components/categories.ts` (프레이머 값, 2026-10-30), 이미지 2026-10-31
+- [x] 일본 전공연수 페이지 나머지 — 영상·교수진·현장 답사·일본 학생 작품·협력 기관 로고 `_components/GlobalSections.tsx` (2026-10-31, 프레이머 미리보기 3개 폭에서 잰 값)
 - [ ] 마지막 점검 — `python3 scripts/check-year.py 2025`
 
 ## 프레이머에서 못 읽어 임시로 둔 것 ([추정] 표시)

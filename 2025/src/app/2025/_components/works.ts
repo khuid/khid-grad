@@ -7,6 +7,7 @@
 //   id: 프레이머 주소(/미공디_dcro)의 영문 부분. 한글·기호가 든 주소는 영문으로(비무연→not-void-institute, 잇모지→eatmoji, 프루스트→proust-phenomenon)
 //   소개글 줄바꿈: 프레이머 입력칸이 줄바꿈을 지워서, 마침표 뒤 띄어쓰기 없이 붙은 곳(tamber 1곳)만 줄바꿈으로 되살림
 import { designerOf, type Designer } from "./designers";
+import { WORK_IMAGES } from "./work-images";
 
 export type Work = {
   id: string; // 주소에 쓰는 이름(영문·숫자·하이픈). 예: "dcro"
@@ -16,7 +17,9 @@ export type Work = {
   card?: string; // 목록 카드 제목이 상세와 다를 때만
   description: string; // 줄바꿈(\n)은 화면에서도 줄바꿈
   thumbnail?: string; // 정사각형 썸네일 (public/2025/...)
+  wide?: string; // 가로형 썸네일 16:9 — 디자이너 프로필 맨 위 큰 이미지
   panels: string[]; // 웹 판넬 이미지들, 위에서부터 순서대로 (폭 가득, 비율대로 높이)
+  panelSizes?: [number, number][]; // 웹 판넬 픽셀 크기 — 이미지가 오기 전에 자리를 잡아 화면이 튀지 않게
 };
 
 export const WORKS: Work[] = [
@@ -98,6 +101,19 @@ export const WORKS: Work[] = [
   { id: "unlace", cat: "ai-augmented", title: "UNLACE", members: ["강한세", "박건"], description: "UNLACE는 러너를 위한 스포츠 부상 회복 스테이션이다. 러닝 전후 근육 상태를 스캔하고, 개인의 컨디션에 맞춘 회복을 제공한다. 냉각 폼롤러를 벤치 형태로 디자인하여 러너들이 앉아 쉬면서 냉찜질 마사지로 근육 피로를 빠르게 완화하여 안전하게 러닝에 집중할 수 있도록 돕는다. 본 제품은 비용과 부피때문에 개인 소유하기엔 접근성이 낮았던 기존 회복기기를 야외에서 쉽게 접근할 수 있도록 커머셜 스테이션 방식으로 제안한다. 야외 벤치처럼 여러 모듈을 확장하여 설치 할 수 있도록 설계하여, 다양한 형태의 도시 공간에 유연하게 적응할 수 있다.", panels: [""] },
   { id: "xarl", cat: "ai-augmented", title: "XARL", members: ["박정아", "추보인"], description: "XARL은 걷는 행위가 만들어내는 운동 에너지를 전기로 전환해, 일상 속 버려지는 에너지를 수확하고 활용할 수 있는 에너지 하베스팅 풋웨어 브랜드이다. 신발이라는 패션 아이템에 에너지를 생산할 수 있는 기능을 더함으로써 기술이 일상에 자연스럽게 녹아든 미래에서 에너지로부터 자유로울 인류를 상상한다. 우리는 사람이 움직임에 따라 만들어지는 의류의 주름을 걸음의 흔적으로 바라보았고, 걸음의 흔적이 에너지로 전환된다는 의미를 담아 드레이핑의 주름진 형상을 모티브로 풋웨어를 디자인하였다.", panels: [""] },
 ];
+
+// 이미지는 work-images.ts(scripts/import-work-images.py가 만듦)에서 붙임 — public/2025/projects/<과목>/<작품 id>/
+for (const w of WORKS) {
+  const im = WORK_IMAGES[`${w.cat}/${w.id}`];
+  if (!im) continue;
+  const dir = `/2025/projects/${w.cat}/${w.id}`;
+  w.thumbnail = `${dir}/thumb.webp`;
+  if (im.wide) w.wide = `${dir}/wide.webp`;
+  if (im.panels) {
+    w.panels = im.panels.map(([n]) => `${dir}/${n}.webp`);
+    w.panelSizes = im.panels.map(([, pw, ph]) => [pw, ph]);
+  }
+}
 
 export const workHref = (w: Work) => `/2025/projects/${w.cat}/${w.id}`;
 export const worksIn = (cat: string) => WORKS.filter((w) => w.cat === cat);

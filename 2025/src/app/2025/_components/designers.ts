@@ -8,7 +8,8 @@ export type Designer = {
   slug: string;
   ko: string;
   en: string;
-  photo?: string; // 프로필 사진 (세로 519:688)
+  photo?: string; // 목록 카드 사진 = 개인 프로필 사진 (정면)
+  pose?: string; // 프로필 페이지 큰 사진 = 컨셉 사진 (세로 519:688)
   intro: string; // 자기소개
   answers: [string, string]; // 아래 QUESTIONS 두 개에 대한 답
   email?: string;
@@ -35,7 +36,7 @@ const INITIALS = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
 const initialOf = (ko: string) => INITIALS[Math.floor((ko.charCodeAt(0) - 0xac00) / 588)] ?? "";
 export const groupOf = (d: Designer) => GROUPS.find((g) => g.initials.includes(initialOf(d.ko))) ?? GROUPS[0];
 
-// 2025 디자이너 63명 — 프레이머 /프로필-이름 페이지의 profile 컴포넌트 값 그대로 (2026-10-29 복사본에서 읽음). 프로필 사진은 [데이터]
+// 2025 디자이너 63명 — 프레이머 /프로필-이름 페이지의 profile 컴포넌트 값 그대로 (2026-10-29 복사본에서 읽음). 사진은 맨 아래
 // 프레이머에서 고친 것만 (사용자 확인 2026-10-28):
 //   신현지 질문1 뒤 자리채움 글 삭제 · 김현진·이유진 이메일 칸에 붙은 시트 화면 글자 삭제
 //   이영주 @jinjuu_l · 이규민 @lee__90000 · 박서현 @seohyun_ark · 정동화 @d_5ng (프레이머 표시 글자가 깨져 있어 링크 주소의 아이디로)
@@ -789,6 +790,12 @@ export const DESIGNERS: Designer[] = [
     portfolio: { text: "@hyeyoung.design" },
   },
 ];
+
+// 사진은 scripts/import-designer-photos.py가 public/2025/designers/에 만듦 (63명 전원, 2026-10-31)
+for (const d of DESIGNERS) {
+  d.photo = `/2025/designers/${d.slug}.webp`;
+  d.pose = `/2025/designers/${d.slug}-pose.webp`;
+}
 
 export const designersIn = (g: Group) => DESIGNERS.filter((d) => groupOf(d).slug === g.slug);
 export const designerHref = (d: Designer) => `/2025/designers/${groupOf(d).slug}/${d.slug}`;
