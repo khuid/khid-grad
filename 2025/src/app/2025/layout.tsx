@@ -27,8 +27,6 @@ export const metadata: Metadata = {
     title: "KHID 2025 Graduation Exhibition",
     images: [{ url: "/2025/og.jpg", width: 1200, height: 630 }],
   },
-  // [정하기] 폴더를 만들어 배포하는 순간 /2025 주소는 누구나 열 수 있음. 그동안 검색에는 안 나오게 막아 둠 — 공개할 때 이 줄을 지울 것
-  robots: { index: false, follow: false },
 };
 
 // 모바일 브라우저 상단 바 색 = 2025 빨강
