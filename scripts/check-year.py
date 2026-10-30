@@ -5,7 +5,7 @@
   2. 다른 연도 숫자(예: 2027 폴더 안의 "2026") — 이전 연도에서 가져온 코드에 그 해 날짜·주소가 남았을 수 있음
   3. 빠진 파일: 파비콘, 링크 미리보기 이미지, 연도 css
   4. 다른 연도 폴더를 불러오는 코드(import)
-  5. 연결: 공통 부품 복사본이 common/과 같은지, 파일 주소 구분(assetPrefix), 입구 연결, 보안 알림 등록
+  5. 연결: 공통 부품 복사본이 common/과 같은지, 파일 주소 구분(assetPrefix), 진짜 주소(canonical), 입구 연결, 보안 알림 등록
 2·4는 일부러 남긴 것일 수도 있으니(예: "2026년부터 시작된 전시" 문구) 하나씩 보고 판단.
 
 실행 (저장소 맨 위 폴더에서):
@@ -75,6 +75,8 @@ for dst, text in sync.expected(YEAR).items():
         links.append(f"공통 부품 복사본이 common/과 다름: {dst.relative_to(ROOT)} → python3 scripts/sync-common.py {YEAR}")
 if f'assetPrefix: "/{YEAR}-static"' not in (YAPP / "next.config.ts").read_text(encoding="utf-8"):
     links.append(f'{YEAR}/next.config.ts에 assetPrefix: "/{YEAR}-static" 없음 (다른 연도와 파일 주소가 겹침)')
+if 'rel="canonical"' not in (YAPP / "next.config.ts").read_text(encoding="utf-8"):
+    links.append(f'{YEAR}/next.config.ts에 진짜 주소(canonical) 헤더 없음 (khid-grad-{YEAR}.vercel.app 주소가 검색에 나올 수 있음)')
 entry = (ROOT / "entry" / "vercel.json").read_text(encoding="utf-8")
 for need in (f'"/{YEAR}"', f'"/{YEAR}/:path*"', f'"/{YEAR}-static/:path*"', f'"/{YEAR}/.*"'):
     if need not in entry:

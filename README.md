@@ -50,6 +50,7 @@
 | 이미지 저장 방지 | `common/_common/common.css`, `CopyGuard.tsx` | 이미지·영상 우클릭/끌기/길게 눌러 저장 막기, 배포 사이트에서 개발자 도구 단축키 막기 |
 | 방문자 기록 | `common/_common/Analytics.tsx` | Google Analytics 4. 배포 사이트에서만 모든 연도 방문을 기록(월·주·일·시간대별, 페이지별). 측정 ID는 이 파일의 `GA_ID`. 운영자 기기는 주소 끝 `?notrack=1`로 한 번 들어가면 그 브라우저에서 기록 안 됨(`?notrack=0` 해제) |
 | 파일 주소 구분 | 각 연도 `next.config.ts`의 `assetPrefix: "/YYYY-static"` | 연도 앱들의 JS·CSS 파일 주소가 겹치지 않게. 시작 틀에 들어 있음, 지우지 말 것 |
+| 검색에 보일 진짜 주소 | 각 연도 `next.config.ts`의 `headers()` (canonical) | 연도 앱은 `khid-grad-YYYY.vercel.app`으로도 열리지만, 모든 페이지에 "진짜 주소는 `khid.grad.khu.ac.kr/…`" 표시를 붙여 검색에는 학교 도메인만 나오게. 시작 틀에 들어 있음, 지우지 말 것 |
 | 새 연도 시작 틀·도구 | `templates/new-year/`, `scripts/` | 아래 "새 연도 추가", "폰트 경량화", "보안 업데이트" |
 | 보안 업데이트 | `scripts/update-all.sh`, `.github/dependabot.yml` | 보안 문제가 생기면 **지난 연도까지 모든 연도**를 올림 (아래 "보안 업데이트") |
 
