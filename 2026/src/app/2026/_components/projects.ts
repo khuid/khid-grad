@@ -153,6 +153,7 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
     ["David", ["이유택", "이규진"]],
     ["ATTACA", ["김현호"]],
     ["숨, 결", ["이하은"]],
+    ["Torus", ["정효재"]], // 목록 엑셀엔 인지디로 있지만 스융디 작품(사용자 확인 2026-10-30)
   ],
   ai: [
     [
@@ -175,7 +176,6 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
     ["WHEW", ["김지은"]],
     ["08:59 (follow nine)", ["김명선", "유은서", "최세린"]],
     ["-ing", ["박수해", "기정현", "정효재"]],
-    ["Torus", ["정효재"]],
     ["DAM-DDLE(담뜰)", ["김태령", "이수진", "하채연"]],
     ["onu", ["김도연", "김동은", "양성은"]],
     ["SSOC", ["손은혜", "조수안", "최마리"]],
