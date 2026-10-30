@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Footer from "./_components/Footer";
 import Header from "./_components/Header";
 import HeroArrow from "./_components/HeroArrow";
+import OverviewBoard from "./_components/OverviewBoard";
 import { COMMITTEE, EXHIBITION, PROFESSORS, SPONSORS, VIDEO_ID } from "./_components/home";
 import Ph from "./_components/Ph";
 import SectionBar from "./_components/SectionBar";
@@ -29,13 +30,11 @@ function Hero() {
 }
 
 function Overview() {
-  // [데이터] 이미지는 사용자가 따로 줌 (public/2025/에 넣고 src로 연결)
-  // 프레이머: 글이 그려진 이미지 2장(바둑판 격자 + where is the NEXT MOVE? / what is the BEST MOVE?)
-  // 가로 2칸, 각 정사각형 (Desktop 720·Tablet 360) / Phone은 세로로 쌓임
+  // 프레이머: 소개 2칸, 각 정사각형 (Desktop 720·Tablet 360~) / Phone은 세로로 쌓임. 그림 내용은 OverviewBoard
   return (
     <section className="flex flex-col min-[720px]:flex-row">
-      <Ph label="소개 이미지 1 — where is the NEXT MOVE?" className="aspect-square w-full min-[720px]:w-1/2" />
-      <Ph label="소개 이미지 2 — what is the BEST MOVE?" className="aspect-square w-full min-[720px]:w-1/2" />
+      <OverviewBoard index={0} />
+      <OverviewBoard index={1} />
     </section>
   );
 }

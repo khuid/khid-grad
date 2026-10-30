@@ -37,3 +37,20 @@ body {
   background: #ffffff;
   color: var(--color-ink);
 }
+
+/* 메인 히어로 스크롤 안내 점 — HeroArrow.tsx. 점마다 나타나는 시각(animation-delay)은 컴포넌트에서 줌. 프레이머 스프링 0.4초 */
+.hero-dot {
+  opacity: 0;
+  animation: hero-dot 400ms var(--ease-spring) forwards;
+}
+@keyframes hero-dot {
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-dot {
+    opacity: 1;
+    animation: none;
+  }
+}
