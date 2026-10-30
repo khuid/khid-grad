@@ -1,7 +1,8 @@
 // 2025 일본 전공연수(Global Design Intelligence Exchange 2025 Japan) 페이지의 나머지 내용 — 프레이머 /projects-global_design
 // 과목 정보·프로그램 개요/주제·참여 프로젝트는 categories.ts의 global-design. 여기는 영상·교수진·현장 답사·일본 학생 작품
 // 2026-10-30 프레이머에 보이는 글 그대로 읽음 (숨김 레이어 제외), 띄어쓰기만 고침(오사카 국제박람회·팀랩)
-// 사진(2026-10-31): 사용자가 준 드라이브 "일본관련" 폴더만 씀 — 교수진·현장 답사는 리플렛(태산인디고 리플렛.ai)에 든 사진을 꺼냄, 일본 학생 작품은 jpg 3장
+// 사진(2026-10-31): 사용자가 준 드라이브 "일본관련" 폴더만 씀 — 교수진·현장 답사는 리플렛(태산인디고 리플렛.ai)에 든 사진을 꺼냄
+//   리플렛 사진은 인쇄용 CMYK(Japan Color 2001 Coated) → 반드시 그 ICC 프로필로 sRGB 변환해야 색이 맞음 (2026-10-31 그냥 꺼냈다가 푸른빛으로 틀어져 다시 변환), 일본 학생 작품은 jpg 3장
 // 화면: GlobalSections.tsx
 
 export const GLOBAL_VIDEO = "ZF16vfddQRw"; // 프레이머 YouTube 컴포넌트
