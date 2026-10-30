@@ -1,0 +1,42 @@
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import "./2025.css";
+
+// 2025 사이트 전용 설정 — 다른 연도와 공유하지 않음.
+// 2025는 지난 연도를 나중에 추가한 것 (제34회 THE NEXT MOVE : 공존의 설계). 디자인 원본은 프레이머 khid2025.
+
+// 폰트 (2026-10-29 사용자 결정, 로컬 확인용): 로고가 아닌 글자는 영문·한글 모두 Pretendard(무료, SIL OFL)로.
+//   프레이머 원본은 영문 ITC Avant Garde Gothic, 한글 윤고딕 700 — 둘 다 유료(어도비 폰트)라 바꿈. 로고·제목은 이미 SVG라 그대로.
+//   프로필 자기소개·답변(원본 Inter Display)도 Pretendard — Pretendard 영문이 Inter 기반.
+//   원본 fonts-src/ → 데이터를 다 넣은 뒤 `python3 scripts/subset-fonts.py 2025`로 public/2025/fonts/에 경량본(지금은 원본 그대로 복사)
+const pretendard = localFont({
+  variable: "--font-pretendard",
+  src: [
+    { path: "../../../public/2025/fonts/Pretendard-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../../../public/2025/fonts/Pretendard-Bold.woff2", weight: "700", style: "normal" },
+  ],
+});
+
+// 링크 미리보기(카톡·인스타 등): 프레이머 사이트 설정 Social preview 원본(1200×630) → public/2025/og.jpg (2026-10-31)
+export const metadata: Metadata = {
+  title: "KHID 2025 Graduation Exhibition",
+  description: "경희대학교 산업디자인학과 제34회 졸업전시 — THE NEXT MOVE : 공존의 설계",
+  openGraph: {
+    type: "website",
+    siteName: "KHID 2025",
+    title: "KHID 2025 Graduation Exhibition",
+    images: [{ url: "/2025/og.jpg", width: 1200, height: 630 }],
+  },
+};
+
+// 모바일 브라우저 상단 바 색 = 2025 빨강
+export const viewport: Viewport = {
+  themeColor: "#E60816",
+};
+
+// 파비콘: icon.svg = 프레이머 사이트 설정 Favicon 원본(빨간 TNM, 밝은·어두운 화면 같은 파일) (2026-10-31)
+// apple-icon.png(홈 화면 아이콘)는 넣지 않음 — 프레이머에도 없었고 필요 없다고 정함 (사용자 결정 2026-10-31)
+
+export default function Layout2025({ children }: LayoutProps<"/2025">) {
+  return <div className={`${pretendard.variable} font-ko text-ink`}>{children}</div>;
+}
