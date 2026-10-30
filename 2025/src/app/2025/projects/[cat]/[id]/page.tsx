@@ -65,7 +65,7 @@ async function WorkView({ params }: { params: PageProps<"/2025/projects/[cat]/[i
                 <p className="font-ko text-[16px] leading-[1.4] text-red min-[1440px]:text-[34px]">{c?.ko}</p>
               </div>
             </div>
-            <p className="font-ko text-[12px] leading-[1.6] text-gray2 min-[1440px]:text-[16px]">{w.description}</p>
+            <p className="font-ko text-[12px] leading-[1.6] whitespace-pre-line text-gray2 min-[1440px]:text-[16px]">{w.description}</p>
           </div>
         </section>
 

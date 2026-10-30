@@ -29,7 +29,8 @@
 - [ ] 사진·이미지 — 단체 사진, 작품 이미지, 참여자 사진: 사용자가 원본을 따로 줌 (프레이머에서 뽑지 않음). 소개 2칸은 이미지 대신 격자+글자로 다시 그림(`OverviewBoard.tsx`, 2026-10-30)
 - [ ] 메인 영상 YouTube ID — `_components/home.ts`의 `VIDEO_ID`
 - [x] 디자이너 63명 — `_components/designers.ts` (프레이머 프로필 값, 2026-10-29). 프로필 사진만 남음
-- [ ] 작품 데이터 — `_components/works.ts`, 과목 교수님·소개 `_components/categories.ts` (`[샘플]`·`[데이터]` 전부 바꾸기)
+- [x] 작품 글 73개 — `_components/works.ts`, 과목 교수님·소개 `_components/categories.ts` (프레이머 값, 2026-10-30). 썸네일·웹 판넬 이미지만 남음
+- [ ] 일본 전공연수 페이지 나머지 — 영상·교수진·현장 답사·일본 학생 작품 글은 `_components/global.ts`에 있음, 화면은 아직 없음
 - [ ] 마지막 점검 — `python3 scripts/check-year.py 2025`
 
 ## 프레이머에서 못 읽어 임시로 둔 것 ([추정] 표시)

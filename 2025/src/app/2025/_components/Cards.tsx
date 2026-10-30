@@ -19,7 +19,7 @@ export function WorkCard({ w }: { w: Work }) {
         className="aspect-square w-full rounded-none transition-[border-radius] duration-300 group-hover:rounded-[600px] group-active:rounded-[600px]"
       />
       <div className="flex flex-col gap-[4px] min-[720px]:gap-[8px]">
-        <p className="font-ko text-[14px] leading-[1.5] min-[720px]:text-[20px]">{w.title}</p>
+        <p className="font-ko text-[14px] leading-[1.5] min-[720px]:text-[20px]">{w.card ?? w.title}</p>
         <p className="flex flex-wrap gap-x-[8px] gap-y-[4px] font-ko text-[11px] leading-[1.4] min-[720px]:gap-x-[20px] min-[720px]:gap-y-[8px] min-[720px]:text-[13px]">
           {w.members.map((m) => (
             <span key={m}>{m}</span>
