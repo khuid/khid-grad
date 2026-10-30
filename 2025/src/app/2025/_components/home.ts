@@ -75,7 +75,7 @@ export const PROFESSORS = [
   { ko: "최유식", en: "Choi Yoosik" },
 ];
 
-// 후원 — 로고는 프레이머 sponsorship/* 컴포넌트에서 뽑은 SVG. lowlit.svg만 원본 안쪽 흰 타원(#FFF)이 칸 바탕(#FDFDFD)과 달라 비우고, 검정(#040000)을 다른 로고와 같은 #121212로 맞춤(2026-10-30). w = 칸 폭 대비 로고 폭, hw = 마우스를 올렸을 때 (프레이머 값)
+// 후원 — 로고는 프레이머 sponsorship/* 컴포넌트에서 뽑은 SVG. 로고 색은 프레이머 그대로(바꾸지 않음). w = 칸 폭 대비 로고 폭, hw = 마우스를 올렸을 때 (프레이머 값)
 export const SPONSORS = [
   { name: "Yoondesign", src: "/2025/sponsors/yoondesign.svg", w: "67%", hw: "77%" },
   { name: "F/A/B/A", src: "/2025/sponsors/faba.svg", w: "67%", hw: "78%" },

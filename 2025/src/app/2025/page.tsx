@@ -137,13 +137,13 @@ function Professors() {
 
 function Sponsors() {
   // 프레이머: 패딩 120 80 (Tablet 80 40 / Phone 60 16), 가운데, 줄바꿈. 간격 가로 20·세로 10 (16·8 / 8·4)
-  // 로고 칸 정사각형 240 (180 / 100), 바탕 #FDFDFD. 로고 폭은 칸 대비 % (w), 마우스를 올리면 hw로 커짐 — 프레이머 sponsorship/* Hover, 스프링 0.4초(튐 0.2)
+  // 로고 칸 정사각형 240 (180 / 100). 프레이머 칸 바탕 #FDFDFD는 흰 페이지 위에서 옅은 회색 상자로 보여 뺌(사용자 결정 2026-10-30). 로고 폭은 칸 대비 % (w), 마우스를 올리면 hw로 커짐 — 프레이머 sponsorship/* Hover, 스프링 0.4초(튐 0.2)
   return (
     <section>
       <SectionBar ko="후원" en="Sponsorship" />
       <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[4px] px-[16px] py-[60px] min-[720px]:gap-x-[16px] min-[720px]:gap-y-[8px] min-[720px]:px-[40px] min-[720px]:py-[80px] min-[1440px]:gap-x-[20px] min-[1440px]:gap-y-[10px] min-[1440px]:px-[80px] min-[1440px]:py-[120px]">
         {SPONSORS.map((s) => (
-          <div key={s.name} className="group flex size-[100px] items-center justify-center bg-paper min-[720px]:size-[180px] min-[1440px]:size-[240px]">
+          <div key={s.name} className="group flex size-[100px] items-center justify-center min-[720px]:size-[180px] min-[1440px]:size-[240px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={s.src}
