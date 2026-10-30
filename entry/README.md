@@ -9,3 +9,5 @@
 | `404.html` | 어느 연도에도 속하지 않는 주소 안내 화면 (`common/not-found.tsx`와 같은 모양) |
 
 새 연도는 `python3 scripts/new-year.py YYYY`가 rewrites 4줄을 자동으로 넣어 줍니다. 이 README는 `.vercelignore`로 배포에서 빠집니다.
+
+Vercel 프로젝트 설정(Domains)에 `2026khid.vercel.app` → `khid.grad.khu.ac.kr` 넘겨주기가 있습니다. 2026 포스터 등 인쇄물 QR이 이 주소라 **지우면 안 됩니다.**

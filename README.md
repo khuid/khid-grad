@@ -145,7 +145,7 @@ http://localhost:3000/2026
 
 | Vercel 프로젝트 | Root Directory | 주소 |
 |---|---|---|
-| `khid-grad` (입구) | `entry` | `khid.grad.khu.ac.kr` (학교 도메인은 여기에 연결) |
+| `khid-grad` (입구) | `entry` | `khid.grad.khu.ac.kr` (학교 도메인은 여기에 연결). `2026khid.vercel.app`도 여기 있음 → 학교 도메인으로 넘겨줌(2026 인쇄물 QR 주소라 **절대 삭제 금지**) |
 | `khid-grad-2026` | `2026` | `khid-grad-2026.vercel.app` (입구가 `/2026…`을 넘겨줌) |
 
 - 각 폴더의 `vercel.json`에 "지난 배포 이후 그 폴더가 안 바뀌었으면 빌드 건너뛰기"(`ignoreCommand`)가 있어서 한 연도를 고치면 그 연도만 배포됩니다.
