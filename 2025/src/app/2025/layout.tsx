@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 };
 
 // 파비콘: icon.svg = 프레이머 사이트 설정 Favicon 원본(빨간 TNM, 밝은·어두운 화면 같은 파일) (2026-10-31)
-// [정하기] apple-icon.png(180×180): 프레이머에 따로 설정된 것이 없음(기본값) — 정해지면 이 폴더에 넣으면 자동으로 붙음
+// apple-icon.png(홈 화면 아이콘)는 넣지 않음 — 프레이머에도 없었고 필요 없다고 정함 (사용자 결정 2026-10-31)
 
 export default function Layout2025({ children }: LayoutProps<"/2025">) {
   return <div className={`${pretendard.variable} font-ko text-ink`}>{children}</div>;
