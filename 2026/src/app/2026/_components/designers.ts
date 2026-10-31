@@ -25,7 +25,7 @@ export const DESIGNERS: Designer[] = [
   d("01", "공성욱", "gong-seonguk", "Gong Seonguk"),
   d("02", "권정현", "kwon-jeonghyeon", "Kwon Jeonghyeon"),
   d("03", "기정현", "ki-jeonghyun", "Ki Jeonghyun", "klr9584@khu.ac.kr"),
-  d("04", "김남경", "kim-namgyeong", "Kim Namgyeong"),
+  d("04", "김남경", "kim-namkyung", "Kim Namkyung", "knk@khu.ac.kr", ["youtube.com/@kyouxn"]),
   d("05", "김도경", "kim-dogyeong", "Kim Dogyeong"),
   d("06", "김도연", "kim-doyeon", "Kim Doyeon", "dodo1004000@naver.com"), // 본인 표기 Kim Do Yeon → 이름 붙여쓰기 원칙대로
   d("07", "김동은", "kim-dongeun", "Kim Dongeun", "nu3gn0d@gmail.com"),
@@ -53,15 +53,15 @@ export const DESIGNERS: Designer[] = [
   d("29", "이규진", "lee-gyujin", "Lee Gyujin", "gjbomul1@naver.com", ["@nijuygeel"]),
   d("30", "이민기", "lee-mingi", "Lee Mingi"),
   d("31", "이민혁", "lee-minhyeok", "Lee Minhyeok"),
-  d("32", "이보화", "lee-bohwa", "Lee Bohwa"),
+  d("32", "이보화", "lee-bohwa", "Lee Bohwa", "leebh9493@naver.com", ["@bohwa.lee"]),
   d("33", "이수연", "lee-suyeon", "Lee Suyeon"),
   d("34", "이수진", "lee-soojin", "Lee Soojin", "soojinrl0701@naver.com", ["@soojinrl"]),
   d("35", "이유택", "lee-yutaek", "Lee Yutaek"),
   d("36", "이지수", "lee-jisu", "Lee Jisu"),
   d("37", "이진", "lee-jin", "Lee Jin", "wlswls3389@naver.com", ["@l.jin_0514", "behance.net/9ad789f6"]),
-  d("38", "이진주", "lee-jinju", "Lee Jinju"),
+  d("38", "이진주", "lee-jinju", "Lee Jinju", "ljj8963@khu.ac.kr"),
   d("39", "이하은", "lee-haeun", "Lee Haeun"),
-  d("40", "임형민", "lim-hyeongmin", "Lim Hyeongmin"),
+  d("40", "임형민", "im-hyeongmin", "Im Hyeongmin", "000912dlagudals@naver.com", ["@hyeongmin7661"]),
   d("41", "장서영", "jang-seoyeong", "Jang Seoyeong", "julie3418@naver.com", ["@seoyeong_jang_"]),
   d("42", "장일정", "zhang-yicheng", "Zhang Yicheng"), // 본인 영문 표기 ZHANG YICHENG
   d("43", "전예영", "jeon-yeyeong", "Jeon Yeyeong"),
@@ -75,7 +75,7 @@ export const DESIGNERS: Designer[] = [
   d("51", "최세린", "choi-serin", "Choi Serin"),
   d("52", "하채연", "ha-chaeyeon", "Ha Chaeyeon", "dha0809@naver.com", ["@design_chae.yeon", "behance.net/dbe43dfe"]),
   d("53", "한예지", "han-yeji", "Han Yeji", "1neyez95@gmail.com", ["behance.net/YejiHann"]),
-  d("54", "허경주", "heo-gyeongju", "Heo Gyeongju"),
+  d("54", "허경주", "heo-kyungju", "Heo Kyungju", "rudwn2161@naver.com"),
   d("55", "홍진솔", "hong-jinsol", "Hong Jinsol"),
 ];
 
