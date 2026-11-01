@@ -26,7 +26,7 @@ export const DESIGNERS: Designer[] = [
   d("02", "권정현", "kwon-junghyun", "Kwon Junghyun", "junghyeon@gmail.com"), // 본인 표기 Kwon Jung Hyun → 이름 붙여쓰기
   d("03", "기정현", "ki-jeonghyun", "Ki Jeonghyun", "klr9584@khu.ac.kr"),
   d("04", "김남경", "kim-namkyung", "Kim Namkyung", "knk@khu.ac.kr", ["youtube.com/@kyouxn"]),
-  d("05", "김도경", "kim-dogyeong", "Kim Dogyeong"),
+  d("05", "김도경", "kim-dokyung", "Kim Dokyung", "ehrudo0218@gmail.com", ["behance.net/obdo"]),
   d("06", "김도연", "kim-doyeon", "Kim Doyeon", "dodo1004000@naver.com"), // 본인 표기 Kim Do Yeon → 이름 붙여쓰기 원칙대로
   d("07", "김동은", "kim-dongeun", "Kim Dongeun", "nu3gn0d@gmail.com"),
   d("08", "김명선", "kim-myoungseon", "Kim Myoungseon", "kmskms0223@gmail.com", ["behance.net/myoungseon", "@archive.seon"]),
@@ -43,7 +43,7 @@ export const DESIGNERS: Designer[] = [
   d("19", "박효찬", "park-hyochan", "Park Hyochan", "hyochan912@gmail.com", ["@hxochx_"]),
   d("20", "배민아", "bae-mina", "Bae Mina"),
   d("21", "성아현", "seong-ahyeon", "Seong Ahyeon", "sah0731@naver.com"),
-  d("22", "손예원", "son-yewon", "Son Yewon"),
+  d("22", "손예원", "son-yewon", "Son Yewon", "rhaea01@gmail.com"), // 포트폴리오 칸에 "X" → 없음
   d("23", "손은혜", "son-eunhye", "Son Eunhye", "seh2021@khu.ac.kr"),
   d("24", "신예환", "shin-yewhan", "Shin Yewhan", "jerryshin4736@gmail.com", ["@syw0821"]),
   d("25", "안지언", "ahn-jieon", "Ahn Jieon", "aju4184519@gmail.com", ["@design_jieon"]),
@@ -51,7 +51,7 @@ export const DESIGNERS: Designer[] = [
   d("27", "유은서", "yu-eunseo", "Yu Eunseo", "yeunseo771@gmail.com", ["geumseo.uxdn.kr", "@geumseo.design"]),
   d("28", "윤아영", "yun-ayoung", "Yun Ayoung", "yay11311131@gmail.com", ["@a._.young._"]),
   d("29", "이규진", "lee-gyujin", "Lee Gyujin", "gjbomul1@naver.com", ["@nijuygeel"]),
-  d("30", "이민기", "lee-mingi", "Lee Mingi"),
+  d("30", "이민기", "lee-mingie", "Lee Mingie", "colt_kr@naver.com", ["@colt_kr"]),
   d("31", "이민혁", "lee-minhyeok", "Lee Minhyeok"),
   d("32", "이보화", "lee-bohwa", "Lee Bohwa", "leebh9493@naver.com", ["@bohwa.lee"]),
   d("33", "이수연", "lee-suyeon", "Lee Suyeon", "suyeon8764@gmail.com"),
@@ -69,7 +69,7 @@ export const DESIGNERS: Designer[] = [
   d("45", "정예원", "jeong-yewon", "Jeong Yewon", "ywjeong1011@gmail.com", ["behance.net/0ee41a39"]),
   d("46", "정효재", "jeong-hyojae", "Jeong Hyojae", "jeonghj513@khu.ac.kr"), // 본인 표기 JEONG HYOJAE → 첫 글자만 대문자
   d("47", "조수안", "cho-suahn", "Cho Suahn", "inwater22@naver.com"),
-  d("48", "조해린", "cho-haerin", "Cho Haerin"),
+  d("48", "조해린", "jo-haelin", "Jo Haelin", "hae1in@khu.ac.kr"), // 포트폴리오 칸에 "X" → 없음
   d("49", "최마리", "choi-marie", "Choi Marie", "marie.choiix@gmail.com"),
   d("50", "최성지", "choi-seongji", "Choi Seongji", "tktprhks2000@naver.com", ["@pilgrim_choi"]),
   d("51", "최세린", "choi-serin", "Choi Serin", "choisr02@khu.ac.kr", ["@riinsay"]),
