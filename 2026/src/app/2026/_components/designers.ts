@@ -22,7 +22,7 @@ const d = (no: string, ko: string, slug: string, en: string, contact?: string, p
 });
 
 export const DESIGNERS: Designer[] = [
-  d("01", "공성욱", "gong-seonguk", "Gong Seonguk"),
+  d("01", "공성욱", "gong-seongwook", "Gong Seongwook", "gswfly@naver.com", ["@design_seongwook.gong"]),
   d("02", "권정현", "kwon-jeonghyeon", "Kwon Jeonghyeon"),
   d("03", "기정현", "ki-jeonghyun", "Ki Jeonghyun", "klr9584@khu.ac.kr"),
   d("04", "김남경", "kim-namkyung", "Kim Namkyung", "knk@khu.ac.kr", ["youtube.com/@kyouxn"]),
@@ -46,7 +46,7 @@ export const DESIGNERS: Designer[] = [
   d("22", "손예원", "son-yewon", "Son Yewon"),
   d("23", "손은혜", "son-eunhye", "Son Eunhye", "seh2021@khu.ac.kr"),
   d("24", "신예환", "shin-yehwan", "Shin Yehwan"),
-  d("25", "안지언", "ahn-jieon", "Ahn Jieon"),
+  d("25", "안지언", "ahn-jieon", "Ahn Jieon", "aju4184519@gmail.com", ["@design_jieon"]),
   d("26", "양성은", "yang-seongeun", "Yang Seongeun", "yang030706@gmail.com"),
   d("27", "유은서", "yoo-eunseo", "Yoo Eunseo"),
   d("28", "윤아영", "yun-ayoung", "Yun Ayoung", "yay11311131@gmail.com", ["@a._.young._"]),
@@ -64,7 +64,7 @@ export const DESIGNERS: Designer[] = [
   d("40", "임형민", "im-hyeongmin", "Im Hyeongmin", "000912dlagudals@naver.com", ["@hyeongmin7661"]),
   d("41", "장서영", "jang-seoyeong", "Jang Seoyeong", "julie3418@naver.com", ["@seoyeong_jang_"]),
   d("42", "장일정", "zhang-yicheng", "Zhang Yicheng"), // 본인 영문 표기 ZHANG YICHENG
-  d("43", "전예영", "jeon-yeyeong", "Jeon Yeyeong"),
+  d("43", "전예영", "jeon-yeayoung", "Jeon Yeayoung", "wjsdpdud456@naver.com", ["@ye___yeo"]),
   d("44", "정보연", "jung-boyeon", "Jung Boyeon", "lolly7368@gmail.com"),
   d("45", "정예원", "jeong-yewon", "Jeong Yewon", "ywjeong1011@gmail.com", ["behance.net/0ee41a39"]),
   d("46", "정효재", "jung-hyojae", "Jung Hyojae"),
