@@ -52,7 +52,7 @@ export const DESIGNERS: Designer[] = [
   d("28", "윤아영", "yun-ayoung", "Yun Ayoung", "yay11311131@gmail.com", ["@a._.young._"]),
   d("29", "이규진", "lee-gyujin", "Lee Gyujin", "gjbomul1@naver.com", ["@nijuygeel"]),
   d("30", "이민기", "lee-mingie", "Lee Mingie", "colt_kr@naver.com", ["@colt_kr"]),
-  d("31", "이민혁", "lee-minhyeok", "Lee Minhyeok"),
+  d("31", "이민혁", "lee-minhyeok", "Lee Minhyeok", "hyeok722@khu.ac.kr", ["@swirl403"]),
   d("32", "이보화", "lee-bohwa", "Lee Bohwa", "leebh9493@naver.com", ["@bohwa.lee"]),
   d("33", "이수연", "lee-suyeon", "Lee Suyeon", "suyeon8764@gmail.com"),
   d("34", "이수진", "lee-soojin", "Lee Soojin", "soojinrl0701@naver.com", ["@soojinrl"]),
