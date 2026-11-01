@@ -63,7 +63,7 @@ export const DESIGNERS: Designer[] = [
   d("39", "이하은", "lee-haeun", "Lee Haeun", "dlgkdms0531@naver.com"),
   d("40", "임형민", "im-hyeongmin", "Im Hyeongmin", "000912dlagudals@naver.com", ["@hyeongmin7661"]),
   d("41", "장서영", "jang-seoyeong", "Jang Seoyeong", "julie3418@naver.com", ["@seoyeong_jang_"]),
-  d("42", "장일정", "zhang-yicheng", "Zhang Yicheng"), // 본인 영문 표기 ZHANG YICHENG
+  d("42", "장일정", "zhang-yicheng", "Zhang Yicheng", "zhangyicheng955@gmail.com"), // 본인 영문 표기 ZHANG YICHENG
   d("43", "전예영", "jeon-yeayoung", "Jeon Yeayoung", "wjsdpdud456@naver.com", ["@ye___yeo"]),
   d("44", "정보연", "jung-boyeon", "Jung Boyeon", "lolly7368@gmail.com"),
   d("45", "정예원", "jeong-yewon", "Jeong Yewon", "ywjeong1011@gmail.com", ["behance.net/0ee41a39"]),
