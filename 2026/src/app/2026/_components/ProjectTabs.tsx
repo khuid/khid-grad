@@ -20,7 +20,7 @@ export default function ProjectTabs({
   return (
     <nav
       aria-label="수업"
-      className={`sticky top-[45px] z-40 bg-white pt-[24px] min-[768px]:pt-[40px] min-[768px]:pb-[24px] min-[1000px]:top-[53px] min-[1000px]:pt-[50px] min-[1000px]:pb-[28px] ${release ? "mb-(--release)" : ""}`}
+      className={`sticky top-[45px] z-40 bg-white pt-[24px] min-[768px]:pt-[40px] min-[768px]:pb-[24px] min-[1000px]:top-[61px] min-[1000px]:pt-[50px] min-[1000px]:pb-[28px] ${release ? "mb-(--release)" : ""}`}
     >
       {/* 흰 배경이 가린 위 여백·아래 흰 띠 구간의 프레임 세로선을 다시 그림 */}
       <div

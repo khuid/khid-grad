@@ -6,7 +6,7 @@
 // 그 사이 프레임 폭(1340) 안만 연한 하늘색, 글자는 프레임 왼쪽에서 40, 한글–영문 간격 24.
 // 선이 만나는 곳(프레임 세로선 × 가로선)에 9×9 사각형. 띠 바깥(위아래 4px, 프레임 밖)은 배경 없음 — 흰 틈이 안 보이게.
 // 글자는 deepblue(#1A6AE8).
-// 2026-10-23 결정: 상단바처럼 Figma 대비 52/60로 줄임 — 안쪽 높이 60 → 52, 글자 24 → 20.8(상단바 메뉴와 같은 크기), 한글–영문 24 → 20.8.
+// 2026-10-23 결정: Figma 대비 52/60로 줄임 — 안쪽 높이 60 → 52, 글자 24 → 20.8, 한글–영문 24 → 20.8.
 // 모바일·태블릿: 안쪽 높이 44(~767) / 48(768~), 글자 16 / 18
 // 프레임 폭: 모바일 좌우 16 / 768~ 40 / 1000~ 50(최대 1340) — [2]와 같음. [3]부터 구역들이 같이 씀
 export const FRAME =
@@ -18,7 +18,7 @@ export function Node({ className }: { className: string }) {
 
 export default function SectionBar({ ko, en, id }: { ko: string; en: string; id?: string }) {
   return (
-    <div className="sticky top-[45px] z-40 py-[4px] min-[1000px]:top-[53px]">
+    <div className="sticky top-[45px] z-40 py-[4px] min-[1000px]:top-[61px]">
       <div className="border-y border-deepblue">
         <div className={`relative mx-auto flex min-h-[44px] items-center py-2 border-x border-deepblue bg-pale px-4 min-[768px]:min-h-[48px] min-[768px]:px-7 min-[1000px]:min-h-[52px] min-[1000px]:py-0 min-[1000px]:px-[40px] ${FRAME}`}>
           <Node className="top-[-0.5px] left-[-0.5px]" />

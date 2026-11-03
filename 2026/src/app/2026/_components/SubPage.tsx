@@ -17,11 +17,11 @@ export default function SubPage({
   return (
     <>
       <Header current={current} />
-      {/* 상단바 높이(44/52 + 아래선 1)만큼 내려서 시작 */}
-      <main className="relative bg-white pt-[45px] text-ink min-[1000px]:pt-[53px]">
+      {/* 상단바 높이(44/60 + 아래선 1)만큼 내려서 시작 */}
+      <main className="relative bg-white pt-[45px] text-ink min-[1000px]:pt-[61px]">
         <div
           aria-hidden
-          className={`pointer-events-none absolute top-[45px] bottom-0 left-1/2 -translate-x-1/2 border-x border-deepblue min-[1000px]:top-[53px] ${FRAME}`}
+          className={`pointer-events-none absolute top-[45px] bottom-0 left-1/2 -translate-x-1/2 border-x border-deepblue min-[1000px]:top-[61px] ${FRAME}`}
         />
         {children}
       </main>

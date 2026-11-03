@@ -55,7 +55,7 @@ async function ProjectView({ params }: { params: PageProps<"/2026/projects/[cls]
     <SubPage current="projects">
       {/* 상단바 아래 여백(24/40/50) + 위 가로선을 한 덩어리로 상단바 밑에 붙임(흰 배경) → 작품 이미지가 그 뒤로 지나감.
           흰 배경이 가린 프레임 세로선은 이 띠 안에서 다시 그리고, 가로선과 만나는 곳에 사각형 */}
-      <div className="sticky top-[45px] z-30 h-[25px] bg-white min-[768px]:h-[41px] min-[1000px]:top-[53px] min-[1000px]:h-[51px]">
+      <div className="sticky top-[45px] z-30 h-[25px] bg-white min-[768px]:h-[41px] min-[1000px]:top-[61px] min-[1000px]:h-[51px]">
         <div
           aria-hidden
           className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border-x border-deepblue ${FRAME}`}
