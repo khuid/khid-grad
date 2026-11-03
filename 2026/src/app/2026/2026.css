@@ -39,7 +39,7 @@
    text-tagline    30 / 600 / -0.04 / normal    [1] 하나의 끝, 새로운 길 (Figma 29.97)
    text-title      28 / 500 / -0.04 / 1.31      부제(하나의 끝, 새로운 길), 약도
    text-subtitle   24 / 800 / -0.02 / normal    [1] 전시 제목 (Figma 23.086)
-   text-nav        24 / 800 / -0.04 / normal    상단 메뉴 (Figma 원래 크기 · 한 단계 굵게, 모바일 16) — 띠 제목과 같은 자간
+   text-nav        24 / 700 / -0.04 / normal    상단 메뉴 (Figma 원래 크기 · Bold, 모바일 16) — 띠 제목과 같은 자간
    text-heading    24 / 600 / -0.04 / normal    섹션 라벨(전시안내 EXHIBITION…), 교수님 이름
    text-lead       20 / 500 / -0.04 / 1.4       소개 마무리 문장, 교수님 영문 이름
    text-body       16 / 400 / -0.04 / 1.25      소개 본문
@@ -73,7 +73,7 @@
 }
 @utility text-nav {
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: normal;
   letter-spacing: -0.04em;
   @media (width >= 1000px) {
