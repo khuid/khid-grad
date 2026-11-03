@@ -16,11 +16,13 @@ export default function Header({ current }: { current?: "projects" | "designers"
   return (
     <header className="fixed top-0 right-0 left-0 z-50 border-b border-lightgray bg-white">
       <div className="flex h-[44px] items-center justify-between px-4 min-[768px]:px-[40px] min-[1000px]:h-[60px] min-[1000px]:px-[max(50px,calc((100%-1340px)/2))]">
-        <Link href={current ? "/2026" : "#top"} aria-label="KHID 2026 홈">
+        <Link href={current ? "/2026" : "#top"} aria-label="KHID 2026 홈" className="shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/2026/khid.svg" alt="KHID" className="block h-[18px] w-auto min-[1000px]:h-[24px]" />
         </Link>
-        <nav className="flex items-center gap-[20px] min-[1000px]:gap-[44px]">
+        {/* 좁은 화면(~363): 로고–PROJECTS 사이 24를 남기고 네 요소 간격을 똑같이 20 → 8까지 줄임(328에서 8).
+            그보다 좁으면 글자 16 → 14, 아이콘 18 → 16(최소)까지 같이 줄임(303에서 최소) */}
+        <nav className="flex items-center gap-[clamp(8px,calc(33.333vw-101.27px),20px)] min-[1000px]:gap-[44px]">
           {NAV.map((n) => (
             <Link
               key={n.key}
@@ -41,7 +43,7 @@ export default function Header({ current }: { current?: "projects" | "designers"
             aria-label="Instagram @khid.2026"
             className="group -m-[3px] block p-[3px] transition-transform duration-200 hover:scale-110 min-[1000px]:-m-[4px] min-[1000px]:p-[4px]"
           >
-            <span className="block size-[18px] bg-key-light transition-colors duration-200 [mask:url(/2026/instagram.svg)_center/contain_no-repeat] group-hover:bg-key min-[1000px]:size-[24px]" />
+            <span className="block size-[clamp(16px,calc(9.179vw-12.09px),18px)] bg-key-light transition-colors duration-200 [mask:url(/2026/instagram.svg)_center/contain_no-repeat] group-hover:bg-key min-[1000px]:size-[24px]" />
           </a>
           <a
             href="https://id.khu.ac.kr/id_kor/user/main/view.do"
@@ -51,7 +53,7 @@ export default function Header({ current }: { current?: "projects" | "designers"
             title="경희대학교 산업디자인학과"
             className="group block transition-transform duration-200 hover:scale-110 min-[1000px]:-ml-[4px]"
           >
-            <span className="block aspect-[37.123/24.558] h-[18px] bg-key-light transition-colors duration-200 [mask:url(/2026/khu-emblem-nav.svg)_center/contain_no-repeat] group-hover:bg-key min-[1000px]:h-[24px]" />
+            <span className="block aspect-[37.123/24.558] h-[clamp(16px,calc(9.179vw-12.09px),18px)] bg-key-light transition-colors duration-200 [mask:url(/2026/khu-emblem-nav.svg)_center/contain_no-repeat] group-hover:bg-key min-[1000px]:h-[24px]" />
           </a>
         </nav>
       </div>

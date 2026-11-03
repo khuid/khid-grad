@@ -72,7 +72,7 @@
   letter-spacing: -0.02em;
 }
 @utility text-nav {
-  font-size: 16px;
+  font-size: clamp(14px, calc(8.159vw - 10.75px), 16px); /* 328부터 좁아지면 14까지 (Header.tsx 좁은 화면 설명) */
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.04em;
