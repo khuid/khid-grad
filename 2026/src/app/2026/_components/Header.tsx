@@ -30,15 +30,29 @@ export default function Header({ current }: { current?: "projects" | "designers"
               {n.label}
             </Link>
           ))}
+          {/* 인스타 다음에 경희 휘장 → 학과 홈페이지(교수님 요청 2026-11-04, 새 탭). 휘장은 푸터 것을 연한 파랑으로 바꾸고 위아래 빈 곳을 잘라 씀. 둘 다 세로 18/24로 같게,
+              눈에 보이는 간격은 메뉴 글자 사이와 같게(20/44) — 인스타 누르는 영역은 -m으로 겉 크기에서 뺌.
+              데스크탑은 휘장 왼쪽 끝이 가는 날개라 간격이 넓어 보여서 4 당김(40) */}
           <a
             href="https://www.instagram.com/khid.2026/"
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram @khid.2026"
-            className="flex size-[24px] items-center justify-center transition-transform duration-200 hover:scale-110 min-[1000px]:size-[32px]"
+            className="-m-[3px] block p-[3px] transition-transform duration-200 hover:scale-110 min-[1000px]:-m-[4px] min-[1000px]:p-[4px]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/2026/instagram.svg" alt="" className="block size-[18px] min-[1000px]:size-[28px]" />
+            <img src="/2026/instagram.svg" alt="" className="block size-[18px] min-[1000px]:size-[24px]" />
+          </a>
+          <a
+            href="https://id.khu.ac.kr/id_kor/user/main/view.do"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="경희대학교 산업디자인학과 홈페이지"
+            title="경희대학교 산업디자인학과"
+            className="block transition-transform duration-200 hover:scale-110 min-[1000px]:-ml-[4px]"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/2026/khu-emblem-nav.svg" alt="" className="block h-[18px] w-auto min-[1000px]:h-[24px]" />
           </a>
         </nav>
       </div>
