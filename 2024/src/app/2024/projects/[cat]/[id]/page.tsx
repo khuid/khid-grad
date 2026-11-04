@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Ph from "../../../_components/Ph";
-import { WORKS, parsePanel, type Work } from "../../../_components/works";
+import { WORKS, memberNames, parsePanel, type Work } from "../../../_components/works";
 
 // 작품 상세 (/2024/projects/<과목>/<id>) — 아임웹 작품 페이지 그대로: 제목·글 없이 판넬 이미지·영상을 위에서부터 틈 없이 이어 붙임
 // 첫 판넬: PC 폭 1250 / 모바일 화면 폭 가득, 그다음부터: PC 폭 1270 / 모바일 360(양옆 15) — 아임웹 배치 그대로
@@ -16,7 +16,7 @@ const find = (cat: string, id: string) => WORKS.find((w) => w.cat === cat && w.i
 export async function generateMetadata({ params }: PageProps<"/2024/projects/[cat]/[id]">): Promise<Metadata> {
   const { cat, id } = await params;
   const w = find(cat, id);
-  return { title: `${w ? w.title || w.members.join(" ") : "Works"} — KHID 2024 Graduation Exhibition` };
+  return { title: `${w ? w.title || memberNames(w) : "Works"} — KHID 2024 Graduation Exhibition` };
 }
 
 // 주소에서 읽는 값(params)은 Suspense 안에서 읽어야 페이지 이동이 바로 됨 (Next.js 16 instant 검사)
@@ -34,7 +34,7 @@ async function WorkView({ params }: { params: PageProps<"/2024/projects/[cat]/[i
   if (!w) notFound();
   return (
     <article>
-      <h1 className="sr-only">{w.title || w.members.join(" ")}</h1>
+      <h1 className="sr-only">{w.title || memberNames(w)}</h1>
       <Panels work={w} />
     </article>
   );

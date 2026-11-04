@@ -8,7 +8,9 @@
 //   panels가 빈 작품 = 아임웹에서도 상세 페이지가 비어 있던 것
 // hidden = 아임웹 과목 목록(카드)에는 없고 상단 메뉴에만 있던 작품 — 제목도 아임웹에 없음 (안영은 작품만 썸네일 파일 이름으로 "CROP"인 걸 알게 됨)
 //
+// 동명이인 이서영은 "이서영_Yeong" · "이서영_Young"으로 구분 (designers.ts 설명)
 // 아임웹 표기를 고친 것: "김겅용" → 김성용, "류현졍" → 류현정, "Another Choice  For Women" 띄어쓰기 한 칸, "Ojent" → OJent(과목 목록 표기)
+import { nameOf } from "./designers";
 import { WORK_THUMBS } from "./work-thumbs";
 
 export type Category = { slug: string; name: string };
@@ -41,7 +43,7 @@ const DATA: Record<string, Row[]> = {
     ["OJent", "김소현 장효린", ""],
     ["VIPASSANA", "신동주", "1920x5000"],
     ["BLOM", "김예은 김태완 이수현", "1920x5000,1920x5000,yt:PLKp4TsQd0Q,1920x3745"],
-    ["Asterroad", "김지영 이서영", ""],
+    ["Asterroad", "김지영 이서영_Young", ""],
     ["SNIFFSCAPE", "류현정 송나현", ""],
     ["NutriMate", "윤지민", "1920x5000,1920x2959,1920x5000,1920x5000,1920x5000"],
     ["NEXIUM", "LIU HAILONG", ""],
@@ -51,7 +53,7 @@ const DATA: Record<string, Row[]> = {
     ["Sculpt", "권의환", "1920x2292,yt:g-SBjTv9_rw,1920x802,1920x1080,1920x428,1920x642,1920x774,1920x350,1920x904,1920x312,1920x1056,1920x1786,1920x283,1920x1263,640x400,1920x1440,1920x1545,1920x350,640x400,1920x1768,1920x350,1920x4840,1920x2935,640x400,vimeo:1029664809,1920x1360,1920x1199,1920x2522,1920x1346,1920x1200,1920x1535,1920x829"],
     ["LUCA", "고민경 박서현", "1920x1080,1920x1080,1920x3240"],
     ["Glintor", "이하민", "1920x5000,1920x4409"],
-    ["비토즈", "김채연 이서영", "1920x1461,1920x3994,1920x3599,1920x2480,1920x4735,1920x2704,1920x4083,640x640,vimeo:1038191193,1920x2476,640x416,vimeo:1032246259,1920x1464,1920x2240,1920x1080,1920x1712"],
+    ["비토즈", "김채연 이서영_Yeong", "1920x1461,1920x3994,1920x3599,1920x2480,1920x4735,1920x2704,1920x4083,640x640,vimeo:1038191193,1920x2476,640x416,vimeo:1032246259,1920x1464,1920x2240,1920x1080,1920x1712"],
     ["GEONDEOGI", "이은진 주은혁", "1920x1080,1920x2501,1920x2501,1920x2500,1920x2002"],
     ["AI Team Copilot Desk : 스마트한 팀 협업을 위한 사무용 책상", "김수현", "1920x5000"],
     ["GOBI", "전성식", "1920x1080,1920x2541,1920x4284,1920x3810"],
@@ -66,7 +68,7 @@ const DATA: Record<string, Row[]> = {
     ["LOUXUS", "김택림 우민국", "1920x5000"],
     ["ARETI", "김예은 김태완 이수현", "1920x4421,1920x1437,1920x4963,1920x5000"],
     ["NEXT NEST", "이은진 정다영 주은혁", "1920x2197,1920x2500,1920x2500,1920x2500,1920x1546,1920x1546,1920x1546,1920x1546,1920x1546,1920x907"],
-    ["TRANSPOT", "윤지민 이서영", "1920x4618,1920x5000,1920x3664,1920x4806,1920x1123"],
+    ["TRANSPOT", "윤지민 이서영_Young", "1920x4618,1920x5000,1920x3664,1920x4806,1920x1123"],
     ["SOLUM", "오현호", "1920x1080,1920x1080,1920x1080"],
     ["NADEUL-E JANG", "김다은 오정미", "1920x2859,1920x919,1920x2265,1920x919,1920x3580"],
     ["LIVRO", "김수현 박해준 유해룡", "1920x5000,1920x5000,1920x5000"],
@@ -75,7 +77,7 @@ const DATA: Record<string, Row[]> = {
   ],
   "smart-convergence": [
     ["크로마키프렌즈의 놀이 프로젝트", "김소현 김채연", "1920x1495,1920x1861,1920x2730,1920x1961,1920x4799,1920x4315,1920x4167,640x360,vimeo:1030531332,1920x2012,1920x2551,1920x1280,640x360,vimeo:1030531375,1920x1762,1920x3344,1920x3659"],
-    ["POP-IT", "이서영 정다영", "1920x4625,1920x4520,1920x4777,1920x945"],
+    ["POP-IT", "이서영_Yeong 정다영", "1920x4625,1920x4520,1920x4777,1920x945"],
     ["MU:TE", "여이현", "1920x1080"],
     ["ATMO", "이하민 장효린", "1920x4982,1920x4874,1920x4844,1920x4504,1920x2927,1920x3264"],
     ["BRING", "박해준 전성식", "1920x3384,1920x3974,1920x4885,1920x2195,1920x4046,1920x3743,1920x3883,1920x6148"],
@@ -102,7 +104,7 @@ const DATA: Record<string, Row[]> = {
     ["", "김지영 류현정 이서영 장효린", "", true],
     ["Wave of Island, 노들의 시간을 걷다", "김소현 이은진 정다영", "1920x4323,1920x2118,1920x4272,1920x2229,1920x3663,1920x3657,1920x2972,1920x2968,1920x1080,1920x1814"],
     ["Otium", "고민경 박서현", "1920x1080,1920x1080,1920x1080,1920x1080,1920x1080,1920x1080,1920x1080,1920x1080,1920x1080,1920x1080"],
-    ["REFFUSE", "오정미 윤소정 이서영 이하민", "1920x1943,1920x4243,1920x4099,1920x4077,1920x4859,1920x1076"],
+    ["REFFUSE", "오정미 윤소정 이서영_Yeong 이하민", "1920x1943,1920x4243,1920x4099,1920x4077,1920x4859,1920x1076"],
     ["CLEA", "권의환 유채연 이은서 안영은", "1920x1081,1920x1081,1920x1081,1920x4869,1920x1599,1920x2128,1920x2399,1920x4732,1920x2136,1920x4211,1920x3830,1920x1476,1920x1080,1920x1080,1920x1080,1920x678,1920x1080,1920x1080,1920x837"],
   ],
 };
@@ -115,7 +117,7 @@ export const WORKS: Work[] = CATEGORIES.flatMap((c) =>
       id,
       title,
       // 팀원은 띄어쓰기로 나눔 — 영문 이름 "LIU HAILONG"만 한 사람으로 묶음
-      members: members.replace("LIU HAILONG", "LIU_HAILONG").split(" ").map((m) => m.replace("_", " ")),
+      members: members.replace("LIU HAILONG", "LIU+HAILONG").split(" ").map((m) => m.replace("+", " ")),
       panels: panels ? panels.split(",") : [],
       hidden,
       thumb: WORK_THUMBS.has(`${c.slug}/${id}`) ? `/2024/projects/${c.slug}/${id}/thumb.webp` : undefined,
@@ -126,10 +128,11 @@ export const WORKS: Work[] = CATEGORIES.flatMap((c) =>
 export const categoryOf = (slug: string) => CATEGORIES.find((c) => c.slug === slug);
 export const categoryHref = (c: Category) => `/2024/projects/${c.slug}`;
 export const workHref = (w: Work) => `/2024/projects/${w.cat}/${w.id}`;
-// 상단 메뉴의 작품 이름 = 팀원 이름 (아임웹 메뉴 그대로)
-export const workMenuName = (w: Work) => w.members.join(" ");
-// 디자이너 페이지에 보여 줄 그 사람의 작품들 (메뉴 순서)
-export const worksOf = (ko: string) => WORKS.filter((w) => w.members.includes(ko));
+// 화면에 보일 팀원 이름 (동명이인 구분 표시를 뗌). 상단 메뉴의 작품 이름도 이것 (아임웹 메뉴 그대로)
+export const memberNames = (w: Work) => w.members.map(nameOf).join(" ");
+export const workMenuName = memberNames;
+// 디자이너 페이지에 보여 줄 그 사람의 작품들 (메뉴 순서) — 구분 없이 "이서영"만 적힌 작품은 이서영 두 사람 모두에게
+export const worksOf = (ko: string) => WORKS.filter((w) => w.members.includes(ko) || w.members.includes(nameOf(ko)));
 
 // 판넬 한 칸 풀기
 export type Panel = { kind: "image"; w: number; h: number } | { kind: "youtube" | "vimeo"; id: string };
