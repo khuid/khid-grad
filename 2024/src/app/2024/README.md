@@ -35,10 +35,13 @@
 - [x] 디자이너 45명 — `_components/designers.ts`
 - [x] 작품 62개 (제목·팀원·판넬 구성·영상) — `_components/works.ts`
 - [ ] 디자이너 사진 45장 + 졸준위 단체 사진 — 받으면 `public/2024/designers/`, `designers.ts`의 photo, `designers/page.tsx`의 COMMITTEE
-- [ ] 작품 카드 이미지(4:3)·판넬 이미지 — 받으면 `public/2024/projects/<과목>/<id>/`, `works.ts`의 thumb·images
+- [x] 작품 카드 썸네일 59개 (2026-11-04) — 드라이브 "웹사이트 썸네일 이미지 (가장 중요)" 폴더 zip → `work/data/2024_thumbs_src` → `python3 scripts/import-thumbs.py ../../work/data/2024_thumbs_src` → `public/2024/projects/<과목>/<id>/thumb.webp`(1200×900), 목록 `_components/work-thumbs.ts`(자동 생성)
+  - 썸네일이 없는 3개 = 메뉴에만 있던 제목 없는 작품(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)
+  - 안 쓴 파일: "Frame 30 - 김다은"(DARAM 카드, 맞는 작품 없음), ATMO·CLEA 예전 파일(수정본을 씀)
+- [ ] 판넬 이미지 — 받으면 `public/2024/projects/<과목>/<id>/01.webp …`, `works.ts`의 images
 - [ ] Behind 사진·영상 — 받으면 `public/2024/behind/`, 목록은 `_components/behind.ts` (한 줄로 크게, 영상은 눌러서 재생·소리 있음)
 - [ ] 동명이인 이서영 2명(아임웹 "이서영 20", "이서영 21") 작품 나누기 — 지금은 두 사람 페이지에 이서영 작품이 다 보임
-- [ ] 아임웹 목록에 없고 메뉴에만 있던 작품 4개(제목 없음): 스마트융합 강민지·제유진 / 안영은 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린 — 제목을 알면 `works.ts`에
+- [ ] 아임웹 목록에 없고 메뉴에만 있던 작품 4개: 안영은 작품은 썸네일 파일로 제목 "CROP"을 알게 됨. 나머지 3개(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)는 제목 모름 — 알면 `works.ts`에
 - [ ] Vercel 프로젝트 `khid-grad-2024` 만들기 (Root Directory = `2024`) — 저장소 README "새 연도 추가"
 - [ ] 마지막 점검 — `python3 scripts/check-year.py 2024`
 

@@ -6,9 +6,11 @@
 //   "1920x2186" = 이미지 한 장(원본 픽셀 크기 → 빈칸 비율), "yt:<ID>" = 유튜브, "vimeo:<ID>" = 비메오
 //   [이미지 받으면] public/2024/projects/<과목>/<id>/01.webp, 02.webp … 순서대로 넣고 Work.images로 연결. 지금은 이미지 자리 전부 빈칸
 //   panels가 빈 작품 = 아임웹에서도 상세 페이지가 비어 있던 것
-// hidden = 아임웹 과목 목록(카드)에는 없고 상단 메뉴에만 있던 작품 — 제목도 아임웹에 없음
+// hidden = 아임웹 과목 목록(카드)에는 없고 상단 메뉴에만 있던 작품 — 제목도 아임웹에 없음 (안영은 작품만 썸네일 파일 이름으로 "CROP"인 걸 알게 됨)
 //
 // 아임웹 표기를 고친 것: "김겅용" → 김성용, "류현졍" → 류현정, "Another Choice  For Women" 띄어쓰기 한 칸, "Ojent" → OJent(과목 목록 표기)
+import { WORK_THUMBS } from "./work-thumbs";
+
 export type Category = { slug: string; name: string };
 export type Work = {
   cat: string;
@@ -17,7 +19,7 @@ export type Work = {
   members: string[];
   panels: string[];
   hidden?: boolean;
-  thumb?: string; // 카드 이미지(4:3) — [이미지 받으면] 연결. 지금은 빈칸
+  thumb?: string; // 카드 이미지(4:3, 1200×900) — 드라이브 "웹사이트 썸네일 이미지" 폴더 → scripts/import-thumbs.py → public/2024/projects/<과목>/<id>/thumb.webp
   images?: string[]; // panels의 이미지 칸에 차례로 들어갈 파일
 };
 
@@ -81,7 +83,7 @@ const DATA: Record<string, Row[]> = {
     ["Virtuoso", "권의환", "1920x2879,1920x921,1920x356,1920x1346,1920x288,1920x1346,1920x503,1920x1273,1920x503,1920x3074,1920x1272,1920x288,1920x1272,1920x288,1920x1272,1920x288,1920x1536,1920x1272,1920x288,1920x1078,1920x288,1920x601,1920x668,1920x1272,1920x288,1920x1079,1920x288,1920x601,1920x669,1920x1272,1920x288,1920x1272,1920x288,1920x711,1920x725,1920x1200,1920x1263,1920x1088,1920x1207,1920x1200,1920x1440,1920x868"],
     ["", "강민지 제유진", "", true],
     ["REFEEL", "김예은 김태완 이수현", "1920x4774,1920x5000"],
-    ["", "안영은", "1920x1080,1920x3192,1920x1474,1920x2581,1920x2023,1920x1625,1920x2361,1920x3850,1920x2634,1920x2192,1920x3436,1920x2066,1920x1280,1920x4893", true],
+    ["CROP", "안영은", "1920x1080,1920x3192,1920x1474,1920x2581,1920x2023,1920x1625,1920x2361,1920x3850,1920x2634,1920x2192,1920x3436,1920x2066,1920x1280,1920x4893", true],
     ["New Eyes For Firefighters", "김나우 김성용", "1920x4828"],
     ["Dribo", "김택림 우민국", "1920x5000"],
     ["XPLOVA", "송나현", ""],
@@ -106,15 +108,19 @@ const DATA: Record<string, Row[]> = {
 };
 
 export const WORKS: Work[] = CATEGORIES.flatMap((c) =>
-  DATA[c.slug].map(([title, members, panels, hidden], i) => ({
-    cat: c.slug,
-    id: String(i + 1).padStart(2, "0"),
-    title,
-    // 팀원은 띄어쓰기로 나눔 — 영문 이름 "LIU HAILONG"만 한 사람으로 묶음
-    members: members.replace("LIU HAILONG", "LIU_HAILONG").split(" ").map((m) => m.replace("_", " ")),
-    panels: panels ? panels.split(",") : [],
-    hidden,
-  })),
+  DATA[c.slug].map(([title, members, panels, hidden], i) => {
+    const id = String(i + 1).padStart(2, "0");
+    return {
+      cat: c.slug,
+      id,
+      title,
+      // 팀원은 띄어쓰기로 나눔 — 영문 이름 "LIU HAILONG"만 한 사람으로 묶음
+      members: members.replace("LIU HAILONG", "LIU_HAILONG").split(" ").map((m) => m.replace("_", " ")),
+      panels: panels ? panels.split(",") : [],
+      hidden,
+      thumb: WORK_THUMBS.has(`${c.slug}/${id}`) ? `/2024/projects/${c.slug}/${id}/thumb.webp` : undefined,
+    };
+  }),
 );
 
 export const categoryOf = (slug: string) => CATEGORIES.find((c) => c.slug === slug);
