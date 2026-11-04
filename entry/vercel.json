@@ -13,6 +13,10 @@
     {"source": "/2025", "destination": "https://khid-grad-2025.vercel.app/2025"},
     {"source": "/2025/:path*", "destination": "https://khid-grad-2025.vercel.app/2025/:path*"},
     {"source": "/2025-static/:path*", "destination": "https://khid-grad-2025.vercel.app/2025-static/:path*"},
-    {"source": "/_next/image", "has": [{"type": "query", "key": "url", "value": "/2025/.*"}], "destination": "https://khid-grad-2025.vercel.app/_next/image"}
+    {"source": "/_next/image", "has": [{"type": "query", "key": "url", "value": "/2025/.*"}], "destination": "https://khid-grad-2025.vercel.app/_next/image"},
+    {"source": "/2024", "destination": "https://khid-grad-2024.vercel.app/2024"},
+    {"source": "/2024/:path*", "destination": "https://khid-grad-2024.vercel.app/2024/:path*"},
+    {"source": "/2024-static/:path*", "destination": "https://khid-grad-2024.vercel.app/2024-static/:path*"},
+    {"source": "/_next/image", "has": [{"type": "query", "key": "url", "value": "/2024/.*"}], "destination": "https://khid-grad-2024.vercel.app/_next/image"}
   ]
 }
