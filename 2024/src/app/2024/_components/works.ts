@@ -6,7 +6,9 @@
 //   "1920x2186" = 이미지 한 장(원본 픽셀 크기 → 빈칸 비율), "yt:<ID>" = 유튜브, "vimeo:<ID>" = 비메오
 //   판넬 이미지: 구글폼 "2024 졸업전시회 웹사이트 2차 파일 제출" → scripts/import-panels.py → public/2024/projects/<과목>/<id>/01.webp …, 목록 work-panels.ts (2026-11-04)
 //     받은 작품은 아임웹 이미지 칸을 받은 이미지로 차례로 바꿈(크기도 받은 것으로). 영상은 아임웹 자리 그대로 두고, 받은 장수가 더 많으면 마지막 이미지 뒤에 이어 붙임
-//     제출이 없는 작품은 아임웹 이미지 비율대로 빈칸
+//     폼 제출이 없는 작품 중 아임웹에 판넬이 있던 11개는 아임웹 이미지를 받아 씀 → scripts/import-imweb-panels.py, 목록 work-panels-imweb.ts (사용자 결정 2026-11-05)
+//     (LUCA · GEONDEOGI · CUDDLY · NADEUL-E JANG · POP-IT · Nexora · CROP · 물결이 머무는 섬 · Wave of Island · Otium · REFFUSE)
+//     아임웹에서도 비어 있던 작품은 상세 페이지가 비어 있음
 //   영상: 같은 폼 "작품 세부 내용 영상" 응답 8개 (2026-11-04) — 유튜브·비메오 링크. 제목은 공개 정보(oEmbed)로 확인
 //     Virtuoso: 권의환이 "웹사이트_스마트융합디자인_권의환_1·15·17·22·29·36"으로 낸 영상 6개 → 이미지 파일 번호에서 빠진 그 자리에 넣음
 //     Sculpt: 아임웹에 있던 유튜브 g-SBjTv9_rw·비메오 1029664809는 제목이 Virtuoso 영상이라 뺌
@@ -20,6 +22,7 @@
 // 아임웹 표기를 고친 것: "김겅용" → 김성용, "류현졍" → 류현정, "Another Choice  For Women" 띄어쓰기 한 칸, "Ojent" → OJent(과목 목록 표기)
 import { nameOf } from "./designers";
 import { WORK_PANELS } from "./work-panels";
+import { WORK_PANELS_IMWEB } from "./work-panels-imweb";
 import { WORK_THUMBS } from "./work-thumbs";
 
 export type Category = { slug: string; name: string };
@@ -118,9 +121,9 @@ const DATA: Record<string, Row[]> = {
   ],
 };
 
-// 받은 판넬 이미지가 있으면 아임웹 판넬의 이미지 칸을 차례로 바꾸고(영상 자리는 그대로), 남는 이미지는 마지막 이미지 칸 뒤에 이어 붙임
+// 받은 판넬 이미지(폼 → 없으면 아임웹)가 있으면 아임웹 판넬의 이미지 칸을 차례로 바꾸고(영상 자리는 그대로), 남는 이미지는 마지막 이미지 칸 뒤에 이어 붙임
 function withPanels(key: string, imweb: string[]): Pick<Work, "panels" | "images"> {
-  const got = WORK_PANELS[key];
+  const got = WORK_PANELS[key] ?? WORK_PANELS_IMWEB[key];
   if (!got) return { panels: imweb };
   const isImage = (p: string) => /^\d+x\d+$/.test(p);
   const sizes = got.map(([w, h]) => `${w}x${h}`);
