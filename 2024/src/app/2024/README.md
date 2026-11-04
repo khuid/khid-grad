@@ -38,7 +38,12 @@
 - [x] 작품 카드 썸네일 59개 (2026-11-04) — 드라이브 "웹사이트 썸네일 이미지 (가장 중요)" 폴더 zip → `work/data/2024_thumbs_src` → `python3 scripts/import-thumbs.py ../../work/data/2024_thumbs_src` → `public/2024/projects/<과목>/<id>/thumb.webp`(1200×900), 목록 `_components/work-thumbs.ts`(자동 생성)
   - 썸네일이 없는 3개 = 메뉴에만 있던 제목 없는 작품(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)
   - 안 쓴 파일: "Frame 30 - 김다은"(DARAM 카드, 맞는 작품 없음), ATMO·CLEA 예전 파일(수정본을 씀)
-- [ ] 판넬 이미지 — 받으면 `public/2024/projects/<과목>/<id>/01.webp …`, `works.ts`의 images
+- [x] 작품 상세 판넬 이미지 40개 작품 (2026-11-04) — 구글폼 "2024 졸업전시회 웹사이트 2차 파일 제출" › "작품 세부 내용 이미지" 폴더 zip → `work/data/2024_panels_src`(받은 그대로)·`2024_panels_unz`(학생 zip을 푼 것) → `python3 scripts/import-panels.py` → `public/2024/projects/<과목>/<id>/01.webp …`(폭 1920), 목록 `_components/work-panels.ts`(자동 생성)
+  - 파일 이름에 제목이 없어서 과목 + 팀원으로 작품을 정함 (스크립트의 MAP). 영상은 아임웹 자리 그대로
+  - 아임웹과 장수가 다른 것: BLOM 4장(아임웹 3), Sculpt 28장(30), LIVRO 5장(3), ATMO 5장(6) → 받은 대로
+  - CUDDLY는 올라온 파일이 비어 있어서(0바이트) 빈칸 그대로
+  - 제출이 없어 빈칸인 작품: SHEDY · OJent · Asterroad · SNIFFSCAPE · NEXIUM · LUCA · GEONDEOGI · Aventi · CUDDLY / NEWCELLTA · NADEUL-E JANG / POP-IT · Nexora · XPLOVA · CROP / 물결이 머무는 섬 · Wave of Island · Otium · REFFUSE (+ 제목 없는 3개)
+  - "작품 세부 내용 영상 (선택)" 8개는 아직 안 받음 (영상은 아임웹 유튜브·비메오 그대로)
 - [ ] Behind 사진·영상 — 받으면 `public/2024/behind/`, 목록은 `_components/behind.ts` (한 줄로 크게, 영상은 눌러서 재생·소리 있음)
 - [x] 동명이인 이서영 2명 작품 나눔 (2026-11-04) — 구글폼 영문 표기로: "Lee Seo Yeong"(@syeongzip) = 이서영 20 → POP-IT·비토즈·REFFUSE / "Lee Seo Young" = 이서영 21 → Asterroad·TRANSPOT. 폼에 없는 산디종 김지영·류현정·이서영·장효린 작품은 두 사람 페이지에 다 보임
 - [x] 다람(김다은, 인공지능증강디자인 · 아임웹에 없음): 썸네일만 있고 상세 이미지가 없어서 추가 안 함 (사용자 결정 2026-11-04)

@@ -4,13 +4,16 @@
 //
 // panels = 작품 상세 화면에 위에서부터 이어 붙는 판넬 (아임웹 상세 페이지 구성 그대로 — 글 없이 판넬 이미지·영상만)
 //   "1920x2186" = 이미지 한 장(원본 픽셀 크기 → 빈칸 비율), "yt:<ID>" = 유튜브, "vimeo:<ID>" = 비메오
-//   [이미지 받으면] public/2024/projects/<과목>/<id>/01.webp, 02.webp … 순서대로 넣고 Work.images로 연결. 지금은 이미지 자리 전부 빈칸
+//   판넬 이미지: 구글폼 "2024 졸업전시회 웹사이트 2차 파일 제출" → scripts/import-panels.py → public/2024/projects/<과목>/<id>/01.webp …, 목록 work-panels.ts (2026-11-04)
+//     받은 작품은 아임웹 이미지 칸을 받은 이미지로 차례로 바꿈(크기도 받은 것으로). 영상은 아임웹 자리 그대로 두고, 받은 장수가 더 많으면 마지막 이미지 뒤에 이어 붙임
+//     제출이 없는 작품은 아임웹 이미지 비율대로 빈칸
 //   panels가 빈 작품 = 아임웹에서도 상세 페이지가 비어 있던 것
 // hidden = 아임웹 과목 목록(카드)에는 없고 상단 메뉴에만 있던 작품 — 제목도 아임웹에 없음 (안영은 작품만 썸네일 파일 이름으로 "CROP"인 걸 알게 됨)
 //
 // 동명이인 이서영은 "이서영_Yeong" · "이서영_Young"으로 구분 (designers.ts 설명)
 // 아임웹 표기를 고친 것: "김겅용" → 김성용, "류현졍" → 류현정, "Another Choice  For Women" 띄어쓰기 한 칸, "Ojent" → OJent(과목 목록 표기)
 import { nameOf } from "./designers";
+import { WORK_PANELS } from "./work-panels";
 import { WORK_THUMBS } from "./work-thumbs";
 
 export type Category = { slug: string; name: string };
@@ -22,7 +25,7 @@ export type Work = {
   panels: string[];
   hidden?: boolean;
   thumb?: string; // 카드 이미지(4:3, 1200×900) — 드라이브 "웹사이트 썸네일 이미지" 폴더 → scripts/import-thumbs.py → public/2024/projects/<과목>/<id>/thumb.webp
-  images?: string[]; // panels의 이미지 칸에 차례로 들어갈 파일
+  images?: string[]; // panels의 이미지 칸에 차례로 들어갈 파일 (work-panels.ts에 있는 작품만)
 };
 
 // 상단 메뉴 순서 (아임웹 Works 메뉴)
@@ -109,6 +112,24 @@ const DATA: Record<string, Row[]> = {
   ],
 };
 
+// 받은 판넬 이미지가 있으면 아임웹 판넬의 이미지 칸을 차례로 바꾸고(영상 자리는 그대로), 남는 이미지는 마지막 이미지 칸 뒤에 이어 붙임
+function withPanels(key: string, imweb: string[]): Pick<Work, "panels" | "images"> {
+  const got = WORK_PANELS[key];
+  if (!got) return { panels: imweb };
+  const isImage = (p: string) => /^\d+x\d+$/.test(p);
+  const sizes = got.map(([w, h]) => `${w}x${h}`);
+  const last = imweb.findLastIndex(isImage);
+  const panels: string[] = [];
+  let n = 0;
+  imweb.forEach((p, i) => {
+    if (!isImage(p)) panels.push(p);
+    else if (n < sizes.length) panels.push(sizes[n++]);
+    if (i === last) panels.push(...sizes.slice(n));
+  });
+  if (last < 0) panels.push(...sizes);
+  return { panels, images: got.map((_, i) => `/2024/projects/${key}/${String(i + 1).padStart(2, "0")}.webp`) };
+}
+
 export const WORKS: Work[] = CATEGORIES.flatMap((c) =>
   DATA[c.slug].map(([title, members, panels, hidden], i) => {
     const id = String(i + 1).padStart(2, "0");
@@ -118,7 +139,7 @@ export const WORKS: Work[] = CATEGORIES.flatMap((c) =>
       title,
       // 팀원은 띄어쓰기로 나눔 — 영문 이름 "LIU HAILONG"만 한 사람으로 묶음
       members: members.replace("LIU HAILONG", "LIU+HAILONG").split(" ").map((m) => m.replace("+", " ")),
-      panels: panels ? panels.split(",") : [],
+      ...withPanels(`${c.slug}/${id}`, panels ? panels.split(",") : []),
       hidden,
       thumb: WORK_THUMBS.has(`${c.slug}/${id}`) ? `/2024/projects/${c.slug}/${id}/thumb.webp` : undefined,
     };
