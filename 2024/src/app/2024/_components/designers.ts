@@ -2,7 +2,9 @@
 // 작품(works.ts)의 members에 적은 국문 이름과 여기 ko가 같으면 서로 연결됨:
 //   디자이너 페이지 = 그 사람이 팀원인 작품 카드 목록 (아임웹 디자이너 페이지 구성 그대로 — 사진·소개 글 없음)
 // slug는 주소(/2024/designers/<slug>)에 쓰는 이름. 아임웹에 영문 이름이 없어서 순서 번호(01~45)로 둠
-// photo: 목록 사진(정사각형) — [사진 받으면] public/2024/designers/<slug>.webp 넣고 여기 연결. 지금은 빈칸
+// photo: 목록 사진 — 아임웹 Designer 페이지에 올라가 있던 사진(747×934, 4:5)을 받아 씀 → public/2024/designers/<slug>.webp (2026-11-04)
+//   화면에서는 아임웹처럼 정사각형 칸에 가운데 맞춰 잘림. 원본 work/data/2024_imweb_photos/ (아임웹 격자 순서 = 아래 이름 순서)
+//   아임웹 격자 25번째(오현호) 사진은 링크만 여이현 페이지로 잘못 걸려 있었음 — 사진은 순서대로 오현호
 // ⚠️ 동명이인 이서영 2명 — 아임웹 메뉴에는 "이서영 20", "이서영 21"(학번)로 나뉘어 있었지만 작품 팀원 칸은 둘 다 "이서영"이었음.
 //   구글폼(2024 웹사이트/인스타 아카이빙 파일 제출) 팀원 칸의 영문 표기가 둘로 갈려서 그걸로 일단 나눔 (사용자 결정 2026-11-04):
 //     "Lee Seo Yeong"(@syeongzip) → POP-IT · 비토즈 · REFFUSE  /  "Lee Seo Young · Seoyoung" → Asterroad · TRANSPOT
@@ -27,7 +29,8 @@ const NAMES: (string | [string, string])[] = [
 
 export const DESIGNERS: Designer[] = NAMES.map((name, i) => {
   const slug = String(i + 1).padStart(2, "0");
-  return typeof name === "string" ? { slug, ko: name } : { slug, ko: name[1], menu: name[0] };
+  const photo = `/2024/designers/${slug}.webp`;
+  return typeof name === "string" ? { slug, ko: name, photo } : { slug, ko: name[1], menu: name[0], photo };
 });
 
 export const designerHref = (d: Designer) => `/2024/designers/${d.slug}`;

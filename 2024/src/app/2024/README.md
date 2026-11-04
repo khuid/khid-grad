@@ -34,7 +34,7 @@
 - [x] 로고 — 아임웹 로고 원본 PNG → `public/2024/logo-khid.png`
 - [x] 디자이너 45명 — `_components/designers.ts`
 - [x] 작품 62개 (제목·팀원·판넬 구성·영상) — `_components/works.ts`
-- [ ] 디자이너 사진 45장 + 졸준위 단체 사진 — 받으면 `public/2024/designers/`, `designers.ts`의 photo, `designers/page.tsx`의 COMMITTEE
+- [x] 디자이너 사진 45장 + 졸준위 단체 사진 (2026-11-04) — 드라이브에 원본이 없어서 아임웹에 올라가 있던 사진을 받아 씀(747×934, 단체 1920×1280) → `public/2024/designers/<번호>.webp`, `public/2024/committee.webp`. 받은 그대로는 `work/data/2024_imweb_photos`
 - [x] 작품 카드 썸네일 59개 (2026-11-04) — 드라이브 "웹사이트 썸네일 이미지 (가장 중요)" 폴더 zip → `work/data/2024_thumbs_src` → `python3 scripts/import-thumbs.py ../../work/data/2024_thumbs_src` → `public/2024/projects/<과목>/<id>/thumb.webp`(1200×900), 목록 `_components/work-thumbs.ts`(자동 생성)
   - 썸네일이 없는 3개 = 메뉴에만 있던 제목 없는 작품(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)
   - 안 쓴 파일: "Frame 30 - 김다은"(DARAM 카드, 맞는 작품 없음), ATMO·CLEA 예전 파일(수정본을 씀)
