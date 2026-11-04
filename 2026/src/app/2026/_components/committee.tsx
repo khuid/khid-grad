@@ -8,7 +8,7 @@ export const TEAMS: Team[] = [
   { key: "mkt", label: "Team. Marketing", title: "Team. Marketing" },
   { key: "space", label: "Team. Space Design", title: "Team. Space Design" },
   { key: "brand", label: <>Team.<br />Branding</>, title: "Team. Branding" },
-  { key: "web", label: <>Team.<br />Web Design</>, title: "Team. Web Design" },
+  { key: "web", label: <>Team.<br />Web</>, title: "Team. Web Design·Dev" }, // 사진 호버는 짧게, 이름 목록에 맡은 일(디자인+구현) 표시 (2026-11-04)
 ];
 
 // 사진: 자유컷(work/data/designers/pose)을 칸 비율로 가로 가운데·위 기준으로 잘라 640px WebP로 public/2026/committee/에.
