@@ -16,7 +16,8 @@ const poppins = localFont({
   ],
 });
 
-// [정하기] 링크 미리보기(카톡·인스타 등): 1200×630 이미지를 public/2024/에 넣고 아래 images에 연결
+// 링크 미리보기(카톡·인스타 등): 아카이브 사이트의 2024 초대장(클립 없는 것, archive-site/public/exhibitions/2024/invitation-plain.png)을
+//   검정 바탕 1200×630 가운데에 놓은 것 → public/2024/og.jpg (사용자 결정 2026-11-05)
 export const metadata: Metadata = {
   title: "KHID 2024 Graduation Exhibition",
   description: "경희대학교 산업디자인학과 제33회 졸업전시 — EXPLORER",
@@ -24,10 +25,8 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "KHID 2024",
     title: "KHID 2024 Graduation Exhibition",
-    // images: [{ url: "/2024/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/2024/og.jpg", width: 1200, height: 630 }],
   },
-  // [정하기] 공개할 때 이 줄을 지울 것 (그동안 검색에는 안 나오게 막아 둠)
-  robots: { index: false, follow: false },
 };
 
 // 모바일 브라우저 상단 바 색 = 2024 바탕
