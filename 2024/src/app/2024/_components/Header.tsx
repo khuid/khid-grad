@@ -9,7 +9,7 @@ import { CATEGORIES, WORKS, categoryHref, workHref, workMenuName } from "./works
 // 상단바 — 아임웹 header 그대로. 메뉴는 Designer · Works 두 개만 (아임웹의 Main · 2023은 뺌, 사용자 결정 2026-11-04)
 // PC(768~): 높이 90, 양옆 42, 로고 118×41, 메뉴 글자 20(Poppins) #9b9b9b · 칸 양옆 18 · 지금 보는 메뉴는 굵게 · 올리면 검정.
 //   바탕 투명, 스크롤해도 맨 위에 붙어 있음(sticky). 메뉴에 올리면 펼침 메뉴(바탕 #282828, 폭 160, 글자 13 · 흰색 60%, 칸 10 20)
-//   Designer → 이름 45개 / Works → 과목 4개 → (과목에 올리면) 그 과목 작품(팀원 이름)
+//   Works → 과목 4개 → (과목에 올리면) 그 과목 작품(팀원 이름). Designer는 펼침 메뉴 없음 (아임웹엔 이름 45개가 있었지만 뺌, 사용자 결정 2026-11-04)
 // 모바일(~767): 높이 49, 왼쪽 메뉴 버튼, 가운데 로고 81×28 → 누르면 왼쪽에서 흰 서랍 메뉴(폭 300)
 const NAV = [
   { key: "designers", label: "Designer", href: "/2024/designers" },
@@ -51,23 +51,23 @@ export default function Header() {
               >
                 {n.label}
               </Link>
-              <ul className="invisible absolute top-full left-[18px] w-[160px] bg-dropdown group-hover:visible">
-                {n.key === "designers"
-                  ? DESIGNERS.map((d) => <DropItem key={d.slug} href={designerHref(d)} label={d.menu ?? d.ko} />)
-                  : CATEGORIES.map((c) => (
-                      <li key={c.slug} className="group/cat relative">
-                        <Link href={categoryHref(c)} className="flex items-center justify-between py-[10px] pr-[12px] pl-[20px] text-[13px] leading-[19px] text-white/60 hover:text-white">
-                          {c.name}
-                          <Chevron className="size-[8px] -rotate-90" />
-                        </Link>
-                        <ul className="invisible absolute top-0 right-full w-[160px] bg-dropdown group-hover/cat:visible">
-                          {WORKS.filter((w) => w.cat === c.slug).map((w) => (
-                            <DropItem key={w.id} href={workHref(w)} label={workMenuName(w)} />
-                          ))}
-                        </ul>
-                      </li>
-                    ))}
-              </ul>
+              {n.key === "projects" && (
+                <ul className="invisible absolute top-full left-[18px] w-[160px] bg-dropdown group-hover:visible">
+                  {CATEGORIES.map((c) => (
+                    <li key={c.slug} className="group/cat relative">
+                      <Link href={categoryHref(c)} className="flex items-center justify-between py-[10px] pr-[12px] pl-[20px] text-[13px] leading-[19px] text-white/60 hover:text-white">
+                        {c.name}
+                        <Chevron className="size-[8px] -rotate-90" />
+                      </Link>
+                      <ul className="invisible absolute top-0 right-full w-[160px] bg-dropdown group-hover/cat:visible">
+                        {WORKS.filter((w) => w.cat === c.slug).map((w) => (
+                          <DropItem key={w.id} href={workHref(w)} label={workMenuName(w)} />
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </nav>
