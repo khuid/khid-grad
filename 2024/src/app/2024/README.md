@@ -28,7 +28,7 @@
 ## 처음 채울 것
 - [x] 색·글꼴·글자 크기·바탕색 — `2024.css` (아임웹 값)
 - [x] 폰트 — Poppins(구글 무료) 400·700 영문 세트, 한글은 기기 기본 고딕(아임웹 그대로). 원본 `2024/fonts-src/`
-- [ ] 파비콘 — `icon.svg`(또는 `icon.png`), `apple-icon.png`를 이 폴더에
+- [x] 파비콘 — `icon.svg` = KIIID 로고 검정 (2026-11-04). 앱 아이콘(apple-icon.png)은 없음 (사용자 결정)
 - [ ] 링크 미리보기 이미지(1200×630) — `2024/public/2024/`, 연결 `layout.tsx`
 - [x] 메인 페이지 — 무빙 포스터 영상 `public/2024/moving-poster.mp4` (아카이브에 쓴 파일 work/data/poster/mp.2024.mp4. 아임웹은 유튜브 q4FzAVEEWhs였음)
 - [x] 로고 — 아임웹 로고 원본 PNG → `public/2024/logo-khid.png`
