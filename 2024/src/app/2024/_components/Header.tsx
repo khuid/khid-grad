@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CATEGORIES, WORKS, categoryHref, workHref, workMenuName } from "./works";
 
-// 상단바 — 아임웹 header 그대로. 메뉴는 Designer · Works 두 개만 (아임웹의 Main · 2023은 뺌, 사용자 결정 2026-11-04)
+// 상단바 — 아임웹 header 그대로. 메뉴는 Behind · Designer · Works (아임웹의 Main · 2023은 뺌, Behind는 새로 추가 — 사용자 결정 2026-11-04)
 // PC(768~): 높이 90, 양옆 42, 로고 118×41, 메뉴 글자 20(Poppins) #9b9b9b · 칸 양옆 18 · 지금 보는 메뉴는 굵게.
 //   올리면 아임웹은 검정이라 글자가 안 보였음 → Works 과목 이름과 같은 파랑(#2662bc)으로 바꿈, 크기는 그대로 (사용자 결정 2026-11-04)
 //   맨 오른쪽 인스타그램 아이콘(20, 메뉴와 같은 색) → 학과 인스타 — 아임웹은 푸터에 있었는데 상단바로 옮김 (사용자 결정 2026-11-04)
@@ -14,6 +14,7 @@ import { CATEGORIES, WORKS, categoryHref, workHref, workMenuName } from "./works
 // 모바일(~767): 높이 49, 왼쪽 메뉴 버튼, 가운데 로고 81×28, 오른쪽 인스타그램 → 메뉴 버튼 누르면 왼쪽에서 흰 서랍 메뉴(폭 300)
 //   모바일은 마우스 올림이 없어서 누르는 동안(active) 같은 파랑
 const NAV = [
+  { key: "behind", label: "Behind", href: "/2024/behind" },
   { key: "designers", label: "Designer", href: "/2024/designers" },
   { key: "projects", label: "Works", href: "/2024/projects" },
 ] as const;
@@ -122,7 +123,7 @@ function Drawer({ current, onClose }: { current?: NavKey; onClose: () => void })
       <nav onTouchStart={noop} className="absolute inset-y-0 left-0 w-[300px] overflow-y-auto bg-white">
         <ul>
           {NAV.map((n) => {
-            const sub = n.key === "projects"; // Designer는 아래 목록 없이 바로 이동
+            const sub = n.key === "projects"; // Behind · Designer는 아래 목록 없이 바로 이동
             const on = sub && openKey === n.key;
             return (
               <li key={n.key}>

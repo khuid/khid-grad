@@ -13,6 +13,7 @@
 | 화면 | 주소 | 파일 | 아임웹 |
 |---|---|---|---|
 | 메인 (무빙 포스터 영상) | `/2024` | `page.tsx` | Main |
+| Behind (사진·영상, 아임웹에 없던 새 페이지) | `/2024/behind` | `behind/page.tsx` | — |
 | 디자이너 목록 | `/2024/designers` | `designers/page.tsx` | Designer |
 | 디자이너 페이지 (그 사람 작품 카드) | `/2024/designers/<01~45>` | `designers/[slug]/page.tsx` | Designer › 이름 |
 | 과목 4개 | `/2024/projects` | `projects/page.tsx` | Works |
@@ -35,6 +36,7 @@
 - [x] 작품 62개 (제목·팀원·판넬 구성·영상) — `_components/works.ts`
 - [ ] 디자이너 사진 45장 + 졸준위 단체 사진 — 받으면 `public/2024/designers/`, `designers.ts`의 photo, `designers/page.tsx`의 COMMITTEE
 - [ ] 작품 카드 이미지(4:3)·판넬 이미지 — 받으면 `public/2024/projects/<과목>/<id>/`, `works.ts`의 thumb·images
+- [ ] Behind 사진·영상 — 받으면 `public/2024/behind/`, 목록은 `_components/behind.ts` (한 줄로 크게, 영상은 눌러서 재생·소리 있음)
 - [ ] 동명이인 이서영 2명(아임웹 "이서영 20", "이서영 21") 작품 나누기 — 지금은 두 사람 페이지에 이서영 작품이 다 보임
 - [ ] 아임웹 목록에 없고 메뉴에만 있던 작품 4개(제목 없음): 스마트융합 강민지·제유진 / 안영은 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린 — 제목을 알면 `works.ts`에
 - [ ] Vercel 프로젝트 `khid-grad-2024` 만들기 (Root Directory = `2024`) — 저장소 README "새 연도 추가"
