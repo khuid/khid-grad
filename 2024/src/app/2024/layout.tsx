@@ -35,7 +35,7 @@ export const viewport: Viewport = {
   themeColor: "#050202",
 };
 
-// 파비콘: icon.svg = KIIID 로고 검정 (원본 work/assets/logo/kiiid.svg를 검정으로, 정사각형 칸 가운데) (사용자 결정 2026-11-04)
+// 파비콘: icon.svg = 어두운 바탕(#050202, 2024 바탕색) + 밝은 KIIID 로고(#EEEEEE, 원본 work/assets/logo/kiiid.svg 색 그대로) 32×32 (사용자 결정 2026-11-04)
 // apple-icon.png(홈 화면 아이콘)는 넣지 않음 — 필요 없다고 정함 (사용자 결정 2026-11-04)
 
 // 모든 2024 페이지 공통: 상단바 + 본문. 아임웹의 흰 푸터(인스타 아이콘만 있었음)는 아이콘을 상단바로 옮기면서 없앰 (사용자 결정 2026-11-04)
