@@ -1,0 +1,67 @@
+# 2024 사이트
+
+이 폴더는 2024 졸업전시(제33회 EXPLORER) 사이트 전용입니다. 다른 연도와 공유하지 않습니다.
+이 연도 앱은 저장소의 `2024/` 폴더 전체이고, Vercel 프로젝트 `khid-grad-2024` 하나입니다.
+공통 규칙은 저장소 맨 위의 `README.md`, 다른 연도에서 가져다 쓸 수 있는 기능은 `FEATURES.md`를 보세요.
+
+- 2024는 **지난 연도를 나중에 추가**한 것 → 입구 `entry/vercel.json`의 `/` 이동(최신 연도 2026)은 바꾸지 않음
+- 디자인 파일 없음. 원본은 아임웹 사이트 `khid-exhibition.imweb.me` — 호스팅이 만료돼서 관리자 로그인 상태에서만 보임. 보기만 하고 아임웹에서 아무것도 바꾸지 않음
+- 아임웹 화면을 보고 크기·색·글자를 재서 최대한 같게 만듦 (2026-11-04). 상단바의 Main · 2023 메뉴는 뺌 (사용자 결정)
+- 브레이크포인트는 아임웹 그대로: 모바일 ~767 / PC 768~
+
+## 주소
+| 화면 | 주소 | 파일 | 아임웹 |
+|---|---|---|---|
+| 메인 (무빙 포스터 영상) | `/2024` | `page.tsx` | Main |
+| Behind (사진·영상, 아임웹에 없던 새 페이지) | `/2024/behind` | `behind/page.tsx` | — |
+| 디자이너 목록 | `/2024/designers` | `designers/page.tsx` | Designer |
+| 디자이너 페이지 (그 사람 작품 카드) | `/2024/designers/<01~45>` | `designers/[slug]/page.tsx` | Designer › 이름 |
+| 과목 4개 | `/2024/projects` | `projects/page.tsx` | Works |
+| 과목별 작품 목록 | `/2024/projects/<과목>` | `projects/[cat]/page.tsx` | Works › 과목 |
+| 작품 상세 (판넬 이어 붙임) | `/2024/projects/<과목>/<01~>` | `projects/[cat]/[id]/page.tsx` | Works › 과목 › 작품 |
+
+과목 주소: `ai-augmented` 인공지능증강디자인 · `future-space` 미래공간디자인 · `smart-convergence` 스마트융합디자인 · `industrial` 산업디자인종합설계
+
+## 지금 상태 (2026-11-04, 브랜치 `2024`)
+화면 틀·글·영상까지 다 넣음. **사진·작품 이미지는 사용자가 따로 줌 → 지금은 전부 짙은 회색 빈칸** (판넬 빈칸은 아임웹 원본 이미지 비율 그대로)
+
+## 처음 채울 것
+- [x] 색·글꼴·글자 크기·바탕색 — `2024.css` (아임웹 값)
+- [x] 폰트 — Poppins(구글 무료) 400·700 영문 세트, 한글은 기기 기본 고딕(아임웹 그대로). 원본 `2024/fonts-src/`
+- [x] 파비콘 — `icon.svg` = 어두운 바탕 + 밝은 KIIID 로고 (2026-11-04). 앱 아이콘(apple-icon.png)은 없음 (사용자 결정)
+- [ ] 링크 미리보기 이미지(1200×630) — `2024/public/2024/`, 연결 `layout.tsx`
+- [x] 메인 페이지 — 무빙 포스터 영상 `public/2024/moving-poster.mp4` (아카이브에 쓴 파일 work/data/poster/mp.2024.mp4. 아임웹은 유튜브 q4FzAVEEWhs였음)
+- [x] 로고 — 아임웹 로고 원본 PNG → `public/2024/logo-khid.png`
+- [x] 디자이너 45명 — `_components/designers.ts`
+- [x] 작품 62개 (제목·팀원·판넬 구성·영상) — `_components/works.ts`
+- [x] 디자이너 사진 45장 + 졸준위 단체 사진 (2026-11-04) — 드라이브에 원본이 없어서 아임웹에 올라가 있던 사진을 받아 씀(747×934, 단체 1920×1280) → `public/2024/designers/<번호>.webp`, `public/2024/committee.webp`. 받은 그대로는 `work/data/2024_imweb_photos`
+- [x] 작품 카드 썸네일 59개 (2026-11-04) — 드라이브 "웹사이트 썸네일 이미지 (가장 중요)" 폴더 zip → `work/data/2024_thumbs_src` → `python3 scripts/import-thumbs.py ../../work/data/2024_thumbs_src` → `public/2024/projects/<과목>/<id>/thumb.webp`(1200×900), 목록 `_components/work-thumbs.ts`(자동 생성)
+  - 썸네일이 없는 3개 = 메뉴에만 있던 제목 없는 작품(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)
+  - 안 쓴 파일: "Frame 30 - 김다은"(DARAM 카드, 맞는 작품 없음), ATMO·CLEA 예전 파일(수정본을 씀)
+- [x] 작품 상세 판넬 이미지 40개 작품 (2026-11-04) — 구글폼 "2024 졸업전시회 웹사이트 2차 파일 제출" › "작품 세부 내용 이미지" 폴더 zip → `work/data/2024_panels_src`(받은 그대로)·`2024_panels_unz`(학생 zip을 푼 것) → `python3 scripts/import-panels.py` → `public/2024/projects/<과목>/<id>/01.webp …`(폭 1920), 목록 `_components/work-panels.ts`(자동 생성)
+  - 파일 이름에 제목이 없어서 과목 + 팀원으로 작품을 정함 (스크립트의 MAP). 영상은 아임웹 자리 그대로
+  - 아임웹과 장수가 다른 것: BLOM 4장(아임웹 3), Sculpt 28장(30), LIVRO 5장(3), ATMO 5장(6) → 받은 대로
+  - CUDDLY는 올라온 파일이 비어 있어서(0바이트) 빈칸 그대로
+  - 폼 제출이 없던 작품 중 아임웹에 판넬이 있던 11개는 아임웹 이미지로 채움 (2026-11-05, `scripts/import-imweb-panels.py` → `_components/work-panels-imweb.ts`, 받은 그대로는 `work/data/2024_imweb_panels`): LUCA · GEONDEOGI · CUDDLY · NADEUL-E JANG · POP-IT · Nexora · CROP · 물결이 머무는 섬 · Wave of Island · Otium · REFFUSE
+  - 상세가 빈 작품 11개 = 아임웹에서도 비어 있던 것: SHEDY · OJent · Asterroad · SNIFFSCAPE · NEXIUM · Aventi · NEWCELLTA · XPLOVA + 제목 없는 3개
+  - "작품 세부 내용 영상 (선택)" 응답 8개(유튜브·비메오 링크)도 넣음 — Virtuoso 영상 6개(이미지 번호가 빈 1·15·17·22·29·36번 자리), NutriMate 영상 1개(맨 뒤). 나머지 5개 응답은 아임웹에 이미 같은 자리에 있었음. Sculpt에 잘못 들어가 있던 Virtuoso 영상 2개는 뺌 (자세한 건 `works.ts` 맨 위)
+  - 안 쓴 업로드는 중복뿐: 윤지민 NutriMate(같은 파일 두 번), 김택림 Dribo 예전 판(11/17 → 11/23 수정본을 씀)
+- [x] Behind 사진·영상 (2026-11-04) — 드라이브 33기 "3. 업무별 › 9. 전시 이후"에서 사용자가 번호 매긴 9개: 1 브랜딩(오프닝) 영상 파일(1080p · 6.5Mbps로 다시 압축, 45MB — `scripts/encode-video.swift`) · 2·3 유튜브 · 4~9 사진. 목록 `_components/behind.ts`, 원본 `work/data/2024_behind_src`
+- [x] 동명이인 이서영 2명 작품 나눔 (2026-11-04) — 구글폼 영문 표기로: "Lee Seo Yeong"(@syeongzip) = 이서영 20 → POP-IT·비토즈·REFFUSE / "Lee Seo Young" = 이서영 21 → Asterroad·TRANSPOT. 폼에 없는 산디종 김지영·류현정·이서영·장효린 작품은 두 사람 페이지에 다 보임
+- [x] 다람(김다은, 인공지능증강디자인 · 아임웹에 없음): 썸네일만 있고 상세 이미지가 없어서 추가 안 함 (사용자 결정 2026-11-04)
+- [ ] 아임웹 목록에 없고 메뉴에만 있던 작품 4개: 안영은 작품은 썸네일 파일로 제목 "CROP"을 알게 됨. 나머지 3개(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)는 제목 모름 — 알면 `works.ts`에
+- [x] Vercel 프로젝트 `khid-grad-2024` (2026-11-05) — 팀 khid, Root Directory `2024`, Next.js, Node 24.x, GitHub `khuid/khid-grad`, 운영 브랜치 `main` (2025와 같은 설정). `khid-grad-2024.vercel.app/2024`로 열림 (검색 안 됨). 학교 주소 `/2024`는 main에 합친 뒤
+- [ ] 마지막 점검 — `python3 scripts/check-year.py 2024`
+
+## 아임웹과 다르게 한 것
+- 상단바에서 Main · 2023 메뉴 뺌, Designer 펼침 메뉴(이름 45개)·모바일 서랍의 Designer 이름 목록 뺌, 메인 영상 소리 켬(볼륨 50%), 메인 영상을 유튜브 대신 영상 파일로, 상단바 바탕을 투명 → 2024 바탕색(거의 검정)으로, 상단바 메뉴 올림 색을 검정(안 보였음) → 과목 이름 파랑 #2662bc(모바일은 누를 때), 푸터 없앰 — 인스타 아이콘은 상단바 맨 오른쪽으로 옮김(이용약관 · 개인정보처리방침은 아임웹 시스템 페이지라 뺌)
+- 아임웹 디자이너 페이지는 앞의 8명만 채워져 있었음 → 작품 팀원 이름으로 45명 모두 채움
+- 아임웹 스마트융합·산디종 목록 카드는 눌러도 이동이 안 됐음 → 다른 과목처럼 작품 상세로 이동
+- 팀원 이름 오타 고침: "김겅용" → 김성용, "류현졍" → 류현정
+
+## 다른 연도에서 가져온 기능
+가져올 때마다 아래에 적어 두세요. 다음 해에 "이 기능을 그대로 쓸지" 판단하는 근거가 됩니다.
+
+| 기능 | 가져온 연도 | 그대로 / 바꾼 것 |
+|---|---|---|
+| (없음) | | |

@@ -8,6 +8,7 @@ updates:
     directories:
       - "/2026"
       - "/2025"
+      - "/2024"
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
