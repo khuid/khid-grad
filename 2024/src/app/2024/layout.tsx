@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Header from "./_components/Header";
-import Footer from "./_components/Footer";
 import "./2024.css";
 
 // 2024 사이트 전용 설정 — 다른 연도와 공유하지 않음.
@@ -38,13 +37,12 @@ export const viewport: Viewport = {
 
 // [정하기] 파비콘: icon.svg(또는 icon.png)와 apple-icon.png(180×180)을 이 폴더(src/app/2024/)에 넣으면 자동으로 붙음
 
-// 모든 2024 페이지 공통: 상단바 + 본문 + 흰 푸터 (아임웹 구성 그대로)
+// 모든 2024 페이지 공통: 상단바 + 본문. 아임웹의 흰 푸터(인스타 아이콘만 있었음)는 아이콘을 상단바로 옮기면서 없앰 (사용자 결정 2026-11-04)
 export default function Layout2024({ children }: LayoutProps<"/2024">) {
   return (
     <div className={`${poppins.variable} flex min-h-screen flex-col font-main`}>
       <Header />
       <main className="flex-1">{children}</main>
-      <Footer />
     </div>
   );
 }
