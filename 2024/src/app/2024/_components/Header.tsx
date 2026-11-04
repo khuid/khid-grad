@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { DESIGNERS, designerHref } from "./designers";
 import { CATEGORIES, WORKS, categoryHref, workHref, workMenuName } from "./works";
 
 // 상단바 — 아임웹 header 그대로. 메뉴는 Designer · Works 두 개만 (아임웹의 Main · 2023은 뺌, 사용자 결정 2026-11-04)
@@ -88,8 +87,9 @@ function DropItem({ href, label }: { href: string; label: string }) {
 }
 
 // 모바일 서랍 메뉴 — 아임웹 slide menu: 흰 바탕 폭 300, 뒤 검정 60%, 닫기 X(흰색 32)는 서랍 오른쪽 바깥.
-// 1단(Designer·Works) 글자 22 #9b9b9b 칸 13 50 14 20 — 지금 보는 메뉴는 #111 + 바탕 #f5f5f5 + 펼친 채로 시작
-// 2단 글자 21 #9b9b9b 칸 8 50 8 30, 3단(작품)은 한 단 더 들여씀
+// 1단(Designer·Works) 글자 22 #9b9b9b 칸 13 50 14 20 — 지금 보는 메뉴는 #111 + 바탕 #f5f5f5 (Works는 펼친 채로 시작)
+// Designer는 이름 목록 없이 바로 이동 (아임웹엔 있었지만 뺌, 사용자 결정 2026-11-04)
+// Works 아래 과목: 글자 21 #9b9b9b 칸 8 50 8 30, 그 아래 작품은 한 단 더 들여씀
 function Drawer({ current, onClose }: { current?: NavKey; onClose: () => void }) {
   const [openKey, setOpenKey] = useState<string | undefined>(current);
   const [openCat, setOpenCat] = useState<string>();
@@ -104,22 +104,23 @@ function Drawer({ current, onClose }: { current?: NavKey; onClose: () => void })
       <nav className="absolute inset-y-0 left-0 w-[300px] overflow-y-auto bg-white">
         <ul>
           {NAV.map((n) => {
-            const on = openKey === n.key;
+            const sub = n.key === "projects"; // Designer는 아래 목록 없이 바로 이동
+            const on = sub && openKey === n.key;
             return (
               <li key={n.key}>
                 <div className={`flex items-center ${current === n.key ? "bg-[#f5f5f5]" : ""}`}>
                   <Link href={n.href} onClick={onClose} className={`flex-1 pt-[13px] pr-[10px] pb-[14px] pl-[20px] text-[22px] leading-[22px] ${current === n.key ? "text-[#111]" : "text-menu"}`}>
                     {n.label}
                   </Link>
-                  <button type="button" aria-label={`${n.label} ${on ? "접기" : "펼치기"}`} aria-expanded={on} onClick={() => setOpenKey(on ? undefined : n.key)} className="flex h-[49px] w-[50px] items-center justify-center text-[#111]">
-                    <Chevron className={`size-[18px] ${on ? "rotate-180" : ""}`} />
-                  </button>
+                  {sub && (
+                    <button type="button" aria-label={`${n.label} ${on ? "접기" : "펼치기"}`} aria-expanded={on} onClick={() => setOpenKey(on ? undefined : n.key)} className="flex h-[49px] w-[50px] items-center justify-center text-[#111]">
+                      <Chevron className={`size-[18px] ${on ? "rotate-180" : ""}`} />
+                    </button>
+                  )}
                 </div>
                 {on && (
                   <ul>
-                    {n.key === "designers"
-                      ? DESIGNERS.map((d) => <DrawerItem key={d.slug} href={designerHref(d)} label={d.menu ?? d.ko} onClose={onClose} />)
-                      : CATEGORIES.map((c) => {
+                    {CATEGORIES.map((c) => {
                           const catOn = openCat === c.slug;
                           return (
                             <li key={c.slug}>
@@ -134,7 +135,7 @@ function Drawer({ current, onClose }: { current?: NavKey; onClose: () => void })
                               {catOn && (
                                 <ul>
                                   {WORKS.filter((w) => w.cat === c.slug).map((w) => (
-                                    <DrawerItem key={w.id} href={workHref(w)} label={workMenuName(w)} onClose={onClose} deep />
+                                    <DrawerItem key={w.id} href={workHref(w)} label={workMenuName(w)} onClose={onClose} />
                                   ))}
                                 </ul>
                               )}
@@ -152,10 +153,10 @@ function Drawer({ current, onClose }: { current?: NavKey; onClose: () => void })
   );
 }
 
-function DrawerItem({ href, label, onClose, deep }: { href: string; label: string; onClose: () => void; deep?: boolean }) {
+function DrawerItem({ href, label, onClose }: { href: string; label: string; onClose: () => void }) {
   return (
     <li>
-      <Link href={href} onClick={onClose} className={`block py-[8px] pr-[50px] text-menu ${deep ? "pl-[40px] text-[17px] leading-[21px]" : "pl-[30px] text-[21px] leading-[21px]"}`}>
+      <Link href={href} onClick={onClose} className="block py-[8px] pr-[50px] pl-[40px] text-[17px] leading-[21px] text-menu">
         {label}
       </Link>
     </li>
