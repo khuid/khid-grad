@@ -45,7 +45,7 @@
   - 제출이 없어 빈칸인 작품: SHEDY · OJent · Asterroad · SNIFFSCAPE · NEXIUM · LUCA · GEONDEOGI · Aventi · CUDDLY / NEWCELLTA · NADEUL-E JANG / POP-IT · Nexora · XPLOVA · CROP / 물결이 머무는 섬 · Wave of Island · Otium · REFFUSE (+ 제목 없는 3개)
   - "작품 세부 내용 영상 (선택)" 응답 8개(유튜브·비메오 링크)도 넣음 — Virtuoso 영상 6개(이미지 번호가 빈 1·15·17·22·29·36번 자리), NutriMate 영상 1개(맨 뒤). 나머지 5개 응답은 아임웹에 이미 같은 자리에 있었음. Sculpt에 잘못 들어가 있던 Virtuoso 영상 2개는 뺌 (자세한 건 `works.ts` 맨 위)
   - 안 쓴 업로드는 중복뿐: 윤지민 NutriMate(같은 파일 두 번), 김택림 Dribo 예전 판(11/17 → 11/23 수정본을 씀)
-- [ ] Behind 사진·영상 — 받으면 `public/2024/behind/`, 목록은 `_components/behind.ts` (한 줄로 크게, 영상은 눌러서 재생·소리 있음)
+- [x] Behind 사진·영상 (2026-11-04) — 드라이브 33기 "3. 업무별 › 9. 전시 이후"에서 사용자가 번호 매긴 9개: 1 브랜딩(오프닝) 영상 파일(1080p로 다시 인코딩, 73MB) · 2·3 유튜브 · 4~9 사진. 목록 `_components/behind.ts`, 원본 `work/data/2024_behind_src`
 - [x] 동명이인 이서영 2명 작품 나눔 (2026-11-04) — 구글폼 영문 표기로: "Lee Seo Yeong"(@syeongzip) = 이서영 20 → POP-IT·비토즈·REFFUSE / "Lee Seo Young" = 이서영 21 → Asterroad·TRANSPOT. 폼에 없는 산디종 김지영·류현정·이서영·장효린 작품은 두 사람 페이지에 다 보임
 - [x] 다람(김다은, 인공지능증강디자인 · 아임웹에 없음): 썸네일만 있고 상세 이미지가 없어서 추가 안 함 (사용자 결정 2026-11-04)
 - [ ] 아임웹 목록에 없고 메뉴에만 있던 작품 4개: 안영은 작품은 썸네일 파일로 제목 "CROP"을 알게 됨. 나머지 3개(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)는 제목 모름 — 알면 `works.ts`에
