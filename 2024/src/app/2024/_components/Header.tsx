@@ -10,7 +10,7 @@ import { CATEGORIES, WORKS, categoryHref, workHref, workMenuName } from "./works
 //   올리면 아임웹은 검정이라 글자가 안 보였음 → Works 과목 이름과 같은 파랑(#2662bc)으로 바꿈, 크기는 그대로 (사용자 결정 2026-11-04)
 //   맨 오른쪽 인스타그램 아이콘(20, 메뉴와 같은 색) → 학과 인스타 — 아임웹은 푸터에 있었는데 상단바로 옮김 (사용자 결정 2026-11-04)
 //   바탕 2024 바탕색(거의 검정) — 아임웹은 투명이라 스크롤하면 아래 이미지와 글자가 겹쳐 보여서 칠함 (사용자 결정 2026-11-04). 스크롤해도 맨 위에 붙어 있음(sticky). 메뉴에 올리면 펼침 메뉴(바탕 #282828, 폭 160, 글자 13 · 흰색 60%, 칸 10 20)
-//   Works → 과목 4개 → (과목에 올리면) 그 과목 작품(팀원 이름). Designer는 펼침 메뉴 없음 (아임웹엔 이름 45개가 있었지만 뺌, 사용자 결정 2026-11-04)
+//   Works → 과목 4개만 (아임웹엔 과목에 올리면 작품 목록이 한 단 더 나왔지만 뺌, 사용자 결정 2026-11-05). Designer는 펼침 메뉴 없음 (아임웹엔 이름 45개가 있었지만 뺌, 사용자 결정 2026-11-04)
 // 모바일(~767): 높이 49, 왼쪽 메뉴 버튼, 가운데 로고 81×28, 오른쪽 인스타그램 → 메뉴 버튼 누르면 왼쪽에서 흰 서랍 메뉴(폭 300)
 //   모바일은 마우스 올림이 없어서 누르는 동안(active) 같은 파랑
 const NAV = [
@@ -60,17 +60,7 @@ export default function Header() {
               {n.key === "projects" && (
                 <ul className="invisible absolute top-full left-[18px] w-[160px] bg-dropdown group-hover:visible">
                   {CATEGORIES.map((c) => (
-                    <li key={c.slug} className="group/cat relative">
-                      <Link href={categoryHref(c)} className="flex items-center justify-between py-[10px] pr-[12px] pl-[20px] text-[13px] leading-[19px] text-white/60 hover:text-white">
-                        {c.name}
-                        <Chevron className="size-[8px] -rotate-90" />
-                      </Link>
-                      <ul className="invisible absolute top-0 right-full w-[160px] bg-dropdown group-hover/cat:visible">
-                        {WORKS.filter((w) => w.cat === c.slug).map((w) => (
-                          <DropItem key={w.id} href={workHref(w)} label={workMenuName(w)} />
-                        ))}
-                      </ul>
-                    </li>
+                    <DropItem key={c.slug} href={categoryHref(c)} label={c.name} />
                   ))}
                 </ul>
               )}
