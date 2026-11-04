@@ -50,7 +50,7 @@
 - [x] 동명이인 이서영 2명 작품 나눔 (2026-11-04) — 구글폼 영문 표기로: "Lee Seo Yeong"(@syeongzip) = 이서영 20 → POP-IT·비토즈·REFFUSE / "Lee Seo Young" = 이서영 21 → Asterroad·TRANSPOT. 폼에 없는 산디종 김지영·류현정·이서영·장효린 작품은 두 사람 페이지에 다 보임
 - [x] 다람(김다은, 인공지능증강디자인 · 아임웹에 없음): 썸네일만 있고 상세 이미지가 없어서 추가 안 함 (사용자 결정 2026-11-04)
 - [ ] 아임웹 목록에 없고 메뉴에만 있던 작품 4개: 안영은 작품은 썸네일 파일로 제목 "CROP"을 알게 됨. 나머지 3개(스마트융합 강민지·제유진 / 김지영·류현정, 산디종 김지영·류현정·이서영·장효린)는 제목 모름 — 알면 `works.ts`에
-- [ ] Vercel 프로젝트 `khid-grad-2024` 만들기 (Root Directory = `2024`) — 저장소 README "새 연도 추가"
+- [x] Vercel 프로젝트 `khid-grad-2024` (2026-11-05) — 팀 khid, Root Directory `2024`, Next.js, Node 24.x, GitHub `khuid/khid-grad`, 운영 브랜치 `main` (2025와 같은 설정). `khid-grad-2024.vercel.app/2024`로 열림 (검색 안 됨). 학교 주소 `/2024`는 main에 합친 뒤
 - [ ] 마지막 점검 — `python3 scripts/check-year.py 2024`
 
 ## 아임웹과 다르게 한 것
