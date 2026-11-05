@@ -15,7 +15,8 @@
 //     NutriMate: 유튜브 ftxUj-GdMvc (윤지민, 자리 안 적음 → 맨 뒤)
 //     BLOM·크로마키프렌즈(8·12번 뒤)·노들러 오세요·Park In' Park: 아임웹에 이미 같은 영상이 같은 자리에 있음
 //     비토즈: 폼대로 8번 뒤 비메오 1032245645, 10번 뒤 1032246259 (아임웹은 8번 뒤가 나중에 올린 화면 기록 1038191193이었지만 폼 것으로 바꿈, 사용자 결정 2026-11-04)
-//   panels가 빈 작품 = 아임웹에서도 상세 페이지가 비어 있던 것
+//   panels가 빈 작품 = 아임웹에서도 상세 페이지가 비어 있던 것 → detail: false, 카드·메뉴에서 눌러도 안 넘어가고 상세 주소도 없음 (사용자 결정 2026-11-05)
+// 제목 없는 작품(아임웹 메뉴에만 있고 제목도 판넬도 없던 3개)은 사이트에서 뺌 (사용자 결정 2026-11-05) — 줄은 남겨 둠: id(과목 안 순서 번호)가 이미지 폴더 이름이라 지우면 뒤 작품 번호가 밀림
 // hidden = 아임웹 과목 목록(카드)에는 없고 상단 메뉴에만 있던 작품 — 제목도 아임웹에 없음 (안영은 작품만 썸네일 파일 이름으로 "CROP"인 걸 알게 됨)
 //
 // 동명이인 이서영은 "이서영_Yeong" · "이서영_Young"으로 구분 (designers.ts 설명)
@@ -33,6 +34,7 @@ export type Work = {
   members: string[];
   panels: string[];
   hidden?: boolean;
+  detail: boolean; // 상세 페이지에 보일 판넬(이미지·영상)이 있는지
   thumb?: string; // 카드 이미지(4:3, 1200×900) — 드라이브 "웹사이트 썸네일 이미지" 폴더 → scripts/import-thumbs.py → public/2024/projects/<과목>/<id>/thumb.webp
   images?: string[]; // panels의 이미지 칸에 차례로 들어갈 파일 (work-panels.ts에 있는 작품만)
 };
@@ -140,16 +142,19 @@ function withPanels(key: string, imweb: string[]): Pick<Work, "panels" | "images
 }
 
 export const WORKS: Work[] = CATEGORIES.flatMap((c) =>
-  DATA[c.slug].map(([title, members, panels, hidden], i) => {
+  DATA[c.slug].flatMap(([title, members, panels, hidden], i) => {
+    if (!title) return [];
     const id = String(i + 1).padStart(2, "0");
+    const p = withPanels(`${c.slug}/${id}`, panels ? panels.split(",") : []);
     return {
       cat: c.slug,
       id,
       title,
       // 팀원은 띄어쓰기로 나눔 — 영문 이름 "LIU HAILONG"만 한 사람으로 묶음
       members: members.replace("LIU HAILONG", "LIU+HAILONG").split(" ").map((m) => m.replace("+", " ")),
-      ...withPanels(`${c.slug}/${id}`, panels ? panels.split(",") : []),
+      ...p,
       hidden,
+      detail: !!p.images?.length || p.panels.some((x) => !/^\d+x\d+$/.test(x)),
       thumb: WORK_THUMBS.has(`${c.slug}/${id}`) ? `/2024/projects/${c.slug}/${id}/thumb.webp` : undefined,
     };
   }),

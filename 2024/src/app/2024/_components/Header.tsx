@@ -144,7 +144,7 @@ function Drawer({ current, onClose }: { current?: NavKey; onClose: () => void })
                               {catOn && (
                                 <ul>
                                   {WORKS.filter((w) => w.cat === c.slug).map((w) => (
-                                    <DrawerItem key={w.id} href={workHref(w)} label={workMenuName(w)} onClose={onClose} />
+                                    <DrawerItem key={w.id} href={w.detail ? workHref(w) : undefined} label={workMenuName(w)} onClose={onClose} />
                                   ))}
                                 </ul>
                               )}
@@ -162,7 +162,9 @@ function Drawer({ current, onClose }: { current?: NavKey; onClose: () => void })
   );
 }
 
-function DrawerItem({ href, label, onClose }: { href: string; label: string; onClose: () => void }) {
+// href 없음 = 상세 판넬이 없는 작품 → 글자만 (눌러도 안 넘어감)
+function DrawerItem({ href, label, onClose }: { href?: string; label: string; onClose: () => void }) {
+  if (!href) return <li className="py-[8px] pr-[50px] pl-[40px] text-[17px] leading-[21px] text-menu">{label}</li>;
   return (
     <li>
       <Link href={href} onClick={onClose} className="block py-[8px] pr-[50px] pl-[40px] text-[17px] leading-[21px] text-menu active:text-blue">

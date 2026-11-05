@@ -8,10 +8,11 @@ import { WORKS, memberNames, parsePanel, type Work } from "../../../_components/
 // 첫 판넬: PC 폭 1250 / 모바일 화면 폭 가득, 그다음부터: PC 폭 1270 / 모바일 360(양옆 15) — 아임웹 배치 그대로
 // 이미지는 아직 없음 → 원본 픽셀 비율대로 빈칸 (works.ts panels)
 export function generateStaticParams() {
-  return WORKS.map((w) => ({ cat: w.cat, id: w.id }));
+  return WORKS.filter((w) => w.detail).map((w) => ({ cat: w.cat, id: w.id }));
 }
 
-const find = (cat: string, id: string) => WORKS.find((w) => w.cat === cat && w.id === id);
+// 상세 판넬이 없는 작품은 상세 주소도 없음(404)
+const find = (cat: string, id: string) => WORKS.find((w) => w.cat === cat && w.id === id && w.detail);
 
 export async function generateMetadata({ params }: PageProps<"/2024/projects/[cat]/[id]">): Promise<Metadata> {
   const { cat, id } = await params;
