@@ -130,7 +130,7 @@ function Info({ project: p }: { project: Project }) {
           </p>
         )}
       </div>
-      <p className="text-[14px] leading-[1.5] font-medium tracking-[-0.04em] text-ink">
+      <p className="text-[14px] leading-[1.5] font-medium tracking-[-0.04em] text-ink text-justify whitespace-pre-line">
         {p.description ?? <span className="text-[#a5a5a5]">작품 설명 준비 중</span>}
       </p>
       {!!p.links.length && (
