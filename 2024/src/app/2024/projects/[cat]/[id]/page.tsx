@@ -5,7 +5,7 @@ import Ph from "../../../_components/Ph";
 import { WORKS, memberNames, parsePanel, type Work } from "../../../_components/works";
 
 // 작품 상세 (/2024/projects/<과목>/<id>) — 아임웹 작품 페이지 그대로: 제목·글 없이 판넬 이미지·영상을 위에서부터 틈 없이 이어 붙임
-// 첫 판넬: PC 폭 1250 / 모바일 화면 폭 가득, 그다음부터: PC 폭 1270 / 모바일 360(양옆 15) — 아임웹 배치 그대로
+// 판넬 폭: 모두 같게 — 양옆 15 여백, 최대 1270 (아임웹은 첫 판넬만 화면 폭 가득·최대 1250이었지만 여백을 맞춤, 사용자 결정 2026-11-05)
 // 이미지는 아직 없음 → 원본 픽셀 비율대로 빈칸 (works.ts panels)
 export function generateStaticParams() {
   return WORKS.filter((w) => w.detail).map((w) => ({ cat: w.cat, id: w.id }));
@@ -46,7 +46,7 @@ function Panels({ work }: { work: Work }) {
   // 이미지 칸마다 몇 번째 이미지인지 → work.images[순서]
   const imageNo = panels.map((_, i) => panels.slice(0, i).filter((p) => p.kind === "image").length);
   return panels.map((panel, i) => {
-    const box = i === 0 ? "mx-auto w-full min-[768px]:max-w-[1250px]" : "mx-auto w-[calc(100%-30px)] max-w-[1270px]";
+    const box = "mx-auto w-[calc(100%-30px)] max-w-[1270px]";
     if (panel.kind === "image") {
       const n = imageNo[i];
       return <Ph key={i} src={work.images?.[n]} label={`판넬 ${n + 1}`} size={[panel.w, panel.h]} className={`${box} h-auto`} />;
