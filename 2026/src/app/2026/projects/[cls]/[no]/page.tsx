@@ -96,8 +96,9 @@ function MediaItem({ media, index, alt }: { media: Media | null; index: number; 
   if (media.type === "youtube") return <VideoFrame youtubeId={media.id} />;
   if (media.type === "video")
     return <LazyVideo src={media.src} className="block aspect-video w-full object-cover" />;
+  // 이미지는 가로를 꽉 채우고 세로는 원본 비율대로 (16:9가 아니어도 잘리거나 사이가 뜨지 않게)
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={media.src} alt={alt} loading={index ? "lazy" : "eager"} className="block aspect-video w-full object-cover" />;
+  return <img src={media.src} alt={alt} loading={index ? "lazy" : "eager"} className="block h-auto w-full" />;
 }
 
 // 정보 칸: 설명 최대 400자(공백 포함) + 링크 최대 3개(제출 규격). 낮은 화면에서 칸이 화면보다 길면 칸 안에서 스크롤
