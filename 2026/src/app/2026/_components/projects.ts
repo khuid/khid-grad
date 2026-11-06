@@ -304,12 +304,6 @@ const LINKS: Record<string, [label: string, href: string][]> = {
     ["Behance", "https://www.behance.net/738f5a22"],
     ["Portfolio", "https://geumseo.uxdn.kr/"],
   ],
-  "ai/facehug": [
-    ["Behance", "https://www.behance.net/yelimkim813"],
-    ["Instagram", "https://www.instagram.com/flyingpotato_o"],
-    ["Instagram", "https://www.instagram.com/hxochx_"],
-    ["Instagram", "https://www.instagram.com/15.47l"],
-  ],
   "ai/onu": [["YouTube", "https://youtu.be/YqGudwsIVpE?si=gGQZGsKeaByTl9H-"]],
   "spatial/soyo": [
     ["Behance", "https://www.behance.net/myoungseon"],
