@@ -255,7 +255,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
       ["박한나"],
       "tension은 일상에서 자연스럽게 착용하며, 자세가 흐트러질 때 적절한 텐션을 제공해 바른 자세를 돕는 패션형 스마트 웨어러블 디바이스입니다. 재택근무와 스크린 타임이 늘며 장시간 앉아 있는 생활이 익숙해졌지만, 자세의 변화는 쉽게 인지하기 어렵습니다. 기존 자세 교정기는 의료기기 같은 외형과 답답한 착용감으로 일상적인 사용에 부담이 있습니다. tension은 자세 변화를 감지해 어깨 스트랩의 텐션을 단계적으로 조절하고 자연스럽게 바른 자세를 유도합니다. 일상복과 어우러지는 디자인과 앱 기반 모드 설정, 일·주·월 리포트를 통해 지속적인 자세 관리를 돕습니다.",
     ],
-    ["Nadir", ["성아현", "유은서", "최세린"]],
+    [
+      "Nadir",
+      ["성아현", "유은서", "최세린"],
+      "Nadir는 우주선 선내에서 신는 웨어러블 부츠다. 천문학에서 Nadir는 관측자의 발밑, 바로 '아래'를 가리킨다. 무중력 공간에서는 하체 근육이 쓰일 일이 없어 빠르게 줄어든다. Nadir는 종아리를 감싸 음압을 유지하는 기술과 발밑에 하중을 되돌려주는 외골격 프레임으로 발이 바닥에 붙은 듯한 중력감을 만들어낸다. 따로 운동하지 않아도 걷고 서는 모든 순간을 근력 유지로 바꾼다. 지구에서는 종아리 모듈을 분리해 일상 속 패션 아이템으로 신으며, 우주로 떠나기 전 근력 기준치를 미리 높여둔다.",
+    ],
     [
       "TERRAVIA",
       ["신예환", "허경주"],
@@ -453,6 +457,7 @@ const LINKS: Record<string, [label: string, href: string][]> = {
   "smart/tension": [["YouTube", "https://youtu.be/imi5pYlVkw4?si=jimqFSLMwPRROIrh"]],
   "ai/devoid": [["YouTube", "https://youtu.be/97za2vGnB2w"]],
   "smart/linko": [["Behance", "https://www.behance.net/obdo"]],
+  "smart/nadir": [["Portfolio", "https://geumseo.uxdn.kr/"]], // 칸에 "유은서 <주소>"로 적혀 있어 이름은 Portfolio (같은 주소를 08:59에서 Portfolio로 적음)
 };
 
 // 받은 파일: "<수업>/<제목 slug>" → 장표 번호 순서 ("NN" = NN.webp, "NN.mp4" = 영상). thumb.webp는 늘 함께 있음
@@ -503,6 +508,7 @@ const FILES: Record<string, string[]> = {
   "smart/moark": ["01", "02", "03", "04", "05.mp4", "06", "07"],
   "smart/modrix": ["01", "02", "03", "04", "05", "06", "07"],
   "smart/mua": ["01", "02", "03", "04", "05", "06", "07.mp4"],
+  "smart/nadir": ["01", "02", "03", "04", "05", "06"],
   "smart/noura": ["01", "02", "03", "04", "05", "06"],
   "smart/pacer": ["01", "02", "03", "04", "05", "06", "07"],
   "smart/para": ["01", "02", "03", "04", "05", "06.mp4"],
