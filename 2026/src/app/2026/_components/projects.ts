@@ -133,7 +133,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
       ["김태령", "이수진", "하채연"],
       "반려동물은 단순히 함께 살아가는 존재를 넘어 일상의 많은 순간을 공유하는 소중한 동반자이다. 하지만 이별 이후에는 함께했던 기억을 사진이나 앨범 속에 보관하는 것 외에 추억을 일상에서 자연스럽게 마주할 방식은 제한적이다.\n\n본 프로젝트는 반려견과 함께했던 일상의 흔적인 리드줄을 조명의 일부로 재활용하여, 기억을 지속적으로 경험할 수 있는 다용도 메모리얼 조명을 제안한다. 강아지의 형태를 간접적으로 연상시키는 조형적 본체와 원반형 조명은 밝기를 조절할 수 있으며, 가방이나 고리에 걸 수 있는 다용도 오브제로도 활용된다. 이를 통해 과거의 흔적을 단순히 보존하는 것을 넘어, 일상 속에서 새로운 쓰임과 의미를 이어나간다.",
     ],
-    ["Orr (오르)", ["김명선", "김주연", "장서영"]],
+    [
+      "Orr (오르)",
+      ["김명선", "김주연", "장서영"],
+      "오르(Orr)는 등산 입문자를 위한 장비 대여와 과정 기록으로 등산의 문턱을 낮추고, 오르는 길을 즐겁게 남기는 과정 중심의 등산 플랫폼입니다. 정상에 오르는 성취뿐 아니라 길 위의 과정에 집중하며, 그 즐거움이 다음 산행으로 이어지는 지속적인 등산 문화를 만듭니다.\n\nLog Cam, Hiking Pole, Eco Keyring 제품으로 장비 부담을 덜고, 기록과 보행, 자연을 돌보는 경험을 연결합니다. 등산 중 촬영된 사진은 앱에 모여 과정을 돌아보는 즐거움이 됩니다. 가볍게 시작하고 즐겁게 남기는 경험을 통해 등산이 일상 속에서 꾸준히 이어지는 문화를 제안합니다.",
+    ],
     [
       "SEOM",
       ["손예원", "조해린", "이민혁", "장일정"],
@@ -302,7 +306,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
     ],
     ["NUUN", ["공성욱", "신예환"]],
     ["DIVRS", ["이민혁"]],
-    ["COLT", ["이민기"]],
+    [
+      "COLT",
+      ["이민기"],
+      "타일 한 장, 화분 하나로도 공간의 분위기는 달라집니다. COLT는 폐도자기 업사이클링 타일과 리빙 오브제를 디자인하여 공간의 무드를 제안하는 브랜드입니다. 도자기는 단단하고 오래가지만, 한 번 구워지면 다시 흙으로 돌아가지 못해 쓰임을 다하면 대부분 땅에 묻힙니다. COLT는 그 단단함을 끝이 아닌 가능성으로 보고, 버려진 도자기를 다시 원료로 되살립니다. 선명한 색과 손에 닿는 질감을 지닌 타일과 오브제는 머무는 공간에 은은한 생동감을 더합니다. 버려지는 자원에 새로운 쓰임을 더하며, COLT는 일상의 공간에서 시작되는 지속 가능한 환경 임팩트를 지향합니다.",
+    ],
     [
       "PUT-O",
       ["임형민", "허경주"],
@@ -322,6 +330,11 @@ const LINKS: Record<string, [label: string, href: string][]> = {
   ],
   "ai/onu": [["YouTube", "https://youtu.be/YqGudwsIVpE?si=gGQZGsKeaByTl9H-"]],
   "capstone/fore": [["YouTube", "https://youtu.be/syE-foeDRCQ"]], // 칸에 주소만 적혀 있어 이름은 YouTube
+  "capstone/orr": [
+    ["Behance", "https://www.behance.net/myoungseon"],
+    ["Behance", "https://www.behance.net/52cbd72b"],
+    ["Portfolio", "https://www.instagram.com/seoyeong_jang_/"],
+  ],
   "spatial/soyo": [
     ["Behance", "https://www.behance.net/myoungseon"],
     ["Behance", "https://www.behance.net/52cbd72b"],
@@ -332,6 +345,7 @@ const LINKS: Record<string, [label: string, href: string][]> = {
 const FILES: Record<string, string[]> = {
   "ai/08-59": ["01", "02", "03", "04", "05", "06", "07"],
   "ai/caret": ["01", "02", "03", "04", "05", "06", "07"],
+  "ai/colt": ["01", "02", "03", "04", "05", "06"],
   "ai/facehug": ["01", "02", "03", "04", "05", "06", "07"],
   "ai/ing": ["01", "02", "03", "04", "05", "06", "07"],
   "ai/onu": ["01", "02", "03", "04", "05", "06", "07"],
@@ -342,6 +356,7 @@ const FILES: Record<string, string[]> = {
   "capstone/dadogim": ["01", "02", "03", "04", "05.mp4"],
   "capstone/fore": ["01", "02", "03", "04", "05", "06"],
   "capstone/hangit": ["01.mp4", "02", "03", "04", "05", "06", "07"],
+  "capstone/orr": ["01", "02", "03", "04", "05", "06", "07"],
   "capstone/seom": ["01", "02", "03", "04", "05", "06"],
   "capstone/ssalo": ["01", "02", "03", "04", "05", "06", "07"],
   "capstone/tuk": ["01", "02", "03", "04", "05", "06"],
