@@ -557,20 +557,24 @@ export function byTitle(a: { title: string }, b: { title: string }) {
   );
 }
 
-// 번호(주소 /<수업>/<번호>)는 정렬한 순서대로, 빈 자리는 맨 뒤
+// 아직 안 낸 작품(썸네일 없음)과 빈 자리 카드를 숨김 (2026-11-07 사용자 요청, 추가 제출이 들어오면 자동으로 보임). false면 다시 다 보임
+const HIDE_EMPTY = true;
+
+// 번호(주소 /<수업>/<번호>)는 정렬한 순서대로, 빈 자리는 맨 뒤 (숨긴 카드는 번호에서도 빠짐)
 export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
   // 만든 사람도 가나다 순
   const filled = WORKS[c.key]
     .map(([title, members, description]) => ({ title, members: [...members].sort((a, b) => a.localeCompare(b, "ko")), description }))
     .sort(byTitle);
   const empty = Array.from({ length: Math.max(0, SLOTS[c.key] - filled.length) }, () => ({ title: "작품 제목", members: [] }));
-  return [...filled, ...empty].map((w, i) => ({
-    cls: c.key,
-    no: String(i + 1).padStart(2, "0"),
-    ...w,
-    links: (LINKS[`${c.key}/${slug(w.title)}`] ?? []).map(([label, href]) => ({ label, href })),
-    ...filesOf(c.key, w.title),
-  }));
+  return [...filled, ...empty]
+    .map((w) => ({
+      ...w,
+      links: (LINKS[`${c.key}/${slug(w.title)}`] ?? []).map(([label, href]) => ({ label, href })),
+      ...filesOf(c.key, w.title),
+    }))
+    .filter((w) => !HIDE_EMPTY || w.thumb)
+    .map((w, i) => ({ cls: c.key, no: String(i + 1).padStart(2, "0"), ...w }));
 });
 
 export const classOf = (key: string) => CLASSES.find((c) => c.key === key);
