@@ -297,6 +297,26 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
   ],
 };
 
+// 작품 링크: 구글폼 7번(기타 영상·포트폴리오 링크) 칸에 적은 그대로 — "<수업>/<제목 slug>" → [이름, 주소]
+const LINKS: Record<string, [label: string, href: string][]> = {
+  "ai/08-59": [
+    ["Behance", "https://www.behance.net/myoungseon"],
+    ["Behance", "https://www.behance.net/738f5a22"],
+    ["Portfolio", "https://geumseo.uxdn.kr/"],
+  ],
+  "ai/facehug": [
+    ["Behance", "https://www.behance.net/yelimkim813"],
+    ["Instagram", "https://www.instagram.com/flyingpotato_o"],
+    ["Instagram", "https://www.instagram.com/hxochx_"],
+    ["Instagram", "https://www.instagram.com/15.47l"],
+  ],
+  "ai/onu": [["YouTube", "https://youtu.be/YqGudwsIVpE?si=gGQZGsKeaByTl9H-"]],
+  "spatial/soyo": [
+    ["Behance", "https://www.behance.net/myoungseon"],
+    ["Behance", "https://www.behance.net/52cbd72b"],
+  ],
+};
+
 // 받은 파일: "<수업>/<제목 slug>" → 장표 번호 순서 ("NN" = NN.webp, "NN.mp4" = 영상). thumb.webp는 늘 함께 있음
 const FILES: Record<string, string[]> = {
   "ai/08-59": ["01", "02", "03", "04", "05", "06", "07"],
@@ -377,7 +397,7 @@ export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
     cls: c.key,
     no: String(i + 1).padStart(2, "0"),
     ...w,
-    links: [],
+    links: (LINKS[`${c.key}/${slug(w.title)}`] ?? []).map(([label, href]) => ({ label, href })),
     ...filesOf(c.key, w.title),
   }));
 });
