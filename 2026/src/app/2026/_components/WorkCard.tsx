@@ -5,7 +5,7 @@ import { projectHref, type Project } from "./projects";
 // 작품 카드 (PROJECTS 목록 · DESIGNERS 프로필 아래 작품). DESIGNERS 목록 카드와 같은 양식:
 // 썸네일 4:5(없으면 연한 하늘색 pale) → 작품 제목 → 다음 줄에 만든 사람(1~4명, 사이 8, #777 — 프로필 영문 이름과 같은 회색).
 // 글자 크기: 제목 16 · 만든 사람 14 (모바일 ~767) / 제목 20 · 만든 사람 16 (768~). 글자는 썸네일보다 4 안쪽.
-// 마우스를 올리면 썸네일 살짝 확대(1.02, 원래 1.04에서 줄임) + 안쪽에 key 1px 선(흰 바탕 썸네일도 경계가 보이게) + 글자 key. 만든 사람이 아직 없으면 "만든 사람" 자리 표시.
+// 마우스를 올리면 썸네일 살짝 확대(1.03) + 안쪽에 key 1px 선(흰 바탕 썸네일도 경계가 보이게) + 글자 key. 만든 사람이 아직 없으면 "만든 사람" 자리 표시.
 // compact: 카드가 작은 PROJECTS 목록용 — 999까지 모바일 크기(16/14), 1000~ 20/16.
 // project가 없으면 링크 없는 자리 표시
 export default function WorkCard({
@@ -26,7 +26,7 @@ export default function WorkCard({
             src={project.thumb}
             alt={project.title}
             loading="lazy"
-            className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         )}
         {/* 이미지 위에 겹쳐 안쪽으로 그리는 선이라 카드 크기는 그대로 */}
