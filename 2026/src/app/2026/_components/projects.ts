@@ -24,7 +24,7 @@ export type Project = {
   description?: string;
   links: { label: string; href: string }[];
   media: Media[];
-  seamless?: boolean; // 장표끼리 1px 겹치지 않음 (SEAMLESS)
+  seamless?: boolean; // 장표끼리 겹치지 않음 (SEAMLESS)
 };
 
 export type ClassInfo = {
@@ -584,7 +584,7 @@ export function byTitle(a: { title: string }, b: { title: string }) {
 // 아직 안 낸 작품(썸네일 없음)과 빈 자리 카드를 숨김 (2026-11-07 사용자 요청, 추가 제출이 들어오면 자동으로 보임). false면 다시 다 보임
 const HIDE_EMPTY = true;
 
-// 장표가 한 장면으로 이어지는 작품: 원본 이미지 경계 여백이 0px라 1px 겹치면 선이 어긋남 → 이 작품만 겹치지 않음 (사용자 2026-11-07)
+// 장표가 한 장면으로 이어지는 작품: 원본 이미지 경계 여백이 0px라 겹치면 선이 어긋남 → 이 작품만 겹치지 않음 (사용자 2026-11-07)
 const SEAMLESS = new Set(["ai/nuun"]);
 
 // 번호(주소 /<수업>/<번호>)는 정렬한 순서대로, 빈 자리는 맨 뒤 (숨긴 카드는 번호에서도 빠짐)

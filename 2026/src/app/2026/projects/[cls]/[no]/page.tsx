@@ -74,9 +74,10 @@ async function ProjectView({ params }: { params: PageProps<"/2026/projects/[cls]
         <div className={`@container relative mx-auto ${FRAME}`}>
           <div className="grid min-[768px]:grid-cols-[60cqw_minmax(0,1fr)] min-[1000px]:grid-cols-[calc(800/1340*100cqw)_minmax(0,1fr)]">
             {/* 미디어: 프레임 왼쪽 선은 가리지 않게 1px 띄움. 사이 여백 0 (각 항목 block).
-                높이가 소수점(예 376.31)이라 브라우저에 따라 경계에 바탕이 비치는 머리카락 선이 생길 수 있어 다음 항목을 1px 겹침
+                높이가 소수점(예 376.31)이라 브라우저에 따라 경계에 바탕이 비치는 머리카락 선이 생길 수 있어 다음 항목을 0.5px 겹침
+                (1px은 이어지는 그림이 눈에 띄게 어긋나서 0.5px로 줄임, 사용자 2026-11-07)
                 (장면이 이어지는 작품(seamless)은 겹치면 선이 어긋나서 겹치지 않음) */}
-            <div className={`order-2 ml-px pb-[24px] max-[768px]:mr-px min-[768px]:order-1 min-[768px]:pb-[50px] ${p.seamless ? "" : "[&>*+*]:-mt-px"}`}>
+            <div className={`order-2 ml-px pb-[24px] max-[768px]:mr-px min-[768px]:order-1 min-[768px]:pb-[50px] ${p.seamless ? "" : "[&>*+*]:mt-[-0.5px]"}`}>
               {(p.media.length ? p.media : PLACEHOLDER).map((m, i) => (
                 <MediaItem key={i} media={m} index={i} alt={`${p.title} ${i + 1}`} />
               ))}
