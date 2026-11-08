@@ -9,7 +9,7 @@ import SubPage, { OutlineArrow, TopBox } from "../../_components/SubPage";
 import WorkCard from "../../_components/WorkCard";
 
 // 개인 프로필 (/2026/designers/<slug>). 위 상자: 왼쪽 자유컷 크게 + 국문·영문 이름, CONTACT, PORTFOLIO + 큰 화살표.
-// 아래: 이 사람의 작품 카드(WorkCard) — projects.ts에서 members에 이 사람 이름이 있는 작품(제목 가나다-abc 순). 3개보다 적으면 남는 자리는 "작품 제목" 빈 카드.
+// 아래: 이 사람의 작품 카드(WorkCard) — projects.ts에서 members에 이 사람 이름이 있는 작품(제목 가나다-abc 순). 낸 작품만 보여 줌(빈 "작품 제목" 카드는 두지 않음, 사용자 2026-11-09). 하나도 없으면 작품 칸 자체를 숨김.
 // 데스크탑(1000~)은 Figma designers/profiles(1440) 배치, 프레임(1340 = 100cqw) 비율.
 //
 // Figma 실측(1440): 위 상자 높이 724(위아래 50), 사진 500×623.85(프레임 왼쪽에서 49), 사진 → 정보 58, 정보 줄은 사진 아래에 맞춤.
@@ -118,15 +118,17 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
         </div>
       </TopBox>
 
-      <section aria-label={`${p.ko}의 작품`} className={`@container mx-auto ${FRAME}`}>
-        <ul className="grid gap-y-10 px-5 pt-10 pb-[52px] min-[600px]:grid-cols-3 min-[600px]:gap-x-5 min-[600px]:px-6 min-[600px]:pt-[60px] min-[600px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
-          {[...works, ...Array(Math.max(0, 3 - works.length)).fill(null)].map((w, i) => (
-            <li key={i} className="mx-auto w-full max-w-[480px] min-[600px]:max-w-none">
-              {w ? <WorkCard project={w} /> : <WorkCard title="작품 제목" />}
-            </li>
-          ))}
-        </ul>
-      </section>
+      {works.length > 0 && (
+        <section aria-label={`${p.ko}의 작품`} className={`@container mx-auto ${FRAME}`}>
+          <ul className="grid gap-y-10 px-5 pt-10 pb-[52px] min-[600px]:grid-cols-3 min-[600px]:gap-x-5 min-[600px]:px-6 min-[600px]:pt-[60px] min-[600px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
+            {works.map((w, i) => (
+              <li key={i} className="mx-auto w-full max-w-[480px] min-[600px]:max-w-none">
+                <WorkCard project={w} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </SubPage>
   );
 }
