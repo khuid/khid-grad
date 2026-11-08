@@ -10,6 +10,7 @@ import WorkCard from "../../_components/WorkCard";
 
 // 개인 프로필 (/2026/designers/<slug>). 위 상자: 왼쪽 자유컷 크게 + 국문·영문 이름, CONTACT, PORTFOLIO + 큰 화살표.
 // 아래: 이 사람의 작품 카드(WorkCard) — projects.ts에서 members에 이 사람 이름이 있는 작품(제목 가나다-abc 순). 낸 작품만 보여 줌(빈 "작품 제목" 카드는 두지 않음, 사용자 2026-11-09). 하나도 없으면 작품 칸 자체를 숨김.
+// 1~2개면 가운데 정렬(카드 크기·사이 여백은 3개일 때와 같게): 6칸 격자에 카드마다 2칸, 1개는 3번째 칸부터, 2개는 2번째 칸부터 시작
 // 데스크탑(1000~)은 Figma designers/profiles(1440) 배치, 프레임(1340 = 100cqw) 비율.
 //
 // Figma 실측(1440): 위 상자 높이 724(위아래 50), 사진 500×623.85(프레임 왼쪽에서 49), 사진 → 정보 58, 정보 줄은 사진 아래에 맞춤.
@@ -70,6 +71,9 @@ function label(v: string) {
   return s.length > MAX_CHARS ? `${s.slice(0, MAX_CHARS - 1)}…` : s;
 }
 
+// 작품 개수별 카드 시작 칸 (6칸 격자, 600~). 3개는 자동 배치(1·3·5번째 칸)
+const START: Record<number, string[]> = { 1: ["min-[600px]:col-start-3"], 2: ["min-[600px]:col-start-2"] };
+
 async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">["params"] }) {
   const slug = decodeURIComponent((await params).slug);
   const p = DESIGNERS.find((d) => d.slug === slug);
@@ -120,9 +124,9 @@ async function Profile({ params }: { params: PageProps<"/2026/designers/[slug]">
 
       {works.length > 0 && (
         <section aria-label={`${p.ko}의 작품`} className={`@container mx-auto ${FRAME}`}>
-          <ul className="grid gap-y-10 px-5 pt-10 pb-[52px] min-[600px]:grid-cols-3 min-[600px]:gap-x-5 min-[600px]:px-6 min-[600px]:pt-[60px] min-[600px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
+          <ul className="grid gap-y-10 px-5 pt-10 pb-[52px] min-[600px]:grid-cols-6 min-[600px]:gap-x-5 min-[600px]:px-6 min-[600px]:pt-[60px] min-[600px]:pb-[80px] min-[1000px]:gap-x-[calc(84/1340*100cqw)] min-[1000px]:px-[calc(50/1340*100cqw)] min-[1000px]:pt-[106px] min-[1000px]:pb-[120px]">
             {works.map((w, i) => (
-              <li key={i} className="mx-auto w-full max-w-[480px] min-[600px]:max-w-none">
+              <li key={i} className={`mx-auto w-full max-w-[480px] min-[600px]:col-span-2 min-[600px]:max-w-none ${START[works.length]?.[i] ?? ""}`}>
                 <WorkCard project={w} />
               </li>
             ))}
