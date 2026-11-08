@@ -7,17 +7,17 @@ import { workHref, type Work } from "./works";
 // 흰 바탕, 패딩 20(S 12), 간격 16(S 8). 썸네일 정사각형. 제목 20/150(S 14), 팀원 13/140(S 11, 이름 사이 가로 8·세로 8 / S 4·4)
 //   이름 사이 간격: 프레이머 화면에서 Dixel 6명이 한 줄(폭 242)에 들어감 → 8 (2026-10-31 미리보기에서 잼. 전에 적은 20은 화면과 달랐음)
 // 마우스를 올리거나 누르면: 바탕 빨강, 글자 흰색, 썸네일 모서리 0 → 600(원) — 프레이머 Variant 1 · Hover 값
-// 바뀌는 속도: 프레이머에 따로 정한 전환이 없어 기본값 스프링 0.4초(튐 0.2) = ease-spring (2026-10-31 컴포넌트에서 확인)
+// 바뀌는 속도: 전환 없이 바로 바뀜 — 바탕·글자색·썸네일 모서리 모두 (사용자 결정 2026-11-08, 개발자도구에서 끈 것과 같게)
 export function WorkCard({ w }: { w: Work }) {
   return (
     <Link
       href={workHref(w)}
-      className="group flex w-[134px] flex-col gap-[8px] bg-white p-[12px] text-black transition-colors duration-[400ms] ease-spring hover:bg-red hover:text-white active:bg-red active:text-white min-[720px]:w-[318px] min-[720px]:gap-[16px] min-[720px]:p-[20px]"
+      className="group flex w-[134px] flex-col gap-[8px] bg-white p-[12px] text-black hover:bg-red hover:text-white active:bg-red active:text-white min-[720px]:w-[318px] min-[720px]:gap-[16px] min-[720px]:p-[20px]"
     >
       <Ph
         src={w.thumbnail}
         label="작품 썸네일"
-        className="aspect-square w-full rounded-none transition-[border-radius] duration-[400ms] ease-spring group-hover:rounded-[600px] group-active:rounded-[600px]"
+        className="aspect-square w-full rounded-none group-hover:rounded-[600px] group-active:rounded-[600px]"
       />
       <div className="flex flex-col gap-[4px] min-[720px]:gap-[8px]">
         <p className="font-ko text-[14px] leading-[1.5] min-[720px]:text-[20px]">{w.card ?? w.title}</p>
