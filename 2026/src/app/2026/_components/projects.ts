@@ -126,7 +126,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
     ],
   ],
   capstone: [
-    ["Amber", ["이규진", "임형민", "전예영"]],
+    [
+      "Amber",
+      ["이규진", "임형민", "전예영"],
+      "Amber는 소중한 기억을 AI로 재구성해 투명한 유리 큐브 안에 3D 홀로그램으로 보여주는 기억 오브제 프로젝트입니다. 사진과 영상은 쌓일수록 다시 찾아보기 어려워지고, 상패 같은 기념물은 이름과 문구 중심으로 남아 그 순간의 장면까지 담지 못합니다. Amber는 그 사이의 빈자리에 주목해, 기억을 공간 속에서 다시 마주하는 경험을 제안합니다.\n\n사용자가 남긴 사진과 영상, 이야기는 AI를 통해 하나의 장면으로 만들어지고, 페퍼스 고스트 원리를 활용해 큐브 안에 떠오르게 됩니다. 제품은 기억의 성격에 따라 세 가지로 구성됩니다. 반복되는 하루를 담는 일상, 한 번뿐인 순간을 담는 이벤트, 오랜 마음을 전하는 감사가 각각 고유한 형태를 갖습니다.",
+    ],
     [
       "Dadogim",
       ["김윤주", "이수연", "정보연"],
@@ -401,7 +405,7 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
     [
       "DAM-DDLE",
       ["김태령", "이수진", "하채연"],
-      "담뜰은 음지화된 북촌의 이격공간을 작은 정원으로 되살리는 가드닝 키트 디자인입니다. \n지형적 특성, 상업지의 혼재등 여러가지 원인으로 음지화된 북촌의 이격공간을 사람의 발길이 닿는 가드닝 존으로 바꾸면서 cpted의 효과를 얻고 생활의 일부가 되는 공간으로 전환합니다.\n북촌의 한옥과 전통적인 생활문화에서 발견되는 요소인 돌탑과 잡상을 바탕으로 현대적으로 재해석했습니다. 방치되던 이격공간에 식물을 돌보는 행위를 통해 하나의 작은 정원을 만들고, 그 공간을 지속적으로 바라보고 돌볼 수 있는 북촌의 일상을 기대해봅니다.",
+      "담뜰은 음지화된 북촌의 이격공간을 작은 정원으로 되살리는 가드닝 모듈 디자인입니다. \n지형적 특성, 상업지의 혼재 등 여러가지 원인으로 음지화 된 북촌의 이격공간을 사람의 발길이 닿는 가드닝 존으로 바꾸면서 cpted의 효과를 얻고 생활의 일부가 되는 공간으로 전환합니다.\n북촌의 한옥과 전통적인 생활문화에서 발견되는 요소인 돌탑과 잡상을 바탕으로 현대적으로 재해석했습니다. \n\n방치되던 이격공간에 식물을 돌보는 행위를 통해 하나의 작은 정원을 만들고, 그 공간을 지속적으로 바라보고 돌볼 수 있는 북촌의 일상을 기대해봅니다.",
     ],
     [
       "ONU",
@@ -423,7 +427,11 @@ const WORKS: Record<ClassKey, [title: string, members: string[], description?: s
       ["공성욱", "신예환"],
       "NUUN — Your Own Noon\n미래에는 실내 중심의 생활이 일상화 되며 자연광을 접할 기회가 점차 줄어든다. NUUN은 이러한 환경 속에서 집 안에서도 일광욕과 휴식을 경험할 수 있도록 제안된 인공 태양광 라운지 체어이다. 비타민 D 합성을 돕는 UVB LED 기술을 활용해 빛의 강도와 조사 시간을 조절하며, 사용자에게 맞는 휴식 환경을 제공한다. 시계의 태엽과 시침,분침,초침의 움직임에서 영감을 얻은 키네틱 구조를 통해 시간의 흐름을 조형적으로 표현하고, 일상 속 자신만의 정오를 경험하는 새로운 휴식 방식을 제안한다.",
     ],
-    ["DIVRS", ["이민혁"]],
+    [
+      "DIVRS",
+      ["이민혁"],
+      "DIVRS는 하나의 이야기를 여러 인물의 시점과 선택으로 확장하는 인터랙티브 스토리 플랫폼입니다. 다양한 상호작용으로 사건에 참여하고, 3D 스토리맵을 통해 선택에 따라 달라지는 이야기를 탐색합니다.",
+    ],
     [
       "COLT",
       ["이민기"],
@@ -456,7 +464,6 @@ const LINKS: Record<string, [label: string, href: string][]> = {
   ],
   "ai/onu": [["YouTube", "https://youtu.be/YqGudwsIVpE?si=gGQZGsKeaByTl9H-"]],
   "ai/ssoc": [["Website", "https://ssoc-studio.github.io/ssoc/"]], // 칸에 주소만 적혀 있어 이름은 Website
-  "capstone/fore": [["YouTube", "https://youtu.be/syE-foeDRCQ"]], // 칸에 주소만 적혀 있어 이름은 YouTube
   "capstone/orr": [
     ["Behance", "https://www.behance.net/myoungseon"],
     ["Behance", "https://www.behance.net/52cbd72b"],
@@ -469,6 +476,8 @@ const LINKS: Record<string, [label: string, href: string][]> = {
   "smart/tension": [["YouTube", "https://youtu.be/imi5pYlVkw4?si=jimqFSLMwPRROIrh"]],
   "smart/vollu": [["YouTube", "https://youtu.be/cFUcOGrTslM"]], // 칸에 주소만 적혀 있어 이름은 YouTube
   "ai/devoid": [["YouTube", "https://youtu.be/97za2vGnB2w"]],
+  "ai/divrs": [["프로젝트", "https://divrs-01-interstellar-interactive-story-archive.swirl403101.chatgpt.site/"]],
+  "ai/knoticy": [["Behance", "https://www.behance.net/obdo"]],
   "smart/linko": [["Behance", "https://www.behance.net/obdo"]],
   "smart/nadir": [["Portfolio", "https://geumseo.uxdn.kr/"]], // 칸에 "유은서 <주소>"로 적혀 있어 이름은 Portfolio (같은 주소를 08:59에서 Portfolio로 적음)
 };
@@ -480,13 +489,14 @@ const FILES: Record<string, string[]> = {
   "ai/caret": ["01", "02", "03", "04", "05", "06", "07"],
   "ai/colt": ["01", "02", "03", "04", "05", "06"],
   "ai/dam-ddle": ["01", "02", "03", "04", "05", "06", "07.mp4"],
-  "ai/devoid": ["01", "02", "03", "04", "05", "06"],
+  "ai/devoid": ["01", "02", "03", "04", "05", "06", "07"],
+  "ai/divrs": ["01", "02", "03", "04", "05", "06"],
   "ai/eggshell": ["01", "02", "03.mp4", "04"],
   "ai/elgo": ["01", "02", "03", "04", "05", "06", "07"],
   "ai/facehug": ["01", "02", "03", "04", "05", "06", "07"],
   "ai/ho-rong": ["01", "02", "03", "04", "05"],
   "ai/ing": ["01", "02", "03", "04", "05", "06", "07"],
-  "ai/knoticy": ["01", "02", "03", "04"],
+  "ai/knoticy": ["01", "02", "03", "04", "05", "06"],
   "ai/nuun": ["01", "02", "03", "04", "05", "06", "07"],
   "ai/onbit": ["01"],
   "ai/onu": ["01", "02", "03", "04", "05", "06", "07"],
@@ -496,12 +506,13 @@ const FILES: Record<string, string[]> = {
   "ai/vn": ["01", "02.mp4", "03", "04", "05", "06", "07"],
   "ai/whew": ["01", "02", "03", "04", "05", "06"],
   "ai/whiffy": ["01", "02", "03", "04", "05", "06", "07"],
+  "capstone/amber": ["01", "02", "03", "04", "05", "06", "07"],
   "capstone/amous": ["01", "02", "03", "04", "05", "06", "07"],
   "capstone/be-on": ["01", "02", "03", "04", "05", "06"],
   "capstone/dadogim": ["01", "02", "03", "04"], // 11/7 7:16 재제출에 영상 없음
   "capstone/eeum": ["01", "02", "03", "04", "05", "06", "07"],
   "capstone/elo": ["01", "02", "03", "04", "05", "06", "07"],
-  "capstone/fore": ["01", "02", "03", "04", "05", "06"],
+  "capstone/fore": ["01", "02", "03", "04", "05", "06", "07.mp4"],
   "capstone/hangit": ["01.mp4", "02", "03", "04", "05", "06", "07"],
   "capstone/jaram": ["01", "02", "03", "04", "05", "06", "07"],
   "capstone/node": ["01", "02", "03", "04", "05", "06"],
