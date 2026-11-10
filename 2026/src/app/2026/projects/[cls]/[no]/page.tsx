@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { DESIGNERS } from "../../../_components/designers";
 import { classOf, PROJECTS, type Media, type Project } from "../../../_components/projects";
 import { FRAME, Node } from "../../../_components/SectionBar";
-import SiteGate from "../../../_components/SiteGate";
 import SubPage from "../../../_components/SubPage";
 import LazyVideo from "../../../_components/LazyVideo";
 import VideoFrame from "../../../_components/VideoFrame";
@@ -40,9 +39,9 @@ export const viewport: Viewport = {
 
 export default function ProjectPage({ params }: PageProps<"/2026/projects/[cls]/[no]">) {
   return (
-    <SiteGate>
+    <>
       <ProjectView params={params} />
-    </SiteGate>
+    </>
   );
 }
 

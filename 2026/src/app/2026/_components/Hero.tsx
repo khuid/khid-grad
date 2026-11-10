@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import HeroBurst from "./HeroBurst";
 import HeroGrid from "./HeroGrid";
@@ -12,10 +12,11 @@ import SponsorMarquee from "./SponsorMarquee";
 // 모바일 구간 크기는 데스크탑 값 기준 배율(--s)로 통일: 1(~639) → 1.25(640~) → 1.43(768~) → 1.55(1024~)
 //
 // 아래 수치는 Figma 1440 프레임에서 키비주얼(main_full) 왼쪽 위(261.17, 184)를 원점으로 잰 값
-export default async function Hero() {
-  // 키비주얼 SVG는 조각별 애니메이션 때문에 문서에 직접 넣어야 해서 파일 내용을 읽어 넘김
-  const read = (f: string) => readFile(path.join(process.cwd(), "public/2026/hero", f), "utf8");
-  const [fillSvg, lineSvg] = await Promise.all([read("kv-nonline.svg"), read("kv-line.svg")]);
+export default function Hero() {
+  // 키비주얼 SVG는 조각별 애니메이션 때문에 문서에 직접 넣어야 해서 파일 내용을 읽어 넘김.
+  // 동기 읽기(readFileSync)라야 빌드 때 정적 페이지에 포함됨 — 비동기 readFile은 "요청마다 바뀌는 데이터"로 취급돼 빌드 실패 (커밍순 삭제 2026-11-11)
+  const read = (f: string) => readFileSync(path.join(process.cwd(), "public/2026/hero", f), "utf8");
+  const [fillSvg, lineSvg] = [read("kv-nonline.svg"), read("kv-line.svg")];
 
   return (
     <section

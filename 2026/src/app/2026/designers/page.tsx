@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { DESIGNERS, frontPhoto } from "../_components/designers";
 import { FRAME } from "../_components/SectionBar";
-import SiteGate from "../_components/SiteGate";
 import SubPage, { Divider, OutlineArrow, TopBox } from "../_components/SubPage";
 
 export const metadata: Metadata = {
@@ -25,7 +24,7 @@ export const viewport: Viewport = {
 // 모바일 2열: 좌우 여백은 프레임 폭의 6.5%(390에서 23, 464에서 28), 열 사이는 5%(390에서 18)
 export default function DesignersPage() {
   return (
-    <SiteGate>
+    <>
       <SubPage current="designers">
         <TopBox>
           <div className="grid grid-cols-[minmax(0,1fr)_var(--a)] [--a:96px] min-[768px]:[--a:150px] min-[1000px]:[--a:calc(246/1340*100cqw)]">
@@ -74,6 +73,6 @@ export default function DesignersPage() {
           </ul>
         </div>
       </SubPage>
-    </SiteGate>
+    </>
   );
 }

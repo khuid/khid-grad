@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import ProjectTabs from "../../_components/ProjectTabs";
 import { CLASSES, classOf, projectsOf } from "../../_components/projects";
 import { FRAME } from "../../_components/SectionBar";
-import SiteGate from "../../_components/SiteGate";
 import SubPage from "../../_components/SubPage";
 import WorkCard from "../../_components/WorkCard";
 
@@ -36,9 +35,9 @@ export default function ClassPage({
   params,
 }: PageProps<"/2026/projects/[cls]">) {
   return (
-    <SiteGate>
+    <>
       <ClassView params={params} />
-    </SiteGate>
+    </>
   );
 }
 

@@ -4,7 +4,6 @@ import CopyText from "../../_components/CopyText";
 import { DESIGNERS, posePhoto } from "../../_components/designers";
 import { worksOf } from "../../_components/projects";
 import { FRAME } from "../../_components/SectionBar";
-import SiteGate from "../../_components/SiteGate";
 import SubPage, { OutlineArrow, TopBox } from "../../_components/SubPage";
 import WorkCard from "../../_components/WorkCard";
 
@@ -42,9 +41,9 @@ export const viewport: Viewport = {
 
 export default function ProfilePage({ params }: PageProps<"/2026/designers/[slug]">) {
   return (
-    <SiteGate>
+    <>
       <Profile params={params} />
-    </SiteGate>
+    </>
   );
 }
 
