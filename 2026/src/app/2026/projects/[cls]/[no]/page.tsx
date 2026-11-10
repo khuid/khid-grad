@@ -108,12 +108,20 @@ function Info({ project: p }: { project: Project }) {
   return (
     <aside className="order-1 flex flex-col gap-8 px-5 py-8 break-keep min-[768px]:sticky min-[768px]:top-[86px] min-[768px]:max-h-[calc(100dvh-86px)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:order-2 min-[768px]:self-start min-[768px]:px-6 min-[768px]:py-10 min-[1000px]:top-[104px] min-[1000px]:max-h-[calc(100dvh-104px)] min-[1000px]:gap-[44px] min-[1000px]:px-[32px] min-[1000px]:py-[44px]">
       <div>
-        <Link
-          href={`/2026/projects/${c.key}`}
-          className="text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
-        >
-          {c.ko}
-        </Link>
+        {/* 수업명 줄: 왼쪽 수업명, 오른쪽 끝에 수상(있을 때만) — 수상은 포인트핑크, 수업명보다 한 단계 큰 글자(18/22) */}
+        <div className="flex items-baseline justify-between gap-4">
+          <Link
+            href={`/2026/projects/${c.key}`}
+            className="text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
+          >
+            {c.ko}
+          </Link>
+          {p.award && (
+            <span className="shrink-0 text-[18px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[22px]">
+              {p.award}
+            </span>
+          )}
+        </div>
         <h1 className="mt-4 text-[26px] leading-[1.25] font-semibold tracking-[-0.04em] text-ink min-[1000px]:mt-6 min-[1000px]:text-[32px]">
           {p.title}
         </h1>

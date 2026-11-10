@@ -25,6 +25,7 @@ export type Project = {
   links: { label: string; href: string }[];
   media: Media[];
   seamless?: boolean; // 장표끼리 겹치지 않음 (SEAMLESS)
+  award?: Award; // 수상 (AWARDS)
 };
 
 export type ClassInfo = {
@@ -601,7 +602,15 @@ const HIDE_EMPTY = true;
 // 장표가 한 장면으로 이어지는 작품: 원본 이미지 경계 여백이 0px라 겹치면 선이 어긋남 → 이 작품만 겹치지 않음 (사용자 2026-11-07)
 const SEAMLESS = new Set(["ai/nuun"]);
 
-// 번호(주소 /<수업>/<번호>)는 정렬한 순서대로, 빈 자리는 맨 뒤 (숨긴 카드는 번호에서도 빠짐)
+// 수상작 (2026-11 수상자 명단, 사용자). "수업키/작품 slug" → 상 이름.
+// 수업 목록에서 수상작을 맨 앞으로: 대상 > 최우수상 > 우수상 > 예술디자인연구원장상(특별상이라 마지막), 같은 상끼리는 제목 순.
+// 작품 상세의 수업명 줄 오른쪽 끝에 상 이름을 포인트핑크로 표기
+export const AWARD_ORDER = ["대상", "최우수상", "우수상", "예술디자인연구원장상"] as const;
+export type Award = (typeof AWARD_ORDER)[number];
+const AWARDS: Record<string, Award> = {};
+const awardRank = (w: { award?: Award }) => (w.award ? AWARD_ORDER.indexOf(w.award) : AWARD_ORDER.length);
+
+// 번호(주소 /<수업>/<번호>)는 정렬한 순서대로 (수상작이 맨 앞), 빈 자리는 맨 뒤 (숨긴 카드는 번호에서도 빠짐)
 export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
   // 만든 사람도 가나다 순
   const filled = WORKS[c.key]
@@ -614,7 +623,9 @@ export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
       links: (LINKS[`${c.key}/${slug(w.title)}`] ?? []).map(([label, href]) => ({ label, href })),
       ...filesOf(c.key, w.title),
       seamless: SEAMLESS.has(`${c.key}/${slug(w.title)}`),
+      award: w.members.length ? AWARDS[`${c.key}/${slug(w.title)}`] : undefined,
     }))
+    .sort((a, b) => awardRank(a) - awardRank(b)) // 안정 정렬이라 같은 상·수상 없는 작품끼리는 원래(제목) 순서 유지
     .filter((w) => !HIDE_EMPTY || w.thumb)
     .map((w, i) => ({ cls: c.key, no: String(i + 1).padStart(2, "0"), ...w }));
 });
