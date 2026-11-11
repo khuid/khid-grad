@@ -12,6 +12,12 @@ export default function VideoFrame({ youtubeId, className }: { youtubeId?: strin
 
   return (
     <div className={`relative aspect-video w-full overflow-hidden bg-[#555] ${className ?? ""}`}>
+      {/* 영상이 아직 없을 때 안내 (메인 [2] 하단 — 사용자 2026-11-11, 영상이 확정되면 youtubeId를 넣으면 자동으로 사라짐) */}
+      {!youtubeId && (
+        <p className="absolute inset-0 flex items-center justify-center text-[13px] leading-[normal] font-medium tracking-[-0.04em] text-[#bdbdbd] min-[1000px]:text-[15px]">
+          스케치영상 준비중
+        </p>
+      )}
       {youtubeId &&
         (active ? (
           <iframe
