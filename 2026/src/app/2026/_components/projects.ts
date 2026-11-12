@@ -25,7 +25,7 @@ export type Project = {
   links: { label: string; href: string }[];
   media: Media[];
   seamless?: boolean; // 장표끼리 겹치지 않음 (SEAMLESS)
-  award?: Award; // 수상 (AWARDS)
+  award?: Award[]; // 수상 (AWARDS), 상 2개면 큰 상부터
 };
 
 export type ClassInfo = {
@@ -607,8 +607,25 @@ const SEAMLESS = new Set(["ai/nuun"]);
 // 작품 상세의 수업명 줄 오른쪽 끝에 상 이름을 포인트핑크로 표기
 export const AWARD_ORDER = ["대상", "최우수상", "우수상", "예술디자인연구원장상"] as const;
 export type Award = (typeof AWARD_ORDER)[number];
-const AWARDS: Record<string, Award> = {};
-const awardRank = (w: { award?: Award }) => (w.award ? AWARD_ORDER.indexOf(w.award) : AWARD_ORDER.length);
+// 대상(임형민)은 팀명 없이 개인 수상이라 작품에 붙이지 않음. 공로상(졸준위)은 작품 상이 아니라 제외
+const AWARDS: Record<string, Award[]> = {
+  "spatial/isang-yuhee": ["최우수상"], // 이상유희
+  "spatial/limen-the-threshold-of-senses": ["우수상"], // LIMEN
+  "capstone/amber": ["최우수상"],
+  "capstone/amous": ["최우수상"],
+  "capstone/orr": ["우수상"],
+  "capstone/hangit": ["우수상"],
+  "capstone/fore": ["우수상"],
+  "smart/nexus": ["최우수상"],
+  "smart/modrix": ["우수상"],
+  "smart/linko": ["우수상"],
+  "ai/put-o": ["최우수상"],
+  "ai/caret": ["우수상", "예술디자인연구원장상"], // 명단 표기 c/ret
+  "ai/facehug": ["우수상"],
+  "ai/nuun": ["우수상"],
+};
+// 상이 여러 개면 가장 큰 상 기준으로 자리 잡음
+const awardRank = (w: { award?: Award[] }) => Math.min(AWARD_ORDER.length, ...(w.award ?? []).map((a) => AWARD_ORDER.indexOf(a)));
 
 // 번호(주소 /<수업>/<번호>)는 정렬한 순서대로 (수상작이 맨 앞), 빈 자리는 맨 뒤 (숨긴 카드는 번호에서도 빠짐)
 export const PROJECTS: Project[] = CLASSES.flatMap((c) => {

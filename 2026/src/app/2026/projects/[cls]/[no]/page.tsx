@@ -116,9 +116,9 @@ function Info({ project: p }: { project: Project }) {
           >
             {c.ko}
           </Link>
-          {p.award && (
+          {!!p.award?.length && (
             <span className="shrink-0 text-[18px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[22px]">
-              {p.award}
+              {p.award.join(" · ")}
             </span>
           )}
         </div>
