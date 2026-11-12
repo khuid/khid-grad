@@ -10,7 +10,7 @@ import VideoFrame from "./VideoFrame";
 //
 // Figma 실측(1440, 구역 위쪽 기준): 위 가로선 50 / 포스터 466×658 (프레임 안 68, 38) /
 // 제목 박스 734×234, 제목 (52, 48) / 텍스트는 칸 안 세로 가운데, 왼쪽은 제목 시작점(52)에 맞춤 / 아래 띠 211 / 영상 1340×754 / 아래 여백 49
-const YOUTUBE_ID: string | undefined = undefined; // 영상 확정되면 유튜브 영상 ID 입력
+const YOUTUBE_ID: string | undefined = "w5rj95Utv5Q"; // 현장 스케치 영상 (2026-11-12, youtu.be/w5rj95Utv5Q). 비우면 "준비 중" 안내
 
 // 기획 텍스트: Figma에서 의도한 줄바꿈 그대로(데스크탑은 줄 안에서 다시 줄바꿈 안 함)
 const PARAGRAPHS = [
