@@ -1,4 +1,4 @@
-// DESIGNERS 페이지 데이터: 졸전자 55명(졸준위만 한 56 이수민·57 오지샘 제외), 가나다 순 = work/data/designers/designers.csv 순서.
+// DESIGNERS 페이지 데이터: 졸전자 54명(졸준위만 한 56 이수민·57 오지샘 제외, 55 홍진솔은 2026-11-17 삭제), 가나다 순 = work/data/designers/designers.csv 순서.
 // slug(주소 /2026/designers/<slug>)와 사진 파일명은 csv의 name_en. en은 임시 표기(성 + 이름 로마자) — 본인 표기를 받으면 en·slug·사진 이름을 같이 바꿀 것.
 // en·contact(이메일)·portfolio는 구글폼 응답(11/1 마감)에서 옮김 — 영문은 본인 철자 그대로, 형식만 "성 이름"(성 뒤만 띄움, 이름은 붙여 씀, 성·이름 첫 글자만 대문자 — 홍길동 → Hong Gildong). 이메일이 없으면 화면에 "준비 중".
 // portfolio(선택, 최대 3개): 인스타는 "@아이디"(아이디·링크 둘 다 쓴 사람도 하나로), 나머지는 https://www. 뺀 주소. 비어 있으면 PORTFOLIO 줄 자체를 안 보임.
@@ -76,7 +76,7 @@ export const DESIGNERS: Designer[] = [
   d("52", "하채연", "ha-chaeyeon", "Ha Chaeyeon", "dha0809@naver.com", ["@design_chae.yeon", "behance.net/dbe43dfe"]),
   d("53", "한예지", "han-yeji", "Han Yeji", "1neyez95@gmail.com", ["behance.net/YejiHann"]),
   d("54", "허경주", "heo-kyungju", "Heo Kyungju", "rudwn2161@naver.com"),
-  d("55", "홍진솔", "hong-jinsol", "Hong Jinsol"),
+  // 55 홍진솔: 디자이너 정보 미제출·작품 0개 → 2026-11-17 사용자 요청으로 DESIGNERS 목록과 개인 페이지 삭제 (번호 55는 비워 둠)
 ];
 
 export const frontPhoto = (p: Designer) => `/2026/designers/front/f${p.no}-${p.slug}.webp`;
