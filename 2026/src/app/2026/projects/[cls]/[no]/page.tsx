@@ -117,7 +117,7 @@ function Info({ project: p }: { project: Project }) {
             {c.ko}
           </Link>
           {(!!p.award?.length || p.ddp) && (
-            <span className="text-right text-[18px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[22px]">
+            <span className="text-right text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[20px]">
               {[...(p.award ?? []), ...(p.ddp ? [DDP_LABEL] : [])].join(" · ")}
             </span>
           )}
