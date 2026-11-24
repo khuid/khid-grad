@@ -26,6 +26,7 @@ export type Project = {
   media: Media[];
   seamless?: boolean; // 장표끼리 겹치지 않음 (SEAMLESS)
   award?: Award[]; // 수상 (AWARDS), 상 2개면 큰 상부터
+  ddp?: boolean; // DDP 전시 출품 선정작 (DDP)
 };
 
 export type ClassInfo = {
@@ -636,8 +637,31 @@ const AWARDS: Record<string, Award[]> = {
   "ai/facehug": ["우수상"],
   "ai/nuun": ["우수상"],
 };
-// 상이 여러 개면 가장 큰 상 기준으로 자리 잡음
-const awardRank = (w: { award?: Award[] }) => Math.min(AWARD_ORDER.length, ...(w.award ?? []).map((a) => AWARD_ORDER.indexOf(a)));
+// DDP 전시 출품 선정작 (2026-11-24 사용자 명단). 수상처럼 작품 단위, 상세의 상 이름 옆에 같은 양식으로 표기.
+// 수업 목록 순서: 수상작 다음, 나머지 앞
+export const DDP_LABEL = "DDP 내일을 여는 디자인전 선정";
+const DDP = new Set([
+  "spatial/soyo",
+  "spatial/isang-yuhee", // 이상유희
+  "spatial/nexport",
+  "capstone/orr",
+  "capstone/amous",
+  "capstone/elo",
+  "capstone/ze-ith-acoustics-001", // ZEИITH Acoustics - 001
+  "capstone/hangit",
+  "capstone/jaram",
+  "capstone/fore",
+  "smart/nexus",
+  "smart/modrix",
+  "smart/vollu",
+  "smart/moark",
+  "ai/put-o",
+  "ai/nuun",
+  "ai/whew",
+]);
+// 상이 여러 개면 가장 큰 상 기준으로 자리 잡음, 상 없는 DDP 선정작은 그다음
+const awardRank = (w: { award?: Award[]; ddp?: boolean }) =>
+  Math.min(AWARD_ORDER.length + (w.ddp ? 0 : 1), ...(w.award ?? []).map((a) => AWARD_ORDER.indexOf(a)));
 
 // 번호(주소 /<수업>/<번호>)는 정렬한 순서대로 (수상작이 맨 앞), 빈 자리는 맨 뒤 (숨긴 카드는 번호에서도 빠짐)
 export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
@@ -653,6 +677,7 @@ export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
       ...filesOf(c.key, w.title),
       seamless: SEAMLESS.has(`${c.key}/${slug(w.title)}`),
       award: w.members.length ? AWARDS[`${c.key}/${slug(w.title)}`] : undefined,
+      ddp: w.members.length ? DDP.has(`${c.key}/${slug(w.title)}`) : undefined,
     }))
     .sort((a, b) => awardRank(a) - awardRank(b)) // 안정 정렬이라 같은 상·수상 없는 작품끼리는 원래(제목) 순서 유지
     .filter((w) => !HIDE_EMPTY || w.thumb)

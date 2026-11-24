@@ -3,7 +3,7 @@ import Link from "next/link";
 import BackButton from "../../../_components/BackButton";
 import { notFound } from "next/navigation";
 import { DESIGNERS } from "../../../_components/designers";
-import { classOf, PROJECTS, type Media, type Project } from "../../../_components/projects";
+import { classOf, DDP_LABEL, PROJECTS, type Media, type Project } from "../../../_components/projects";
 import { FRAME, Node } from "../../../_components/SectionBar";
 import SubPage from "../../../_components/SubPage";
 import LazyVideo from "../../../_components/LazyVideo";
@@ -112,13 +112,13 @@ function Info({ project: p }: { project: Project }) {
         <div className="flex items-baseline justify-between gap-4">
           <Link
             href={`/2026/projects/${c.key}`}
-            className="text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
+            className="shrink-0 text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
           >
             {c.ko}
           </Link>
-          {!!p.award?.length && (
-            <span className="shrink-0 text-[18px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[22px]">
-              {p.award.join(" · ")}
+          {(!!p.award?.length || p.ddp) && (
+            <span className="text-right text-[18px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[22px]">
+              {[...(p.award ?? []), ...(p.ddp ? [DDP_LABEL] : [])].join(" · ")}
             </span>
           )}
         </div>
