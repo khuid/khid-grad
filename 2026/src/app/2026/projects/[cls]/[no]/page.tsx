@@ -117,7 +117,7 @@ function Info({ project: p }: { project: Project }) {
             {c.ko}
           </Link>
           {(!!p.award?.length || p.ddp) && (
-            <span className="min-w-0 text-right text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[20px]">
+            <span className="min-w-0 text-right text-[14px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[18px]">
               {/* 수상과 DDP 선정은 줄을 나눠 표기: "우수상 ·" / "DDP 내일을 여는 디자인전 선정" (사용자 2026-11-24) */}
               {!!p.award?.length && <span className="block">{p.award.join(" · ") + (p.ddp ? " ·" : "")}</span>}
               {/* 자리가 모자라면 "DDP 내일을 여는" / "디자인전 선정" 에서만 줄바꿈 */}
