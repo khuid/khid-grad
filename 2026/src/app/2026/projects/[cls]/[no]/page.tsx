@@ -108,18 +108,30 @@ function Info({ project: p }: { project: Project }) {
   return (
     <aside className="order-1 flex flex-col gap-8 px-5 py-8 break-keep min-[768px]:sticky min-[768px]:top-[86px] min-[768px]:max-h-[calc(100dvh-86px)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:order-2 min-[768px]:self-start min-[768px]:px-6 min-[768px]:py-10 min-[1000px]:top-[104px] min-[1000px]:max-h-[calc(100dvh-104px)] min-[1000px]:gap-[44px] min-[1000px]:px-[32px] min-[1000px]:py-[44px]">
       <div>
-        {/* 수업명, 그 아래 한 줄로 수상·DDP 선정(있을 때만, 포인트핑크) — 사용자 2026-11-24 */}
-        <Link
-          href={`/2026/projects/${c.key}`}
-          className="text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
-        >
-          {c.ko}
-        </Link>
-        {(!!p.award?.length || p.ddp) && (
-          <p className="mt-1 text-[14px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:mt-1.5 min-[1000px]:text-[18px]">
-            {[...(p.award ?? []), ...(p.ddp ? [DDP_LABEL] : [])].join(" · ")}
-          </p>
-        )}
+        {/* 수상·DDP 선정(있을 때만, 포인트핑크) — 사용자 2026-11-24
+            모바일(<768): 수업명 줄 오른쪽 끝, "우수상 ·" / "DDP 내일을 여는 디자인전 선정" 줄 나눔 (좁으면 "디자인전" 앞에서만 한 번 더)
+            768 이상: 수업명 아래 한 줄 */}
+        <div className="flex items-baseline justify-between gap-4 min-[768px]:block">
+          <Link
+            href={`/2026/projects/${c.key}`}
+            className="shrink-0 text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
+          >
+            {c.ko}
+          </Link>
+          {(!!p.award?.length || p.ddp) && (
+            <p className="min-w-0 text-right text-[14px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[768px]:mt-1 min-[768px]:text-left min-[1000px]:mt-1.5 min-[1000px]:text-[18px]">
+              {!!p.award?.length && (
+                <span className="block min-[768px]:inline">{p.award.join(" · ") + (p.ddp ? " · " : "")}</span>
+              )}
+              {p.ddp && (
+                <span className="block min-[768px]:inline">
+                  <span className="whitespace-nowrap">{DDP_LABEL.split(" 디자인전")[0]}</span>{" "}
+                  <span className="whitespace-nowrap">디자인전{DDP_LABEL.split(" 디자인전")[1]}</span>
+                </span>
+              )}
+            </p>
+          )}
+        </div>
         <h1 className="mt-4 text-[26px] leading-[1.25] font-semibold tracking-[-0.04em] text-ink min-[1000px]:mt-6 min-[1000px]:text-[32px]">
           {p.title}
         </h1>
