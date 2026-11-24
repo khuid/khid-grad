@@ -109,9 +109,13 @@ function Info({ project: p }: { project: Project }) {
     <aside className="order-1 flex flex-col gap-8 px-5 py-8 break-keep min-[768px]:sticky min-[768px]:top-[86px] min-[768px]:max-h-[calc(100dvh-86px)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:order-2 min-[768px]:self-start min-[768px]:px-6 min-[768px]:py-10 min-[1000px]:top-[104px] min-[1000px]:max-h-[calc(100dvh-104px)] min-[1000px]:gap-[44px] min-[1000px]:px-[32px] min-[1000px]:py-[44px]">
       <div>
         {/* 수상·DDP 선정(있을 때만, 포인트핑크) — 사용자 2026-11-24
-            모바일(<768): 수업명 줄 오른쪽 끝, "우수상 ·" / "DDP 내일을 여는 디자인전 선정" 줄 나눔 (좁으면 "디자인전" 앞에서만 한 번 더)
-            768 이상: 수업명 아래 한 줄 */}
-        <div className="flex items-baseline justify-between gap-4 min-[768px]:block">
+            "DDP 내일을 여는 디자인전 선정"은 절대 나누지 않음. 수업명과 표기 첫 줄은 세로 가운데 맞춤
+            (위쪽 정렬 + 줄 높이 차이 절반만큼 pt: 수업명 20.5/25.5px, 표기 17.5/23px)
+            모바일(<768): 수업명 옆 오른쪽에 한 줄로 들어가면 옆, 아니면 수업명 아래 한 줄 (flex-wrap)
+            768~899: 수업명 아래 한 줄 (옆엔 DDP 문구가 안 들어감)
+            900 이상: 수업명 옆 오른쪽, 들어가면 한 줄, 모자라면 "우수상 ·" / "DDP …" 두 줄
+            글자 14px, 1100부터 18px (1000~1099에서 18이면 옆에 안 들어감) */}
+        <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1 min-[768px]:flex-nowrap min-[768px]:max-[899px]:block">
           <Link
             href={`/2026/projects/${c.key}`}
             className="shrink-0 text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
@@ -119,14 +123,16 @@ function Info({ project: p }: { project: Project }) {
             {c.ko}
           </Link>
           {(!!p.award?.length || p.ddp) && (
-            <p className="min-w-0 text-right text-[14px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[768px]:mt-1 min-[768px]:text-left min-[1000px]:mt-1.5 min-[1000px]:text-[18px]">
+            <p className="pt-[1.5px] text-right text-[14px] leading-[normal] min-[1000px]:pt-[4px] min-[1100px]:pt-[1.25px] min-[768px]:max-[899px]:pt-0 font-medium tracking-[-0.04em] text-pointpink min-[768px]:max-[899px]:mt-1 min-[768px]:max-[899px]:text-left min-[1100px]:text-[18px]">
               {!!p.award?.length && (
-                <span className="block min-[768px]:inline">{p.award.join(" · ") + (p.ddp ? " · " : "")}</span>
+                <span className="inline-block whitespace-nowrap min-[768px]:max-[899px]:inline">
+                  {p.award.join(" · ") + (p.ddp ? " ·" : "")}
+                </span>
               )}
+              {!!p.award?.length && p.ddp && " "}
               {p.ddp && (
-                <span className="block min-[768px]:inline">
-                  <span className="whitespace-nowrap">{DDP_LABEL.split(" 디자인전")[0]}</span>{" "}
-                  <span className="whitespace-nowrap">디자인전{DDP_LABEL.split(" 디자인전")[1]}</span>
+                <span className="inline-block whitespace-nowrap min-[768px]:max-[899px]:inline">
+                  {DDP_LABEL}
                 </span>
               )}
             </p>

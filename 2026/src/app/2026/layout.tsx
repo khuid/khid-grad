@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hahmlet } from "next/font/google";
 import localFont from "next/font/local";
 import { NavTrack } from "./_components/BackButton";
+import { DevWidth } from "./_components/DevWidth";
 import "./2026.css";
 
 // 2026 사이트 전용 설정(폰트·스타일·파비콘·링크 미리보기) — 다른 연도와 공유하지 않음. 파비콘은 이 폴더의 icon1.ico·icon2.svg·apple-icon.png
@@ -46,6 +47,7 @@ export default function Layout2026({ children }: LayoutProps<"/2026">) {
     <div className={`${freesentation.variable} ${hahmlet.variable} font-sans`}>
       {children}
       <NavTrack />
+      {process.env.NODE_ENV === "development" && <DevWidth />}
     </div>
   );
 }
