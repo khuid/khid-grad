@@ -109,7 +109,7 @@ function Info({ project: p }: { project: Project }) {
     <aside className="order-1 flex flex-col gap-8 px-5 py-8 break-keep min-[768px]:sticky min-[768px]:top-[86px] min-[768px]:max-h-[calc(100dvh-86px)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:order-2 min-[768px]:self-start min-[768px]:px-6 min-[768px]:py-10 min-[1000px]:top-[104px] min-[1000px]:max-h-[calc(100dvh-104px)] min-[1000px]:gap-[44px] min-[1000px]:px-[32px] min-[1000px]:py-[44px]">
       <div>
         {/* 수업명 줄: 왼쪽 수업명, 오른쪽 끝에 수상(있을 때만) — 수상은 포인트핑크, 수업명보다 한 단계 큰 글자(18/22) */}
-        <div className="flex items-baseline justify-between gap-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <Link
             href={`/2026/projects/${c.key}`}
             className="shrink-0 text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-key hover:underline min-[1000px]:text-[20px]"
@@ -117,8 +117,10 @@ function Info({ project: p }: { project: Project }) {
             {c.ko}
           </Link>
           {(!!p.award?.length || p.ddp) && (
-            <span className="text-right text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[20px]">
-              {[...(p.award ?? []), ...(p.ddp ? [DDP_LABEL] : [])].join(" · ")}
+            <span className="ml-auto text-right text-[16px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[1000px]:text-[20px]">
+              {/* 수상과 DDP 선정은 줄을 나눠 표기: "우수상 ·" / "DDP 내일을 여는 디자인전 선정" (사용자 2026-11-24) */}
+              {!!p.award?.length && <span className="block">{p.award.join(" · ") + (p.ddp ? " ·" : "")}</span>}
+              {p.ddp && <span className="block whitespace-nowrap">{DDP_LABEL}</span>}
             </span>
           )}
         </div>
