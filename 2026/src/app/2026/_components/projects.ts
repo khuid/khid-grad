@@ -584,8 +584,8 @@ const SLUG_OF: Record<string, string> = { 이상유희: "isang-yuhee", 이음마
 // 제목 → 폴더 이름 (영문·숫자만, 나머지는 -)
 const slug = (title: string) => SLUG_OF[title] ?? title.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase();
 
-function filesOf(cls: ClassKey, title: string): Pick<Project, "thumb" | "media"> {
-  const key = `${cls}/${slug(title)}`;
+// key = "수업키/작품 slug"
+function filesOf(key: string): Pick<Project, "thumb" | "media"> {
   const list = FILES[key];
   if (!list) return { media: [] };
   const dir = `/2026/projects/${key}`;
@@ -637,7 +637,7 @@ const AWARDS: Record<string, Award[]> = {
   "ai/facehug": ["우수상"],
   "ai/nuun": ["우수상"],
 };
-// DDP 전시 출품 선정작 (2026-11-24 사용자 명단). 수상처럼 작품 단위, 상세의 상 이름 옆에 같은 양식으로 표기.
+// DDP 전시 출품 선정작 (2026-11-24 사용자 명단). 수상처럼 작품 단위로, 상세의 상 이름 뒤에 같은 색으로 표기.
 // 수업 목록 순서: 수상작 다음, 나머지 앞
 export const DDP_LABEL = "DDP 내일을 여는 디자인전 선정";
 const DDP = new Set([
@@ -671,14 +671,17 @@ export const PROJECTS: Project[] = CLASSES.flatMap((c) => {
     .sort(byTitle);
   const empty = Array.from({ length: Math.max(0, SLOTS[c.key] - filled.length) }, () => ({ title: "작품 제목", members: [] }));
   return [...filled, ...empty]
-    .map((w) => ({
-      ...w,
-      links: (LINKS[`${c.key}/${slug(w.title)}`] ?? []).map(([label, href]) => ({ label, href })),
-      ...filesOf(c.key, w.title),
-      seamless: SEAMLESS.has(`${c.key}/${slug(w.title)}`),
-      award: w.members.length ? AWARDS[`${c.key}/${slug(w.title)}`] : undefined,
-      ddp: w.members.length ? DDP.has(`${c.key}/${slug(w.title)}`) : undefined,
-    }))
+    .map((w) => {
+      const key = `${c.key}/${slug(w.title)}`;
+      return {
+        ...w,
+        links: (LINKS[key] ?? []).map(([label, href]) => ({ label, href })),
+        ...filesOf(key),
+        seamless: SEAMLESS.has(key),
+        award: w.members.length ? AWARDS[key] : undefined,
+        ddp: w.members.length ? DDP.has(key) : undefined,
+      };
+    })
     .sort((a, b) => awardRank(a) - awardRank(b)) // 안정 정렬이라 같은 상·수상 없는 작품끼리는 원래(제목) 순서 유지
     .filter((w) => !HIDE_EMPTY || w.thumb)
     .map((w, i) => ({ cls: c.key, no: String(i + 1).padStart(2, "0"), ...w }));

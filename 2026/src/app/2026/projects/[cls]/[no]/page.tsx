@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 import BackButton from "../../../_components/BackButton";
 import { notFound } from "next/navigation";
 import { DESIGNERS } from "../../../_components/designers";
@@ -105,16 +106,16 @@ function MediaItem({ media, index, alt }: { media: Media | null; index: number; 
 // 정보 칸: 설명 최대 400자(공백 포함) + 링크 최대 3개(제출 규격). 낮은 화면에서 칸이 화면보다 길면 칸 안에서 스크롤
 function Info({ project: p }: { project: Project }) {
   const c = classOf(p.cls)!;
+  const labels = [...(p.award?.length ? [p.award.join(" · ")] : []), ...(p.ddp ? [DDP_LABEL] : [])];
   return (
     <aside className="order-1 flex flex-col gap-8 px-5 py-8 break-keep min-[768px]:sticky min-[768px]:top-[86px] min-[768px]:max-h-[calc(100dvh-86px)] min-[768px]:overflow-y-auto min-[768px]:[scrollbar-width:none] min-[768px]:order-2 min-[768px]:self-start min-[768px]:px-6 min-[768px]:py-10 min-[1000px]:top-[104px] min-[1000px]:max-h-[calc(100dvh-104px)] min-[1000px]:gap-[44px] min-[1000px]:px-[32px] min-[1000px]:py-[44px]">
       <div>
-        {/* 수상·DDP 선정(있을 때만, 포인트핑크) — 사용자 2026-11-24
-            "DDP 내일을 여는 디자인전 선정"은 절대 나누지 않음. 수업명과 표기 첫 줄은 세로 가운데 맞춤
-            (위쪽 정렬 + 줄 높이 차이 절반만큼 pt: 수업명 20.5/25.5px, 표기 17.5/23px)
-            모바일(<768): 수업명 옆 오른쪽에 한 줄로 들어가면 옆, 아니면 수업명 아래 한 줄 (flex-wrap)
+        {/* 수상·DDP 선정(있을 때만, 포인트핑크) — 사용자 2026-11-24. 각 표기는 중간에서 나누지 않음
+            <768: 수업명 옆 오른쪽에 한 줄로 들어가면 옆, 아니면 수업명 아래 한 줄 (flex-wrap)
             768~899: 수업명 아래 한 줄 (옆엔 DDP 문구가 안 들어감)
-            900 이상: 수업명 옆 오른쪽, 들어가면 한 줄, 모자라면 "우수상 ·" / "DDP …" 두 줄
-            글자 14px, 1100부터 18px (1000~1099에서 18이면 옆에 안 들어감) */}
+            900~: 수업명 옆 오른쪽, 들어가면 한 줄, 모자라면 "우수상 ·" / "DDP …" 두 줄
+            수업명과 표기 첫 줄은 세로 가운데 맞춤: 위쪽 정렬 + 줄 높이 차이 절반만큼 pt
+            (줄 높이 수업명 16→20.5·20→25.5px, 표기 14→17.5·18→23px). 표기 18px은 1100부터 (1000~1099에서 18이면 옆에 안 들어감) */}
         <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1 min-[768px]:flex-nowrap min-[768px]:max-[899px]:block">
           <Link
             href={`/2026/projects/${c.key}`}
@@ -122,19 +123,16 @@ function Info({ project: p }: { project: Project }) {
           >
             {c.ko}
           </Link>
-          {(!!p.award?.length || p.ddp) && (
-            <p className="pt-[1.5px] text-right text-[14px] leading-[normal] min-[1000px]:pt-[4px] min-[1100px]:pt-[1.25px] min-[768px]:max-[899px]:pt-0 font-medium tracking-[-0.04em] text-pointpink min-[768px]:max-[899px]:mt-1 min-[768px]:max-[899px]:text-left min-[1100px]:text-[18px]">
-              {!!p.award?.length && (
-                <span className="inline-block whitespace-nowrap min-[768px]:max-[899px]:inline">
-                  {p.award.join(" · ") + (p.ddp ? " ·" : "")}
-                </span>
-              )}
-              {!!p.award?.length && p.ddp && " "}
-              {p.ddp && (
-                <span className="inline-block whitespace-nowrap min-[768px]:max-[899px]:inline">
-                  {DDP_LABEL}
-                </span>
-              )}
+          {!!labels.length && (
+            <p className="pt-[1.5px] text-right text-[14px] leading-[normal] font-medium tracking-[-0.04em] text-pointpink min-[768px]:max-[899px]:mt-1 min-[768px]:max-[899px]:pt-0 min-[768px]:max-[899px]:text-left min-[1000px]:pt-[4px] min-[1100px]:pt-[1.25px] min-[1100px]:text-[18px]">
+              {labels.map((label, i) => (
+                <Fragment key={label}>
+                  {i > 0 && " "}
+                  <span className="inline-block whitespace-nowrap min-[768px]:max-[899px]:inline">
+                    {label + (i < labels.length - 1 ? " ·" : "")}
+                  </span>
+                </Fragment>
+              ))}
             </p>
           )}
         </div>
